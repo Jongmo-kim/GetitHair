@@ -1,6 +1,8 @@
 package common;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -39,13 +41,33 @@ public class EncodeFilter implements Filter {
 		} else {
 			boolean isDebugMode = (boolean)isDebuggedMode;
 			if(isDebugMode) {
-				String uri = req.getRequestURI();
+				printAllObjects(session);
+				printRequestURI(req);
 				request.setCharacterEncoding("utf-8");
-				System.out.println("요청 URI : " + uri);
 			}
 			chain.doFilter(request, response);			
 		}
 		
+	}
+	
+	private void printRequestURI(HttpServletRequest req) {
+		String uri = req.getRequestURI();
+		System.out.println("요청 URI : " + uri);
+	}
+
+	private void printAllObjects(HttpSession session) {
+		ArrayList<Object> list = (ArrayList<Object>)session.getAttribute("Objects");
+		if(list == null) {
+			return;
+		} else {
+			int count = 1;
+			for(Object obj : list) {
+				System.out.println("------------------------------------");
+				System.out.printf("%d번째 객체\n",count++);
+				System.out.println(obj);
+				System.out.println("------------------------------------");
+			}
+		}
 	}
 
 	/**

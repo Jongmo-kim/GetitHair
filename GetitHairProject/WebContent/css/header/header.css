@@ -1,3 +1,51 @@
-header{
-	background-color:rgba(0,0,0,0.5);
+:root{
+	--darkBrown : #59362E;
+	--brown : #A6756A;
+	--skin :#D9ABA0;
+	--black :#260101;
+	--wine :#8C2E40;
 }
+<!-- overRiding Bootstrap -->
+a{
+	color:var(--skin);
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+	color:var(--black);
+	background-color: var(--skin);
+}
+header{
+	background-color: var(--wine);
+	color:var(--black);
+}
+a{
+	color:var(--skin);
+}
+a:focus, a:hover {
+    color: var(--darkBrown);
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: var(--brown);
+    
+}
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+    background-color: var(--black);
+    border-color: var(--black);
+    color:var(--skin)
+}
+<!-- //overRiding Bootstrap -->
+<!-- Font apply -->
+*{
+	
+}
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+	font-size:18px;
+    line-height: 1.42857143;
+    color: var(--black);
+    background-color: var(--skin);
+}
+.dropdown-menu{
+	font-size:16px;
+}
+<!-- //Font apply -->
