@@ -43,9 +43,10 @@ body {
 	font-size:18px;
     line-height: 1.42857143;
     color: var(--black);
-    background-color: var(--skin);
 }
 .dropdown-menu{
 	font-size:16px;
 }
 <!-- //Font apply -->
+
+

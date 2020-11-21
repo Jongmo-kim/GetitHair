@@ -32,7 +32,8 @@ public class SignUpCustomerFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/signUp/signUpCustomer.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

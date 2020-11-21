@@ -37,10 +37,10 @@ public class ShowUsingDebugServlet extends HttpServlet {
 		Customer c3 = new Customer();
 		c1.setAge(22);
 		c1.setName("이름1");
-		c1.setAge(25);
-		c1.setName("이름2");
-		c1.setAge(27);
-		c1.setName("이름3");
+		c2.setAge(25);
+		c2.setName("이름2");
+		c3.setAge(27);
+		c3.setName("이름3");
 		ArrayList<Object> list = new ArrayList<Object>();
 		list.add(c1);
 		list.add(c2);

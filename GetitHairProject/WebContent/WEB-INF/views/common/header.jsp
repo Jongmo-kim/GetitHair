@@ -9,6 +9,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!-- //부트스트랩 호출 -->
+  
+  <!-- jQuery 호출 -->
+  <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+  <!-- //jQuery 호출 -->
   <link rel="stylesheet" href="/css/header/header.css">
 <header>
 <h1>header입니다</h1>
