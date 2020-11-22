@@ -17,9 +17,13 @@
             <input type="text" class="form-textbox">
             <span class="form-label">이름</span>
         </div>
-        <div class="addr inputBox">
+        <div class="date inputBox">
             <input type="text" class="form-textbox dateOfBirth">
             <span class="form-label">생년월일</span>
+        </div>
+        <div class="inputBox">
+            <input type="text" class="form-textbox phoneInput">
+            <span class="form-label">전화번호</span>
         </div>
 
     </div>
