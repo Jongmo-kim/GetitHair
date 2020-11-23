@@ -1,5 +1,5 @@
-package hairShop.model.service;
+package hairshop.model.service;
 
-public class hairShopService {
+public class HairshopService {
 
 }
