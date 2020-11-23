@@ -191,7 +191,7 @@ CREATE TABLE customer
     customer_phone    char(13)         NOT NULL, 
     addr_detail       varchar2(100)    NOT NULL,
     addr_postcode     char(5)          NOT NULL,
-    customer_enrolldate DATE           NOT NULL
+    customer_enrolldate DATE           NOT NULL,
     CONSTRAINT CUSTOMER_PK PRIMARY KEY (customer_no)
 )
 /
