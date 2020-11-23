@@ -1,4 +1,3 @@
-
 -- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
 
 -- hairshop Table Create SQL
@@ -93,6 +92,7 @@ COMMENT ON COLUMN hairshop.addr_postcode IS '우편번호'
 CREATE TABLE designer
 (
     designer_no         NUMBER            NOT NULL, 
+    shop_no             NUMBER            NULL, 
     designer_id         VARCHAR2(20)      NULL, 
     designer_pw         VARCHAR2(20)      NULL, 
     designer_gen        CHAR(3)           NULL, 
@@ -101,7 +101,6 @@ CREATE TABLE designer
     designer_phone      CHAR(13)          NULL, 
     designer_year       NUMBER            NULL, 
     designer_rank       VARCHAR2(20)      NULL, 
-    shop_no             NUMBER            NULL, 
     designer_intro      VARCHAR2(2000)    NULL, 
     designer_keyword    VARCHAR2(300)     NULL, 
     designer_img        VARCHAR2(300)     NULL, 
@@ -136,6 +135,9 @@ COMMENT ON TABLE designer IS '디자이너'
 COMMENT ON COLUMN designer.designer_no IS '디자이너번호'
 /
 
+COMMENT ON COLUMN designer.shop_no IS '소속미용실'
+/
+
 COMMENT ON COLUMN designer.designer_id IS '아이디'
 /
 
@@ -160,13 +162,10 @@ COMMENT ON COLUMN designer.designer_year IS '경력'
 COMMENT ON COLUMN designer.designer_rank IS '직급'
 /
 
-COMMENT ON COLUMN designer.shop_no IS '소속미용실'
-/
-
 COMMENT ON COLUMN designer.designer_intro IS '소개말'
 /
 
-COMMENT ON COLUMN designer.designer_keyword IS '스타일키워드(예정)'
+COMMENT ON COLUMN designer.designer_keyword IS '스타일키워드(예정'
 /
 
 COMMENT ON COLUMN designer.designer_img IS '디자이너프로필이미지'
@@ -175,44 +174,6 @@ COMMENT ON COLUMN designer.designer_img IS '디자이너프로필이미지'
 ALTER TABLE designer
     ADD CONSTRAINT FK_designer_shop_no_hairshop_s FOREIGN KEY (shop_no)
         REFERENCES hairshop (shop_no)
-/
-
-
--- hairshop Table Create SQL
-CREATE TABLE hair_info
-(
-    myhair_curly     VARCHAR2(20)    NULL, 
-    myhair_rich      VARCHAR2(20)    NULL, 
-    myhair_bold      VARCHAR2(20)    NULL, 
-    myhair_vol       VARCHAR2(20)    NULL, 
-    myhair_status    VARCHAR2(20)    NULL, 
-    myhair_old       VARCHAR2(20)    NULL, 
-    customer_no      NUMBER          NULL   
-)
-/
-
-COMMENT ON TABLE hair_info IS '추가정보'
-/
-
-COMMENT ON COLUMN hair_info.myhair_curly IS '곱슬정도'
-/
-
-COMMENT ON COLUMN hair_info.myhair_rich IS '머리숱'
-/
-
-COMMENT ON COLUMN hair_info.myhair_bold IS '모발굵기'
-/
-
-COMMENT ON COLUMN hair_info.myhair_vol IS '모발볼륨'
-/
-
-COMMENT ON COLUMN hair_info.myhair_status IS '모발상태'
-/
-
-COMMENT ON COLUMN hair_info.myhair_old IS '모발노화상태'
-/
-
-COMMENT ON COLUMN hair_info.customer_no IS '회원번호'
 /
 
 
@@ -287,11 +248,6 @@ COMMENT ON COLUMN customer.addr_detail IS '상세주소'
 COMMENT ON COLUMN customer.addr_postcode IS '우편번호'
 /
 
-ALTER TABLE customer
-    ADD CONSTRAINT FK_customer_customer_no_hair_i FOREIGN KEY (customer_no)
-        REFERENCES hair_info (customer_no)
-/
-
 
 -- hairshop Table Create SQL
 CREATE TABLE style
@@ -342,6 +298,50 @@ COMMENT ON COLUMN style.style_img IS '스타일이미지'
 /
 
 COMMENT ON COLUMN style.style_likes IS '좋아요수'
+/
+
+
+-- hairshop Table Create SQL
+CREATE TABLE hair_info
+(
+    customer_no      NUMBER          NULL, 
+    myhair_curly     VARCHAR2(20)    NULL, 
+    myhair_rich      VARCHAR2(20)    NULL, 
+    myhair_bold      VARCHAR2(20)    NULL, 
+    myhair_vol       VARCHAR2(20)    NULL, 
+    myhair_status    VARCHAR2(20)    NULL, 
+    myhair_old       VARCHAR2(20)    NULL, 
+    CONSTRAINT HAIR_INFO_PK PRIMARY KEY (customer_no)
+)
+/
+
+COMMENT ON TABLE hair_info IS '추가정보'
+/
+
+COMMENT ON COLUMN hair_info.customer_no IS '회원번호'
+/
+
+COMMENT ON COLUMN hair_info.myhair_curly IS '곱슬정도'
+/
+
+COMMENT ON COLUMN hair_info.myhair_rich IS '머리숱'
+/
+
+COMMENT ON COLUMN hair_info.myhair_bold IS '모발굵기'
+/
+
+COMMENT ON COLUMN hair_info.myhair_vol IS '모발볼륨'
+/
+
+COMMENT ON COLUMN hair_info.myhair_status IS '모발상태'
+/
+
+COMMENT ON COLUMN hair_info.myhair_old IS '모발노화상태'
+/
+
+ALTER TABLE hair_info
+    ADD CONSTRAINT FK_hair_info_customer_no_custo FOREIGN KEY (customer_no)
+        REFERENCES customer (customer_no)
 /
 
 
@@ -633,54 +633,54 @@ ALTER TABLE style_list
 
 
 -- hairshop Table Create SQL
-CREATE TABLE like
+CREATE TABLE likes
 (
     like_no         NUMBER     NOT NULL, 
     customer_no     NUMBER     NULL, 
     like_type       char(1)    NULL, 
     like_type_no    NUMBER     NULL, 
-    CONSTRAINT LIKE_PK PRIMARY KEY (like_no)
+    CONSTRAINT LIKES_PK PRIMARY KEY (like_no)
 )
 /
 
-CREATE SEQUENCE like_SEQ
+CREATE SEQUENCE likes_SEQ
 START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER like_AI_TRG
-BEFORE INSERT ON like 
+CREATE OR REPLACE TRIGGER likes_AI_TRG
+BEFORE INSERT ON likes 
 REFERENCING NEW AS NEW FOR EACH ROW 
 BEGIN 
-    SELECT like_SEQ.NEXTVAL
+    SELECT likes_SEQ.NEXTVAL
     INTO :NEW.like_no
     FROM DUAL;
 END;
 /
 
---DROP TRIGGER like_AI_TRG;
+--DROP TRIGGER likes_AI_TRG;
 /
 
---DROP SEQUENCE like_SEQ;
+--DROP SEQUENCE likes_SEQ;
 /
 
-COMMENT ON TABLE like IS '좋아요'
+COMMENT ON TABLE likes IS '좋아요'
 /
 
-COMMENT ON COLUMN like.like_no IS '좋아요번호'
+COMMENT ON COLUMN likes.like_no IS '좋아요번호'
 /
 
-COMMENT ON COLUMN like.customer_no IS '회원번호'
+COMMENT ON COLUMN likes.customer_no IS '회원번호'
 /
 
-COMMENT ON COLUMN like.like_type IS '구분타입(h, r,s)'
+COMMENT ON COLUMN likes.like_type IS '구분타입(h rs'
 /
 
-COMMENT ON COLUMN like.like_type_no IS '헤어샵번호 or 시술번호'
+COMMENT ON COLUMN likes.like_type_no IS '헤어샵번호 or 시술번호'
 /
 
-ALTER TABLE like
-    ADD CONSTRAINT FK_like_customer_no_customer_c FOREIGN KEY (customer_no)
+ALTER TABLE likes
+    ADD CONSTRAINT FK_likes_customer_no_customer_ FOREIGN KEY (customer_no)
         REFERENCES customer (customer_no)
 /
 
