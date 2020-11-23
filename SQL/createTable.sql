@@ -183,13 +183,15 @@ CREATE TABLE customer
     customer_no       NUMBER           NOT NULL, 
     customer_id       VARCHAR2(20)     NOT NULL UNIQUE, 
     customer_pw       VARCHAR2(20)     NOT NULL, 
+    customer_birthdate CHAR(10)        NOT NULL,
     customer_gen      VARCHAR2(20)     NOT NULL, 
     customer_name     VARCHAR2(20)     NOT NULL, 
     customer_email    varchar2(30)     NOT NULL, 
     customer_addr     varchar2(100)    NOT NULL, 
     customer_phone    char(13)         NOT NULL, 
-    addr_detail       varchar2(100)    NULL,
-    addr_postcode     char(5)          NULL,
+    addr_detail       varchar2(100)    NOT NULL,
+    addr_postcode     char(5)          NOT NULL,
+    customer_enrolldate DATE           NOT NULL,
     CONSTRAINT CUSTOMER_PK PRIMARY KEY (customer_no)
 )
 /
