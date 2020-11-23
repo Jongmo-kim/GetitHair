@@ -3,9 +3,10 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,eclipse,java,vscode
 ###Project 관련###
 Servers/
-
+build/
 ### Eclipse ###
 .metadata
+
 bin/
 tmp/
 *.tmp
