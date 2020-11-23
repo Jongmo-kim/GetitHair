@@ -12,9 +12,18 @@
 		background-image : url(img/main/image_1067960081546071656800.jpg);
 		background-repeat: no-repeat;
         background-size: cover;
-        display: flex;
+	}
+	.wrap{
+		background-color: rgba(0,0,0,0.5);
+		position : absolute;
+		width: 100vw;
+		height: 100vh;
+		top: 100px;
+		left: 0px;
+		display: flex;
         justify-content : center;
-        align-content : center;
+        align-items : center;
+        flex-direction: column;
 	}
 	.btn{
 		display : inline-block;
@@ -27,20 +36,26 @@
 		text-align : center;
 		line-height: 50px;
 		margin: 50px;
+		
 	}
-	.main>h1{
-		font-size : 30px;
-		color: white;
+	.wrap>h1{
+		font-size : 50px;
+		color: #D9ABA0;
 		margin: 0;
 	}
 </style>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
 		<div class="main">
+		</div>
+		<div class="wrap">
 			<h1>환영합니다</h1>
-			<a href="/hairshop" class="btn">헤어샵</a>
-			<a href="/hairmodel.jsp" class="btn">헤어모델</a>
+			<div>
+				<a href="/hairshop" class="btn">헤어샵</a>
+				<a href="/hairmodel" class="btn">헤어모델</a>
+			</div>
 			<br>
 			<a href="/login">로그인</a>
 		</div>
