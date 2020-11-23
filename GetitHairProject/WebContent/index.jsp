@@ -4,13 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메인페이지</title>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
-	<h1>테스트</h1>
-	<img src="../upload/footer/conflict.png">
-	
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	<section>
+		<div>
+			<a href="/hairshop">헤어샵</a>
+			<a href="/hairmodel">헤어모델</a>
+		</div>
+	</section>
 </body>
 </html>
