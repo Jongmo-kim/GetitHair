@@ -1,4 +1,4 @@
-package hairShopDate.model.dao;
+package hairShop.model.dao;
 
 public class hairShopDateDao {
 

@@ -1,4 +1,4 @@
-package hairShopDate.model.controller;
+package hairShop.model.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-package hairShopDate.model.vo;
+package hairShop.model.vo;
 
 public class hairShopDate {
 
