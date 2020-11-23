@@ -5,12 +5,44 @@
 <head>
 <meta charset="UTF-8">
 <title>메인페이지</title>
+<style>
+	.main{
+		height : 100vh;
+		width : 100vw;
+		background-image : url(img/main/image_1067960081546071656800.jpg);
+		background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        justify-content : center;
+        align-content : center;
+	}
+	.btn{
+		display : inline-block;
+		width : 200px;
+		height : 50px;
+		text-decoration : none;
+		color : white;
+		background : #D9ABA0;
+		border-radius : 10px;
+		text-align : center;
+		line-height: 50px;
+		margin: 50px;
+	}
+	.main>h1{
+		font-size : 30px;
+		color: white;
+		margin: 0;
+	}
+</style>
 </head>
 <body>
 	<section>
-		<div>
-			<a href="/hairshop">헤어샵</a>
-			<a href="/hairmodel">헤어모델</a>
+		<div class="main">
+			<h1>환영합니다</h1>
+			<a href="/hairshop" class="btn">헤어샵</a>
+			<a href="/hairmodel.jsp" class="btn">헤어모델</a>
+			<br>
+			<a href="/login">로그인</a>
 		</div>
 	</section>
 </body>
