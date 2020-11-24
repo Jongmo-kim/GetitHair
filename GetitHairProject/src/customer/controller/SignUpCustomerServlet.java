@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.DebugModeServlet;
-import common.DebugTemplate;
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 
 /**
- * Servlet implementation class MypageCustServlet
+ * Servlet implementation class SignUpCustomerServlet
  */
-@WebServlet(name = "MypageCust", urlPatterns = { "/mypageCust" })
-public class MypageCustServlet extends HttpServlet {
+@WebServlet(name = "SignUpCustomer", urlPatterns = { "/signUpCustomer" })
+public class SignUpCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageCustServlet() {
+    public SignUpCustomerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,17 +31,16 @@ public class MypageCustServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1.인코딩
-		request.setCharacterEncoding("utf-8");
-		//2.view에서 넘어온 값저장
-		String customerId = request.getParameter("customerId");
-		customerId = "user10"; //로그인한 ID입니다. 임시로 셋팅했어요 
-		//3.비지니스 로직처리		
-		Customer customer = new CustomerService().selectOneCustomer(customerId);
-		//4.결과처리
-		
-		RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");
-		request.setAttribute("customer", customer);
+		Customer cust = CustTemplate.setCust(request);
+		int result = new CustomerService().insertCustomer(cust);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+		if(result == 0) {
+			request.setAttribute("msg", "회원가입 실패");
+			request.setAttribute("loc", "/");
+		} else {
+			request.setAttribute("msg", "회원가입 성공");
+			request.setAttribute("loc", "/");
+		}
 		rd.forward(request, response);
 	}
 

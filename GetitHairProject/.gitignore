@@ -6,7 +6,7 @@ Servers/
 build/
 ### Eclipse ###
 .metadata
-
+.classpath
 bin/
 tmp/
 *.tmp
