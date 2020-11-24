@@ -1,4 +1,4 @@
-<%@page import="hairShop.model.vo.Hairshop"%>
+<%@page import="hairshop.model.vo.Hairshop"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%

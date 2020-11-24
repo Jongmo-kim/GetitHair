@@ -1,27 +1,28 @@
-package hairshop.controller;
+package customer.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hairshop.model.dao.HairshopDao;
-import hairshop.model.service.HairshopService;
-import hairshop.model.vo.Hairshop;
+import customer.model.service.CustomerService;
+import customer.model.vo.Customer;
 
 /**
- * Servlet implementation class ReserVationServlet
+ * Servlet implementation class SignUpCustomerServlet
  */
-@WebServlet(name = "ReserVation", urlPatterns = { "/reserVation" })
-public class ReserVationServlet extends HttpServlet {
+@WebServlet(name = "SignUpCustomer", urlPatterns = { "/signUpCustomer" })
+public class SignUpCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReserVationServlet() {
+    public SignUpCustomerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +31,17 @@ public class ReserVationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		//2. view	
-		int result = Integer.parseInt(request.getParameter("shop_no"));
-		//3. 비지니스
-		Hairshop hs = new HairshopService().selectShop(result);
+		Customer cust = CustTemplate.setCust(request);
+		int result = new CustomerService().insertCustomer(cust);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+		if(result == 0) {
+			request.setAttribute("msg", "회원가입 실패");
+			request.setAttribute("loc", "/");
+		} else {
+			request.setAttribute("msg", "회원가입 성공");
+			request.setAttribute("loc", "/");
+		}
+		rd.forward(request, response);
 	}
 
 	/**
