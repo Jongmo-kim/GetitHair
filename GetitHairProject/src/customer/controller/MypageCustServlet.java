@@ -1,4 +1,4 @@
-package admin.mypage.controller;
+package customer.controller;
 
 import java.io.IOException;
 
@@ -9,17 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import customer.model.service.CustomerService;
+import customer.model.vo.Customer;
+
 /**
- * Servlet implementation class MyPageAdminServlet
+ * Servlet implementation class MypageCustServlet
  */
-@WebServlet("/mypageAdmin")
-public class MypageAdminServlet extends HttpServlet {
+@WebServlet(name = "MypageCust", urlPatterns = { "/mypageCust" })
+public class MypageCustServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageAdminServlet() {
+    public MypageCustServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,8 +31,17 @@ public class MypageAdminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 메인 관리페이지로 이동
-		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminMain.jsp").forward(request, response);
+		//1.인코딩
+		request.setCharacterEncoding("utf-8");
+		//2.view에서 넘어온 값저장
+		String customerId = request.getParameter("customerId");
+		customerId = "user10"; //로그인한 ID입니다. 임시로 셋팅했어요 
+		//3.비지니스 로직처리		
+		Customer customer = new CustomerService().selectOneCustomer(customerId);		
+		//4.결과처리		
+		RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");
+		request.setAttribute("customer", customer);
+		rd.forward(request, response);
 	}
 
 	/**

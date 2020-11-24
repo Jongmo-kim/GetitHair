@@ -1,4 +1,4 @@
-package admin.mypage.controller;
+package hairshop.controller;
 
 import java.io.IOException;
 
@@ -9,17 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hairShop.model.vo.Hairshop;
+
 /**
- * Servlet implementation class MyPageAdminServlet
+ * Servlet implementation class HairshopServlet
  */
-@WebServlet("/mypageAdmin")
-public class MypageAdminServlet extends HttpServlet {
+@WebServlet(name = "Hairshop", urlPatterns = { "/hairshop" })
+public class HairshopServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageAdminServlet() {
+    public HairshopServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,8 +30,10 @@ public class MypageAdminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 메인 관리페이지로 이동
-		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminMain.jsp").forward(request, response);
+		request.setCharacterEncoding("utf-8");
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

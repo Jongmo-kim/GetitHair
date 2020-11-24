@@ -8,14 +8,13 @@ CREATE TABLE hairshop
     shop_name        VARCHAR2(100)    NOT NULL, 
     shop_addr        VARCHAR2(200)    NOT NULL, 
     shop_phone       char(15)         NOT NULL, 
-    shop_time        VARCHAR2(20)     NOT NULL, 
     shop_open        VARCHAR2(20)     NOT NULL, 
-    shop_close       VARCHAR2(20)     NOT NULL, 
-    shop_holiday     VARCHAR2(20)     NOT NULL, 
+    shop_close       VARCHAR2(20)     NOT NULL,
+    shop_holiday     VARCHAR2(20)     NOT NULL,
     shop_rate        NUMBER          DEFAULT 0 NOT NULL, 
     shop_img         VARCHAR2(300)    NULL, 
     shop_likes       NUMBER          DEFAULT 0 NOT NULL, 
-    addr_detail      VARCHAR2(200)    NULL, 
+    addr_detail      VARCHAR2(200)    NOT NULL, 
     addr_postcode    char(5)          NOT NULL, 
     CONSTRAINT HAIRSHOP_PK PRIMARY KEY (shop_no)
 )
@@ -60,9 +59,6 @@ COMMENT ON COLUMN hairshop.shop_addr IS '주소지'
 COMMENT ON COLUMN hairshop.shop_phone IS '전화번호'
 /
 
-COMMENT ON COLUMN hairshop.shop_time IS '영업시간'
-/
-
 COMMENT ON COLUMN hairshop.shop_open IS '영업시작시간'
 /
 
@@ -92,7 +88,6 @@ COMMENT ON COLUMN hairshop.addr_postcode IS '우편번호'
 CREATE TABLE designer
 (
     designer_no         NUMBER            NOT NULL, 
-    shop_no             NUMBER            NULL, 
     designer_id         VARCHAR2(20)      NOT NULL UNIQUE, 
     designer_pw         VARCHAR2(20)      NOT NULL, 
     designer_gen        CHAR(3)           NOT NULL, 
@@ -135,9 +130,6 @@ COMMENT ON TABLE designer IS '디자이너'
 COMMENT ON COLUMN designer.designer_no IS '디자이너번호'
 /
 
-COMMENT ON COLUMN designer.shop_no IS '소속미용실'
-/
-
 COMMENT ON COLUMN designer.designer_id IS '아이디'
 /
 
@@ -170,12 +162,6 @@ COMMENT ON COLUMN designer.designer_keyword IS '스타일키워드(예정'
 
 COMMENT ON COLUMN designer.designer_img IS '디자이너프로필이미지'
 /
-
-ALTER TABLE designer
-    ADD CONSTRAINT FK_designer_shop_no_hairshop_s FOREIGN KEY (shop_no)
-        REFERENCES hairshop (shop_no)
-/
-
 
 -- hairshop Table Create SQL
 CREATE TABLE customer
@@ -306,7 +292,8 @@ COMMENT ON COLUMN style.style_likes IS '좋아요수'
 -- hairshop Table Create SQL
 CREATE TABLE hair_info
 (
-    customer_no      NUMBER          NOT NULL, 
+    customer_no      NUMBER          NOT NULL,
+    myhair_scalp     VARCHAR2(20)    NULL,
     myhair_curly     VARCHAR2(20)    NULL, 
     myhair_rich      VARCHAR2(20)    NULL, 
     myhair_bold      VARCHAR2(20)    NULL, 
