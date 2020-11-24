@@ -71,7 +71,7 @@
 			<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">상세페이지<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
-	        		<li><a href="/WEB-INF/viewshairShopDate/hairShopDate.jsp">헤어샵 상세보기</a></li>
+	        		<li><a href="/hairshop">헤어샵 상세보기</a></li>
 				</ul>
 			</li>
 			<li class="dropdown">
