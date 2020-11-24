@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MypageDesignerServlet
+ * Servlet implementation class DesignerReviewServlet
  */
-@WebServlet(name = "MypageDesigner", urlPatterns = { "/mypageDesigner" })
-public class MypageDesignerServlet extends HttpServlet {
+@WebServlet(name = "DesignerReview", urlPatterns = { "/designerReview" })
+public class DesignerReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageDesignerServlet() {
+    public DesignerReviewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class MypageDesignerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/designer/mypageDesigner.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/review/designer/designerReview.jsp");
 		rd.forward(request, response);
 	}
 
