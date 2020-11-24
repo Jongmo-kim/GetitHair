@@ -306,7 +306,8 @@ COMMENT ON COLUMN style.style_likes IS '좋아요수'
 -- hairshop Table Create SQL
 CREATE TABLE hair_info
 (
-    customer_no      NUMBER          NOT NULL, 
+    customer_no      NUMBER          NOT NULL,
+    myhair_scalp     VARCHAR2(20)    NULL,
     myhair_curly     VARCHAR2(20)    NULL, 
     myhair_rich      VARCHAR2(20)    NULL, 
     myhair_bold      VARCHAR2(20)    NULL, 

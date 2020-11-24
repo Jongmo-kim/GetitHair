@@ -14,7 +14,7 @@ public class JDBCTemplate {
 		Connection conn = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe","team3","1234");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe","c##getithair","1234");
 			conn.setAutoCommit(false);//자동으로 커밋되는 설정을 해제
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
