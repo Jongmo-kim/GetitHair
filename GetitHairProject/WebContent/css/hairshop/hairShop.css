@@ -1,0 +1,12 @@
+@charset "UTF-8";
+<style>
+    .datePage{
+        display: block;
+        margin: 0 auto;
+    }
+    .navi>ul>li{
+        list-style-type: none;
+        float: left;
+        display: block;
+    }
+</style>
