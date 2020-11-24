@@ -7,7 +7,6 @@ private String shopCompNo; //사업자 등록번호
 private String shopName; //사업ㅈ명
 private String shopAddr; //샵 장소
 private String shopPhone; //샵 번호
-private String shopTime; //샵 영업시간
 private String shopOpen; //샵 오픈시간
 private String shopClose; //샵 닫는 시간
 private String shopHoliday; //정기 휴무일
@@ -20,7 +19,7 @@ public Hairshop() {
 super();
 //TODO Auto-generated constructor stub
 }
-public Hairshop(int shopNo, String shopCompNo, String shopName, String shopAddr, String shopPhone, String shopTime,
+public Hairshop(int shopNo, String shopCompNo, String shopName, String shopAddr, String shopPhone, 
 String shopOpen, String shopClose, String shopHoliday, int shopRate, String shopImg, int shopLikes,
 String addrDetail, String addrPostcode) {
 super();
@@ -29,7 +28,6 @@ this.shopCompNo = shopCompNo;
 this.shopName = shopName;
 this.shopAddr = shopAddr;
 this.shopPhone = shopPhone;
-this.shopTime = shopTime;
 this.shopOpen = shopOpen;
 this.shopClose = shopClose;
 this.shopHoliday = shopHoliday;
@@ -68,12 +66,6 @@ return shopPhone;
 }
 public void setShopPhone(String shopPhone) {
 this.shopPhone = shopPhone;
-}
-public String getShopTime() {
-return shopTime;
-}
-public void setShopTime(String shopTime) {
-this.shopTime = shopTime;
 }
 public String getShopOpen() {
 return shopOpen;

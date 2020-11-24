@@ -16,7 +16,23 @@
 	<section>
 		<div class="banner">
 		</div>
-		<div class="mid"></div>
+		<div class="content">
+			<%for(Hairshop shop : list){ %>
+				<table>
+					<tr>
+						<th rowspan="3"><img src = <%=shop.getShopImg() %>></th>
+						<td><a href="/hairshopDetail?shopNo=<%=shop.getShopNo() %>"><%=shop.getShopName() %></a></td>
+						<td><%=shop.getShopRate() %><%=shop.getShopLikes() %></td>
+					</tr>
+					<tr>
+						<td><%=shop.getShopAddr() %></td>
+					</tr>
+					<tr>
+						<td><%=shop.getShopOpen() %> ~ <%=shop.getShopClose() %></td>
+					</tr>
+				</table>
+			<%} %>
+		</div>
 	</section>
 </body>
 </html>

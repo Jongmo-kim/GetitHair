@@ -32,7 +32,7 @@
 		text-decoration : none;
 		color : white;
 		background : #D9ABA0;
-		border-radius : 10px;
+		border-radius : 30px;
 		text-align : center;
 		line-height: 50px;
 		margin: 50px;
