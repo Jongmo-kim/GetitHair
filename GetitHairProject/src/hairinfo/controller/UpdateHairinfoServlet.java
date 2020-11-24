@@ -34,7 +34,7 @@ public class UpdateHairinfoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1.인코딩
 		//2.view에서넘어온값 저장
-		Hairinfo hairinfo = HairinfoTemplate.setCust(request);
+		Hairinfo hairinfo = HairinfoTemplate.setHairinfo(request);
 		//3.비지니스로직처리
 		int result = new HairinfoService().updateHairinfo(hairinfo);
 		//4.결과처리

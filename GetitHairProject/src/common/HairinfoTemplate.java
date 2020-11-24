@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import hairinfo.model.vo.Hairinfo;
 
 public class HairinfoTemplate {
-	public static Hairinfo setCust(HttpServletRequest request) {
+	public static Hairinfo setHairinfo(HttpServletRequest request) {
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
 		String myhairScalp = request.getParameter("myhair_scalp");
 		String myhairCurly = request.getParameter("myhair_curly");

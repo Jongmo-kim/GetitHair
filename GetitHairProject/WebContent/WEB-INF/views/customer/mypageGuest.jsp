@@ -174,16 +174,42 @@
 							<th>3.머리숱</th>
 							<td>
 								<% if(hairinfo.getMyhairRich().equals("")){ %>
-								<%} else if(hairinfo.getMyhairRich().equals("곱슬")){ %>
-								<%} else if(hairinfo.getMyhairRich().equals("반곱슬")){ %>
-								<%} else if(hairinfo.getMyhairRich().equals("직모")){ %>
+									<input type="radio" id="heavyRich" name="myhairRich" value="많음"><label for="heavyRich">많음</label>
+									<input type="radio" id="MediumRich" name="myhairRich" value="보통"><label for="MediumRich">보통</label>
+									<input type="radio" id="LessRich" name="myhairRich" value="적음"><label for="LessRich">적음</label>
+									<input type="radio" id="LossRich" name="myhairRich" value="탈모"><label for="LossRich">탈모</label>								
+									<input type="radio" id="richNotKnow" name="myhairRich" value="모름"><label for="richNotKnow">모름</label>
+								<%} else if(hairinfo.getMyhairRich().equals("많음")){ %>
+									<input type="radio" id="heavyRich" name="myhairRich" value="많음"><label for="heavyRich" checked>많음</label>
+									<input type="radio" id="MediumRich" name="myhairRich" value="보통"><label for="MediumRich">보통</label>
+									<input type="radio" id="LessRich" name="myhairRich" value="적음"><label for="LessRich">적음</label>
+									<input type="radio" id="LossRich" name="myhairRich" value="탈모"><label for="LossRich">탈모</label>								
+									<input type="radio" id="richNotKnow" name="myhairRich" value="모름"><label for="richNotKnow">모름</label>
+								<%} else if(hairinfo.getMyhairRich().equals("보통")){ %>
+									<input type="radio" id="heavyRich" name="myhairRich" value="많음"><label for="heavyRich">많음</label>
+									<input type="radio" id="MediumRich" name="myhairRich" value="보통"><label for="MediumRich">보통</label>
+									<input type="radio" id="LessRich" name="myhairRich" value="적음"><label for="LessRich">적음</label>
+									<input type="radio" id="LossRich" name="myhairRich" value="탈모"><label for="LossRich">탈모</label>								
+									<input type="radio" id="richNotKnow" name="myhairRich" value="모름"><label for="richNotKnow">모름</label>
+								<%} else if(hairinfo.getMyhairRich().equals("적음")){ %>
+									<input type="radio" id="heavyRich" name="myhairRich" value="많음"><label for="heavyRich">많음</label>
+									<input type="radio" id="MediumRich" name="myhairRich" value="보통"><label for="MediumRich">보통</label>
+									<input type="radio" id="LessRich" name="myhairRich" value="적음"><label for="LessRich">적음</label>
+									<input type="radio" id="LossRich" name="myhairRich" value="탈모"><label for="LossRich">탈모</label>								
+									<input type="radio" id="richNotKnow" name="myhairRich" value="모름"><label for="richNotKnow">모름</label>
+								<%} else if(hairinfo.getMyhairRich().equals("탈모")){ %>
+									<input type="radio" id="heavyRich" name="myhairRich" value="많음"><label for="heavyRich">많음</label>
+									<input type="radio" id="MediumRich" name="myhairRich" value="보통"><label for="MediumRich">보통</label>
+									<input type="radio" id="LessRich" name="myhairRich" value="적음"><label for="LessRich">적음</label>
+									<input type="radio" id="LossRich" name="myhairRich" value="탈모"><label for="LossRich">탈모</label>								
+									<input type="radio" id="richNotKnow" name="myhairRich" value="모름"><label for="richNotKnow">모름</label>
 								<%} else if(hairinfo.getMyhairRich().equals("모름")){ %>
-								<% } %>
-								<input type="radio" id="heavyRich" name="myhairRich" value="많음"><label for="heavyRich">많음</label>
-								<input type="radio" id="MediumRich" name="myhairRich" value="보통"><label for="MediumRich">보통</label>
-								<input type="radio" id="LessRich" name="myhairRich" value="적음"><label for="LessRich">적음</label>
-								<input type="radio" id="LossRich" name="myhairRich" value="탈모"><label for="LossRich">탈모</label>								
-								<input type="radio" id="richNotKnow" name="myhairRich" value="모름"><label for="richNotKnow">모름</label>	
+									<input type="radio" id="heavyRich" name="myhairRich" value="많음"><label for="heavyRich">많음</label>
+									<input type="radio" id="MediumRich" name="myhairRich" value="보통"><label for="MediumRich">보통</label>
+									<input type="radio" id="LessRich" name="myhairRich" value="적음"><label for="LessRich">적음</label>
+									<input type="radio" id="LossRich" name="myhairRich" value="탈모"><label for="LossRich">탈모</label>								
+									<input type="radio" id="richNotKnow" name="myhairRich" value="모름"><label for="richNotKnow">모름</label>	
+								<% } %>								
 							</td>
 						</tr>
 						<tr>
