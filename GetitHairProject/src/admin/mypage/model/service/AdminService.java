@@ -13,15 +13,13 @@ public class AdminService {
 		ArrayList<AdminCustomer> list = new AdminDao().getCustomerList(conn, page);
 		JDBCTemplate.close(conn);
 		return list;
-	}
-	
+	}	
 	public ArrayList<AdminCustomer> getCustomerListById(String id){
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<AdminCustomer> list = new AdminDao().getCustomerListById(conn, id);
 		JDBCTemplate.close(conn);
 		return list;
 	}
-
 	public ArrayList<AdminCustomer> getCustomerListByName(String keyword) {
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<AdminCustomer> list = new AdminDao().getCustomerListByName(conn, keyword);
