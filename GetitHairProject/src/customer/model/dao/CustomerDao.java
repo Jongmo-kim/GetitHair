@@ -48,7 +48,43 @@ public class CustomerDao {
 		return loginCustomer;
 	}
 
-	public ArrayList<Customer> selectAllMember(Connection conn) {
+
+	public Customer selectOneCustomer(Connection conn, int customerNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Customer loginCustomer = null;
+		String query = "select * from customer where customer_no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, customerNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				loginCustomer = new Customer();
+				loginCustomer.setAddrDetail(rset.getString("addr_detail"));
+				loginCustomer.setAddrPostcode(rset.getString("addr_postcode"));
+				loginCustomer.setCustomerAddr(rset.getString("customer_addr"));
+				loginCustomer.setCustomerEmail(rset.getString("customer_email"));
+				loginCustomer.setCustomerGen(rset.getString("customer_gen"));
+				loginCustomer.setCustomerId(rset.getString("customer_id"));
+				loginCustomer.setCustomerName(rset.getString("customer_name"));
+				loginCustomer.setCustomerNo(rset.getInt("customer_no"));
+				loginCustomer.setCustomerPhone(rset.getString("customer_phone"));
+				loginCustomer.setCustomerPw(rset.getString("customer_pw"));
+				loginCustomer.setCustomerBirthdate(rset.getString("customer_birthdate"));
+				loginCustomer.setCustomerEnrolldate(rset.getString("customer_enrolldate"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return loginCustomer;
+	}
+	public ArrayList<Customer> selectAllCustomer(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Customer> list = new ArrayList<Customer>();
@@ -82,7 +118,9 @@ public class CustomerDao {
 		return list;		
 	}
 
-	public int updateMember(Connection conn, Customer customer) {
+
+	public int updateCustomer(Connection conn, Customer customer) {
+
 		PreparedStatement pstmt =null;
 		int result =0;
 		String query ="update customer set customer_pw=?,customer_email=?,customer_addr=?,addr_detail=?,customer_phone=? where customer_no=?";
@@ -122,5 +160,34 @@ public class CustomerDao {
 		}
 		return result;
 	}
+
+	public int insertCustomer(Connection conn, Customer customer) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		String query = "insert into customer values(customer_seq.nextval,?,?,?,?,?,?,?,?,?,?,sysdate)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, customer.getCustomerId());
+			pstmt.setString(2, customer.getCustomerPw());
+			pstmt.setString(3, customer.getCustomerGen());
+			pstmt.setString(4, customer.getCustomerName());
+			pstmt.setString(5, customer.getCustomerEmail());
+			pstmt.setString(6, customer.getCustomerAddr());
+			pstmt.setString(7, customer.getCustomerPhone());
+			pstmt.setString(8, customer.getAddrDetail());
+			pstmt.setString(9, customer.getAddrPostcode());
+			pstmt.setString(10, customer.getCustomerBirthdate());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+
 
 }
