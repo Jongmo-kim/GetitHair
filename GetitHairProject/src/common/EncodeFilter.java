@@ -57,16 +57,18 @@ public class EncodeFilter implements Filter {
 
 	private void printAllObjects(HttpSession session) {
 		ArrayList<Object> list = (ArrayList<Object>)session.getAttribute("Objects");
+		String tag = (String)session.getAttribute("tag");
 		if(list == null) {
 			return;
 		} else {
 			int count = 1;
+			System.out.printf("%s의 객체\n",tag);
 			for(Object obj : list) {
-				System.out.println("------------------------------------");
-				System.out.printf("%d번째 객체\n",count++);
+				System.out.printf("%s의 %d번째 객체\n",tag,count++);
 				System.out.println(obj);
 				System.out.println("------------------------------------");
 			}
+			System.out.println();
 		}
 	}
 
