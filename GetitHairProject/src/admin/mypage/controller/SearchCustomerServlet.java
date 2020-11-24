@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import admin.mypage.model.service.AdminService;
-import admin.mypage.model.vo.AdminCustomer;
+import customer.model.vo.Customer;
 
 /**
  * Servlet implementation class SearchCustomerIdServlet
@@ -40,7 +40,7 @@ public class SearchCustomerServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 		
 		//비즈니스 로직
-		ArrayList<AdminCustomer> list = null;
+		ArrayList<Customer> list = null;
 		if(type == 1)
 			list = new AdminService().getCustomerListById(keyword);
 		else if(type == 2) {

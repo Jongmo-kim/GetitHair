@@ -1,9 +1,9 @@
-<%@page import="admin.mypage.model.vo.AdminCustomer"%>
+<%@page import="customer.model.vo.Customer"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	ArrayList<AdminCustomer> list = (ArrayList<AdminCustomer>) request.getAttribute("list");
+	ArrayList<Customer> list = (ArrayList<Customer>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -70,15 +70,15 @@
                             if(list != null){
                             %>
                             <%
-							for (AdminCustomer ac : list) {
+							for (Customer c : list) {
 						    %>
                             <tr>
                                 <th width="30"><input type="checkbox" name="chk"></th>
-                                <th><%=ac.getNo() %></th>
-                                <th><%=ac.getCustId() %></th>
-                                <th><%=ac.getCustGender() %></th>
-                                <th><%=ac.getCustName() %></th>
-                                <th><%=ac.getEnrollDate() %></th>
+                                <th><%=c.getCustomerNo() %></th>
+                                <th><%=c.getCustomerId() %></th>
+                                <th><%=c.getCustomerGen() %></th>
+                                <th><%=c.getCustomerName() %></th>
+                                <th><%=c.getCustomerEnrolldate() %></th>
                                 <th>
                                     <button>탈퇴</button>
                                 </th>

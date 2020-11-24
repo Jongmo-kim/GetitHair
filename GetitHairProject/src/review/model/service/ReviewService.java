@@ -49,4 +49,21 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	
+	//UPDATE 구문
+	
+	//리뷰 수정을 위해  내용,평점이 수정되어있는 Review 객체를 전달받는다.
+	public int updateReview(Review rv) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDao().updateReview(conn,rv);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		return result;
+	}
+	
+	
+	//DELETE 구문
 }
