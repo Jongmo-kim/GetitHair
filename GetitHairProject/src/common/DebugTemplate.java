@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 public class DebugTemplate {
+	
 	public static void setCurrListAtSession(HttpSession session, ArrayList<Object> list,String tag) {
 		session.setAttribute("Objects", list);
 		session.setAttribute("tag", tag);

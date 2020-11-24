@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
+=======
+import common.CustTemplate;
+>>>>>>> 20/11/23TM
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 
@@ -81,6 +85,20 @@ public class UpdateCustomerServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");
 		request.setAttribute("customer", customer);
 		rd.forward(request, response);
+		Customer customer = CustTemplate.setCust(request);
+		//3.비지니스로직처리
+		int result = new CustomerService().updateCustomer(customer);
+		//4.결과처리	
+		if(result > 0 ) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");
+			request.setAttribute("customer", customer);
+			rd.forward(request, response);
+		}else {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+			request.setAttribute("msg", "회원수정에 실패했습니다.");
+			request.setAttribute("loc", "/");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
