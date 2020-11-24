@@ -2,7 +2,7 @@ package hairshop.model.dao;
 
 import java.sql.Connection;
 
-import hairShop.model.vo.Hairshop;
+import hairshop.model.vo.Hairshop;
 
 public class HairshopDao {
 

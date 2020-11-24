@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hairShop.model.dao.HairshopDao;
-import hairShop.model.service.HairshopService;
-import hairShop.model.vo.Hairshop;
+import hairshop.model.dao.HairshopDao;
+import hairshop.model.service.HairshopService;
+import hairshop.model.vo.Hairshop;
 
 /**
  * Servlet implementation class ReserVationServlet
