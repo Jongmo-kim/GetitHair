@@ -8,14 +8,13 @@ CREATE TABLE hairshop
     shop_name        VARCHAR2(100)    NOT NULL, 
     shop_addr        VARCHAR2(200)    NOT NULL, 
     shop_phone       char(15)         NOT NULL, 
-    shop_time        VARCHAR2(20)     NOT NULL, 
     shop_open        VARCHAR2(20)     NOT NULL, 
     shop_close       VARCHAR2(20)     NOT NULL, 
     shop_holiday     VARCHAR2(20)     NOT NULL, 
     shop_rate        NUMBER          DEFAULT 0 NOT NULL, 
     shop_img         VARCHAR2(300)    NULL, 
     shop_likes       NUMBER          DEFAULT 0 NOT NULL, 
-    addr_detail      VARCHAR2(200)    NULL, 
+    addr_detail      VARCHAR2(200)    NOT NULL, 
     addr_postcode    char(5)          NOT NULL, 
     CONSTRAINT HAIRSHOP_PK PRIMARY KEY (shop_no)
 )
