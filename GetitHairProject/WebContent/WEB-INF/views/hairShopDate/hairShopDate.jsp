@@ -4,11 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>헤어샵 상세보기</title>
 	<!-- Link Swiper's CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 </head>
 <body>
+	<!-- 헤더 -->
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	
+	
 	<!-- Swiper -->
 	<div class="swiper-container" style="width: 800px; height: 500px;">
 		<div class="swiper-wrapper">

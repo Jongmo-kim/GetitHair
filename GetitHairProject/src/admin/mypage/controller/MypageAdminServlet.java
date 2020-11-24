@@ -1,4 +1,4 @@
-package hairShop.controller;
+package admin.mypage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class HairshopServlet
+ * Servlet implementation class MyPageAdminServlet
  */
-@WebServlet(name = "Hairshop", urlPatterns = { "/hairshop" })
-public class HairshopServlet extends HttpServlet {
+@WebServlet("/mypageAdmin")
+public class MypageAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HairshopServlet() {
+    public MypageAdminServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

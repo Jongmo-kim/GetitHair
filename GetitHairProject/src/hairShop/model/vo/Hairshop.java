@@ -1,4 +1,4 @@
-package hairshop.model.vo;
+package hairShop.model.vo;
 
 
 //장소, 가격, 소속디자이너들, 미용실 이름, 미용실 사진, 리뷰 , 시설정보
