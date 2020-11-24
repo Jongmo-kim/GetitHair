@@ -9,13 +9,16 @@ import review.model.vo.Review;
 
 public class ReviewService {
 	//INSERT 구문
-//	public int insertReview(Review rv) {
-//		Connection conn = JDBCTemplate.getConnection();
-//		int result = new ReviewDao().insertReview(conn,rv);
-//		if(result = 0) {
-//			
-//		}
-//	}
+	public int insertReview(Review rv) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDao().insertReview(conn,rv);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		return result;
+	}
 	
 	
 	

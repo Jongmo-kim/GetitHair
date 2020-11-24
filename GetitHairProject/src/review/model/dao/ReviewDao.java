@@ -149,6 +149,32 @@ public class ReviewDao {
 		}
 		return list;
 	}
+	public int insertReview(Connection conn, Review rv) {
+		PreparedStatement pstmt = null;
+		String qrySelect = "insert into review values(default,?,?,?,?,?,?,?,?,?)";
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(qrySelect);
+			pstmt.setInt(1, rv.getShopNo());
+			pstmt.setInt(2, rv.getDesignerNo());
+			pstmt.setInt(3, rv.getCustomerNo());
+			pstmt.setInt(4, rv.getStyleNo());
+			pstmt.setString(5, rv.getReviewContent());
+			pstmt.setInt(6, rv.getReviewRate());
+			pstmt.setInt(7, rv.getReviewLikes());
+			pstmt.setString(8, rv.getReviewDate());
+			pstmt.setString(9, rv.getReviewImg());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 
 	
 }
