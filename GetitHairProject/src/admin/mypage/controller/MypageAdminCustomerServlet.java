@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import admin.mypage.model.service.AdminService;
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
