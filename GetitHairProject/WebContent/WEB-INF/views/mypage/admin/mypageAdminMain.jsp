@@ -6,12 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/mypage/admin/container.css">
     <style>
-        .admin-main-container {
-            width: 1280px;
-            margin: 0 auto;
-        }
-
         .admin-content {
             display: flex;
             justify-content: flex-start;
