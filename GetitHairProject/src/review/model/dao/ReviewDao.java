@@ -19,7 +19,7 @@ public class ReviewDao {
 		try {
 			Designer d = new Designer();
 			rv.setReviewNo(rs.getInt("review_no"));
-			rv.setShop(new HairshopService().selectShop(rs.getInt("shop_no")));
+			rv.setShop(new HairshopService().selectOneHairshop(rs.getInt("shop_no")));
 			rv.setDesigner(new DesignerService().selectOneMember(rs.getInt("designer_no")));
 			rv.setCustomer(new CustomerService().selectOneCustomer(rs.getInt("customer_no")));
 			rv.setStyleNo(rs.getInt("style_no"));

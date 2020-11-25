@@ -1,14 +1,11 @@
-<%@page import="customer.model.vo.Customer"%>
+<%@page import="review.model.vo.Review"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%
-	ArrayList<Customer> list = (ArrayList<Customer>) request.getAttribute("list");
+	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
 	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
 	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
-	
-	String sel1 = type == 1 ? "selected" : "";
-	String sel2 = type == 2 ? "selected" : "";
 %>
 <!DOCTYPE html>
 <html>
@@ -18,30 +15,6 @@
     <title>Insert title here</title>
     <link rel="stylesheet" href="/css/mypage/admin/container.css">
     <style>
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-
-            background-color: gray;
-            opacity: 0.5;
-        }
-
-        .review-container {
-            display: none;
-            position: fixed;
-            width: 1000px;
-            height: 800px;
-            top: 50%;
-            left: 50%;
-            margin-top: -400px;
-            margin-left: -500px;
-            background-color: white;
-            box-shadow: 0px 0px 5px 0px gray;
-            border-radius: 3px;
-        }
-
         .admin-content {
             margin-top: 10px;
             width: 100%;
@@ -50,18 +23,16 @@
             border-radius: 3px;
         }
 
-        .customer-list,
         .review-list {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .customer-list>tbody>tr:hover,
         .review-list>tbody>tr:hover {
             background-color: rgb(235, 232, 232);
         }
 
-        .customer-list th {
+        .review-list th {
             border-bottom: 1px solid gray;
             height: 30px;
         }
@@ -69,94 +40,60 @@
 </head>
 
 <body>
-    <div class="modal-overlay">
-    </div>
-    <div class="review-container">
-        <div class="header" style="width: 100%;text-align: right;">
-            <span id="close-modal">닫기</span>
-        </div>
-        <div class="review-list-wrap">
-            <table class="review-list">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>번호</th>
-                        <th>샵</th>
-                        <th>디자이너</th>
-                        <th>작성자</th>
-                        <th>내용</th>
-                        <th>기능</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="7">
-                            <button>선택한 리뷰 삭제</button>
-                            <button type="reset">전체 선택해제</button>
-                        </th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
     <div class="admin-main-container">
         <header>
             <%@ include file="/WEB-INF/views/mypage/admin/common/header.jsp"%>
         </header>
         <section>
             <div class="admin-content">
-                <form action="/mypageAdminCustomer" method="GET">
-                    <div class="customer-search">
+                <form action="/mypageAdminReview" method="GET">
+                    <div class="review-search">
                         <select name="searchType">
-                            <option value="1" <%=sel1 %>>아이디</option>
-                            <option value="2" <%=sel2 %>>이름</option>
+                            <option value="1" >아이디</option>
                         </select>
                         <input type="text" name="keyword" value="<%=keyword%>">
                         <button>검색</button>
                     </div>
                 </form>
-                <form action="/adminDeleteCustomer">
-                    <div class="customer-list-wrap">
-                        <table class="customer-list">
+                <form action="/adminDeleteReview">
+                    <div class="review-list-wrap">
+                        <table class="review-list">
                             <thead>
                                 <tr>
                                     <th></th>
                                     <th>번호</th>
-                                    <th>아이디</th>
-                                    <th>성별</th>
-                                    <th>이름</th>
-                                    <th>가입일</th>
-                                    <th>기능</th>
+			                        <th>샵</th>
+			                        <th>디자이너</th>
+			                        <th>작성자</th>
+			                        <th>내용</th>
+			                        <th>기능</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <%if(list != null){%>
                                 <%
-                                    for (Customer c : list) {
-                                        %>
+                                        for (Review rv : list) {
+                                            %>
                                 <tr>
-                                <th width="30"><input type="checkbox" name="chk" value="<%=c.getCustomerId() %>">
+                                    <th width="30"><input type="checkbox" name="chk" value="<%=rv.getReviewNo() %>">
                                     </th>
-                                    <th><%=c.getCustomerNo() %></th>
-                                    <input type="hidden" name="customerId" value="<%=c.getCustomerId() %>">
-                                    <th><%=c.getCustomerId() %></th>
-                                    <th><%=c.getCustomerGen() %></th>
-                                    <th><%=c.getCustomerName() %></th>
-                                    <th><%=c.getCustomerEnrolldate() %></th>
+                                    <input type="hidden" name="reviewNo" value="<%=rv.getReviewNo() %>">
+                                    <th><%=rv.getReviewNo() %></th>
+                                    <th><%=rv.getShop().getShopName() %></th>
+                                    <th><%=rv.getDesigner().getDesignerName() %></th>
+                                    <th><%=rv.getCustomer().getCustomerId() %></th>
+                                    <th><%=rv.getReviewContent() %></th>
                                     <th>
                                         <button id="rvbtn" type="button">작성한 리뷰보기</button>
-                                        <button>탈퇴</button>
+                                        <button>삭제</button>
                                     </th>
                                 </tr>
                                 <%
+                                        }
+                                        %>
+                                <%
                                     }
                                     %>
-                                <%
-                                }
-                                %>
                             </tbody>
                             <tfoot>
                                 <tr>

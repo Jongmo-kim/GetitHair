@@ -331,6 +331,7 @@ COMMENT ON COLUMN hair_info.myhair_old IS '모발노화상태'
 ALTER TABLE hair_info
     ADD CONSTRAINT FK_hair_info_customer_no_custo FOREIGN KEY (customer_no)
         REFERENCES customer (customer_no)
+        ON DELETE CASCADE
 /
 
 
@@ -340,7 +341,7 @@ CREATE TABLE review
     review_no         NUMBER           NOT NULL, 
     shop_no           NUMBER           NOT NULL, 
     designer_no       NUMBER           NOT NULL, 
-    customer_no       NUMBER           NOT NULL, 
+    customer_no       NUMBER           , 
     style_no          NUMBER           NOT NULL, 
     review_content    VARCHAR2(200)    NOT NULL, 
     review_rate       NUMBER           NOT NULL, 
@@ -417,7 +418,7 @@ ALTER TABLE review
 
 ALTER TABLE review
     ADD CONSTRAINT FK_review_customer_no_customer FOREIGN KEY (customer_no)
-        REFERENCES customer (customer_no)
+        REFERENCES customer (customer_no) ON DELETE SET NULL
 /
 
 ALTER TABLE review
@@ -430,7 +431,7 @@ ALTER TABLE review
 CREATE TABLE reserve
 (
     reserve_no               NUMBER           NOT NULL, 
-    customer_no              NUMBER           NOT NULL, 
+    customer_no              NUMBER           , 
     designer_no              NUMBER           NOT NULL, 
     shop_no                  NUMBER           NOT NULL, 
     reserve_date             DATE             NOT NULL, 
@@ -495,7 +496,7 @@ COMMENT ON COLUMN reserve.reserve_designer_memo IS '디자이너 손님에 대한 메모'
 
 ALTER TABLE reserve
     ADD CONSTRAINT FK_reserve_customer_no_custome FOREIGN KEY (customer_no)
-        REFERENCES customer (customer_no)
+        REFERENCES customer (customer_no) ON DELETE CASCADE
 /
 
 ALTER TABLE reserve
@@ -670,7 +671,7 @@ COMMENT ON COLUMN likes.like_type_no IS '헤어샵번호 or 시술번호'
 
 ALTER TABLE likes
     ADD CONSTRAINT FK_likes_customer_no_customer_ FOREIGN KEY (customer_no)
-        REFERENCES customer (customer_no)
+        REFERENCES customer (customer_no) ON DELETE CASCADE
 /
 
 
