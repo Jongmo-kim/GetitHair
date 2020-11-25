@@ -49,6 +49,8 @@ public class SearchCustomerServlet extends HttpServlet {
 
 		// 값 전달
 		request.setAttribute("list", list);
+		request.setAttribute("type", type);
+		request.setAttribute("keyword", keyword);
 		// 메인 관리페이지로 이동
 		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminCustomer.jsp").forward(request, response);
 	}

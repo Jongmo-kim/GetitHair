@@ -195,6 +195,24 @@ public class ReviewDao {
 		}
 		return result;
 	}
+	public int deleteReviewByReviewNo(Connection conn, int reviewNo) {
+		PreparedStatement pstmt = null;
+		String qryUpdate = "delete from review where review_no = ?";
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(qryUpdate);
+			pstmt.setInt(1, reviewNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 
 	
 }
