@@ -4,6 +4,7 @@
 ###Project 관련###
 Servers/
 build/
+GetitHairProject/src/common/JDBCTemplate.java
 ### Eclipse ###
 .metadata
 bin/
@@ -17,7 +18,6 @@ local.properties
 .loadpath
 .recommenders
 
-JDBCTemplate.java
 # JDT-specific (Eclipse Java Development Tools)     
 .classpath
 
