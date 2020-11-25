@@ -99,7 +99,7 @@ public class ReserveDao {
 		Hairshop hairshop = new HairshopService().selectOneHairshop(no);
 		if(hairshop == null) {
 			hairshop = new Hairshop();
-			hairshop.setHairshopNo(-1);
+			hairshop.setShopNo(-1);
 		}
 		return hairshop;
 	}
