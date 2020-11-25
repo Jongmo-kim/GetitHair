@@ -35,8 +35,8 @@ public class SelectAllReserveListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
 		ArrayList<Reserve> list = new ReserveService().selectAllByCust(customerNo);
-		System.out.println(list.size());
-		RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllReserveListFrm.jsp");	
+		RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllReserveListFrm.jsp");
+		request.setAttribute("list", list);
 		rd.forward(request, response);
 	}
 
