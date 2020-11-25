@@ -23,13 +23,13 @@ public class HairinfoDao {
 			if(rset.next()) {
 				loginHairinfo = new Hairinfo();
 				loginHairinfo.setCustomerNo(rset.getInt("customer_no"));
-				loginHairinfo.setMyhairBold(rset.getString("myhair_bold"));
-				loginHairinfo.setMyhairCurly(rset.getString("myhair_bold"));
-				loginHairinfo.setMyhairOld(rset.getString("myhair_old"));
-				loginHairinfo.setMyhairRich(rset.getString("myhair_rich"));
 				loginHairinfo.setMyhairScalp(rset.getString("myhair_scalp"));
-				loginHairinfo.setMyhairStatus(rset.getString("myhair_status"));
+				loginHairinfo.setMyhairCurly(rset.getString("myhair_curly"));
+				loginHairinfo.setMyhairRich(rset.getString("myhair_rich"));
+				loginHairinfo.setMyhairBold(rset.getString("myhair_bold"));
 				loginHairinfo.setMyhairVol(rset.getString("myhair_vol"));
+				loginHairinfo.setMyhairStatus(rset.getString("myhair_status"));
+				loginHairinfo.setMyhairOld(rset.getString("myhair_old"));				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

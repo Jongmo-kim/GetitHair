@@ -1,6 +1,7 @@
-package hairinfo.controller;
+package reserve.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.HairinfoTemplate;
-import hairinfo.model.service.HairinfoService;
-import hairinfo.model.vo.Hairinfo;
+import reserve.model.service.ReserveService;
+import reserve.model.vo.Reserve;
 
 /**
- * Servlet implementation class UpdateHairinfoServlet
+ * Servlet implementation class SelectAllReserveListServlet
  */
-@WebServlet(name = "UpdateHairinfo", urlPatterns = { "/updateHairinfo" })
-public class UpdateHairinfoServlet extends HttpServlet {
+@WebServlet(name = "SelectAllReserveList", urlPatterns = { "/selectAllReserveList" })
+public class SelectAllReserveListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateHairinfoServlet() {
+    public SelectAllReserveListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +33,21 @@ public class UpdateHairinfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1.인코딩
-		//2.view에서넘어온값 저장
-		Hairinfo hairinfo = HairinfoTemplate.setHairinfo(request);
+		//2.view에서 넘어온값저장
+		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
 		//3.비지니스로직처리
-		int result = new HairinfoService().updateHairinfo(hairinfo);
+		ArrayList<Reserve> list = new ReserveService().selectAllReserve(customerNo);
 		//4.결과처리
-		if(result > 0 ) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/updateHairinfoFrm.jsp");
-			request.setAttribute("hairinfo", hairinfo);
-			rd.forward(request, response);
+		if(list !=null) {
+			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllReserveListFrm.jsp");	
+			rd.forward(request, response);	
 		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			request.setAttribute("msg", "회원수정에 실패했습니다.");
-			request.setAttribute("loc", "/WEB-INF/views/customer/updateHairinfoFrm.jsp");
-			rd.forward(request, response);
+			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+			request.setAttribute("msg", "예약리스트를 조회 할 수 없습니다.");
+			request.setAttribute("loc", "/");
+			rd.forward(request, response);	
 		}		
+		
 	}
 
 	/**
