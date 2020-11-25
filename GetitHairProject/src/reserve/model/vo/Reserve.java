@@ -3,7 +3,7 @@ package reserve.model.vo;
 import java.sql.Date;
 
 import customer.model.vo.Customer;
-import designer.medel.vo.Designer;
+import designer.model.vo.Designer;
 import hairshop.model.vo.Hairshop;
 
 public class Reserve {

@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import designer.model.service.DesignerService;
+import designer.model.vo.Designer;
+
 /**
  * Servlet implementation class MypageDesignerServlet
  */
@@ -28,7 +31,7 @@ public class MypageDesignerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypageDesigner/mypageDesigner.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/designer/mypageDesigner.jsp");
 		rd.forward(request, response);
 	}
 

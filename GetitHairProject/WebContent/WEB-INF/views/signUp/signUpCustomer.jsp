@@ -10,7 +10,7 @@
 
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
-	 <link rel="stylesheet" href="/css/signUp/signUpCustomer.css">
+	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css">
 	<script type="text/javascript" src="/js/signUp/signUpCustomer.js"></script>
 	<form action="/signUpCustomer" method="post">
 	    <div class="container">

@@ -1,5 +1,4 @@
 package hairinfo.controller;
-
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -43,7 +42,7 @@ public class InsertHairinfoServlet extends HttpServlet {
 			 rd.forward(request, response);
 			 return;
 		}
-		Hairinfo hairinfo =  HairinfoTemplate.setCust(request);		
+		Hairinfo hairinfo =  HairinfoTemplate.setHairinfo(request);		
 		//3.비지니스로직
 		int result = new HairinfoService().insertHairinfo(hairinfo);
 		//4.결과처리

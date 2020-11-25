@@ -704,6 +704,25 @@ END;
 
 --DROP SEQUENCE admin_SEQ;
 /
+CREATE TABLE REVIEW_COMMENT(
+    REVIEW_COMMENT_NO    NUMBER PRIMARY KEY,    -- 답글 식별번호
+    REVIEW_COMMENT_WRITER VARCHAR2(20),         -- 답글 작성자
+    REVIEW_COMMENT_CONTENT VARCHAR2(1000),      -- 답글 내용
+    REVIEW_REF NUMBER,                          -- 어떤 리뷰의 답글인지 기록하는 값
+    REVIEW_COMMENT_DATE VARCHAR2(10),
+    CONSTRAINT FK_REVIEW_COMMENT_WRITER FOREIGN KEY (REVIEW_COMMENT_WRITER) REFERENCES DESIGNER(DESIGNER_ID) ON DELETE SET NULL,
+    CONSTRAINT FK_REVIEW_REF FOREIGN KEY (REVIEW_REF) REFERENCES REVIEW(REVIEW_NO) ON DELETE CASCADE
+);
 
-
+CREATE SEQUENCE REVIEW_COMMENT_SEQ;
+--김종모가함
+create or replace trigger likes_tri
+    AFTER INSERT ON likes
+    for each row
+    begin
+        update HAIRSHOP set  shop_likes = shop_likes +1 where shop_no = :NEW.like_type_no;
+        update review set  review_likes = review_likes +1  where review_no = :NEW.like_type_no;
+        update style set style_likes = style_likes + 1 where style_no = :NEW.like_type_no;
+    end;
+    /
 commit;

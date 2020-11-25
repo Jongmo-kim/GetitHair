@@ -104,7 +104,7 @@ public class CustomerDao {
 				cust.setCustomerNo(rset.getInt("customer_no"));
 				cust.setCustomerPhone(rset.getString("customer_phone"));
 				cust.setCustomerPw(rset.getString("customer_pw"));
-				cust.setCustomerBirthdate(rset.getString("customer_bithdate"));
+				cust.setCustomerBirthdate(rset.getString("customer_birthdate"));
 				cust.setCustomerEnrolldate(rset.getString("customer_enrolldate"));
 				list.add(cust);				
 			}
@@ -180,7 +180,6 @@ public class CustomerDao {
 			pstmt.setString(10, customer.getCustomerBirthdate());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(pstmt);
@@ -189,5 +188,38 @@ public class CustomerDao {
 	}
 
 
-
+	public Customer selectOneCustomer(Connection conn, String customerId, String customerPw) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Customer loginCustomer = null;
+		String query = "select * from customer where customer_id=? and customer_pw=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, customerId);
+			pstmt.setString(2, customerPw);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				loginCustomer = new Customer();
+				loginCustomer.setAddrDetail(rset.getString("addr_detail"));
+				loginCustomer.setAddrPostcode(rset.getString("addr_postcode"));
+				loginCustomer.setCustomerAddr(rset.getString("customer_addr"));
+				loginCustomer.setCustomerEmail(rset.getString("customer_email"));
+				loginCustomer.setCustomerGen(rset.getString("customer_gen"));
+				loginCustomer.setCustomerId(rset.getString("customer_id"));
+				loginCustomer.setCustomerName(rset.getString("customer_name"));
+				loginCustomer.setCustomerNo(rset.getInt("customer_no"));
+				loginCustomer.setCustomerPhone(rset.getString("customer_phone"));
+				loginCustomer.setCustomerPw(rset.getString("customer_pw"));
+				loginCustomer.setCustomerBirthdate(rset.getString("customer_birthdate"));
+				loginCustomer.setCustomerEnrolldate(rset.getString("customer_enrolldate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}		
+		return loginCustomer;
+	}
 }

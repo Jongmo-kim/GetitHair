@@ -1,10 +1,14 @@
 package review.model.vo;
 
+import customer.model.vo.Customer;
+import designer.medel.vo.Designer;
+import hairshop.model.vo.Hairshop;
+
 public class Review {
 	private int reviewNo;
-	private int shopNo;
-	private int designerNo;
-	private int customerNo;
+	private Hairshop shop;
+	private Designer designer;
+	private Customer customer;
 	private int styleNo;
 	private String reviewContent;
 	private int reviewRate;
@@ -16,13 +20,13 @@ public class Review {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Review(int reviewNo, int shopNo, int designerNo, int customerNo, int styleNo, String reviewContent,
+	public Review(int reviewNo, Hairshop shop, Designer designer, Customer customer, int styleNo, String reviewContent,
 			int reviewRate, int reviewLikes, String reviewDate, String reviewImg) {
 		super();
 		this.reviewNo = reviewNo;
-		this.shopNo = shopNo;
-		this.designerNo = designerNo;
-		this.customerNo = customerNo;
+		this.shop = shop;
+		this.designer = designer;
+		this.customer = customer;
 		this.styleNo = styleNo;
 		this.reviewContent = reviewContent;
 		this.reviewRate = reviewRate;
@@ -39,28 +43,28 @@ public class Review {
 		this.reviewNo = reviewNo;
 	}
 
-	public int getShopNo() {
-		return shopNo;
+	public Hairshop getShop() {
+		return shop;
 	}
 
-	public void setShopNo(int shopNo) {
-		this.shopNo = shopNo;
+	public void setShop(Hairshop shop) {
+		this.shop = shop;
 	}
 
-	public int getDesignerNo() {
-		return designerNo;
+	public Designer getDesigner() {
+		return designer;
 	}
 
-	public void setDesignerNo(int designerNo) {
-		this.designerNo = designerNo;
+	public void setDesigner(Designer designer) {
+		this.designer = designer;
 	}
 
-	public int getCustomerNo() {
-		return customerNo;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerNo(int customerNo) {
-		this.customerNo = customerNo;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public int getStyleNo() {
@@ -110,5 +114,4 @@ public class Review {
 	public void setReviewImg(String reviewImg) {
 		this.reviewImg = reviewImg;
 	}
-	
 }

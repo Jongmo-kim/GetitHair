@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import customer.model.dao.CustomerDao;
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
-import designer.medel.vo.Designer;
+import designer.model.vo.Designer;
 import designer.model.service.DesignerService;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
@@ -115,9 +116,88 @@ public class ReserveDao {
 		}
 		return result;
 	}
-	
-	
 
-	
+	public ArrayList<Reserve> selectAll(Connection conn) {
+		ArrayList<Reserve> list = new ArrayList<Reserve>();
+		String sql = "select * from reserve";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Reserve r  = getReserveFromRset(rset);
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+	public ArrayList<Reserve> selectAllByCust(Connection conn,int CustomerNo) {
+		ArrayList<Reserve> list = new ArrayList<Reserve>();
+		String sql = "select * from reserve where customer_no = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, CustomerNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Reserve r  = getReserveFromRset(rset);
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+	public ArrayList<Reserve> selectAllByDesigner(Connection conn,int DesignerNo) {
+		ArrayList<Reserve> list = new ArrayList<Reserve>();
+		String sql = "select * from reserve where designer_no = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, DesignerNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Reserve r  = getReserveFromRset(rset);
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 
+	public int updateReserve(Connection conn, Reserve reserve) {
+		int result = 0;
+		String sql = "update reserve set reserve_status = ?, reserve_cust_req = ? "
+				+ ", reserve_designer_req = ?, reserve_designer_memo = ? where reserve_no = ?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, reserve.getReserveStatus());
+			pstmt.setString(2, reserve.getReserveCustReq());
+			pstmt.setString(3, reserve.getReserveDesignerReq());
+			pstmt.setString(4, reserve.getReserveDesignerMemo());
+			pstmt.setInt(5, reserve.getReserveNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }

@@ -81,6 +81,7 @@
 		    <div class="swiper-button-next"></div>
 		    <div class="swiper-button-prev"></div>
 		</div>
+		<%-- <form action="/search" method="get" id="search"> 요거 삭제함 --%>
 		<form action="/hairshopSearch" method="get" id="search">
 			<input type="search" name="search">
 			<button type="submit">검색</button>

@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class JDBCTemplate {
 	//데이터베이스 코드 중 중복부분 처리
-	//1. Driver등록, Connection객체 생성	
+	//1. Driver등록, Connection객체 생성1	
 	public static Connection getConnection() {
 		Connection conn = null;
 		try {

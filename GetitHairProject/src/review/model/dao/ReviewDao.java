@@ -7,16 +7,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
+import customer.model.service.CustomerService;
+import designer.medel.vo.Designer;
+import designer.model.service.DesignerService;
+import hairshop.model.service.HairshopService;
 import review.model.vo.Review;
 
 public class ReviewDao {
 	private Review getSettedReviewProperties(ResultSet rs) {
 		Review rv = new Review();
 		try {
+			Designer d = new Designer();
 			rv.setReviewNo(rs.getInt("review_no"));
-			rv.setShopNo(rs.getInt("shop_no"));
-			rv.setDesignerNo(rs.getInt("designer_no"));
-			rv.setCustomerNo(rs.getInt("customer_no"));
+			rv.setShop(new HairshopService().selectShop(rs.getInt("shop_no")));
+//			rv.setDesigner(new DesignerService().selectOneDesigner(rs.getInt("designer_no")));
+			d.setDesignerNo(rs.getInt("designer_no"));
+			rv.setDesigner(d);
+			rv.setCustomer(new CustomerService().selectOneCustomer(rs.getInt("customer_no")));
 			rv.setStyleNo(rs.getInt("style_no"));
 			rv.setReviewContent(rs.getString("review_content"));
 			rv.setReviewRate(rs.getInt("review_rate"));
@@ -148,6 +155,70 @@ public class ReviewDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return list;
+	}
+	public int insertReview(Connection conn, Review rv) {
+		PreparedStatement pstmt = null;
+		String qryInsert = "insert into review values(default,?,?,?,?,?,?,?,?,?)";
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(qryInsert);
+			pstmt.setInt(1, rv.getShop().getShopNo());
+			pstmt.setInt(2, rv.getDesigner().getDesignerNo());
+			pstmt.setInt(3, rv.getCustomer().getCustomerNo());
+			pstmt.setInt(4, rv.getStyleNo());
+			pstmt.setString(5, rv.getReviewContent());
+			pstmt.setInt(6, rv.getReviewRate());
+			pstmt.setInt(7, rv.getReviewLikes());
+			pstmt.setString(8, rv.getReviewDate());
+			pstmt.setString(9, rv.getReviewImg());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	public int updateReview(Connection conn, Review rv) {
+		PreparedStatement pstmt = null;
+		String qryUpdate = "update review set review_content = ?, review_rate = ? where review_no = ?";
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(qryUpdate);
+			pstmt.setString(1, rv.getReviewContent());
+			pstmt.setInt(2, rv.getReviewRate());
+			pstmt.setInt(3, rv.getReviewNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	public int deleteReviewByReviewNo(Connection conn, int reviewNo) {
+		PreparedStatement pstmt = null;
+		String qryUpdate = "delete from review where review_no = ?";
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(qryUpdate);
+			pstmt.setInt(1, reviewNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 	}
 
 	
