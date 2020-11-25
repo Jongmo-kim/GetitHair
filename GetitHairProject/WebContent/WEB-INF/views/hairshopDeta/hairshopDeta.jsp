@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-    	Hairshop hr = (Hairshop)request.getAttribute("hs");
+    	Hairshop hs = (Hairshop)request.getAttribute("hs");
     %>
 <!DOCTYPE html>
 <html>
@@ -32,6 +32,35 @@
         display: block;
     }
     
+    .tab{
+    	width: 100px;
+    	height: 20px;
+    	line-height: 20px;
+    	float: left;
+    	display: block;
+    	color: #8C2E40;
+    	cursor: pointer;
+    }
+    .tab>a{
+    	text-decoration: none;
+    }
+    .designerPt{
+    	padding-right: 10px;
+    	display: flex;
+    	justify-content: space-between;
+    	flex-direction : row;
+    	padding-top: 20px;
+    }
+    .dis-no{
+    	display: none;
+    }
+    .dis-on{
+    	display: block;
+    }
+    .dt{
+    	display: none;
+    }
+    
 </style>
 
 
@@ -39,29 +68,87 @@
 <body>
 	<!-- 헤더 -->
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<br>
 	<div class="slideImg">
         <!-- Swiper -->
-        <div class="swiper-container" style="width: 1000px; height: 700px;">
+        <div class="swiper-container" style="width: 800px; height: 500px;">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="/img/hairshop/hair1.png" style="width: 1000px; height: 700px;"></div>
-                <div class="swiper-slide"><img src="/img/hairshop/hair2.png" style="width: 1000px; height: 700px;"></div>
-                <div class="swiper-slide"><img src="/img/hairshop/hair3.png" style="width: 1000px; height: 700px;"></div>
+                <div class="swiper-slide"><img src="/img/hairshop/hair1.png" style="width: 800px; height: 500px;"></div>
+                <div class="swiper-slide"><img src="/img/hairshop/hair2.png" style="width: 800px; height: 500px;"></div>
+                <div class="swiper-slide"><img src="/img/hairshop/hair3.png" style="width: 800px; height: 500px;"></div>
             </div>
             <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
         </div>
     </div>
     
-    <form action="reserVation">
-    <div class="datePage" style="width: 1000px; height: 1000px;">
+    <div class="datePage" style="width: 800px; height: 500px;">
+    <br>
+    <div class="menu">
+        <span><a class="tab">소개</a></span>
+        <span><a class="tab">디자이너</a></span>
+        <span><a class="tab">가격</a></span>
+        <span><a class="tab">리뷰</a></span>
+    </div>
         <br>
         <hr>
-        <h3 style="font-weight: bold">우당탕탕헤어샵</h3>   <!-- 값 들어가야하는부분   -->
-        <p style="font-size: 14px"><span class="material-icons" style="font-size: 14px">calendar_today</span> 영업시간<span> : 시간</span></p>
-        <h4 style="font-weight: bold">디자이너</h4>
-        <button id="reserVation" name="reserVation">예약하기</button>
+    <div class="detail">
+   	<div class="dt" style="width: 100%;"> 
+   	<div>
+        <h3 style="font-weight: bold; margin-bottom: 0;"><%=hs.getShopName() %> <label style="font-size: 16px;"><%=hs.getShopLikes() %><span class="material-icons" style="font-size: 14px;" id="shopLike">favorite_border</span></label></h3>
+        <p style="font-size: 15px; font-weight: 100;">평점 : <%=hs.getShopRate() %>점</p>
+        <br>
+        <h4 style="font-weight: bold">장소</h4>
+        <p style="font-size: 14px"><%=hs.getShopAddr() %></p>
+        <p style="font-weight: bold"><span class="material-icons" style="font-size: 14px">calendar_today</span> 영업시간</p>
+        <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
+        <h4 style="font-weight: bold">전화번호</h4>
+        <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
+   	</div>
     </div>
-    </form>
+    	
+    <div class="dt">
+    	<div class="designerPt">
+    		<a href="/reserVation"><img src="/img/hairshop/designerPhoto.png" style="width: 200px; height :200px; border-radius: 200px; overflow: hidden;"></a>
+    		
+    	</div>
+    	<div class="designerPt">
+    		<a href="/reserVation"><img src="/img/hairshop/designerPhoto.png" style="width: 200px; height :200px; border-radius: 200px; overflow: hidden;"></a>
+    	</div>
+    	<div class="designerPt">
+    		<a href="/reserVation"><img src="/img/hairshop/designerPhoto.png" style="width: 200px; height :200px; border-radius: 200px; overflow: hidden;"></a>
+    	</div>
+    	<div class="designerPt">
+    		<a href="/reserVation"><img src="/img/hairshop/designerPhoto.png" style="width: 200px; height :200px; border-radius: 200px; overflow: hidden;"></a>
+    	</div>
+    </div>
+    
+    <div class="dt">
+    	<h4>커트</h4>
+    	<br>
+    	<p style="font-size: 14px">남성 커트 : 15,000</p>
+    	<p style="font-size: 14px">여성 커트 : 15,000</p>
+    	<hr>
+    	<h4>펌</h4>
+    	<br>
+    	<p style="font-size: 14px">남성 펌 : 15,000</p>
+    	<p style="font-size: 14px">여성 펌 : 15,000</p>
+    	<hr>
+    </div>
+    <div class="dt">
+    	<h4>리뷰	</h4>
+    	<br>
+    	<p style="font-size: 14px">남성 커트 : 15,000</p>
+    	<p style="font-size: 14px">여성 커트 : 15,000</p>
+    	<hr>
+    	<h4>펌</h4>
+    	<br>
+    	<p style="font-size: 14px">남성 펌 : 15,000</p>
+    	<p style="font-size: 14px">여성 펌 : 15,000</p>
+    	<hr>
+    </div>
+    </div>
+    </div>
     
 	<!-- Swiper JS -->
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -75,6 +162,20 @@
       },
     });
 	
+		$(function(){
+			$(".dt").eq(0).css("display",'block');
+			$(".tab").click(function(){
+			var tab = $(".tab").index(this);
+				$(".dt").css("display",'none');
+				$(".dt").eq(tab).css("display","block");
+			});
+		});
+		
+		$(function(){
+			$("#shopLike").click(function(){
+				
+			});
+		});
 		
 	</script>
 </body>

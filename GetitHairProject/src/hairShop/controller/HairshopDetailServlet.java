@@ -1,7 +1,6 @@
-package style.controller;
+package hairshop.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,17 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hairshop.model.service.HairshopService;
+import hairshop.model.vo.Hairshop;
+
+
 /**
- * Servlet implementation class HairshopServlet
+ * Servlet implementation class HairshopDetailServlet
  */
-@WebServlet(name = "Hairshop", urlPatterns = { "/hairshop" })
-public class HairshopServlet extends HttpServlet {
+@WebServlet(name = "HairshopDetail", urlPatterns = { "/hairshopDetail" })
+public class HairshopDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HairshopServlet() {
+    public HairshopDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +33,16 @@ public class HairshopServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		ArrayList<Hairshop> list = new HairService().selectHairshopList();
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/main/hairshop.jsp");
-		request.setAttribute("list", list);
-		rd.forward(request, response);
+		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
+		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);
+		
+		if(hs != null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");
+			request.setAttribute("hs", hs);
+			rd.forward(request, response);
+		}else {
+			response.sendRedirect("/hairshop");	
+		}
 	}
 
 	/**
