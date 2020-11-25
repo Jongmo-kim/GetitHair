@@ -180,7 +180,6 @@ public class CustomerDao {
 			pstmt.setString(10, customer.getCustomerBirthdate());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(pstmt);
@@ -216,7 +215,6 @@ public class CustomerDao {
 				loginCustomer.setCustomerEnrolldate(rset.getString("customer_enrolldate"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rset);
