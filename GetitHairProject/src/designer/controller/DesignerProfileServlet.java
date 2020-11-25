@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import designer.model.service.DesignerService;
+import designer.model.vo.Designer;
+
 /**
  * Servlet implementation class DesignerProfileServlet
  */
@@ -28,10 +31,18 @@ public class DesignerProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//1. 인코딩
+		request.setCharacterEncoding("utf-8");
+		//2. view에서 넘어온 데이터 저장
+		int designerNo = Integer.parseInt(request.getParameter("designerNo"));
+		//3. 비지니스 로직 
+		Designer designer = new DesignerService().selectOneMember(designerNo);
+		//4. 결과처리
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/mypage/designer/designerProfile.jsp");
+		request.setAttribute("designer", designer);
 		rd.forward(request, response);
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -9,6 +9,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<h1>예약관리</h1>
+	<p>api추가예정</p>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

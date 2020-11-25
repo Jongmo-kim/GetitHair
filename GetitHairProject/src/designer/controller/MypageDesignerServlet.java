@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import designer.model.service.DesignerService;
+import designer.model.vo.Designer;
+
 /**
  * Servlet implementation class MypageDesignerServlet
  */

@@ -9,7 +9,7 @@ import designer.model.vo.Designer;
 public class DesignerService {
 	public Designer selectOneMember(int designerNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		Designer result = new DesignerDao().selectOneMember(conn, designerNo);
+		Designer result = new DesignerDao().selectOneDesigner(conn, designerNo);
 		JDBCTemplate.close(conn);
 		return result;
 	}

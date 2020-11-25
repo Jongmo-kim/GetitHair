@@ -20,7 +20,7 @@
 		<div>
 			<h3>리뷰제목</h3>
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">관리<span class="caret"></span></a>
-			<ul class="dropdown-menu" role="menu">
+			<ul class="dropdown-omenu" role="menu">
 				<li><a href="javascript:void(0)" class="recShow">답글달기</a></li>
 				<li><a href="#">신고하기</a></li>
 			</ul>
@@ -32,9 +32,23 @@
 		<div>
 			<h4>답글작성</h4>
 		</div>
+			<div class="inputComment">
+				<form action="/insertReviewComment" method="post">
+					<ul>
+						<li>
+							<input type="hidden" name="reviewCommentWriter" value="<%=d.getDesignerId() %>">
+							<input type="hidden" name="reviewRef" value="<%=r.getReviewNo() %>">
+							<textarea name="reviewCommentContent"></textarea>
+						</li>
+						<li>
+							<button type="submit">등록</button>
+						</li>
+					</ul>
+				</form>
+			</div>
+			
 		<div class="commentList">
-				<%for(reviewComment rc : list) {	// 댓글 출력 로직%>
-					<%if(rc.getNoticeCommentLevel() == 1) {%>
+				<%for(ReviewComment rc : list) {	// 댓글 출력 로직%>
 						<ul>
 							<li>
 								<p><%=rc.getReviewCommentWriter() %></p>
@@ -42,7 +56,7 @@
 							</li>
 							<li>
 								<p><%=rc.getReviewCommentContentBr() %></p>
-								<textarea name="reviewCommentContent" class="form-control changeComment" style="display:none;"><%=rc.getReviewCommentContent() %></textarea>
+								<textarea name="reviewCommentContent" class="changeComment" style="display:none;"><%=rc.getReviewCommentContent() %></textarea>
 								
 								<p class="linkBox">
 									<a href="javascript:void(0)" onclick="modifyComment(this,'<%=rc.getReviewCommentNo()%>','<%=r.getReviewNo()%>')">수정</a>
@@ -52,8 +66,6 @@
 								</p>
 							</li>
 						</ul>
-						
-					<%} // level==1 if문 종료지점%>
 					
 				<%} // 댓글 for문 종료 지점%>
 			</div>
@@ -70,42 +82,42 @@
 		$(".recShow").eq(idx).show();
 	});
 	
-	function modifyComment(obj,commentNo,noticeNo){
+	function modifyComment(obj,commentNo,reviewNo){
 		$(obj).parent().prev().show();		// textarea를 보여주는 코드
 		$(obj).parent().prev().prev().hide();	// p태그 숨기는 코드
 		// 수정버튼 -> 수정완료
 		$(obj).html('수정완료');
-		$(obj).attr('onclick','modifyComplete(this,"'+commentNo+'","'+noticeNo+'")');
+		$(obj).attr('onclick','modifyComplete(this,"'+commentNo+'","'+reviewNo+'")');
 		// 삭제버튼 -> 수정취소
 		$(obj).next().html('취소');
-		$(obj).next().attr('onclick','modifyCancel(this,"'+commentNo+'","'+noticeNo+'")');
+		$(obj).next().attr('onclick','modifyCancel(this,"'+commentNo+'","'+reviewNo+'")');
 		$(obj).next().next().hide();	// 답글 버튼 숨김
 		
 	}
-	function modifyCancel(obj,commentNo,noticeNo){
+	function modifyCancel(obj,commentNo,reviewNo){
 		$(obj).parent().prev().hide();		// textarea를 숨기는 코드
 		$(obj).parent().prev().prev().show();	// p태그 보여주는 코드
 		// 수정버튼 -> 수정완료
 		$(obj).prev().html('수정');
-		$(obj).prev().attr('onclick','modifyComment(this,"'+commentNo+'","'+noticeNo+'")')
+		$(obj).prev().attr('onclick','modifyComment(this,"'+commentNo+'","'+reviewNo+'")')
 		// 취소 -> 삭제
 		$(obj).html('삭제');
-		$(obj).attr('onclick','deleteComment(this,"'+commentNo+'","'+noticeNo+'")');
+		$(obj).attr('onclick','deleteComment(this,"'+commentNo+'","'+reviewNo+'")');
 		$(obj).next().show();	// 답글 버튼 보임
 	}
-	function modifyComplete(obj,commentNo,noticeNo){
-		var form = $("<form action='/noticeCommentUpdate' method='post'></form>");
-		form.append($("<input type='text' name='noticeCommentNo' value='"+commentNo+"'>")); // append 자식으로 추가
-		form.append($("<input type='text' name='noticeNo' value='"+noticeNo+"'>"));
+	function modifyComplete(obj,commentNo,reviewNo){
+		var form = $("<form action='/reviewCommentUpdate' method='post'></form>");
+		form.append($("<input type='text' name='reviewCommentNo' value='"+commentNo+"'>")); // append 자식으로 추가
+		form.append($("<input type='text' name='reviewNo' value='"+reviewNo+"'>"));
 		form.append($(obj).parent().prev());
 		// ↑ 아직 자바스크립트로만 있어서, ↓ body태그에 추가해줌
 		$("body").append(form);
 		form.submit();
 	}
 	
-	function deleteComment(obj,commentNo,noticeNo){
+	function deleteComment(obj,commentNo,reviewNo){
 		if(confirm("댓글을 삭제하시겠습니까?")){
-			location.href="/noticeCommentDelete?noticeCommentNo="+commentNo+"&noticeNo="+noticeNo;
+			location.href="/reviewCommentDelete?reviewCommentNo="+commentNo+"&reviewNo="+reviewNo;
 		}
 	}
 	</script>

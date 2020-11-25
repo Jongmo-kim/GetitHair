@@ -2,11 +2,9 @@ package designer.model.vo;
 
 public class Designer {
 	private int designerNo;
-	private int shopNo;
-	private String shopName;
 	private String designerId;
 	private String designerPw;
-	private char designerGen;
+	private String designerGen;
 	private String designerName;
 	private String designerEmail;
 	private String designerPhone;
@@ -19,12 +17,11 @@ public class Designer {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Designer(int designerNo, int shopNo, String designerId, String designerPw, char designerGen,
+	public Designer(int designerNo, String designerId, String designerPw, String designerGen,
 			String designerName, String designerEmail, String designerPhone, int designerYear, String designerRank,
 			String designerIntro, String designerKeyword, String designerImg) {
 		super();
 		this.designerNo = designerNo;
-		this.shopNo = shopNo;
 		this.designerId = designerId;
 		this.designerPw = designerPw;
 		this.designerGen = designerGen;
@@ -43,18 +40,6 @@ public class Designer {
 	public void setDesignerNo(int designerNo) {
 		this.designerNo = designerNo;
 	}
-	public int getShopNo() {
-		return shopNo;
-	}
-	public String getShopName() {
-		return shopName;
-	}
-	public void setShopNo(int shopNo) {
-		this.shopNo = shopNo;
-	}
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-	}
 	public String getDesignerId() {
 		return designerId;
 	}
@@ -67,10 +52,10 @@ public class Designer {
 	public void setDesignerPw(String designerPw) {
 		this.designerPw = designerPw;
 	}
-	public char getDesignerGen() {
+	public String getDesignerGen() {
 		return designerGen;
 	}
-	public void setDesignerGen(char designerGen) {
+	public void setDesignerGen(String designerGen) {
 		this.designerGen = designerGen;
 	}
 	public String getDesignerName() {
