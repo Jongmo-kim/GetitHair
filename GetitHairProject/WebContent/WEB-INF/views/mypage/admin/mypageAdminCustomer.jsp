@@ -1,9 +1,14 @@
-<%@page import="admin.mypage.model.vo.AdminCustomer"%>
+<%@page import="customer.model.vo.Customer"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	ArrayList<AdminCustomer> list = (ArrayList<AdminCustomer>) request.getAttribute("list");
+	ArrayList<Customer> list = (ArrayList<Customer>) request.getAttribute("list");
+	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
+	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
+	
+	String sel1 = type == 1 ? "selected" : "";
+	String sel2 = type == 2 ? "selected" : "";
 %>
 <!DOCTYPE html>
 <html>
@@ -47,10 +52,10 @@
                 <form action="/searchCustomer" method="GET">
                     <div class="customer-search">
                         <select name="searchType">
-                            <option value="1">아이디</option>
-                            <option value="2">이름</option>
+                        	<option value="1" <%=sel1 %>>아이디</option>
+                            <option value="2" <%=sel2 %>>이름</option>
                         </select>
-                        <input type="text" name="keyword">
+                        <input type="text" name="keyword" value="<%=keyword%>">
                         <button>검색</button>
                     </div>
                 </form>
@@ -70,15 +75,16 @@
                             if(list != null){
                             %>
                             <%
-							for (AdminCustomer ac : list) {
+							for (Customer c : list) {
 						    %>
                             <tr>
-                                <th width="30"><input type="checkbox" name="chk"></th>
-                                <th><%=ac.getNo() %></th>
-                                <th><%=ac.getCustId() %></th>
-                                <th><%=ac.getCustGender() %></th>
-                                <th><%=ac.getCustName() %></th>
-                                <th><%=ac.getEnrollDate() %></th>
+                                <th width="30"><input type="checkbox" name="chk" value="<%=c.getCustomerId() %>"></th>
+                                <th><%=c.getCustomerNo() %></th>
+                                <input type="hidden" name="customerId" value="<%=c.getCustomerId() %>">
+                                <th><%=c.getCustomerId() %></th>
+                                <th><%=c.getCustomerGen() %></th>
+                                <th><%=c.getCustomerName() %></th>
+                                <th><%=c.getCustomerEnrolldate() %></th>
                                 <th>
                                     <button>탈퇴</button>
                                 </th>

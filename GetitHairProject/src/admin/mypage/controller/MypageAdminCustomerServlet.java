@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import admin.mypage.model.service.AdminService;
-import admin.mypage.model.vo.AdminCustomer;
+import customer.model.service.CustomerService;
+import customer.model.vo.Customer;
 
 /**
  * Servlet implementation class MypageAdminCustomerServlet
@@ -18,22 +19,23 @@ import admin.mypage.model.vo.AdminCustomer;
 @WebServlet("/mypageAdminCustomer")
 public class MypageAdminCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MypageAdminCustomerServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public MypageAdminCustomerServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		ArrayList<AdminCustomer> list = new AdminService().getCustomerList(1);
-		
+		ArrayList<Customer> list = new CustomerService().selectAllCusetomer();
 		// 값 전달
 		request.setAttribute("list", list);
 		// 메인 관리페이지로 이동
@@ -41,9 +43,11 @@ public class MypageAdminCustomerServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
