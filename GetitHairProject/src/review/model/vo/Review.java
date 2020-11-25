@@ -1,7 +1,7 @@
 package review.model.vo;
 
 import customer.model.vo.Customer;
-import designer.medel.vo.Designer;
+import designer.model.vo.Designer;
 import hairshop.model.vo.Hairshop;
 
 public class Review {

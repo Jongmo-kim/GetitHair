@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import customer.model.service.CustomerService;
-import designer.medel.vo.Designer;
+import designer.model.vo.Designer;
 import designer.model.service.DesignerService;
 import hairshop.model.service.HairshopService;
 import review.model.vo.Review;
@@ -20,9 +20,7 @@ public class ReviewDao {
 			Designer d = new Designer();
 			rv.setReviewNo(rs.getInt("review_no"));
 			rv.setShop(new HairshopService().selectShop(rs.getInt("shop_no")));
-//			rv.setDesigner(new DesignerService().selectOneDesigner(rs.getInt("designer_no")));
-			d.setDesignerNo(rs.getInt("designer_no"));
-			rv.setDesigner(d);
+			rv.setDesigner(new DesignerService().selectOneMember(rs.getInt("designer_no")));
 			rv.setCustomer(new CustomerService().selectOneCustomer(rs.getInt("customer_no")));
 			rv.setStyleNo(rs.getInt("style_no"));
 			rv.setReviewContent(rs.getString("review_content"));
