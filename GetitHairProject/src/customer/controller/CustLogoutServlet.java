@@ -10,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 
 /**
- * Servlet implementation class CustLoginServlet
+ * Servlet implementation class CustLogoutServlet
  */
-@WebServlet(name = "CustLogin", urlPatterns = { "/custLogin" })
-public class CustLoginServlet extends HttpServlet {
+@WebServlet(name = "CustLogout", urlPatterns = { "/custLogout" })
+public class CustLogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustLoginServlet() {
+    public CustLogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,22 +31,14 @@ public class CustLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String inputId = request.getParameter("customerId");
-		String inputPw = request.getParameter("customerPw");
-		Customer loginCust = new CustomerService().selectOneCustomer(inputId,inputPw);
+		HttpSession session = request.getSession();
+		session.invalidate();
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
-		
-		if(loginCust == null) {
-			request.setAttribute("loc", "/");
-			request.setAttribute("msg", "로그인 실패");		
-		} else {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginCustomer", loginCust);
-			request.setAttribute("loc", "/");
-			request.setAttribute("msg", "로그인 성공");		
-		}
+		request.setAttribute("loc", "/");
+		request.setAttribute("msg", "로그아웃 성공");
 		rd.forward(request, response);
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -1,5 +1,10 @@
+<%@page import="customer.model.vo.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%
+		HttpSession sessions = request.getSession();
+		Customer loginCustomer = (Customer)sessions.getAttribute("loginCustomer");
+	%>
 <!-- 글꼴 호출 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
@@ -23,9 +28,9 @@
 <script type="text/javascript" src="/js/signUp/signUpCustomer.js"></script>
 <header>
 	<h1>header입니다</h1>
-	
+<div class="container">	
+<%if(loginCustomer==null){ %>
 
-<div class="container">
 	<div class="modal fade" id="loginModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -53,7 +58,24 @@
 		</div>
 	</div>
 </div>
+  <%} else{ %>
   
+	<div class="modal fade" id="loginModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+        		<div class="modal-header">
+          			<button type="button" class="close" data-dismiss="modal">&times;</button>
+          			<h4 class="modal-title">손님 마이페이지</h4>
+        		</div>
+        	<form action="/custLogin" method="post">
+        		<div class="modal-body">
+          			<div class="btn btn-default"><a href="/custLogout">로그아웃</a></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+  <%} %>
 </div>
 	<div class="container">
 		<ul class="nav nav-pills" role="tablist">
