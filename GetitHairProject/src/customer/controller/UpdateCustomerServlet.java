@@ -38,13 +38,13 @@ public class UpdateCustomerServlet extends HttpServlet {
 		int result = new CustomerService().updateCustomer(customer);
 		//4.결과처리	
 		if(result > 0 ) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/updateCustomerFrm.jsp");
 			request.setAttribute("customer", customer);
 			rd.forward(request, response);
 		}else {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 			request.setAttribute("msg", "회원수정에 실패했습니다.");
-			request.setAttribute("loc", "/");
+			request.setAttribute("loc", "/WEB-INF/views/customer/updateCustomerFrm.jsp");
 			rd.forward(request, response);
 		}
 	}

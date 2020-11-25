@@ -15,6 +15,12 @@ public class CustomerService {
 		JDBCTemplate.close(conn);
 		return loginCustomer;
 	}
+	public Customer selectOneCustomer(String customerId,String customerPw) {
+		Connection conn = JDBCTemplate.getConnection();
+		Customer loginCustomer = new CustomerDao().selectOneCustomer(conn,customerId,customerPw);
+		JDBCTemplate.close(conn);
+		return loginCustomer;
+	}
 	public Customer selectOneCustomer(int customerNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		Customer loginCustomer = new CustomerDao().selectOneCustomer(conn,customerNo);

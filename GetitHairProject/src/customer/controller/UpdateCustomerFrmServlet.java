@@ -14,16 +14,16 @@ import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 
 /**
- * Servlet implementation class SignUpCustomerServlet
+ * Servlet implementation class UpdateCustomerFrmServlet
  */
-@WebServlet(name = "SignUpCustomer", urlPatterns = { "/signUpCustomer" })
-public class SignUpCustomerServlet extends HttpServlet {
+@WebServlet(name = "UpdateCustomerFrm", urlPatterns = { "/updateCustomerFrm" })
+public class UpdateCustomerFrmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignUpCustomerServlet() {
+    public UpdateCustomerFrmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +32,14 @@ public class SignUpCustomerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Customer cust = CustTemplate.setCust(request);
-		int result = new CustomerService().insertCustomer(cust);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
-		if(result == 0) {
-			request.setAttribute("msg", "회원가입 실패");
-			request.setAttribute("loc", "/");
-		} else {
-			request.setAttribute("msg", "회원가입 성공");
-			request.setAttribute("loc", "/");
-		}
+		//1.인코딩
+		//2.view
+		int customerNo = Integer.parseInt(request.getParameter("customerNo"));	
+		//3.비지니스
+		Customer customer = new CustomerService().selectOneCustomer(customerNo);
+		//4.결과		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/updateCustomerFrm.jsp");
+		request.setAttribute("customer", customer);		
 		rd.forward(request, response);
 	}
 

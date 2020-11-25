@@ -1,4 +1,4 @@
-package customer.controller;
+package hairinfo.controller;
 
 import java.io.IOException;
 
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.CustTemplate;
-import customer.model.service.CustomerService;
-import customer.model.vo.Customer;
+import common.DebugTemplate;
+import hairinfo.model.service.HairinfoService;
+import hairinfo.model.vo.Hairinfo;
 
 /**
- * Servlet implementation class SignUpCustomerServlet
+ * Servlet implementation class UpdateHairinfoFrmServlet
  */
-@WebServlet(name = "SignUpCustomer", urlPatterns = { "/signUpCustomer" })
-public class SignUpCustomerServlet extends HttpServlet {
+@WebServlet(name = "UpdateHairinfoFrm", urlPatterns = { "/updateHairinfoFrm" })
+public class UpdateHairinfoFrmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignUpCustomerServlet() {
+    public UpdateHairinfoFrmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +32,14 @@ public class SignUpCustomerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Customer cust = CustTemplate.setCust(request);
-		int result = new CustomerService().insertCustomer(cust);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
-		if(result == 0) {
-			request.setAttribute("msg", "회원가입 실패");
-			request.setAttribute("loc", "/");
-		} else {
-			request.setAttribute("msg", "회원가입 성공");
-			request.setAttribute("loc", "/");
-		}
+		//1.인코딩
+		//2.views
+		int customerNo = Integer.parseInt(request.getParameter("customerNo"));		
+		//3.비지니스로직
+		Hairinfo hairinfo = new HairinfoService().selectOneHairinfo(customerNo);		
+		//4.결과
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/updateHairinfoFrm.jsp");
+		request.setAttribute("hairinfo", hairinfo);
 		rd.forward(request, response);
 	}
 
