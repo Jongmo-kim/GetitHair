@@ -36,10 +36,11 @@ public class SelectAllReserveListServlet extends HttpServlet {
 		//2.view에서 넘어온값저장
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
 		//3.비지니스로직처리
-		ArrayList<Reserve> list = new ReserveService().selectAllReserve(customerNo);
+		ArrayList<Reserve> list = new ReserveService().selectAllByCust(customerNo);
 		//4.결과처리
 		if(list !=null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllReserveListFrm.jsp");	
+			request.setAttribute("list", list);
 			rd.forward(request, response);	
 		}else {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
