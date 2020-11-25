@@ -19,13 +19,45 @@
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
 <!-- //jQuery 호출 -->
 <link rel="stylesheet" href="/css/header/header.css">
+<link rel="stylesheet" href="/css/signUp/signUpCustomer.css">
+<script type="text/javascript" src="/js/signUp/signUpCustomer.js"></script>
 <header>
 	<h1>header입니다</h1>
 	
 
+<div class="container">
+	<div class="modal fade" id="loginModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+        		<div class="modal-header">
+          			<button type="button" class="close" data-dismiss="modal">&times;</button>
+          			<h4 class="modal-title">손님으로 로그인하기</h4>
+        		</div>
+        	<form action="/custLogin" method="post">
+        		<div class="modal-body">
+          			<p>로그인</p>
+	          			<div class="name inputBox">
+		            		<input type="text" class="form-textbox" name="customerId">
+	    	        		<span class="form-label">아이디</span>
+		    	   		</div>
+		       			<div class="name inputBox">
+		            		<input type="text" class="form-textbox" name="customerPw">
+		            		<span class="form-label">비밀번호</span>
+		       			</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default">제출</button>
+					<button type="reset" class="btn btn-default">초기화</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+  
+</div>
 	<div class="container">
 		<ul class="nav nav-pills" role="tablist">
-		
+			<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">로그인하기</a></li>
 			<li class="active"><a href="/">Home</a></li>
 			
 			<li class="dropdown">
