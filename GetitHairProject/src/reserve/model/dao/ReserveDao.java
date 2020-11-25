@@ -10,7 +10,7 @@ import common.JDBCTemplate;
 import customer.model.dao.CustomerDao;
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
-import designer.medel.vo.Designer;
+import designer.model.vo.Designer;
 import designer.model.service.DesignerService;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;

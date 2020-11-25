@@ -69,7 +69,7 @@
         		</div>
         	<form action="/custLogin" method="post">
         		<div class="modal-body">
-          			<div class="btn btn-default"><a href="/custLogout">로그아웃</a></div>
+          			<div class="btn btn-default"><a style="display:block; height:100%" href="/custLogout">로그아웃</a></div>
 				</div>
 			</form>
 		</div>
