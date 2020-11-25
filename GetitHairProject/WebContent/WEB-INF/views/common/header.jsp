@@ -79,7 +79,11 @@
 </div>
 	<div class="container">
 		<ul class="nav nav-pills" role="tablist">
+		<%if(loginCustomer==null){ %>
 			<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">로그인하기</a></li>
+		<%}else{  %>
+				<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">마이페이지</a></li>
+		<%} %>
 			<li class="active"><a href="/">Home</a></li>
 			
 			<li class="dropdown">

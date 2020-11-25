@@ -180,7 +180,6 @@ public class CustomerDao {
 			pstmt.setString(10, customer.getCustomerBirthdate());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(pstmt);
@@ -193,12 +192,12 @@ public class CustomerDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Customer loginCustomer = null;
-		String query = "select * from customer where customer_id=?,customer_pw=?";
+		String query = "select * from customer where customer_id=? and customer_pw=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, customerId);
-			pstmt.setString(1, customerPw);
+			pstmt.setString(2, customerPw);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				loginCustomer = new Customer();
@@ -216,7 +215,6 @@ public class CustomerDao {
 				loginCustomer.setCustomerEnrolldate(rset.getString("customer_enrolldate"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rset);

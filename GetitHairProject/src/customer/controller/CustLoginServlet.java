@@ -35,7 +35,7 @@ public class CustLoginServlet extends HttpServlet {
 		String inputId = request.getParameter("customerId");
 		String inputPw = request.getParameter("customerPw");
 		Customer loginCust = new CustomerService().selectOneCustomer(inputId,inputPw);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		
 		if(loginCust == null) {
 			request.setAttribute("loc", "/");

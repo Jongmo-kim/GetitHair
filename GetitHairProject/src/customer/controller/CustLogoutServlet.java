@@ -33,7 +33,7 @@ public class CustLogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		request.setAttribute("loc", "/");
 		request.setAttribute("msg", "로그아웃 성공");
 		rd.forward(request, response);
