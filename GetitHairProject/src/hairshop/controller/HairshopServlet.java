@@ -1,6 +1,7 @@
 package hairshop.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 
 /**
@@ -31,8 +33,9 @@ public class HairshopServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");
+		ArrayList<Hairshop> list = new HairshopService().selectHairshopList();
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshop.jsp");
+		request.setAttribute("list", list);
 		rd.forward(request, response);
 	}
 
