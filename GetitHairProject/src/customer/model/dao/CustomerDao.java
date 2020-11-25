@@ -104,7 +104,7 @@ public class CustomerDao {
 				cust.setCustomerNo(rset.getInt("customer_no"));
 				cust.setCustomerPhone(rset.getString("customer_phone"));
 				cust.setCustomerPw(rset.getString("customer_pw"));
-				cust.setCustomerBirthdate(rset.getString("customer_bithdate"));
+				cust.setCustomerBirthdate(rset.getString("customer_birthdate"));
 				cust.setCustomerEnrolldate(rset.getString("customer_enrolldate"));
 				list.add(cust);				
 			}

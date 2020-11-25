@@ -5,50 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import admin.mypage.model.vo.AdminCustomer;
 import common.JDBCTemplate;
+import customer.model.vo.Customer;
 
 public class AdminDao {
-	
-	public ArrayList<AdminCustomer> getCustomerList(Connection conn,int page){
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String qrySelect = "select customer_no,customer_id,customer_gen,customer_name,to_char(customer_enrolldate,'yyyy-mm-dd') from customer";
-		ArrayList<AdminCustomer> list = null;
-		
-		try {
-			pstmt = conn.prepareStatement(qrySelect);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				if(list == null)
-					list = new ArrayList<AdminCustomer>();
-				
-				AdminCustomer ac = new AdminCustomer();
-				ac.setNo(rs.getInt(1));
-				ac.setCustId(rs.getString(2));
-				ac.setCustGender(rs.getString(3));
-				ac.setCustName(rs.getString(4));
-				ac.setEnrollDate(rs.getString(5));
-				list.add(ac);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(pstmt);
-		}
-		return list;
-		
-	}
 
-	public ArrayList<AdminCustomer> getCustomerListById(Connection conn, String id) {
+	public ArrayList<Customer> getCustomerListById(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String qrySelect = "select customer_no,customer_id,customer_gen,customer_name,to_char(customer_enrolldate,'yyyy-mm-dd') from customer where customer_id = ?";
-		ArrayList<AdminCustomer> list = null;
+		String qrySelect = "select * from customer where customer_id = ?";
+		ArrayList<Customer> list = null;
 		
 		try {
 			pstmt = conn.prepareStatement(qrySelect);
@@ -57,15 +23,22 @@ public class AdminDao {
 			
 			while(rs.next()) {
 				if(list == null)
-					list = new ArrayList<AdminCustomer>();
+					list = new ArrayList<Customer>();
 				
-				AdminCustomer ac = new AdminCustomer();
-				ac.setNo(rs.getInt(1));
-				ac.setCustId(rs.getString(2));
-				ac.setCustGender(rs.getString(3));
-				ac.setCustName(rs.getString(4));
-				ac.setEnrollDate(rs.getString(5));
-				list.add(ac);
+				Customer cust = new Customer();
+				cust.setAddrDetail(rs.getString("addr_detail"));
+				cust.setAddrPostcode(rs.getString("addr_postcode"));
+				cust.setCustomerAddr(rs.getString("customer_addr"));
+				cust.setCustomerEmail(rs.getString("customer_email"));
+				cust.setCustomerGen(rs.getString("customer_gen"));
+				cust.setCustomerId(rs.getString("customer_id"));
+				cust.setCustomerName(rs.getString("customer_name"));
+				cust.setCustomerNo(rs.getInt("customer_no"));
+				cust.setCustomerPhone(rs.getString("customer_phone"));
+				cust.setCustomerPw(rs.getString("customer_pw"));
+				cust.setCustomerBirthdate(rs.getString("customer_birthdate"));
+				cust.setCustomerEnrolldate(rs.getString("customer_enrolldate"));
+				list.add(cust);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -77,11 +50,11 @@ public class AdminDao {
 		return list;
 	}
 
-	public ArrayList<AdminCustomer> getCustomerListByName(Connection conn, String keyword) {
+	public ArrayList<Customer> getCustomerListByName(Connection conn, String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String qrySelect = "select customer_no,customer_id,customer_gen,customer_name,to_char(customer_enrolldate,'yyyy-mm-dd') from customer where customer_name = ?";
-		ArrayList<AdminCustomer> list = null;
+		String qrySelect = "select * from customer where customer_name = ?";
+		ArrayList<Customer> list = null;
 		
 		try {
 			pstmt = conn.prepareStatement(qrySelect);
@@ -90,15 +63,22 @@ public class AdminDao {
 			
 			while(rs.next()) {
 				if(list == null)
-					list = new ArrayList<AdminCustomer>();
+					list = new ArrayList<Customer>();
 				
-				AdminCustomer ac = new AdminCustomer();
-				ac.setNo(rs.getInt(1));
-				ac.setCustId(rs.getString(2));
-				ac.setCustGender(rs.getString(3));
-				ac.setCustName(rs.getString(4));
-				ac.setEnrollDate(rs.getString(5));
-				list.add(ac);
+				Customer cust = new Customer();
+				cust.setAddrDetail(rs.getString("addr_detail"));
+				cust.setAddrPostcode(rs.getString("addr_postcode"));
+				cust.setCustomerAddr(rs.getString("customer_addr"));
+				cust.setCustomerEmail(rs.getString("customer_email"));
+				cust.setCustomerGen(rs.getString("customer_gen"));
+				cust.setCustomerId(rs.getString("customer_id"));
+				cust.setCustomerName(rs.getString("customer_name"));
+				cust.setCustomerNo(rs.getInt("customer_no"));
+				cust.setCustomerPhone(rs.getString("customer_phone"));
+				cust.setCustomerPw(rs.getString("customer_pw"));
+				cust.setCustomerBirthdate(rs.getString("customer_birthdate"));
+				cust.setCustomerEnrolldate(rs.getString("customer_enrolldate"));
+				list.add(cust);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

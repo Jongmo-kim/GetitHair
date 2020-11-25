@@ -149,6 +149,70 @@ public class ReviewDao {
 		}
 		return list;
 	}
+	public int insertReview(Connection conn, Review rv) {
+		PreparedStatement pstmt = null;
+		String qryInsert = "insert into review values(default,?,?,?,?,?,?,?,?,?)";
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(qryInsert);
+			pstmt.setInt(1, rv.getShopNo());
+			pstmt.setInt(2, rv.getDesignerNo());
+			pstmt.setInt(3, rv.getCustomerNo());
+			pstmt.setInt(4, rv.getStyleNo());
+			pstmt.setString(5, rv.getReviewContent());
+			pstmt.setInt(6, rv.getReviewRate());
+			pstmt.setInt(7, rv.getReviewLikes());
+			pstmt.setString(8, rv.getReviewDate());
+			pstmt.setString(9, rv.getReviewImg());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	public int updateReview(Connection conn, Review rv) {
+		PreparedStatement pstmt = null;
+		String qryUpdate = "update review set review_content = ?, review_rate = ? where review_no = ?";
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(qryUpdate);
+			pstmt.setString(1, rv.getReviewContent());
+			pstmt.setInt(2, rv.getReviewRate());
+			pstmt.setInt(3, rv.getReviewNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	public int deleteReviewByReviewNo(Connection conn, int reviewNo) {
+		PreparedStatement pstmt = null;
+		String qryUpdate = "delete from review where review_no = ?";
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(qryUpdate);
+			pstmt.setInt(1, reviewNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 
 	
 }
