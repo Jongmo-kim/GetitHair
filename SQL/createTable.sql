@@ -705,5 +705,14 @@ END;
 --DROP SEQUENCE admin_SEQ;
 /
 
-
+--±èÁ¾¸ð°¡ÇÔ
+create or replace trigger likes_tri
+    AFTER INSERT ON likes
+    for each row
+    begin
+        update HAIRSHOP set  shop_likes = shop_likes +1 where shop_no = :NEW.like_type_no;
+        update review set  review_likes = review_likes +1  where review_no = :NEW.like_type_no;
+        update style set style_likes = style_likes + 1 where style_no = :NEW.like_type_no;
+    end;
+    /
 commit;

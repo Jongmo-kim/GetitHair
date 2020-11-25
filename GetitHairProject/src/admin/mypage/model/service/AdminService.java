@@ -4,27 +4,19 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import admin.mypage.model.dao.AdminDao;
-import admin.mypage.model.vo.AdminCustomer;
 import common.JDBCTemplate;
+import customer.model.vo.Customer;
 
 public class AdminService {
-	public ArrayList<AdminCustomer> getCustomerList(int page){
+	public ArrayList<Customer> getCustomerListById(String id){
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<AdminCustomer> list = new AdminDao().getCustomerList(conn, page);
+		ArrayList<Customer> list = new AdminDao().getCustomerListById(conn, id);
 		JDBCTemplate.close(conn);
 		return list;
 	}
-	
-	public ArrayList<AdminCustomer> getCustomerListById(String id){
+	public ArrayList<Customer> getCustomerListByName(String keyword) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<AdminCustomer> list = new AdminDao().getCustomerListById(conn, id);
-		JDBCTemplate.close(conn);
-		return list;
-	}
-
-	public ArrayList<AdminCustomer> getCustomerListByName(String keyword) {
-		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<AdminCustomer> list = new AdminDao().getCustomerListByName(conn, keyword);
+		ArrayList<Customer> list = new AdminDao().getCustomerListByName(conn, keyword);
 		JDBCTemplate.close(conn);
 		return list;
 	}
