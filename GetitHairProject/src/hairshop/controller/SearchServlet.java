@@ -1,4 +1,4 @@
-package style.controller;
+package hairshop.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,17 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hairshop.model.service.HairshopService;
+import hairshop.model.vo.Hairshop;
+
 /**
- * Servlet implementation class HairshopServlet
+ * Servlet implementation class SearchServlet
  */
-@WebServlet(name = "Hairshop", urlPatterns = { "/hairshop" })
-public class HairshopServlet extends HttpServlet {
+@WebServlet(name = "Search", urlPatterns = { "/search" })
+public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HairshopServlet() {
+    public SearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,8 +33,9 @@ public class HairshopServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		ArrayList<Hairshop> list = new HairService().selectHairshopList();
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/main/hairshop.jsp");
+		String search = request.getParameter("search");
+		ArrayList<Hairshop> list = new HairshopService().searchHairshop(search);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshopSearch.jsp");
 		request.setAttribute("list", list);
 		rd.forward(request, response);
 	}
