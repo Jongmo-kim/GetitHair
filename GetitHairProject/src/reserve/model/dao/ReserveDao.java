@@ -88,7 +88,7 @@ public class ReserveDao {
 		return cust;
 	}
 	private Designer getDesignerByNo(int no) {
-		Designer designer = new DesignerService().selectOneMember(no);
+		Designer designer = new DesignerService().selectOneDesigner(no);
 		if(designer == null) {
 			designer = new Designer();
 			designer.setDesignerNo(-1);
@@ -113,6 +113,8 @@ public class ReserveDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
 		}
 		return result;
 	}
@@ -199,5 +201,44 @@ public class ReserveDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return result;
+	}
+	public int getTotalCount(Connection conn) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		String sql = "select count(*) from reserve";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Reserve> selectList(Connection conn, int startNum, int endNum) {
+		ArrayList<Reserve> list = new ArrayList<Reserve>();
+		String sql = "select * from (select rownum as rnum, n.* from (select * from reserve order by 1 desc)N) where rnum between ? and ?";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Reserve r  = getReserveFromRset(rset);
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
 	}
 }

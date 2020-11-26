@@ -86,4 +86,19 @@ public class Reserve {
 	public Reserve() {
 		super();
 	}
+	
+	@Override
+	public String toString() {
+		String str = "";
+		str += "reserveNo :"+Integer.toString(reserveNo) +"\n";
+		str += "Customer :"+customer.toString() +"\n";
+		str += "designer :"+designer.toString() +"\n";
+		str += "shop :"+shop.toString() +"\n";
+		str += "reserveDate :"+reserveDate.toString() +"\n";
+		str += "reserveStatus :"+reserveStatus+"\n";
+		str += "reserveCustReq :"+reserveDesignerReq+"\n";
+		str += "reserveDesignerReq :"+reserveDesignerMemo+"\n";
+		return super.toString();
+	}
+	
 }

@@ -1,10 +1,11 @@
-
+﻿
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,eclipse,java,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,eclipse,java,vscode
 ###Project 관련###
 Servers/
 build/
 GetitHairProject/src/common/JDBCTemplate.java
+.project
 ### Eclipse ###
 .metadata
 bin/

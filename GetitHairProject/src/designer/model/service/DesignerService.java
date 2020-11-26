@@ -1,10 +1,12 @@
 package designer.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import designer.model.dao.DesignerDao;
 import designer.model.vo.Designer;
+import designer.model.vo.DesignerList;
 
 public class DesignerService {
 	public Designer selectOneDesigner(int designerNo) {
@@ -56,5 +58,12 @@ public class DesignerService {
 		}
 		JDBCTemplate.close(conn);
 		return result;
+	}
+	
+	public ArrayList<Designer> selectAllDesigner() {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Designer> list = new DesignerDao().selectAllDesigner(conn);
+		JDBCTemplate.close(conn);
+		return list;
 	}
 }
