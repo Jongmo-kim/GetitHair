@@ -7,6 +7,7 @@
 	Customer loginCustomer = (Customer) request.getAttribute("loginCustomer");
 	ArrayList<Reserve> list = (ArrayList<Reserve>)request.getAttribute("list");
 	String pageNavi = (String)request.getAttribute("pageNavi");
+	String selStatus = (String)request.getAttribute("selStatus");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -95,24 +96,14 @@ html ul.tabs li.active, html ul.tabs li.active a:hover {
 		<li>예약관리
 			<div id="wrapper">
 		<ul class="tabs">
-			<li><a href="#tab1">취소</a></li>
-			<li><a href="#tab2">완료</a></li>
-			<li><a href="#tab3">예약</a></li>
-			<li><a href="#tab4">전체</a></li>
+			<li><a href="/mypageCust?reqPage=1&selStatus=취소">취소</a></li>
+			<li><a href="/mypageCust?reqPage=1&selStatus=완료">완료</a></li>
+			<li><a href="/mypageCust?reqPage=1&selStatus=예약">예약</a></li>
+			<li><a href="/mypageCust?reqPage=1&selStatus=전체">전체</a></li>
 		</ul>
 		<div class="tab_container">
-			<div id="tab1" class="tab_content">
-				<h1>취소영역</h1>
-			</div>
-
-			<div id="tab2" class="tab_content">
-				<h1>완료영역</h1>				
-			</div>
-			<div id="tab3" class="tab_content">
-				<h1>예약영역</h1>
-			</div>
 			<div id="tab4" class="tab_content">
-				<h1>전체영역</h1>
+				<h1><%=selStatus %>영역</h1>
 				<table border="1">
 					<tr>
 						<th>1.예약번호</th>
@@ -126,20 +117,22 @@ html ul.tabs li.active, html ul.tabs li.active a:hover {
 						<th>9.디자이너손님에 대한메모</th>
 					</tr>
 					<%for(Reserve r : list) {%>
-					<tr>
-						<td><%=r.getReserveNo() %></td>
-						<td><%=r.getCustomer().getCustomerNo() %></td>
-						<td><%=r.getDesigner().getDesignerNo() %></td>
-						<td><%=r.getShop().getShopNo() %></td>
-						<td><%=r.getReserveDate() %></td>
-						<td><%=r.getReserveStatus() %></td>
-						<td><%=r.getReserveCustReq() %></td>
-						<td><%=r.getReserveDesignerReq() %></td>
-						<td><%=r.getReserveDesignerMemo()%></td>
-					</tr>
+						<%if(r.getCustomer().getCustomerNo()==loginCustomer.getCustomerNo()) {%>
+						<tr>
+							<td><%=r.getReserveNo() %></td>
+							<td><%=r.getCustomer().getCustomerNo() %></td>
+							<td><%=r.getDesigner().getDesignerNo() %></td>
+							<td><%=r.getShop().getShopNo() %></td>
+							<td><%=r.getReserveDate() %></td>
+							<td><%=r.getReserveStatus() %></td>
+							<td><%=r.getReserveCustReq() %></td>
+							<td><%=r.getReserveDesignerReq() %></td>
+							<td><%=r.getReserveDesignerMemo()%></td>
+						</tr>
+						<%} %>
 					<%} %>
 				</table>
-				<div  id ="pageNavi"><%=pageNavi %></div>		
+				<div id ="pageNavi"><%=pageNavi %></div>		
 				</div>
 			</div>
 		</div>
@@ -165,6 +158,7 @@ html ul.tabs li.active, html ul.tabs li.active a:hover {
 		</li>
 	</ul>	
 	<script>
+	/*
         $(document).ready(function() {
             $(".tab_content").hide();
             $("ul.tabs li:last").addClass("active").show();
@@ -178,6 +172,7 @@ html ul.tabs li.active, html ul.tabs li.active a:hover {
                 return false;
             });
         });
+	*/
     </script>
 </body>
 

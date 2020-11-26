@@ -243,4 +243,48 @@ public class ReserveDao {
 		}
 		return list;
 	}
+
+	public int getTotalCountSelStatus(Connection conn, String selStatus) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "select count(*) cnt from reserve where reserve_status=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, selStatus);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}		
+		return result;
+	}
+
+	public ArrayList<Reserve> selectListSelStatus(Connection conn, int start, int end, String selStatus) {
+		ArrayList<Reserve> list = new ArrayList<Reserve>();
+		String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where reserve_status=? order by 1 desc)N) where rnum between ? and ?";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, selStatus);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Reserve r  = getReserveFromRset(rset);
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 }
