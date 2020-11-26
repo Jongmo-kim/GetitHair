@@ -32,5 +32,25 @@ public class HairshopService {
 	      JDBCTemplate.close(conn);
 	      return list;
 	   }
+	public ArrayList<Hairshop> searchHairshop(String search) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Hairshop> list = new HairshopDao().searchHairshop(conn,search);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	public ArrayList<Hairshop> hairshopMore(int start) {
+		Connection conn =JDBCTemplate.getConnection();
+		int count = 10;
+		int end = start + count -1;
+		ArrayList<Hairshop> list = new HairshopDao().hairshopMore(conn,start,end);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	public int totalCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		int totalCount = new HairshopDao().totalCount(conn);
+		JDBCTemplate.close(conn);
+		return totalCount;
+	}
 
 }
