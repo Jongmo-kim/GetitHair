@@ -10,10 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import designer.model.service.DesignerListService;
 import designer.model.service.DesignerService;
 import designer.model.vo.Designer;
+import designer.model.vo.DesignerList;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
+import reserve.model.service.ReserveService;
+import reserve.model.vo.Reserve;
 import review.model.service.ReviewService;
 import review.model.vo.Review;
 
@@ -41,11 +45,13 @@ public class HairshopDetailServlet extends HttpServlet {
 		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
 		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);//hs == null.getNo()
 		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(hs.getShopNo());
-		Designer des = new DesignerService().selectOneMember(shopNo);
+		
+//		Reserve reserve = new ReserveService().selec
 			if(hs != null){
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");
 				request.setAttribute("hs", hs);
 				request.setAttribute("review", review);
+				
 				rd.forward(request, response);
 			}else{
 				response.sendRedirect("/hairshop");	

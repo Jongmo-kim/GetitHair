@@ -1,3 +1,5 @@
+<%@page import="javax.swing.text.View"%>
+<%@page import="designer.model.vo.DesignerList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="review.model.vo.Review"%>
 <%@page import="hairshop.model.vo.Hairshop"%>
@@ -6,7 +8,7 @@
     <%
     	Hairshop hs = (Hairshop)request.getAttribute("hs");
    		ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
-    			
+    	
     %>
 <!DOCTYPE html>
 <html>
@@ -26,6 +28,10 @@
 
 
 <style media="screen">
+	body{
+		padding: 0;
+		margin: 0;
+	}
     .datePage{
         display: block;
         margin: 0 auto;
@@ -48,13 +54,13 @@
     .tab>a{
     	text-decoration: none;
     }
-    .designerPt{
+   /*  .designerPt{
     	padding-right: 10px;
     	display: flex;
     	justify-content: space-between;
     	flex-direction : row;
     	padding-top: 20px;
-    }
+    } */
     .dis-no{
     	display: none;
     }
@@ -97,35 +103,35 @@
         <br>
         <hr>
     <div class="detail">
-   	<div class="dt" style="width: 100%;"> 
-   	<div>
-        <h3 style="font-weight: bold; margin-bottom: 0;"><%=hs.getShopName() %> <label style="font-size: 16px;"><%=hs.getShopLikes() %><span class="material-icons" style="font-size: 14px;" id="shopLike">favorite_border</span></label></h3>
-        <p style="font-size: 15px; font-weight: 100;">평점 : <%=hs.getShopRate() %>점</p>
-        <br>
-        <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 16px;">place</span>장소</h4>
-        <p style="font-size: 14px"><%=hs.getShopAddr() %></p>
-        <p style="font-weight: bold"><span class="material-icons" style="font-size: 14px">calendar_today</span> 영업시간</p>
-        <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
-        <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
-        <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
-   	</div>
-    </div>
+	   	<div class="dt" style="width: 100%;"> 
+	   		<div>
+		   		<input type="hidden" value ="<%=hs.getShopNo() %>">
+		        <h3 style="font-weight: bold; margin-bottom: 0;"><%=hs.getShopName() %> <label style="font-size: 16px;"><%=hs.getShopLikes() %><span class="material-icons" style="font-size: 14px;" id="shopLike">favorite_border</span></label></h3>
+		        <p style="font-size: 15px; font-weight: 100;">평점 : <%=hs.getShopRate() %>점</p>
+		        <br>
+		        <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 16px;">place</span>장소</h4>
+		        <p style="font-size: 14px"><%=hs.getShopAddr() %></p>
+		        <p style="font-weight: bold"><span class="material-icons" style="font-size: 14px">calendar_today</span> 영업시간</p>
+		        <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
+		        <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
+		        <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
+	   		</div>
+	    </div>
     	
-    <div class="dt">
-    	<div class="designerPt">
-    		<a href="/reserVation"><img src="/img/hairshop/designerPhoto.png" style="width: 200px; height :200px; border-radius: 200px; overflow: hidden;"></a>
+    	<%for(int i=0; i<review.size(); i++){ %>
+    <div class="dt row"  style="padding: 0;">
+    	<div class="designerPt col-md-2">
+    		<img src="/img/hairshop/designerPhoto.png" style="width: 100px; height :100px; border-radius: 200px; overflow: hidden;">	
+    	</div>
+    	<div class="designerPt col-md-8" style="height: 100px" >
+    		<p style="margin: 0;"><%=review.get(i).getDesigner().getDesignerName() %><span style="font-size: 13px;"><%=review.get(i).getDesigner().getDesignerRank() %></span></p>
+    		<span style="font-size: 13px; color: #737270;"><%=review.get(i).getDesigner().getDesignerIntro() %> <span>(경력 : <%=review.get(i).getDesigner().getDesignerYear() %>년)</span></span>
     		
     	</div>
-    	<div class="designerPt">
-    		<a href="/reserVation"><img src="/img/hairshop/designerPhoto.png" style="width: 200px; height :200px; border-radius: 200px; overflow: hidden;"></a>
-    	</div>
-    	<div class="designerPt">
-    		<a href="/reserVation"><img src="/img/hairshop/designerPhoto.png" style="width: 200px; height :200px; border-radius: 200px; overflow: hidden;"></a>
-    	</div>
-    	<div class="designerPt">
-    		<a href="/reserVation"><img src="/img/hairshop/designerPhoto.png" style="width: 200px; height :200px; border-radius: 200px; overflow: hidden;"></a>
-    	</div>
+    	<div class="designerPt col-md-2" style="height: 100px"><button id="reserBtn" type="button" style="margin-top: 30px">예약하기</button></div>
     </div>
+    	<hr>
+    	<%} %>
     
     <div class="dt">
     	<h4>커트</h4>
@@ -141,10 +147,10 @@
     </div>
     <div class="dt">
    		<% for(int i=0; i<review.size(); i++){%>
-    	<h4>무슨 디자인을 하였는지?	<span style="font-size:12px">디자이너 이름 들어갈 </span></h4>
+    	<h4><span style="font-size:12px"><%=review.get(i).getDesigner().getDesignerName()%> 디자이너</span></h4>
     	<br>
     	<p></p>
-    	<p style="font-size: 14px"><%=review.get(0).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(0).getReviewDate() %></span></p>
+    	<p style="font-size: 14px"><%=review.get(i).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(0).getReviewDate() %></span></p>
     	<hr>
     	<%} %>
     </div>
@@ -171,13 +177,19 @@
 				$(".dt").eq(tab).css("display","block");
 			});
 		});
-		
 		$(function(){
-			$("#shopLike").click(function(){
-				
+			$("#reserBtn").click(function(){
+				$.ajax({
+					url : "/reserVation",
+					type : "post",
+					dataType : "json",
+					data : {shopNo : shopNo},
+					success : function(){
+						
+					}
+				});
 			});
 		});
-		
 	</script>
 </body>
 </html>

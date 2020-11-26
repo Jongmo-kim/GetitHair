@@ -34,7 +34,7 @@ public class ReserVationServlet extends HttpServlet {
 		//2. view	
 		int result = Integer.parseInt(request.getParameter("shop_no"));
 		//3. 비지니스
-		Hairshop hs = new HairshopService().selectShop(result);
+		Hairshop rs = new HairshopService().selectOneHairshop(result);
 	}
 
 	/**
