@@ -63,7 +63,7 @@
     .content{
     	float: left;
     	overflow: hidden;
-    	width: 100%;
+    	width: 90%;
     }
     .tab{
     	float: left;
@@ -87,7 +87,7 @@
     	font-size: 50px;
     	text-shadow: 5px 5px 10px black;
     }
-    .place, .style{
+    .shop, .style{
     	float: left;
     	width: 50%;
     }
@@ -95,6 +95,14 @@
     	text-align: center;
     	margin-top: 20px;
     	margin-bottom: 20px;
+    }
+    .style>img{
+    	width: 250px;
+    	height: 250px;
+    }
+    .shop img{
+    	width: 100px;
+    	height: 100px;
     }
 </style>
 <title>헤어샵 메인페이지</title>
@@ -117,15 +125,19 @@
 				<button type="submit">검색</button>
 			</form>
 			<div class="content">
-				<div class="place">
-					<h1>지역</h1>
+				<div class="shop">
+					<h2>헤어샵</h2>
 					<div id="hairshopList"></div>
 					<div style="text-align:center;">
 						<button currentCount="0" value="" totalCount="<%=totalCount %>" id="more-btn">더보기</button>
 					</div>
 				</div>
 				<div class="style">
-					<h1>스타일</h1>
+					<h2>인기있는 스타일</h2>
+					<img src="/img/style/perm/빌드펌.jpg">
+					<p class="caption">빌드펌</p>
+					<img src="/img/style/perm/레이어드 펌.jpg">
+					<p class="caption">레이어드펌</p>
 				</div>
 			</div>
 			<div class="tab">
