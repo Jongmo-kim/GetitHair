@@ -62,7 +62,8 @@
     }
     .content{
     	float: left;
-    	width: 70%;
+    	overflow: hidden;
+    	width: 100%;
     }
     .tab{
     	float: left;
@@ -71,9 +72,9 @@
     }
     .mid{
     	overflow: hidden;
-    	text-align: center;
-    	width : 70%;
+    	width : 80%;
     	margin : 0 auto;
+    	border: 1px solid black;
     }
     .swiper-slide>img{
     	width: 100%;
@@ -85,6 +86,15 @@
     	color: white;
     	font-size: 50px;
     	text-shadow: 5px 5px 10px black;
+    }
+    .place, .style{
+    	float: left;
+    	width: 50%;
+    }
+    .mid>form{
+    	text-align: center;
+    	margin-top: 20px;
+    	margin-bottom: 20px;
     }
 </style>
 <title>헤어샵 메인페이지</title>
@@ -102,15 +112,20 @@
 		    <div class="swiper-pagination"></div>
 		</div>
 		<div class="mid">
+			<form action="/searchHairshop" method="get">
+				<input type="search" name="searchShop" placeholder="헤어샵 이름으로 검색">
+				<button type="submit">검색</button>
+			</form>
 			<div class="content">
-				<h1>지역</h1>
-				<form action="/searchHairshop" method="get">
-					<input type="search" name="searchShop" placeholder="헤어샵 이름으로 검색">
-					<button type="submit">검색</button>
-				</form>
-				<div id="hairshopList"></div>
-				<div style="text-align:center;">
-					<button currentCount="0" value="" totalCount="<%=totalCount %>" id="more-btn">더보기</button>
+				<div class="place">
+					<h1>지역</h1>
+					<div id="hairshopList"></div>
+					<div style="text-align:center;">
+						<button currentCount="0" value="" totalCount="<%=totalCount %>" id="more-btn">더보기</button>
+					</div>
+				</div>
+				<div class="style">
+					<h1>스타일</h1>
 				</div>
 			</div>
 			<div class="tab">
@@ -163,7 +178,7 @@
 						html += "<tr><td colspan='2'>"+h.shopOpen+" ~ "+h.shopClose+"</td></tr></table>";
 					}
 					$("#hairshopList").append(html);
-					$("#more-btn").val(Number(start)+10);
+					$("#more-btn").val(Number(start)+5);
 					//현재 몇번까지 가지고 왔는지 체크
 					var currCount = $("#more-btn").attr("currentCount");
 					$("#more-btn").attr("currentCount",Number(currCount)+data.length);

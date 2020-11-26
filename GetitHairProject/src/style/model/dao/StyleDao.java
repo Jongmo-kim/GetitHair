@@ -149,4 +149,54 @@ public class StyleDao {
 		return list;
 	}
 
+	public int totalCount(Connection conn) {
+		PreparedStatement ps = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = "select count(*) cnt from style";
+		try {
+			ps = conn.prepareStatement(query);
+			rset = ps.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(ps);
+		}
+		return result;
+	}
+
+	public ArrayList<Style> selectList(Connection conn, int start, int end) {
+		PreparedStatement ps = null;
+		ResultSet rset = null;
+		ArrayList<Style> list = new ArrayList<Style>();
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, N.* FROM (SELECT * FROM NOTICE ORDER BY 1 DESC)N) WHERE RNUM BETWEEN ? AND ?";//최신꺼가 제일 위로 오게
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, start);
+			ps.setInt(2, end);
+			rset = ps.executeQuery();
+			while(rset.next()) {
+				Style s = new Style();
+				s.setStyleNo(rset.getInt("style_no"));
+				s.setStyleType(rset.getString("style_type"));
+				s.setStyleName(rset.getString("style_name"));
+				s.setStyleImg(rset.getString("style_img"));
+				s.setStyleLikes(rset.getInt("style_likes"));
+				list.add(s);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(ps);
+		}
+		return list;
+	}
+
 }
