@@ -62,7 +62,8 @@
     }
     .content{
     	float: left;
-    	width: 70%;
+    	overflow: hidden;
+    	width: 90%;
     }
     .tab{
     	float: left;
@@ -71,9 +72,9 @@
     }
     .mid{
     	overflow: hidden;
-    	text-align: center;
-    	width : 70%;
+    	width : 80%;
     	margin : 0 auto;
+    	border: 1px solid black;
     }
     .swiper-slide>img{
     	width: 100%;
@@ -85,6 +86,23 @@
     	color: white;
     	font-size: 50px;
     	text-shadow: 5px 5px 10px black;
+    }
+    .shop, .style{
+    	float: left;
+    	width: 50%;
+    }
+    .mid>form{
+    	text-align: center;
+    	margin-top: 20px;
+    	margin-bottom: 20px;
+    }
+    .style>img{
+    	width: 250px;
+    	height: 250px;
+    }
+    .shop img{
+    	width: 100px;
+    	height: 100px;
     }
 </style>
 <title>헤어샵 메인페이지</title>
@@ -102,15 +120,24 @@
 		    <div class="swiper-pagination"></div>
 		</div>
 		<div class="mid">
+			<form action="/searchHairshop" method="get">
+				<input type="search" name="searchShop" placeholder="헤어샵 이름으로 검색">
+				<button type="submit">검색</button>
+			</form>
 			<div class="content">
-				<h1>지역</h1>
-				<form action="/searchHairshop" method="get">
-					<input type="search" name="searchShop" placeholder="헤어샵 이름으로 검색">
-					<button type="submit">검색</button>
-				</form>
-				<div id="hairshopList"></div>
-				<div style="text-align:center;">
-					<button currentCount="0" value="" totalCount="<%=totalCount %>" id="more-btn">더보기</button>
+				<div class="shop">
+					<h2>헤어샵</h2>
+					<div id="hairshopList"></div>
+					<div style="text-align:center;">
+						<button currentCount="0" value="" totalCount="<%=totalCount %>" id="more-btn">더보기</button>
+					</div>
+				</div>
+				<div class="style">
+					<h2>인기있는 스타일</h2>
+					<img src="/img/style/perm/빌드펌.jpg">
+					<p class="caption">빌드펌</p>
+					<img src="/img/style/perm/레이어드 펌.jpg">
+					<p class="caption">레이어드펌</p>
 				</div>
 			</div>
 			<div class="tab">
@@ -163,7 +190,7 @@
 						html += "<tr><td colspan='2'>"+h.shopOpen+" ~ "+h.shopClose+"</td></tr></table>";
 					}
 					$("#hairshopList").append(html);
-					$("#more-btn").val(Number(start)+10);
+					$("#more-btn").val(Number(start)+5);
 					//현재 몇번까지 가지고 왔는지 체크
 					var currCount = $("#more-btn").attr("currentCount");
 					$("#more-btn").attr("currentCount",Number(currCount)+data.length);

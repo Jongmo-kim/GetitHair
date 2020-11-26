@@ -39,14 +39,23 @@ public class MypageCustServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");		
 		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		String selStatus = request.getParameter("selStatus");
+		ReservePageData rpd = null;
 		
-		ReservePageData rpd = new ReserveService().reserveSelectList(reqPage);
-		
+		if(selStatus.equals("전체")) {
+			rpd = new ReserveService().reserveSelectList(reqPage);
+			System.out.println("전체 rpd.getList :" + rpd.getList().size());
+		}else {
+			rpd = new ReserveService().reserveSelectListSelStatus(reqPage,selStatus);
+			System.out.println("else rpd.getList :" + rpd.getList().size());
+		}
+		System.out.println("rpd.getList :" + rpd.getList().size());		
 		if(loginCustomer!=null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");	
 			request.setAttribute("loginCustomer", loginCustomer);
 			request.setAttribute("list", rpd.getList());
 			request.setAttribute("pageNavi", rpd.getReqPage());
+			request.setAttribute("selStatus", selStatus);
 			rd.forward(request, response);
 		}else {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");

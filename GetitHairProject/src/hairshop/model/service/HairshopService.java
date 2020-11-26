@@ -39,7 +39,7 @@ public class HairshopService {
 	}
 	public ArrayList<Hairshop> hairshopMore(int start) {
 		Connection conn =JDBCTemplate.getConnection();
-		int count = 10;
+		int count = 5;
 		int end = start + count -1;
 		ArrayList<Hairshop> list = new HairshopDao().hairshopMore(conn,start,end);
 		JDBCTemplate.close(conn);

@@ -82,7 +82,7 @@ public class ReserveService {
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 		// 이전버튼 : 페이지 시작번호가 1이 아닌경우에만 이전버튼 생성
 		if (pageNo != 1) {
-			pageNavi += "<a href='/mypageCust?reqPage=" + (pageNo - 1) + "'>이전</a>";
+			pageNavi += "<a href='/mypageCust?reqPage=" + (pageNo - 1) + "&selStatus=전체'>이전</a>";
 		}
 
 		for (int i = 0; i < pageNaviSize; ++i) {
@@ -90,7 +90,7 @@ public class ReserveService {
 				// 현재페이지
 				pageNavi += "<span class='naviNumber'>" + pageNo + "</span>";
 			} else {
-				pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "'>" + pageNo + "</a>";
+				pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "&selStatus=전체'>" + pageNo + "</a>";
 			}
 			++pageNo;
 			if (pageNo > totalPage) {
@@ -98,7 +98,7 @@ public class ReserveService {
 			}
 		}
 		if (pageNo <= totalPage) {
-			pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "'>다음</a>";
+			pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "&selStatus=전체'>다음</a>";
 		}
 		JDBCTemplate.close(conn);
 		ReservePageData rpd= new ReservePageData(list, pageNavi);
@@ -110,6 +110,47 @@ public class ReserveService {
 		} else {
 			JDBCTemplate.rollback(conn);
 		}
+	}
+	public ReservePageData reserveSelectListSelStatus(int reqPage, String selStatus) {
+		Connection conn = JDBCTemplate.getConnection();
+		ReserveDao dao = new ReserveDao();
+		int totalCount = dao.getTotalCountSelStatus(conn,selStatus);
+		int numPerPage = 10;
+		int totalPage = totalCount % numPerPage == 0 ? totalCount / numPerPage : totalCount / numPerPage + 1;
+		// reqPage = 1 -> start : 1, end : 10
+		int start = (reqPage - 1) * numPerPage + 1;
+		int end = reqPage * numPerPage;
+		ArrayList<Reserve> list = dao.selectListSelStatus(conn, start, end, selStatus);
+
+		// 페이지 네비게이션 작성 시작
+		int pageNaviSize = 5;
+		String pageNavi = "";
+		// 페이지네비 시작번호 구하기
+		// reqPage : 1~5 -> 1
+		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
+		// 이전버튼 : 페이지 시작번호가 1이 아닌경우에만 이전버튼 생성
+		if (pageNo != 1) {
+			pageNavi += "<a href='/mypageCust?reqPage=" + (pageNo - 1) + "&selStatus="+selStatus+"'>이전</a>";
+		}
+
+		for (int i = 0; i < pageNaviSize; ++i) {
+			if (reqPage == pageNo) {
+				// 현재페이지
+				pageNavi += "<span class='naviNumber'>" + pageNo + "</span>";
+			} else {
+				pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "&selStatus="+selStatus+"'>" + pageNo + "</a>";
+			}
+			++pageNo;
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+		if (pageNo <= totalPage) {
+			pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "&selStatus="+selStatus+"'>다음</a>";
+		}
+		JDBCTemplate.close(conn);
+		ReservePageData rpd= new ReservePageData(list, pageNavi);
+		return rpd;
 	}
 	
 }
