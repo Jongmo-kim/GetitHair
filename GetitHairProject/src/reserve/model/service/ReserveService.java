@@ -62,6 +62,23 @@ public class ReserveService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	public ArrayList<Reserve> reserveSelectList(int reqPage){
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Reserve> list = new ArrayList<Reserve>();
+		//요청페이지 계산
+		int totalSize = new ReserveDao().getTotalCount(conn);
+		int totalPage = totalSize/10 + 1;
+		if ( totalPage < reqPage) {
+			reqPage = totalPage;
+		}
+		//요청페이지 계산 끝
+		//요청페이지 기반으로 ReserveList 가져오기
+		int startNum = reqPage * 10;
+		int endNum = startNum + 10;
+		list = new ReserveDao().selectList(conn,startNum,endNum);
+		
+		return list;
+	}
 	private void commitOrRollback(Connection conn, int result) {
 		if(result > 0) {
 			JDBCTemplate.commit(conn);

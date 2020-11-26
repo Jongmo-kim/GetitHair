@@ -46,7 +46,7 @@ public class SelectAllReviewListServlet extends HttpServlet {
 			request.setAttribute("msg", "리뷰리스트를 조회 할 수 없습니다.");
 			request.setAttribute("loc", "/");
 			rd.forward(request, response);	
-		}	
+		}
 	}
 
 	/**
