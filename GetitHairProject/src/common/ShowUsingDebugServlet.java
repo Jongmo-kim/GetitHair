@@ -11,7 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
+import designer.model.service.DesignerService;
+import designer.model.vo.Designer;
+import hairshop.model.service.HairshopService;
+import hairshop.model.vo.Hairshop;
+import reserve.model.service.ReserveService;
+import reserve.model.vo.Reserve;
+import review.model.service.ReviewService;
+import review.model.vo.Review;
+import style.model.service.StyleService;
+import style.model.vo.Style;
 
 /**
  * Servlet implementation class ShowUsingDebugServlet
@@ -32,35 +43,25 @@ public class ShowUsingDebugServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Customer c1 = new Customer();
-		Customer c2 = new Customer();
-		Customer c3 = new Customer();
-		c1.setCustomerNo(1);
-		c1.setCustomerId("아이디1");
-		c1.setCustomerPw("이름1");
-		c1.setCustomerGen("성별1");
-		c1.setCustomerName("이름1");
-		c1.setCustomerEmail("이메일1");
-		c1.setCustomerAddr("주소1");
-		c1.setCustomerPhone("휴대폰번호1");
-		c1.setAddrDetail("상세주소1");
-		c1.setAddrPostcode("우편번호1");
-		c2.setCustomerNo(2);
-		c2.setCustomerId("아이디2");
-		c2.setCustomerPw("이름2");
-		c2.setCustomerGen("성별2");
-		c2.setCustomerName("이름2");
-		c2.setCustomerEmail("이메일2");
-		c2.setCustomerAddr("주소2");
-		c2.setCustomerPhone("휴대폰번호2");
-		c2.setAddrDetail("상세주소2");
-		c2.setAddrPostcode("우편번호2");
-		ArrayList<Object> list = new ArrayList<Object>();
-		list.add(c1);
-		list.add(c2);
-		list.add(c3);
-		HttpSession session = request.getSession();
-		session.setAttribute("Objects", list);
+		Customer c1 = new CustomerService().selectOneCustomer(1);
+		Designer de = new DesignerService().selectOneDesigner(1);
+		Hairshop hair = new HairshopService().selectOneHairshop(1);
+		Style style = new StyleService().selectOneStyle(1);
+		Reserve reserve = new ReserveService().selectOneReserve(1);
+		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(1);
+		if(review == null) {
+			review = new ArrayList<Review>();
+			Review rev = new Review();
+			rev.setReviewNo(1);
+			review.add(rev);
+		}
+		System.out.println("Customer :" +c1.getCustomerName());
+		System.out.println("desginer :" +de.getDesignerName());
+		System.out.println("style :" +style.getStyleName());
+		System.out.println("reserve :" + reserve.getReserveNo());
+		System.out.println("review :" + review.get(0).getReviewNo());
+		System.out.println("hairshop :" + hair.getShopName());
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/");
 		rd.forward(request, response);
 	}

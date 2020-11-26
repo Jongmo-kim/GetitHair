@@ -88,7 +88,7 @@ public class ReserveDao {
 		return cust;
 	}
 	private Designer getDesignerByNo(int no) {
-		Designer designer = new DesignerService().selectOneMember(no);
+		Designer designer = new DesignerService().selectOneDesigner(no);
 		if(designer == null) {
 			designer = new Designer();
 			designer.setDesignerNo(-1);
