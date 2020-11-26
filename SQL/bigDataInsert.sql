@@ -46,3 +46,9 @@ INSERT INTO HAIR_INFO
     END LOOP;
 END;
 /
+
+--헤어샵 시술 가격 테이블 INSERT (도현)
+--헤어 샵 번호가 존재해야만 오류 발생 없음.
+INSERT INTO SHOP_PRICE
+VALUES(SHOP_PRICE_SEQ.NEXTVAL,1,15000);
+COMMIT;
