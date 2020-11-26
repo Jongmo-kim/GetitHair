@@ -36,7 +36,8 @@
 				<form action="/insertReviewComment" method="post">
 					<ul>
 						<li>
-							<input type="hidden" name="reviewCommentWriter" value="<%=d.getDesignerId() %>">
+							<!-- value 수정해야함 -->
+							<input type="hidden" name="reviewCommentWriter" value="d.getDesignerId()">
 							<input type="hidden" name="reviewRef" value="<%=r.getReviewNo() %>">
 							<textarea name="reviewCommentContent"></textarea>
 						</li>
