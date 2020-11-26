@@ -3,13 +3,14 @@ package review.model.vo;
 import customer.model.vo.Customer;
 import designer.model.vo.Designer;
 import hairshop.model.vo.Hairshop;
+import style.model.vo.Style;
 
 public class Review {
 	private int reviewNo;
 	private Hairshop shop;
 	private Designer designer;
 	private Customer customer;
-	private int styleNo;
+	private Style styleNo;
 	private String reviewContent;
 	private int reviewRate;
 	private int reviewLikes;
@@ -20,8 +21,8 @@ public class Review {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Review(int reviewNo, Hairshop shop, Designer designer, Customer customer, int styleNo, String reviewContent,
-			int reviewRate, int reviewLikes, String reviewDate, String reviewImg) {
+	public Review(int reviewNo, Hairshop shop, Designer designer, Customer customer, Style styleNo,
+			String reviewContent, int reviewRate, int reviewLikes, String reviewDate, String reviewImg) {
 		super();
 		this.reviewNo = reviewNo;
 		this.shop = shop;
@@ -67,11 +68,11 @@ public class Review {
 		this.customer = customer;
 	}
 
-	public int getStyleNo() {
+	public Style getStyleNo() {
 		return styleNo;
 	}
 
-	public void setStyleNo(int styleNo) {
+	public void setStyleNo(Style styleNo) {
 		this.styleNo = styleNo;
 	}
 
@@ -114,4 +115,6 @@ public class Review {
 	public void setReviewImg(String reviewImg) {
 		this.reviewImg = reviewImg;
 	}
+
+	
 }

@@ -12,17 +12,21 @@ import designer.model.vo.Designer;
 import designer.model.service.DesignerService;
 import hairshop.model.service.HairshopService;
 import review.model.vo.Review;
+import style.model.service.StyleService;
+import style.model.vo.Style;
 
 public class ReviewDao {
 	private Review getSettedReviewProperties(ResultSet rs) {
 		Review rv = new Review();
 		try {
-			Designer d = new Designer();
+			Style s = new Style();
+			s.setStyleNo(rs.getInt("style_no"));
 			rv.setReviewNo(rs.getInt("review_no"));
 			rv.setShop(new HairshopService().selectOneHairshop(rs.getInt("shop_no")));
 			rv.setDesigner(new DesignerService().selectOneMember(rs.getInt("designer_no")));
 			rv.setCustomer(new CustomerService().selectOneCustomer(rs.getInt("customer_no")));
-			rv.setStyleNo(rs.getInt("style_no"));
+//			rv.setStyleNo(new StyleService().selectOneStyle(rs.getInt("style_no")));
+			rv.setStyleNo(s);
 			rv.setReviewContent(rs.getString("review_content"));
 			rv.setReviewRate(rs.getInt("review_rate"));
 			rv.setReviewLikes(rs.getInt("review_likes"));
@@ -38,14 +42,11 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "select * from review";
-		ArrayList<Review> list = null;
+		ArrayList<Review> list = new ArrayList<Review>();;
 		try {
 			pstmt=conn.prepareStatement(qrySelect);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				if(list == null) {
-					list = new ArrayList<Review>();
-				}
 				Review rv = getSettedReviewProperties(rs);
 				list.add(rv);
 			}
@@ -62,15 +63,12 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "select * from review where customer_no = ?";
-		ArrayList<Review> list = null;
+		ArrayList<Review> list = new ArrayList<Review>();;
 		try {
 			pstmt=conn.prepareStatement(qrySelect);
 			pstmt.setInt(1, customerNo);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				if(list == null) {
-					list = new ArrayList<Review>();
-				}
 				Review rv = getSettedReviewProperties(rs);
 				list.add(rv);
 			}
@@ -108,15 +106,12 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "select * from review where shop_no = ?";
-		ArrayList<Review> list = null;
+		ArrayList<Review> list = new ArrayList<Review>();
 		try {
 			pstmt=conn.prepareStatement(qrySelect);
 			pstmt.setInt(1, shopNo);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				if(list == null) {
-					list = new ArrayList<Review>();
-				}
 				Review rv = getSettedReviewProperties(rs);
 				list.add(rv);
 			}
@@ -133,15 +128,12 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "select * from review where designer_no = ?";
-		ArrayList<Review> list = null;
+		ArrayList<Review> list = new ArrayList<Review>();;
 		try {
 			pstmt=conn.prepareStatement(qrySelect);
 			pstmt.setInt(1, designerNo);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				if(list == null) {
-					list = new ArrayList<Review>();
-				}
 				Review rv = getSettedReviewProperties(rs);
 				list.add(rv);
 			}

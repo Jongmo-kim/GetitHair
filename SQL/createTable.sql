@@ -293,15 +293,23 @@ COMMENT ON COLUMN style.style_likes IS '좋아요수'
 CREATE TABLE hair_info
 (
     customer_no      NUMBER          NOT NULL,
-    myhair_scalp     VARCHAR2(20)    NULL,
-    myhair_curly     VARCHAR2(20)    NULL, 
-    myhair_rich      VARCHAR2(20)    NULL, 
-    myhair_bold      VARCHAR2(20)    NULL, 
-    myhair_vol       VARCHAR2(20)    NULL, 
-    myhair_status    VARCHAR2(20)    NULL, 
-    myhair_old       VARCHAR2(20)    NULL, 
-    CONSTRAINT HAIR_INFO_PK PRIMARY KEY (customer_no)
-)
+    myhair_scalp     VARCHAR2(20)    NULL, --두피상태 myhair_scalp //in(지성,건성,비듬,민감성,중성,모름)
+    myhair_curly     VARCHAR2(20)    NULL, --곱슬정도 myhair_curly //in(곱슬,반곱슬,직모,모름)
+    myhair_rich      VARCHAR2(20)    NULL, --머리숱 myhair_rich    //in(많음,보통,적음,탈모,모름)
+    myhair_bold      VARCHAR2(20)    NULL, --모발굵기 myhair_bold  //in(가는모발,중간모발,두꺼운모발,모름)
+    myhair_vol       VARCHAR2(20)    NULL, --볼륨 myhair_vol    //in(볼륨부족,뜨는머리,고민없음,모름)
+    myhair_status    VARCHAR2(20)    NULL, --모발상태 myhair_status //in(끊기는모발,푸석한모발,건강한모발,모름)
+    myhair_old       VARCHAR2(20)    NULL, --모발노화상태 myhair_old   //in(새치조금,새치많음,새치없음,모름)
+    CONSTRAINT HAIR_INFO_PK PRIMARY KEY (customer_no),   
+    check(myhair_scalp in ('지성','건성','비듬','민감성','중성','모름')),
+    check(myhair_curly in ('곱슬','반곱슬','직모','모름')),
+    check(myhair_rich in ('많음','보통','적음','탈모','모름')),
+    check(myhair_bold in ('가는모발','중간모발','두꺼운모발','모름')),
+    check(myhair_vol in ('볼륨부족','뜨는머리','고민없음','모름')),
+    check(myhair_status in ('끊기는모발','푸석한모발','건강한모발','모름')),
+    check(myhair_old in ('새치조금','새치많음','새치없음','모름'))
+);
+
 /
 
 COMMENT ON TABLE hair_info IS '추가정보'
@@ -435,11 +443,13 @@ CREATE TABLE reserve
     designer_no              NUMBER           NOT NULL, 
     shop_no                  NUMBER           NOT NULL, 
     reserve_date             DATE             NOT NULL, 
-    reserve_status           char(9)          NOT NULL, 
+    reserve_status           char(6)          NOT NULL, 
     reserve_cust_req         VARCHAR2(300)    NULL, 
     reserve_designer_req     VARCHAR2(300)    NULL, 
     reserve_designer_memo    VARCHAR2(300)    NULL, 
-    CONSTRAINT RESERVE_PK PRIMARY KEY (reserve_no)
+    CONSTRAINT RESERVE_PK PRIMARY KEY (reserve_no),
+    --태민 check 제약조건 추가
+    check(reserve_status in ('예약','완료','취소'))
 )
 /
 
