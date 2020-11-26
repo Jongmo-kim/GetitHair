@@ -10,25 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import designer.model.service.DesignerService;
-import designer.model.vo.Designer;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
-import review.model.service.ReviewService;
-import review.model.vo.Review;
-
 
 /**
- * Servlet implementation class HairshopDetailServlet
+ * Servlet implementation class SearchServlet
  */
-@WebServlet(name = "HairshopDetail", urlPatterns = { "/hairshopDetail" })
-public class HairshopDetailServlet extends HttpServlet {
+@WebServlet(name = "SearchHairshop", urlPatterns = { "/searchHairshop" })
+public class SearchHairshopServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HairshopDetailServlet() {
+    public SearchHairshopServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,18 +33,14 @@ public class HairshopDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
-		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);//hs == null.getNo()
-		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(hs.getShopNo());
-		Designer des = new DesignerService().selectOneDesigner(shopNo);
-			if(hs != null){
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");
-				request.setAttribute("hs", hs);
-				request.setAttribute("review", review);
-				rd.forward(request, response);
-			}else{
-				response.sendRedirect("/hairshop");	
-			}
+		String searchShop = request.getParameter("searchShop");
+		if(!searchShop.equals("")) {
+			ArrayList<Hairshop> list = new HairshopService().searchHairshop(searchShop);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/searchHairshop.jsp");
+			request.setAttribute("list", list);
+			request.setAttribute("searchShop", searchShop);
+			rd.forward(request, response);
+		}
 	}
 
 	/**

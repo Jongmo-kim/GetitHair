@@ -1,4 +1,4 @@
-package hairshop.controller;
+package style.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hairshop.model.service.HairshopService;
-import hairshop.model.vo.Hairshop;
+import style.model.service.StyleService;
+import style.model.vo.Style;
 
 /**
- * Servlet implementation class SearchServlet
+ * Servlet implementation class SearchStyleServlet
  */
-@WebServlet(name = "HairshopSearch", urlPatterns = { "/hairshopSearch" })
-public class HairshopSearchServlet extends HttpServlet {
+@WebServlet(name = "SearchStyle", urlPatterns = { "/searchStyle" })
+public class SearchStyleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HairshopSearchServlet() {
+    public SearchStyleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,14 +33,12 @@ public class HairshopSearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String search = request.getParameter("search");
-		if(search.equals("")) {
-			response.sendRedirect("/hairshop");
-		}else {
-			ArrayList<Hairshop> list = new HairshopService().searchHairshop(search);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshopSearch.jsp");
+		String searchStyle = request.getParameter("searchStyle");
+		if(!searchStyle.equals("")) {
+			ArrayList<Style> list = new StyleService().searchStyle(searchStyle);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/style/searchStyle.jsp");
 			request.setAttribute("list", list);
-			request.setAttribute("search", search);
+			request.setAttribute("searchStyle", searchStyle);
 			rd.forward(request, response);
 		}
 	}

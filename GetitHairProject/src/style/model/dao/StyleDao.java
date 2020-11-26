@@ -121,4 +121,32 @@ public class StyleDao {
 		return result;
 	}
 
+	public ArrayList<Style> searchStyle(Connection conn, String searchStyle) {
+		PreparedStatement ps = null;
+		ResultSet rset = null;
+		String query = "select * from style where style_name like (?)";
+		ArrayList<Style> list = new ArrayList<Style>();
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, '%'+searchStyle+'%');
+			rset = ps.executeQuery();
+			while(rset.next()) {
+				Style s = new Style();
+				s.setStyleNo(rset.getInt("style_no"));
+				s.setStyleType(rset.getString("style_type"));
+				s.setStyleName(rset.getString("style_name"));
+				s.setStyleImg(rset.getString("style_img"));
+				s.setStyleLikes(rset.getInt("style_likes"));
+				list.add(s);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(ps);
+		}
+		return list;
+	}
+
 }
