@@ -37,7 +37,7 @@
 					<td><%=r.getReserveDesignerReq() %></td>
 					<td><%=r.getReserveDesignerMemo()%></td>							
 				</tr>
-				<%} %>			
+				<%} %>
 		</table>
 	</form>
 </body>
