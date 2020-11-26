@@ -148,7 +148,7 @@
                                     <th><%=c.getCustomerEnrolldate() %></th>
                                     <th>
                                         <button id="rvbtn" type="button">작성한 리뷰보기</button>
-                                        <button>탈퇴</button>
+                                        <button class="del-btn">탈퇴</button>
                                     </th>
                                 </tr>
                                 <%
@@ -161,7 +161,7 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="7">
-                                        <button>선택회원 탈퇴</button>
+                                        <button class="del-btn">선택회원 탈퇴</button>
                                         <button type="reset">전체 선택해제</button>
                                     </th>
                                 </tr>
