@@ -6,6 +6,7 @@ import customer.model.vo.Customer;
 
 public class CustTemplate {
 	public static Customer setCust(HttpServletRequest request) {
+		
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
 		String customerId = request.getParameter("customerId");
 		String customerPw = request.getParameter("customerPw");
