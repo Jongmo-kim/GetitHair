@@ -36,7 +36,7 @@ public class HairshopDetailServlet extends HttpServlet {
 		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
 		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);
 		if(hs != null) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDate/hairshopDate.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDate/hairshopDeta.jsp");
 			request.setAttribute("hs", hs);
 			rd.forward(request, response);
 		}else {

@@ -16,14 +16,14 @@ import hairshop.model.vo.Hairshop;
 /**
  * Servlet implementation class SearchServlet
  */
-@WebServlet(name = "Search", urlPatterns = { "/search" })
-public class SearchServlet extends HttpServlet {
+@WebServlet(name = "HairshopSearch", urlPatterns = { "/hairshopSearch" })
+public class HairshopSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchServlet() {
+    public HairshopSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,10 +34,15 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String search = request.getParameter("search");
-		ArrayList<Hairshop> list = new HairshopService().searchHairshop(search);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshopSearch.jsp");
-		request.setAttribute("list", list);
-		rd.forward(request, response);
+		if(search.equals("")) {
+			response.sendRedirect("/hairshop");
+		}else {
+			ArrayList<Hairshop> list = new HairshopService().searchHairshop(search);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshopSearch.jsp");
+			request.setAttribute("list", list);
+			request.setAttribute("search", search);
+			rd.forward(request, response);
+		}
 	}
 
 	/**
