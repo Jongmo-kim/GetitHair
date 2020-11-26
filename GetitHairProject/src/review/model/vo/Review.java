@@ -6,7 +6,7 @@ import hairshop.model.vo.Hairshop;
 import style.model.vo.Style;
 
 public class Review {
-	private int reviewNo;
+	private int reviewNo;	
 	private Hairshop shop;
 	private Designer designer;
 	private Customer customer;

@@ -14,16 +14,16 @@ import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 
 /**
- * Servlet implementation class SearchServlet
+ * Servlet implementation class HairshopServlet
  */
-@WebServlet(name = "HairshopSearch", urlPatterns = { "/hairshopSearch" })
-public class HairshopSearchServlet extends HttpServlet {
+@WebServlet(name = "Hairshop", urlPatterns = { "/hairshop" })
+public class HairshopServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HairshopSearchServlet() {
+    public HairshopServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +33,12 @@ public class HairshopSearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-<<<<<<< HEAD:GetitHairProject/src/hairshop/controller/HairshopSearchServlet.java
-		String search = request.getParameter("search");
-		if(search.equals("")) {
-			response.sendRedirect("/hairshop");
-		}else {
-			ArrayList<Hairshop> list = new HairshopService().searchHairshop(search);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshopSearch.jsp");
-			request.setAttribute("list", list);
-			request.setAttribute("search", search);
-			rd.forward(request, response);
-		}
-=======
 		ArrayList<Hairshop> list = new HairshopService().selectHairshopList();
 		int totalCount = new HairshopService().totalCount();
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshop.jsp");
 		request.setAttribute("list", list);
 		request.setAttribute("totalCount", totalCount);
 		rd.forward(request, response);
->>>>>>> 6d0b30346eae69b8a421f42618b476a0b9c4c5d6:GetitHairProject/src/hairshop/controller/HairshopServlet.java
 	}
 
 	/**
