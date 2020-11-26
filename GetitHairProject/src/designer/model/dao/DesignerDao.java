@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import designer.model.vo.Designer;
@@ -146,5 +147,38 @@ public class DesignerDao {
 		}
 		return result;
 	}
-
+	
+	public ArrayList<Designer> selectAllDesigner(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Designer> list = new ArrayList<Designer>();
+		String query = "select * from designer";
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Designer d = new Designer();
+				d.setDesignerNo(rset.getInt("designer_no"));
+				d.setDesignerId(rset.getString("designer_id"));
+				d.setDesignerPw(rset.getString("designer_pw"));
+				d.setDesignerGen(rset.getString("designer_gen"));
+				d.setDesignerName(rset.getString("designer_name"));
+				d.setDesignerEmail(rset.getString("designer_email"));
+				d.setDesignerPhone(rset.getString("designer_phone"));
+				d.setDesignerYear(rset.getInt("designer_year"));
+				d.setDesignerRank(rset.getString("designer_rank"));
+				d.setDesignerIntro(rset.getString("designer_intro"));
+				d.setDesignerKeyword(rset.getString("designer_keyword"));
+				d.setDesignerImg(rset.getString("designer_img"));
+				list.add(d);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 }
