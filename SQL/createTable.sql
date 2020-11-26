@@ -705,6 +705,7 @@ END;
 
 --DROP SEQUENCE admin_SEQ;
 /
+-- review_comment table (은영)
 CREATE TABLE REVIEW_COMMENT(
     REVIEW_COMMENT_NO    NUMBER PRIMARY KEY,    -- 답글 식별번호
     REVIEW_COMMENT_WRITER VARCHAR2(20),         -- 답글 작성자
