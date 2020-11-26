@@ -71,6 +71,7 @@
 				<%} // 댓글 for문 종료 지점%>
 			</div>
 	</section>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script>
 	$(".recShow").click(function(){
 		$(this).hide();
@@ -122,6 +123,6 @@
 		}
 	}
 	</script>
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	
 </body>
 </html>
