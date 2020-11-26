@@ -26,7 +26,7 @@ public class ReviewDao {
 			rv.setDesigner(new DesignerService().selectOneMember(rs.getInt("designer_no")));
 			rv.setCustomer(new CustomerService().selectOneCustomer(rs.getInt("customer_no")));
 //			rv.setStyleNo(new StyleService().selectOneStyle(rs.getInt("style_no")));
-			rv.setStyleNo(s);
+			rv.setStyle(s);
 			rv.setReviewContent(rs.getString("review_content"));
 			rv.setReviewRate(rs.getInt("review_rate"));
 			rv.setReviewLikes(rs.getInt("review_likes"));
@@ -155,7 +155,7 @@ public class ReviewDao {
 			pstmt.setInt(1, rv.getShop().getShopNo());
 			pstmt.setInt(2, rv.getDesigner().getDesignerNo());
 			pstmt.setInt(3, rv.getCustomer().getCustomerNo());
-			pstmt.setInt(4, rv.getStyleNo());
+			pstmt.setInt(4, rv.getStyle().getStyleNo());
 			pstmt.setString(5, rv.getReviewContent());
 			pstmt.setInt(6, rv.getReviewRate());
 			pstmt.setInt(7, rv.getReviewLikes());

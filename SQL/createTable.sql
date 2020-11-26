@@ -187,19 +187,6 @@ START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER customer_AI_TRG
-BEFORE INSERT ON customer 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT customer_SEQ.NEXTVAL
-    INTO :NEW.customer_no
-    FROM DUAL;
-END;
-/
-
---DROP TRIGGER customer_AI_TRG;
-/
-
 --DROP SEQUENCE customer_SEQ;
 /
 
@@ -433,8 +420,42 @@ ALTER TABLE review
     ADD CONSTRAINT FK_review_style_no_style_style FOREIGN KEY (style_no)
         REFERENCES style (style_no)
 /
-
-
+-- 시술 가격 테이블
+CREATE TABLE shop_price
+(
+    shop_price_no    NUMBER    NOT NULL, 
+    shop_no        NUMBER    NOT NULL, 
+    price           NUMBER     NULL, 
+    CONSTRAINT SHOP_PRICE_PK PRIMARY KEY (shop_price_no)
+)
+/
+CREATE SEQUENCE shop_price_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+--외래키 추가
+ALTER TABLE shop_price
+    ADD CONSTRAINT shop_price_shop_noFK FOREIGN KEY (shop_no)
+        REFERENCES hairshop (shop_no)
+/
+-- hairshop Table Create SQL
+CREATE TABLE style_list
+(
+    stylelist_no    NUMBER    NOT NULL, 
+    style_no        NUMBER    NOT NULL, 
+    designer_no     NUMBER    NOT NULL, 
+    shop_price_no           NUMBER    NOT NULL, 
+    CONSTRAINT STYLE_LIST_PK PRIMARY KEY (stylelist_no)
+)
+/
+CREATE SEQUENCE style_list_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+ALTER TABLE style_list
+    ADD CONSTRAINT FK_style_list_shop_price_no FOREIGN KEY (shop_price_no)
+        REFERENCES shop_price(shop_price_no)
+/
 -- hairshop Table Create SQL
 CREATE TABLE reserve
 (
@@ -442,6 +463,7 @@ CREATE TABLE reserve
     customer_no              NUMBER           , 
     designer_no              NUMBER           NOT NULL, 
     shop_no                  NUMBER           NOT NULL, 
+    stylelist_no             NUMBER           NOT NULL,
     reserve_date             DATE             NOT NULL, 
     reserve_status           char(6)          NOT NULL, 
     reserve_cust_req         VARCHAR2(300)    NULL, 
@@ -518,6 +540,10 @@ ALTER TABLE reserve
     ADD CONSTRAINT FK_reserve_shop_no_hairshop_sh FOREIGN KEY (shop_no)
         REFERENCES hairshop (shop_no)
 /
+ALTER TABLE reserve
+    ADD CONSTRAINT FK_reserve_stylelist_no_styl  FOREIGN KEY (stylelist_no)
+        REFERENCES style_list (stylelist_no)
+/
 
 
 -- hairshop Table Create SQL
@@ -571,25 +597,8 @@ ALTER TABLE designer_list
 ALTER TABLE designer_list
     ADD CONSTRAINT FK_designer_list_designer_no_d FOREIGN KEY (designer_no)
         REFERENCES designer (designer_no)
+
 /
-
-
--- hairshop Table Create SQL
-CREATE TABLE style_list
-(
-    stylelist_no    NUMBER    NOT NULL, 
-    style_no        NUMBER    NOT NULL, 
-    designer_no     NUMBER    NOT NULL, 
-    price           NUMBER    NOT NULL, 
-    CONSTRAINT STYLE_LIST_PK PRIMARY KEY (stylelist_no)
-)
-/
-
-CREATE SEQUENCE style_list_SEQ
-START WITH 1
-INCREMENT BY 1;
-/
-
 CREATE OR REPLACE TRIGGER style_list_AI_TRG
 BEFORE INSERT ON style_list 
 REFERENCING NEW AS NEW FOR EACH ROW 
@@ -618,9 +627,6 @@ COMMENT ON COLUMN style_list.style_no IS '헤어스타일번호'
 COMMENT ON COLUMN style_list.designer_no IS '디자이너번호'
 /
 
-COMMENT ON COLUMN style_list.price IS '시술가격'
-/
-
 ALTER TABLE style_list
     ADD CONSTRAINT FK_style_list_designer_no_desi FOREIGN KEY (designer_no)
         REFERENCES designer (designer_no)
@@ -630,8 +636,6 @@ ALTER TABLE style_list
     ADD CONSTRAINT FK_style_list_style_no_style_s FOREIGN KEY (style_no)
         REFERENCES style (style_no)
 /
-
-
 -- hairshop Table Create SQL
 CREATE TABLE likes
 (

@@ -36,7 +36,8 @@
 				<form action="/insertReviewComment" method="post">
 					<ul>
 						<li>
-							<input type="hidden" name="reviewCommentWriter" value="<%=d.getDesignerId() %>">
+							<!-- value 수정해야함 -->
+							<input type="hidden" name="reviewCommentWriter" value="d.getDesignerId()">
 							<input type="hidden" name="reviewRef" value="<%=r.getReviewNo() %>">
 							<textarea name="reviewCommentContent"></textarea>
 						</li>
@@ -70,6 +71,7 @@
 				<%} // 댓글 for문 종료 지점%>
 			</div>
 	</section>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script>
 	$(".recShow").click(function(){
 		$(this).hide();
@@ -121,6 +123,6 @@
 		}
 	}
 	</script>
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	
 </body>
 </html>
