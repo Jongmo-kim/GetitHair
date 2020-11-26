@@ -9,7 +9,7 @@
 	.main{
 		height : 100vh;
 		width : 100vw;
-		background-image : url(img/main/image_1067960081546071656800.jpg);
+		background-image : url(img/main/6.jpg);
 		background-repeat: no-repeat;
         background-size: cover;
 	}
