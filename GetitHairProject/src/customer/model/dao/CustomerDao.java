@@ -15,27 +15,14 @@ public class CustomerDao {
 	public Customer selectOneCustomer(Connection conn, String customerId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Customer loginCustomer = null;
 		String query = "select * from customer where customer_id=?";
-		
+		Customer customer =null;
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, customerId);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				loginCustomer = new Customer();
-				loginCustomer.setAddrDetail(rset.getString("addr_detail"));
-				loginCustomer.setAddrPostcode(rset.getString("addr_postcode"));
-				loginCustomer.setCustomerAddr(rset.getString("customer_addr"));
-				loginCustomer.setCustomerEmail(rset.getString("customer_email"));
-				loginCustomer.setCustomerGen(rset.getString("customer_gen"));
-				loginCustomer.setCustomerId(rset.getString("customer_id"));
-				loginCustomer.setCustomerName(rset.getString("customer_name"));
-				loginCustomer.setCustomerNo(rset.getInt("customer_no"));
-				loginCustomer.setCustomerPhone(rset.getString("customer_phone"));
-				loginCustomer.setCustomerPw(rset.getString("customer_pw"));
-				loginCustomer.setCustomerBirthdate(rset.getString("customer_birthdate"));
-				loginCustomer.setCustomerEnrolldate(rset.getString("customer_enrolldate"));
+				customer = getCustomerFromRset(rset);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -43,16 +30,15 @@ public class CustomerDao {
 		} finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
-		}
-		
-		return loginCustomer;
+		}		
+		return customer;
 	}
 
 
 	public Customer selectOneCustomer(Connection conn, int customerNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Customer loginCustomer = null;
+		Customer customer = null;
 		String query = "select * from customer where customer_no=?";
 		
 		try {
@@ -60,19 +46,7 @@ public class CustomerDao {
 			pstmt.setInt(1, customerNo);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				loginCustomer = new Customer();
-				loginCustomer.setAddrDetail(rset.getString("addr_detail"));
-				loginCustomer.setAddrPostcode(rset.getString("addr_postcode"));
-				loginCustomer.setCustomerAddr(rset.getString("customer_addr"));
-				loginCustomer.setCustomerEmail(rset.getString("customer_email"));
-				loginCustomer.setCustomerGen(rset.getString("customer_gen"));
-				loginCustomer.setCustomerId(rset.getString("customer_id"));
-				loginCustomer.setCustomerName(rset.getString("customer_name"));
-				loginCustomer.setCustomerNo(rset.getInt("customer_no"));
-				loginCustomer.setCustomerPhone(rset.getString("customer_phone"));
-				loginCustomer.setCustomerPw(rset.getString("customer_pw"));
-				loginCustomer.setCustomerBirthdate(rset.getString("customer_birthdate"));
-				loginCustomer.setCustomerEnrolldate(rset.getString("customer_enrolldate"));
+				customer = getCustomerFromRset(rset);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -80,9 +54,8 @@ public class CustomerDao {
 		} finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
-		}
-		
-		return loginCustomer;
+		}		
+		return customer;
 	}
 	public ArrayList<Customer> selectAllCustomer(Connection conn) {
 		PreparedStatement pstmt = null;
@@ -93,19 +66,7 @@ public class CustomerDao {
 			pstmt = conn.prepareStatement(query);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				Customer cust = new Customer();
-				cust.setAddrDetail(rset.getString("addr_detail"));
-				cust.setAddrPostcode(rset.getString("addr_postcode"));
-				cust.setCustomerAddr(rset.getString("customer_addr"));
-				cust.setCustomerEmail(rset.getString("customer_email"));
-				cust.setCustomerGen(rset.getString("customer_gen"));
-				cust.setCustomerId(rset.getString("customer_id"));
-				cust.setCustomerName(rset.getString("customer_name"));
-				cust.setCustomerNo(rset.getInt("customer_no"));
-				cust.setCustomerPhone(rset.getString("customer_phone"));
-				cust.setCustomerPw(rset.getString("customer_pw"));
-				cust.setCustomerBirthdate(rset.getString("customer_birthdate"));
-				cust.setCustomerEnrolldate(rset.getString("customer_enrolldate"));
+				Customer cust = getCustomerFromRset(rset);				
 				list.add(cust);				
 			}
 		} catch (SQLException e) {
@@ -120,7 +81,6 @@ public class CustomerDao {
 
 
 	public int updateCustomer(Connection conn, Customer customer) {
-
 		PreparedStatement pstmt =null;
 		int result =0;
 		String query ="update customer set customer_pw=?,customer_email=?,customer_addr=?,addr_detail=?,customer_phone=? where customer_no=?";
@@ -146,8 +106,7 @@ public class CustomerDao {
 	public int deleteCustomer(Connection conn, String customerId) {
 		PreparedStatement pstmt =null;
 		int result =0;
-		String query ="delete from customer where customer_id = ?";
-		
+		String query ="delete from customer where customer_id = ?";		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, customerId);
@@ -191,28 +150,15 @@ public class CustomerDao {
 	public Customer selectOneCustomer(Connection conn, String customerId, String customerPw) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Customer loginCustomer = null;
+		Customer customer = null;
 		String query = "select * from customer where customer_id=? and customer_pw=?";
-		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, customerId);
 			pstmt.setString(2, customerPw);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				loginCustomer = new Customer();
-				loginCustomer.setAddrDetail(rset.getString("addr_detail"));
-				loginCustomer.setAddrPostcode(rset.getString("addr_postcode"));
-				loginCustomer.setCustomerAddr(rset.getString("customer_addr"));
-				loginCustomer.setCustomerEmail(rset.getString("customer_email"));
-				loginCustomer.setCustomerGen(rset.getString("customer_gen"));
-				loginCustomer.setCustomerId(rset.getString("customer_id"));
-				loginCustomer.setCustomerName(rset.getString("customer_name"));
-				loginCustomer.setCustomerNo(rset.getInt("customer_no"));
-				loginCustomer.setCustomerPhone(rset.getString("customer_phone"));
-				loginCustomer.setCustomerPw(rset.getString("customer_pw"));
-				loginCustomer.setCustomerBirthdate(rset.getString("customer_birthdate"));
-				loginCustomer.setCustomerEnrolldate(rset.getString("customer_enrolldate"));
+				customer = getCustomerFromRset(rset);				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -220,6 +166,75 @@ public class CustomerDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}		
-		return loginCustomer;
+		return customer;
+	}
+
+
+	public int totalCount(Connection conn) {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = "select count(*) cnt from customer";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	private Customer getCustomerFromRset(ResultSet rset) {
+		Customer customer = new Customer();
+		try {
+			customer.setCustomerNo(rset.getInt("customer_no"));
+			customer.setAddrDetail(rset.getString("addr_detail"));
+			customer.setAddrPostcode(rset.getString("addr_postcode"));
+			customer.setCustomerAddr(rset.getString("customer_addr"));
+			customer.setCustomerEmail(rset.getString("customer_email"));
+			customer.setCustomerGen(rset.getString("customer_gen"));
+			customer.setCustomerId(rset.getString("customer_id"));
+			customer.setCustomerName(rset.getString("customer_name"));
+			customer.setCustomerPhone(rset.getString("customer_phone"));
+			customer.setCustomerPw(rset.getString("customer_pw"));
+			customer.setCustomerBirthdate(rset.getString("customer_birthdate"));
+			customer.setCustomerEnrolldate(rset.getString("customer_enrolldate"));			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return customer;
+	}
+
+	public ArrayList<Customer> customerSelectList(Connection conn, int startNum, int endNum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset =  null;
+		String query = "select * from ( select rownum as custnum, n.* from (select * from customer order by 1 desc)n ) where custnum between ? and ?";
+		ArrayList<Customer> list = new ArrayList<Customer>();
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Customer cust = getCustomerFromRset(rset);
+				list.add(cust);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}		
+		return list;
 	}
 }

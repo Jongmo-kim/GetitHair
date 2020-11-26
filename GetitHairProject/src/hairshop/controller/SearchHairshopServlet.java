@@ -1,6 +1,7 @@
-package hairinfo.controller;
+package hairshop.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.DebugTemplate;
-import hairinfo.model.service.HairinfoService;
-import hairinfo.model.vo.Hairinfo;
+import hairshop.model.service.HairshopService;
+import hairshop.model.vo.Hairshop;
 
 /**
- * Servlet implementation class UpdateHairinfoFrmServlet
+ * Servlet implementation class SearchServlet
  */
-@WebServlet(name = "UpdateHairinfoFrm", urlPatterns = { "/updateHairinfoFrm" })
-public class UpdateHairinfoFrmServlet extends HttpServlet {
+@WebServlet(name = "SearchHairshop", urlPatterns = { "/searchHairshop" })
+public class SearchHairshopServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateHairinfoFrmServlet() {
+    public SearchHairshopServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +32,15 @@ public class UpdateHairinfoFrmServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1.인코딩
-		//2.views
-		int customerNo = Integer.parseInt(request.getParameter("customerNo"));		
-		//3.비지니스로직
-		Hairinfo hairinfo = new HairinfoService().selectOneHairinfo(customerNo);
-		//4.결과
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/updateHairinfoFrm.jsp");
-		request.setAttribute("hairinfo", hairinfo);
-		rd.forward(request, response);
+		request.setCharacterEncoding("utf-8");
+		String searchShop = request.getParameter("searchShop");
+		if(!searchShop.equals("")) {
+			ArrayList<Hairshop> list = new HairshopService().searchHairshop(searchShop);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/searchHairshop.jsp");
+			request.setAttribute("list", list);
+			request.setAttribute("searchShop", searchShop);
+			rd.forward(request, response);
+		}
 	}
 
 	/**

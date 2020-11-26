@@ -36,7 +36,7 @@ public class SelectAllReviewListServlet extends HttpServlet {
 		//2.view에서 넘어온값 저장
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
 		//3.비지니스로직처리
-		ArrayList<Review> list = new ReviewService().selectAllReview(customerNo);
+		ArrayList<Review> list = new ReviewService().selectAllReviewByCustomerNo(customerNo);
 		//4.결과처리
 		if(list !=null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllReviewListFrm.jsp");	

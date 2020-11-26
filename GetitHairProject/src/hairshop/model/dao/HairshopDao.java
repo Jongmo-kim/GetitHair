@@ -80,14 +80,14 @@ public class HairshopDao {
 		return null;
 	}
 
-	public ArrayList<Hairshop> searchHairshop(Connection conn, String search) {
+	public ArrayList<Hairshop> searchHairshop(Connection conn, String searchShop) {
 		PreparedStatement ps = null;
 		ResultSet rset = null;
 		String query = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_img,shop_likes from hairshop where shop_name like (?)";
 		ArrayList<Hairshop> list = new ArrayList<Hairshop>();
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setString(1, '%'+search+'%');
+			ps.setString(1, '%'+searchShop+'%');
 			rset = ps.executeQuery();
 			while(rset.next()) {
 				Hairshop h = new Hairshop();

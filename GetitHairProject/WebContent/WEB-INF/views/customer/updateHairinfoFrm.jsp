@@ -18,7 +18,7 @@
 			<tr>
 				<!-- <th>회원번호</th> -->
 				<td><input type="hidden" name="customerNo"
-					value="a<%=hairinfo.getCustomerNo()%>" readonly></td>
+					value="a<%=hairinfo.getCustomer().getCustomerNo()%>" readonly></td>
 			</tr>
 			<tr>
 				<th>1.두피상태</th>

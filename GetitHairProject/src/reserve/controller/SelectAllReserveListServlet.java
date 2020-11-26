@@ -32,12 +32,24 @@ public class SelectAllReserveListServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			
+		//1.인코딩
+		//2.view에서 넘어온값저장
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
+		//3.비지니스로직처리
 		ArrayList<Reserve> list = new ReserveService().selectAllByCust(customerNo);
-		RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllReserveListFrm.jsp");
-		request.setAttribute("list", list);
-		rd.forward(request, response);
+		//4.결과처리
+		System.out.println(list.get(0).getReserveNo());
+		if(list !=null) {
+			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllReserveListFrm.jsp");	
+			request.setAttribute("list", list);
+			rd.forward(request, response);	
+		}else {
+			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+			request.setAttribute("msg", "예약리스트를 조회 할 수 없습니다.");
+			request.setAttribute("loc", "/");
+			rd.forward(request, response);	
+		}	
 	}
 
 	/**

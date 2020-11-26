@@ -205,17 +205,19 @@ public class ReserveDao {
 	public int getTotalCount(Connection conn) {
 		int result =0;
 		PreparedStatement pstmt = null;
-		String sql = "select count(*) from reserve";
+		ResultSet rset = null;
+		String sql = "select count(*) cnt from reserve";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			result = pstmt.executeUpdate();
-			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(pstmt);
-		}
-		
+		}		
 		return result;
 	}
 

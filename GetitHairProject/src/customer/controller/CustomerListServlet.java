@@ -1,7 +1,6 @@
-package hairshop.controller;
+package customer.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hairshop.model.service.HairshopService;
-import hairshop.model.vo.Hairshop;
+import customer.model.service.CustomerService;
+import customer.model.vo.CustomerPageData;
 
 /**
- * Servlet implementation class SearchServlet
+ * Servlet implementation class CustomerListServlet
  */
-@WebServlet(name = "HairshopSearch", urlPatterns = { "/hairshopSearch" })
-public class HairshopSearchServlet extends HttpServlet {
+@WebServlet(name = "CustomerList", urlPatterns = { "/customerList" })
+public class CustomerListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HairshopSearchServlet() {
+    public CustomerListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,17 +31,15 @@ public class HairshopSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		String search = request.getParameter("search");
-		if(search.equals("")) {
-			response.sendRedirect("/hairshop");
-		}else {
-			ArrayList<Hairshop> list = new HairshopService().searchHairshop(search);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshopSearch.jsp");
-			request.setAttribute("list", list);
-			request.setAttribute("search", search);
-			rd.forward(request, response);
-		}
+		//2.view에서 넘어온 값 저장
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		//3.비지니스로직처리
+		CustomerPageData cpd = new CustomerService().customerSelectList(reqPage);
+		//4.결과처리
+		RequestDispatcher rd = request.getRequestDispatcher("/");
+		request.setAttribute("list", cpd.getList());
+		request.setAttribute("pageNavi", cpd.getPageNavi());
+		rd.forward(request, response);
 	}
 
 	/**
