@@ -30,11 +30,6 @@ VALUES(DEFAULT,'designer01','1234','여','김영희','asdf@naver.com','010-1234-5678
 --SHOP 번호와 DESIGNER 번호가 존재해야만 오류 발생 없음.
 INSERT INTO DESIGNER_LIST VALUES(DEFAULT,1,1);
 
---예약 테이블 INSERT
---CUSTOMER 번호, DESINGER 번호, SHOP 번호가 존재해야만 오류 발생 없음.
-INSERT INTO RESERVE 
-VALUES(DEFAULT,1,1,1,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모');
-
 --스타일 테이블 INSERT
 INSERT INTO STYLE
 VALUES(DEFAULT,'스타일타입','스타일이름','이미지주소',0);
@@ -42,7 +37,12 @@ VALUES(DEFAULT,'스타일타입','스타일이름','이미지주소',0);
 --스타일 리스트 테이블 INSERT
 --STYLE 번호와 DESIGNER 번호가 존재해야만 오류 발생 없음.
 INSERT INTO STYLE_LIST
-VALUES(DEFAULT,1,1,'25000');
+VALUES(DEFAULT,1,1,1);
+
+--예약 테이블 INSERT
+--CUSTOMER 번호, DESINGER 번호, SHOP 번호,STYLE_LIST 번호가 존재해야만 오류 발생 없음.
+INSERT INTO RESERVE 
+VALUES(DEFAULT,1,1,1,1,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모');
 
 --리뷰 테이블 INSERT
 --SHOP 번호,DESIGNER 번호,CUSTOMER 번호, STYLE 번호가 존재해야만 오류 발생 없음.
