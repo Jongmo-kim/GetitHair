@@ -8,84 +8,107 @@ import review.model.dao.ReviewDao;
 import review.model.vo.Review;
 
 public class ReviewService {
-	//INSERT 구문
+	// INSERT 구문
 	public int insertReview(Review rv) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDao().insertReview(conn,rv);
-		if(result > 0) {
+		int result = new ReviewDao().insertReview(conn, rv);
+		if (result > 0) {
 			JDBCTemplate.commit(conn);
-		}else {
+		} else {
 			JDBCTemplate.rollback(conn);
 		}
+		JDBCTemplate.close(conn);
 		return result;
 	}
-	
-	
-	
-	
-	//SELECT 구문
-	
-	//모든 리뷰의 리스트를 가져옴.
-	public ArrayList<Review> selectAllReview(){
+	// 총 페이지 개수를 반환 해주는 메서드
+	public int getMaxPageSize(int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDao().getMaxPageSize(conn,maxPrintSize);
+		if (result > 0) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	// SELECT 구문
+
+	// 모든 리뷰의 리스트를 가져옴.
+	public ArrayList<Review> selectAllReview() {
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Review> list = new ReviewDao().selectAllReview(conn);
 		JDBCTemplate.close(conn);
 		return list;
 	}
-	//회원 ID에 해당하는 모든 리뷰의 리스트를 가져옴.
-	public ArrayList<Review> selectAllReviewById(String keyword){
+
+	// 모든 리뷰의 리스트를 페이징 하여 가져옴.
+	public ArrayList<Review> selectAllReview(int reqPage,int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
-		//customer 번호를 가져오는 메서드
-		int customerNo = new ReviewDao().selectCustomerNoById(conn,keyword);
-		
-		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn,customerNo);
+		ArrayList<Review> list = new ReviewDao().selectAllReview(conn,reqPage,maxPrintSize);
 		JDBCTemplate.close(conn);
 		return list;
 	}
-	//회원 번호에 해당하는 모든 리뷰의 리스트를 가져옴.
-	public ArrayList<Review> selectAllReviewByCustomerNo(int customerNo){
+	// 회원 ID에 해당하는 모든 리뷰의 리스트를 가져옴.
+	public ArrayList<Review> selectAllReviewById(String keyword) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn,customerNo);
+		// customer 번호를 가져오는 메서드
+		int customerNo = new ReviewDao().selectCustomerNoById(conn, keyword);
+
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn, customerNo);
 		JDBCTemplate.close(conn);
 		return list;
 	}
-	//헤어샵 번호에 해당하는 모든 리뷰의 리스트를 가져옴.
-	public ArrayList<Review> selectAllReviewByShopNo(int shopNo){
+
+	// 회원 번호에 해당하는 모든 리뷰의 리스트를 가져옴.
+	public ArrayList<Review> selectAllReviewByCustomerNo(int customerNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list = new ReviewDao().selectAllReviewByShopNo(conn,shopNo);
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn, customerNo);
 		JDBCTemplate.close(conn);
 		return list;
 	}
-	//디자이너 번호에 해당하는 모든 리뷰의 리스트를 가져옴.
-	public ArrayList<Review> selectAllReviewByDesignerNo(int designerNo){
+
+	// 헤어샵 번호에 해당하는 모든 리뷰의 리스트를 가져옴.
+	public ArrayList<Review> selectAllReviewByShopNo(int shopNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list = new ReviewDao().selectAllReviewByDesignerNo(conn,designerNo);
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByShopNo(conn, shopNo);
 		JDBCTemplate.close(conn);
 		return list;
 	}
-	//UPDATE 구문
-	//리뷰 수정을 위해  내용,평점이 수정되어있는 Review 객체를 전달받는다.
+
+	// 디자이너 번호에 해당하는 모든 리뷰의 리스트를 가져옴.
+	public ArrayList<Review> selectAllReviewByDesignerNo(int designerNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByDesignerNo(conn, designerNo);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	// UPDATE 구문
+	// 리뷰 수정을 위해 내용,평점이 수정되어있는 Review 객체를 전달받는다.
 	public int updateReview(Review rv) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDao().updateReview(conn,rv);
-		if(result > 0) {
+		int result = new ReviewDao().updateReview(conn, rv);
+		if (result > 0) {
 			JDBCTemplate.commit(conn);
-		}else {
+		} else {
 			JDBCTemplate.rollback(conn);
 		}
+		JDBCTemplate.close(conn);
 		return result;
 	}
-	
-	//DELETE 구문
-	//리뷰 번호에 해당하는 리뷰 삭제.
+
+	// DELETE 구문
+	// 리뷰 번호에 해당하는 리뷰 삭제.
 	public int deleteReviewByReviewNo(int reviewNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDao().deleteReviewByReviewNo(conn,reviewNo);
-		if(result > 0) {
+		int result = new ReviewDao().deleteReviewByReviewNo(conn, reviewNo);
+		if (result > 0) {
 			JDBCTemplate.commit(conn);
-		}else {
+		} else {
 			JDBCTemplate.rollback(conn);
 		}
+		JDBCTemplate.close(conn);
 		return result;
 	}
 }

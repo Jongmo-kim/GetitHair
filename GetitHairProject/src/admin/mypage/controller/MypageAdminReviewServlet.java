@@ -38,15 +38,23 @@ public class MypageAdminReviewServlet extends HttpServlet {
 		// type value 1 : 아이디로 검색 , 2 : 이름으로 검색
 		int type = request.getParameter("searchType") != null ? Integer.parseInt(request.getParameter("searchType")) : 0;
 		String keyword = request.getParameter("keyword");
+		//reqPage = 요청할 페이지 번호.
+		int reqPage = request.getParameter("reqPage") != null ? Integer.parseInt(request.getParameter("reqPage")) : 1;
+		
 		//비즈니스 로직
+		int pageSize = 0;
 		ArrayList<Review> list = null;
 		if(type != 0 && !keyword.equals("")) { //검색으로 얻어올 경우
 			list = new ReviewService().selectAllReviewById(keyword);
 		}else { //검색이 아닐때 모든 리뷰를 반환.
-			list = new ReviewService().selectAllReview();			
+			int maxPrintSize = 10; //한 페이지에 출력될 리뷰 최대 갯수 지정.
+			pageSize = new ReviewService().getMaxPageSize(maxPrintSize);
+			list = new ReviewService().selectAllReview(reqPage,maxPrintSize);		
 		}
 		// 값 전달
 		request.setAttribute("list", list);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("reqPage", reqPage);
 		request.setAttribute("type", type);
 		request.setAttribute("keyword", keyword);
 		// 메인 관리페이지로 이동

@@ -31,15 +31,15 @@ public class HairshopService {
 	      JDBCTemplate.close(conn);
 	      return list;
 	   }
-	public ArrayList<Hairshop> searchHairshop(String search) {
+	public ArrayList<Hairshop> searchHairshop(String searchShop) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Hairshop> list = new HairshopDao().searchHairshop(conn,search);
+		ArrayList<Hairshop> list = new HairshopDao().searchHairshop(conn,searchShop);
 		JDBCTemplate.close(conn);
 		return list;
 	}
 	public ArrayList<Hairshop> hairshopMore(int start) {
 		Connection conn =JDBCTemplate.getConnection();
-		int count = 10;
+		int count = 5;
 		int end = start + count -1;
 		ArrayList<Hairshop> list = new HairshopDao().hairshopMore(conn,start,end);
 		JDBCTemplate.close(conn);

@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"%>
     <%
     	Review r = (Review)request.getAttribute("r");
-    	ArrayList<ReviewComment> list = (ArrayList<ReviewComment>)request.getAttribute("list");
+    	//ArrayList<ReviewComment> list = (ArrayList<ReviewComment>)request.getAttribute("list");
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,8 +19,8 @@
 		<h1>리뷰관리</h1>
 		<div>
 			<h3>리뷰제목</h3>
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">관리<span class="caret"></span></a>
-			<ul class="dropdown-omenu" role="menu">
+			<a href="#">관리<span></span></a>
+			<ul role="menu">
 				<li><a href="javascript:void(0)" class="recShow">답글달기</a></li>
 				<li><a href="#">신고하기</a></li>
 			</ul>
@@ -29,7 +29,7 @@
 			<!-- 재예약시에만 노출되게 수정해야함 -->
 			<span>재예약</span> <span>0시간 전</span>
 		</div>
-		<div>
+		<%-- <div>
 			<h4>답글작성</h4>
 		</div>
 			<div class="inputComment">
@@ -69,10 +69,10 @@
 						</ul>
 					
 				<%} // 댓글 for문 종료 지점%>
-			</div>
+			</div> --%>
 	</section>
 	<%-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --%>
-	<script>
+	<!-- <script>
 	$(".recShow").click(function(){
 		$(this).hide();
 		var idx = $(".recShow").index(this);
@@ -122,7 +122,7 @@
 			location.href="/reviewCommentDelete?reviewCommentNo="+commentNo+"&reviewNo="+reviewNo;
 		}
 	}
-	</script>
+	</script> -->
 	
 </body>
 </html>

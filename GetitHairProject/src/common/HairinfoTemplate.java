@@ -2,7 +2,11 @@ package common;
 
 import javax.servlet.http.HttpServletRequest;
 
+
+import customer.model.service.CustomerService;
+import customer.model.vo.Customer;
 import hairinfo.model.vo.Hairinfo;
+
 
 public class HairinfoTemplate {
 	public static Hairinfo setHairinfo(HttpServletRequest request) {
@@ -14,9 +18,9 @@ public class HairinfoTemplate {
 		String myhairVol  = request.getParameter("myhairVol");
 		String myhairStatus = request.getParameter("myhairStatus");
 		String myhairOld = request.getParameter("myhairOld");
-		
+		Customer c = new CustomerService().selectOneCustomer(customerNo);
 		Hairinfo hairinfo = new Hairinfo();
-		hairinfo.setCustomerNo(customerNo);
+		hairinfo.setCustomer(c);
 		hairinfo.setMyhairScalp(myhairScalp);
 		hairinfo.setMyhairCurly(myhairCurly);
 		hairinfo.setMyhairRich(myhairRich);

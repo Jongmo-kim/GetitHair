@@ -119,7 +119,7 @@
 			<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">손님<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="/mypageCust">손님페이지</a></li>
+					<li><a href="/mypageCust?reqPage=1">손님페이지</a></li>
 				</ul>
 			</li>
 			
