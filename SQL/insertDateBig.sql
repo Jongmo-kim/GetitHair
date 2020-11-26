@@ -49,16 +49,16 @@ INSERT INTO DESIGNER
 VALUES(DEFAULT,
     'designer0'||NUM1,'1234',
     '여',
-     decode(MOD(NUM1,2),1,'남성',0,'여자'),'홍길동'
+    '김영희'
     ,
     dbms_random.string('l', 8)||'@'||dbms_random.string('l', 7)||'.com'
     ,'01'||floor(DBMS_RANDOM.VALUE(0,9))||'-'||lpad(floor(DBMS_RANDOM.VALUE(0,9999)),4,0)||'-'||lpad(floor(DBMS_RANDOM.VALUE(0,9999)),4,0)
-    ,floor(DBMS_RANDOM.VALUE(0,3)),'직급','소개','키워드',null);
+    ,floor(DBMS_RANDOM.VALUE(0,4)),'직급','소개','키워드',null);
     NUM1 := NUM1+1; 
     END LOOP;
 END;
 /
-select * from designer;
+select * from design
 
 INSERT INTO DESIGNER
 VALUES(DEFAULT,'designer01','1234','여','김영희','asdf@naver.com','010-1234-5678',3,'직급','소개','키워드',null);
