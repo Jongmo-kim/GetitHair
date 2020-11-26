@@ -45,12 +45,13 @@ public class HairshopDao {
 		PreparedStatement ps = null;
 		ResultSet rset = null;
 		String query = "select * from hairshop where shop_no=?";
-		Hairshop hs = new Hairshop();
+		Hairshop hs = null;
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, shopNo);
 			rset = ps.executeQuery();
 			if(rset.next()) {
+				hs = new Hairshop();
 				hs.setShopNo(rset.getInt("shop_no"));
 				hs.setShopCompNo(rset.getString("shop_comp_no"));
 				hs.setShopName(rset.getString("shop_name"));
