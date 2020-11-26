@@ -11,7 +11,7 @@ VALUES(default,'user01','1234','1990-08-08','남성','홍길동','asd@naver.com','경�
 --헤어 정보 테이블 INSERT
 --CUSTOMER 번호가 존재해야만 오류 발생 없음.
 INSERT INTO HAIR_INFO
-VALUES(1,'두피상태','곱슬정도','머리숱','모발굵기','볼륨','모발상태','모발노화상태');
+VALUES(1,'지성','곱슬','많음','가는모발','볼륨부족','푸석한모발','새치조금');
 
 --헤어 샵 INSERT
 INSERT INTO HAIRSHOP
@@ -28,7 +28,7 @@ INSERT INTO DESIGNER_LIST VALUES(DEFAULT,1,1);
 --예약 테이블 INSERT
 --CUSTOMER 번호, DESINGER 번호, SHOP 번호가 존재해야만 오류 발생 없음.
 INSERT INTO RESERVE 
-VALUES(DEFAULT,1,1,1,SYSDATE,'예약중','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모');
+VALUES(DEFAULT,1,1,1,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모');
 
 --스타일 테이블 INSERT
 INSERT INTO STYLE

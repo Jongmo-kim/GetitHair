@@ -8,9 +8,9 @@ import common.JDBCTemplate;
 import customer.model.vo.Customer;
 
 public class AdminService {
-	public ArrayList<Customer> getCustomerListById(String id){
+	public ArrayList<Customer> getCustomerListById(String keyword){
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Customer> list = new AdminDao().getCustomerListById(conn, id);
+		ArrayList<Customer> list = new AdminDao().getCustomerListById(conn, keyword);
 		JDBCTemplate.close(conn);
 		return list;
 	}

@@ -24,12 +24,15 @@ public class ReviewService {
 	
 	
 	//SELECT 구문
+	
+	//모든 리뷰의 리스트를 가져옴.
 	public ArrayList<Review> selectAllReview(){
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Review> list = new ReviewDao().selectAllReview(conn);
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	//회원 ID에 해당하는 모든 리뷰의 리스트를 가져옴.
 	public ArrayList<Review> selectAllReviewById(String keyword){
 		Connection conn = JDBCTemplate.getConnection();
 		//customer 번호를 가져오는 메서드
@@ -39,18 +42,21 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	//회원 번호에 해당하는 모든 리뷰의 리스트를 가져옴.
 	public ArrayList<Review> selectAllReviewByCustomerNo(int customerNo){
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn,customerNo);
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	//헤어샵 번호에 해당하는 모든 리뷰의 리스트를 가져옴.
 	public ArrayList<Review> selectAllReviewByShopNo(int shopNo){
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Review> list = new ReviewDao().selectAllReviewByShopNo(conn,shopNo);
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	//디자이너 번호에 해당하는 모든 리뷰의 리스트를 가져옴.
 	public ArrayList<Review> selectAllReviewByDesignerNo(int designerNo){
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Review> list = new ReviewDao().selectAllReviewByDesignerNo(conn,designerNo);
@@ -71,6 +77,7 @@ public class ReviewService {
 	}
 	
 	//DELETE 구문
+	//리뷰 번호에 해당하는 리뷰 삭제.
 	public int deleteReviewByReviewNo(int reviewNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ReviewDao().deleteReviewByReviewNo(conn,reviewNo);
