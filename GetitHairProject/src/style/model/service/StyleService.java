@@ -53,4 +53,10 @@ public class StyleService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	public ArrayList<Style> searchStyle(String searchStyle) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Style> list = new StyleDao().searchStyle(conn,searchStyle);
+		JDBCTemplate.close(conn);
+		return list;
+	}
 }

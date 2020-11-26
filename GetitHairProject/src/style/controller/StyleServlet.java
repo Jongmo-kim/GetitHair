@@ -1,27 +1,25 @@
-package hairshop.controller;
+package style.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hairshop.model.dao.HairshopDao;
-import hairshop.model.service.HairshopService;
-import hairshop.model.vo.Hairshop;
-
 /**
- * Servlet implementation class ReserVationServlet
+ * Servlet implementation class StyleServlet
  */
-@WebServlet(name = "ReserVation", urlPatterns = { "/reserVation" })
-public class ReserVationServlet extends HttpServlet {
+@WebServlet(name = "Style", urlPatterns = { "/style" })
+public class StyleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReserVationServlet() {
+    public StyleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +28,8 @@ public class ReserVationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		//2. view	
-		int result = Integer.parseInt(request.getParameter("shop_no"));
-		//3. 비지니스
-		Hairshop rs = new HairshopService().selectOneHairshop(result);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/style/style.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
