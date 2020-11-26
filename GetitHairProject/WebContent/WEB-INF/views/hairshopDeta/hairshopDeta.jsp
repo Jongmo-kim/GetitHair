@@ -1,8 +1,12 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="review.model.vo.Review"%>
 <%@page import="hairshop.model.vo.Hairshop"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
     	Hairshop hs = (Hairshop)request.getAttribute("hs");
+   		ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
+    			
     %>
 <!DOCTYPE html>
 <html>
@@ -98,11 +102,11 @@
         <h3 style="font-weight: bold; margin-bottom: 0;"><%=hs.getShopName() %> <label style="font-size: 16px;"><%=hs.getShopLikes() %><span class="material-icons" style="font-size: 14px;" id="shopLike">favorite_border</span></label></h3>
         <p style="font-size: 15px; font-weight: 100;">평점 : <%=hs.getShopRate() %>점</p>
         <br>
-        <h4 style="font-weight: bold">장소</h4>
+        <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 16px;">place</span>장소</h4>
         <p style="font-size: 14px"><%=hs.getShopAddr() %></p>
         <p style="font-weight: bold"><span class="material-icons" style="font-size: 14px">calendar_today</span> 영업시간</p>
         <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
-        <h4 style="font-weight: bold">전화번호</h4>
+        <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
         <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
    	</div>
     </div>
@@ -136,16 +140,13 @@
     	<hr>
     </div>
     <div class="dt">
-    	<h4>리뷰	</h4>
+   		<% for(int i=0; i<review.size(); i++){%>
+    	<h4>무슨 디자인을 하였는지?	<span style="font-size:12px">디자이너 이름 들어갈 </span></h4>
     	<br>
-    	<p style="font-size: 14px">남성 커트 : 15,000</p>
-    	<p style="font-size: 14px">여성 커트 : 15,000</p>
+    	<p></p>
+    	<p style="font-size: 14px"><%=review.get(0).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(0).getReviewDate() %></span></p>
     	<hr>
-    	<h4>펌</h4>
-    	<br>
-    	<p style="font-size: 14px">남성 펌 : 15,000</p>
-    	<p style="font-size: 14px">여성 펌 : 15,000</p>
-    	<hr>
+    	<%} %>
     </div>
     </div>
     </div>

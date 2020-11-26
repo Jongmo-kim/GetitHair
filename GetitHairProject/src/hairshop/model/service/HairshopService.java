@@ -12,7 +12,6 @@ public class HairshopService {
 	public Hairshop selectShop(int result) {
 		Connection conn = JDBCTemplate.getConnection();
 		Hairshop hs = new HairshopDao().selectShop(conn, result);
-
 		return null;
 	}
 
