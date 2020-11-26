@@ -1,3 +1,4 @@
+<%@page import="designer.model.vo.DesignerList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="review.model.vo.Review"%>
 <%@page import="hairshop.model.vo.Hairshop"%>
@@ -6,7 +7,7 @@
     <%
     	Hairshop hs = (Hairshop)request.getAttribute("hs");
    		ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
-    			
+    	ArrayList<DesignerList> desl = (ArrayList<DesignerList>)request.getAttribute("desl");
     %>
 <!DOCTYPE html>
 <html>
@@ -140,11 +141,12 @@
     	<hr>
     </div>
     <div class="dt">
+   		
    		<% for(int i=0; i<review.size(); i++){%>
-    	<h4>무슨 디자인을 하였는지?	<span style="font-size:12px">디자이너 이름 들어갈 </span></h4>
+    	<h4><span style="font-size:12px"><%=review.get(i).getDesigner().getDesignerName()%> 디자이너</span></h4>
     	<br>
     	<p></p>
-    	<p style="font-size: 14px"><%=review.get(0).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(0).getReviewDate() %></span></p>
+    	<p style="font-size: 14px"><%=review.get(i).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(0).getReviewDate() %></span></p>
     	<hr>
     	<%} %>
     </div>
