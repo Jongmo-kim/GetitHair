@@ -1,6 +1,7 @@
 package customer.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +20,8 @@ import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 import hairinfo.model.service.HairinfoService;
 import hairinfo.model.vo.Hairinfo;
+import reserve.model.service.ReserveService;
+import reserve.model.vo.Reserve;
 
 
 /**
@@ -41,10 +44,13 @@ public class MypageCustServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");		
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		int customerNo = loginCustomer.getCustomerNo();
+		ArrayList<Reserve> list = new ReserveService().selectAllByCust(customerNo);
 		if(loginCustomer!=null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");	
 			request.setAttribute("loginCustomer", loginCustomer);
+			request.setAttribute("list", list);
 			rd.forward(request, response);
 		}else {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
