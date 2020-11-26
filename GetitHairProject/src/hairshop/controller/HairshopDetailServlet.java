@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import customer.model.vo.Customer;
 import designer.model.service.DesignerListService;
 import designer.model.service.DesignerService;
 import designer.model.vo.Designer;
@@ -45,8 +46,6 @@ public class HairshopDetailServlet extends HttpServlet {
 		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
 		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);//hs == null.getNo()
 		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(hs.getShopNo());
-		
-//		Reserve reserve = new ReserveService().selec
 			if(hs != null){
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");
 				request.setAttribute("hs", hs);

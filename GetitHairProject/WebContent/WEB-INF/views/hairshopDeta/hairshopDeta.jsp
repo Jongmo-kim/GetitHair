@@ -24,7 +24,6 @@
 	<!-- 스타일 부분 -->
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
 <style media="screen">
@@ -128,7 +127,7 @@
     		<span style="font-size: 13px; color: #737270;"><%=review.get(i).getDesigner().getDesignerIntro() %> <span>(경력 : <%=review.get(i).getDesigner().getDesignerYear() %>년)</span></span>
     		
     	</div>
-    	<div class="designerPt col-md-2" style="height: 100px"><button id="reserBtn" type="button" style="margin-top: 30px">예약하기</button></div>
+    	<div class="designerPt col-md-2" style="height: 100px"><a href="/reserVation?shopNo=<%=hs.getShopNo() %>" class="btn btn-primary btn-sm" style="margin-top: 30px;" >예약하기</a></div>
     </div>
     	<hr>
     	<%} %>
@@ -177,19 +176,7 @@
 				$(".dt").eq(tab).css("display","block");
 			});
 		});
-		$(function(){
-			$("#reserBtn").click(function(){
-				$.ajax({
-					url : "/reserVation",
-					type : "post",
-					dataType : "json",
-					data : {shopNo : shopNo},
-					success : function(){
-						
-					}
-				});
-			});
-		});
+		
 	</script>
 </body>
 </html>
