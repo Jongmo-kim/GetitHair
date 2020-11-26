@@ -5,6 +5,8 @@
     pageEncoding="UTF-8"%>
     <%
     	ArrayList<Hairshop> list = (ArrayList<Hairshop>)request.getAttribute("list");
+    	String search = (String)request.getAttribute("search");
+
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,7 +18,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
 		<form action="/search" method="get" id="search">
-			<input type="search" name="search">
+			<input type="search" name="search" value="<%=search%>">
 			<button type="submit">검색</button>
 		</form>
 		<div class="content">

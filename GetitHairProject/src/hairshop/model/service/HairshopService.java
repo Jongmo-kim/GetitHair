@@ -8,30 +8,29 @@ import hairshop.model.dao.HairshopDao;
 import hairshop.model.vo.Hairshop;
 
 public class HairshopService {
-//temp
-	public Hairshop selectShop(int result) {//진현
+
+	public Hairshop selectShop(int result) {
 		Connection conn = JDBCTemplate.getConnection();
 		Hairshop hs = new HairshopDao().selectShop(conn, result);
+
 		return null;
-	}
-	public ArrayList<Hairshop> selectHairshopList() {
-		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Hairshop> list = new HairshopDao().selectHairshop(conn);
-		JDBCTemplate.close(conn);
-		return list;
 	}
 
 	public Hairshop selectOneHairshop(int shopNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		Hairshop hs = new HairshopDao().selectOneHairshop(conn,shopNo);
-		JDBCTemplate.close(conn);
+		Hairshop hs = new HairshopDao().selectOneHairshop(conn, shopNo);
+		if(hs != null) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
 		return hs;
 	}
-	public ArrayList<Hairshop> searchHairshop(String search) {
-		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Hairshop> list = new HairshopDao().searchHairshop(conn,search);
-		JDBCTemplate.close(conn);
-		return list;
-	}
+	public ArrayList<Hairshop> selectHairshopList() {
+	      Connection conn = JDBCTemplate.getConnection();
+	      ArrayList<Hairshop> list = new HairshopDao().selectHairshop(conn);
+	      JDBCTemplate.close(conn);
+	      return list;
+	   }
 
 }
