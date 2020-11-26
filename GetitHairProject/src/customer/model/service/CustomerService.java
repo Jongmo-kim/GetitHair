@@ -108,7 +108,7 @@ public class CustomerService {
 				break;
 			}
 		}
-		//다음문제
+		//다음버튼
 		if(pageNo <= totalPage) {
 			pageNavi += "<a href='/customerList?reqPage="+pageNo+"'>다음</a>";
 		}

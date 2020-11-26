@@ -72,6 +72,11 @@ html ul.tabs li.active, html ul.tabs li.active a:hover {
 	padding: 20px;
 	font-size: 1.2em;
 }
+
+#pageNavi a,#pageNavi span{
+	font-size:14px;
+	margin:20px;
+}
 </style>
 </head>
 
@@ -134,12 +139,12 @@ html ul.tabs li.active, html ul.tabs li.active a:hover {
 					</tr>
 					<%} %>
 				</table>
+				<div  id ="pageNavi"><%=pageNavi %></div>		
+				</div>
 			</div>
 		</div>
 	</div>
-		<div  id ="pageNavi"><%=pageNavi %></div>
 		
-		</div>
 		</li>
 		<li>리뷰관리
 			<ul>
