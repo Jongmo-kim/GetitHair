@@ -36,7 +36,7 @@ public class DesignerProfileServlet extends HttpServlet {
 		//2. view에서 넘어온 데이터 저장
 		int designerNo = Integer.parseInt(request.getParameter("designerNo"));
 		//3. 비지니스 로직 
-		Designer designer = new DesignerService().selectOneMember(designerNo);
+		Designer designer = new DesignerService().selectOneDesigner(designerNo);
 		//4. 결과처리
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/mypage/designer/designerProfile.jsp");
 		request.setAttribute("designer", designer);

@@ -28,14 +28,16 @@ public class HairshopServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    /**
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		ArrayList<Hairshop> list = new HairshopService().selectHairshopList();
+		int totalCount = new HairshopService().totalCount();
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshop.jsp");
 		request.setAttribute("list", list);
+		request.setAttribute("totalCount", totalCount);
 		rd.forward(request, response);
 	}
 

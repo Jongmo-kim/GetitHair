@@ -88,7 +88,7 @@ public class ReserveDao {
 		return cust;
 	}
 	private Designer getDesignerByNo(int no) {
-		Designer designer = new DesignerService().selectOneDesigner(no);
+		Designer designer = new DesignerService().selectOneMember(no);
 		if(designer == null) {
 			designer = new Designer();
 			designer.setDesignerNo(-1);
@@ -99,7 +99,7 @@ public class ReserveDao {
 		Hairshop hairshop = new HairshopService().selectOneHairshop(no);
 		if(hairshop == null) {
 			hairshop = new Hairshop();
-			hairshop.setHairshopNo(-1);
+			hairshop.setShopNo(-1);
 		}
 		return hairshop;
 	}

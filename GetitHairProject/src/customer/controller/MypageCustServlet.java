@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import common.DebugModeServlet;
 import common.DebugTemplate;
@@ -40,10 +40,19 @@ public class MypageCustServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");	
-		rd.forward(request, response);		
+		HttpSession session = request.getSession(false);
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");		
+		if(loginCustomer!=null) {
+			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");	
+			request.setAttribute("loginCustomer", loginCustomer);
+			rd.forward(request, response);
+		}else {
+			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+			request.setAttribute("msg", "회원정보가 없습니다. 로그인부터 해주세요.");
+			request.setAttribute("loc", "/");
+			rd.forward(request, response);
+		}
+				
 	}
 
 	/**

@@ -1,5 +1,9 @@
+<%@page import="customer.model.vo.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>  
+    pageEncoding="UTF-8"%>
+    <%
+    	Customer loginCustomer = (Customer)request.getAttribute("loginCustomer");
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,10 +16,10 @@
        		   프로필관리
            <ul>
             <li>
-            	<a href="/updateCustomerFrm?customerNo=10">Customer프로필보기</a>		 
+            	<a href="/updateCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo() %>">Customer프로필보기</a>		 
             </li>
             <li>
-            	<a href="/updateHairinfoFrm?customerNo=10">HairInfo프로필보기</a>            	  
+            	<a href="/updateHairinfoFrm?customerNo=<%=loginCustomer.getCustomerNo() %>">HairInfo프로필보기</a>            	  
             </li>  
             </ul>
         </li>        
@@ -23,7 +27,7 @@
          		  예약관리
             <ul>
             	 <li>
-            		<a href="/selectAllReserveList?customerNo=10">예약리스트보기</a>            	  
+            		<a href="/selectAllReserveList?customerNo=<%=loginCustomer.getCustomerNo() %>">예약리스트보기</a>            	  
            		 </li>  
                  <li><button>예약예정보기</button></li>
                 <li><button>예약완료보기</button></li>
@@ -34,7 +38,7 @@
      		   리뷰관리
             <ul>
             	<li>
-            		<a href="/selectAllReviewList?customerNo=10">리뷰리스트보기</a>            	  
+            		<a href="/selectAllReviewList?customerNo=<%=loginCustomer.getCustomerNo() %>">리뷰리스트보기</a>            	  
            		 </li>
                  <li><button>리뷰보기</button></li>
                 <li><button>리뷰삭제하기</button></li>
