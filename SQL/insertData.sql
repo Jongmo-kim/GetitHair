@@ -6,7 +6,7 @@
 
 --고객 테이블 INSERT
 INSERT INTO CUSTOMER 
-VALUES(CUSTOMER_SEQ_NEXTVAL,'user01','1234','1990-08-08','남성','홍길동','asd@naver.com','경기도 고양시 덕양구','010-1234-5678','상세주소','10001',sysdate);
+VALUES(CUSTOMER_SEQ.NEXTVAL,'user01','1234','1990-08-08','남성','홍길동','asd@naver.com','경기도 고양시 덕양구','010-1234-5678','상세주소','10001',sysdate);
 
 --헤어 정보 테이블 INSERT
 --CUSTOMER 번호가 존재해야만 오류 발생 없음.
