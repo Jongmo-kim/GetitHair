@@ -187,19 +187,6 @@ START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER customer_AI_TRG
-BEFORE INSERT ON customer 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT customer_SEQ.NEXTVAL
-    INTO :NEW.customer_no
-    FROM DUAL;
-END;
-/
-
---DROP TRIGGER customer_AI_TRG;
-/
-
 --DROP SEQUENCE customer_SEQ;
 /
 
@@ -293,15 +280,23 @@ COMMENT ON COLUMN style.style_likes IS '좋아요수'
 CREATE TABLE hair_info
 (
     customer_no      NUMBER          NOT NULL,
-    myhair_scalp     VARCHAR2(20)    NULL,
-    myhair_curly     VARCHAR2(20)    NULL, 
-    myhair_rich      VARCHAR2(20)    NULL, 
-    myhair_bold      VARCHAR2(20)    NULL, 
-    myhair_vol       VARCHAR2(20)    NULL, 
-    myhair_status    VARCHAR2(20)    NULL, 
-    myhair_old       VARCHAR2(20)    NULL, 
-    CONSTRAINT HAIR_INFO_PK PRIMARY KEY (customer_no)
-)
+    myhair_scalp     VARCHAR2(20)    NULL, --두피상태 myhair_scalp //in(지성,건성,비듬,민감성,중성,모름)
+    myhair_curly     VARCHAR2(20)    NULL, --곱슬정도 myhair_curly //in(곱슬,반곱슬,직모,모름)
+    myhair_rich      VARCHAR2(20)    NULL, --머리숱 myhair_rich    //in(많음,보통,적음,탈모,모름)
+    myhair_bold      VARCHAR2(20)    NULL, --모발굵기 myhair_bold  //in(가는모발,중간모발,두꺼운모발,모름)
+    myhair_vol       VARCHAR2(20)    NULL, --볼륨 myhair_vol    //in(볼륨부족,뜨는머리,고민없음,모름)
+    myhair_status    VARCHAR2(20)    NULL, --모발상태 myhair_status //in(끊기는모발,푸석한모발,건강한모발,모름)
+    myhair_old       VARCHAR2(20)    NULL, --모발노화상태 myhair_old   //in(새치조금,새치많음,새치없음,모름)
+    CONSTRAINT HAIR_INFO_PK PRIMARY KEY (customer_no),   
+    check(myhair_scalp in ('지성','건성','비듬','민감성','중성','모름')),
+    check(myhair_curly in ('곱슬','반곱슬','직모','모름')),
+    check(myhair_rich in ('많음','보통','적음','탈모','모름')),
+    check(myhair_bold in ('가는모발','중간모발','두꺼운모발','모름')),
+    check(myhair_vol in ('볼륨부족','뜨는머리','고민없음','모름')),
+    check(myhair_status in ('끊기는모발','푸석한모발','건강한모발','모름')),
+    check(myhair_old in ('새치조금','새치많음','새치없음','모름'))
+);
+
 /
 
 COMMENT ON TABLE hair_info IS '추가정보'
@@ -331,6 +326,7 @@ COMMENT ON COLUMN hair_info.myhair_old IS '모발노화상태'
 ALTER TABLE hair_info
     ADD CONSTRAINT FK_hair_info_customer_no_custo FOREIGN KEY (customer_no)
         REFERENCES customer (customer_no)
+        ON DELETE CASCADE
 /
 
 
@@ -340,7 +336,7 @@ CREATE TABLE review
     review_no         NUMBER           NOT NULL, 
     shop_no           NUMBER           NOT NULL, 
     designer_no       NUMBER           NOT NULL, 
-    customer_no       NUMBER           NOT NULL, 
+    customer_no       NUMBER           , 
     style_no          NUMBER           NOT NULL, 
     review_content    VARCHAR2(200)    NOT NULL, 
     review_rate       NUMBER           NOT NULL, 
@@ -417,28 +413,65 @@ ALTER TABLE review
 
 ALTER TABLE review
     ADD CONSTRAINT FK_review_customer_no_customer FOREIGN KEY (customer_no)
-        REFERENCES customer (customer_no)
+        REFERENCES customer (customer_no) ON DELETE SET NULL
 /
 
 ALTER TABLE review
     ADD CONSTRAINT FK_review_style_no_style_style FOREIGN KEY (style_no)
         REFERENCES style (style_no)
 /
-
-
+-- 시술 가격 테이블
+CREATE TABLE shop_price
+(
+    shop_price_no    NUMBER    NOT NULL, 
+    shop_no        NUMBER    NOT NULL, 
+    price           NUMBER     NULL, 
+    CONSTRAINT SHOP_PRICE_PK PRIMARY KEY (shop_price_no)
+)
+/
+CREATE SEQUENCE shop_price_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+--외래키 추가
+ALTER TABLE shop_price
+    ADD CONSTRAINT shop_price_shop_noFK FOREIGN KEY (shop_no)
+        REFERENCES hairshop (shop_no)
+/
+-- hairshop Table Create SQL
+CREATE TABLE style_list
+(
+    stylelist_no    NUMBER    NOT NULL, 
+    style_no        NUMBER    NOT NULL, 
+    designer_no     NUMBER    NOT NULL, 
+    shop_price_no           NUMBER    NOT NULL, 
+    CONSTRAINT STYLE_LIST_PK PRIMARY KEY (stylelist_no)
+)
+/
+CREATE SEQUENCE style_list_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+ALTER TABLE style_list
+    ADD CONSTRAINT FK_style_list_shop_price_no FOREIGN KEY (shop_price_no)
+        REFERENCES shop_price(shop_price_no)
+/
 -- hairshop Table Create SQL
 CREATE TABLE reserve
 (
     reserve_no               NUMBER           NOT NULL, 
-    customer_no              NUMBER           NOT NULL, 
+    customer_no              NUMBER           , 
     designer_no              NUMBER           NOT NULL, 
     shop_no                  NUMBER           NOT NULL, 
+    stylelist_no             NUMBER           NOT NULL,
     reserve_date             DATE             NOT NULL, 
-    reserve_status           char(9)          NOT NULL, 
+    reserve_status           char(6)          NOT NULL, 
     reserve_cust_req         VARCHAR2(300)    NULL, 
     reserve_designer_req     VARCHAR2(300)    NULL, 
     reserve_designer_memo    VARCHAR2(300)    NULL, 
-    CONSTRAINT RESERVE_PK PRIMARY KEY (reserve_no)
+    CONSTRAINT RESERVE_PK PRIMARY KEY (reserve_no),
+    --태민 check 제약조건 추가
+    check(reserve_status in ('예약','완료','취소'))
 )
 /
 
@@ -495,7 +528,7 @@ COMMENT ON COLUMN reserve.reserve_designer_memo IS '디자이너 손님에 대한 메모'
 
 ALTER TABLE reserve
     ADD CONSTRAINT FK_reserve_customer_no_custome FOREIGN KEY (customer_no)
-        REFERENCES customer (customer_no)
+        REFERENCES customer (customer_no) ON DELETE CASCADE
 /
 
 ALTER TABLE reserve
@@ -506,6 +539,10 @@ ALTER TABLE reserve
 ALTER TABLE reserve
     ADD CONSTRAINT FK_reserve_shop_no_hairshop_sh FOREIGN KEY (shop_no)
         REFERENCES hairshop (shop_no)
+/
+ALTER TABLE reserve
+    ADD CONSTRAINT FK_reserve_stylelist_no_style_list_style_no FOREIGN KEY (stylelist_no)
+        REFERENCES style_list (stylelist_no)
 /
 
 
@@ -560,25 +597,8 @@ ALTER TABLE designer_list
 ALTER TABLE designer_list
     ADD CONSTRAINT FK_designer_list_designer_no_d FOREIGN KEY (designer_no)
         REFERENCES designer (designer_no)
+
 /
-
-
--- hairshop Table Create SQL
-CREATE TABLE style_list
-(
-    stylelist_no    NUMBER    NOT NULL, 
-    style_no        NUMBER    NOT NULL, 
-    designer_no     NUMBER    NOT NULL, 
-    price           NUMBER    NOT NULL, 
-    CONSTRAINT STYLE_LIST_PK PRIMARY KEY (stylelist_no)
-)
-/
-
-CREATE SEQUENCE style_list_SEQ
-START WITH 1
-INCREMENT BY 1;
-/
-
 CREATE OR REPLACE TRIGGER style_list_AI_TRG
 BEFORE INSERT ON style_list 
 REFERENCING NEW AS NEW FOR EACH ROW 
@@ -607,9 +627,6 @@ COMMENT ON COLUMN style_list.style_no IS '헤어스타일번호'
 COMMENT ON COLUMN style_list.designer_no IS '디자이너번호'
 /
 
-COMMENT ON COLUMN style_list.price IS '시술가격'
-/
-
 ALTER TABLE style_list
     ADD CONSTRAINT FK_style_list_designer_no_desi FOREIGN KEY (designer_no)
         REFERENCES designer (designer_no)
@@ -619,8 +636,6 @@ ALTER TABLE style_list
     ADD CONSTRAINT FK_style_list_style_no_style_s FOREIGN KEY (style_no)
         REFERENCES style (style_no)
 /
-
-
 -- hairshop Table Create SQL
 CREATE TABLE likes
 (
@@ -670,7 +685,7 @@ COMMENT ON COLUMN likes.like_type_no IS '헤어샵번호 or 시술번호'
 
 ALTER TABLE likes
     ADD CONSTRAINT FK_likes_customer_no_customer_ FOREIGN KEY (customer_no)
-        REFERENCES customer (customer_no)
+        REFERENCES customer (customer_no) ON DELETE CASCADE
 /
 
 
@@ -704,6 +719,7 @@ END;
 
 --DROP SEQUENCE admin_SEQ;
 /
+-- review_comment table (은영)
 CREATE TABLE REVIEW_COMMENT(
     REVIEW_COMMENT_NO    NUMBER PRIMARY KEY,    -- 답글 식별번호
     REVIEW_COMMENT_WRITER VARCHAR2(20),         -- 답글 작성자

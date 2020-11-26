@@ -83,7 +83,7 @@
                         <th>번호</th>
                         <th>샵</th>
                         <th>디자이너</th>
-                        <th>아이디</th>
+                        <th>작성자</th>
                         <th>내용</th>
                         <th>기능</th>
                     </tr>
@@ -108,7 +108,7 @@
         </header>
         <section>
             <div class="admin-content">
-                <form action="/searchCustomer" method="GET">
+                <form action="/mypageAdminCustomer" method="GET">
                     <div class="customer-search">
                         <select name="searchType">
                             <option value="1" <%=sel1 %>>아이디</option>
@@ -173,9 +173,10 @@
         </section>
     </div>
     <script>
-        function setClickToTh() {
-            $("th").click(function (e) {
-                var chk = $(this).siblings().eq(0).children('input');
+        function setClickToTr() {
+            $("tr").off('click');
+            $("tr").on("click", function (e) {
+                var chk = $(this).children().eq(0).children('input');
                 if (chk.is(":checked")) {
                     chk.prop("checked", false);
                 } else {
@@ -183,18 +184,53 @@
                 }
             });
         }
-        $(function () {
-            setClickToTh();
-            // $.ajax({
-            //     url: "/adminSelectCustomerReview",
-            //     type: "post",
-            //     cache: false,
-            //     dataType: "json",
-            //     data: { customerNo: 1 },
-            //     success: function (data) {
+        function setClickToReviewTr() {
+            $(document).off("click", ".row-review");
+            $(document).on("click", ".row-review", function (e) {
+                var chk = $(this).children().eq(0).children('input');
+                if (chk.is(":checked")) {
+                    chk.prop("checked", false);
+                } else {
+                    chk.prop("checked", true);
+                }
+            });
+        }
+        function setClickToChk() {
+            $(document).off("click", "[name=chk]");
+            $(document).on("click", "[name=chk]", function (e) {
+                if ($(this).is(":checked")) {
+                    $(this).prop("checked", false);
+                } else {
+                    $(this).prop("checked", true);
+                }
+            });
+        }
+        function setClickToRemoveReviewBtn() {
+            $(document).off("click", ".delete-review");
+            $(document).on("click", ".delete-review", function (e) {
+                if (confirm("정말 삭제하시겠습니까?")) {
 
-            //     }
-            // })
+                    let reviewNo = $(this).val();
+                    $.ajax({
+                        url: "/adminDeleteReview",
+                        type: "post",
+                        cache: false,
+                        dataType: "text",
+                        data: { reviewNo: reviewNo },
+                        success: function (data) {
+                            alert(data);
+                            console.log(data);
+                            //삭제후 리스트를 다시 불러옴.
+                            $("#rvbtn").trigger("click");
+                        }
+                    })
+                }
+                e.stopPropagation();
+            });
+        }
+        $(function () {
+            setClickToTr();
+            setClickToChk()
             $(".modal-overlay").click(function (e) {
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
@@ -203,6 +239,7 @@
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
             })
+            //리뷰 보기 버튼 클릭 이벤트
             $("#rvbtn").click(function (e) {
                 $(".modal-overlay").css("display", "block");
                 $(".review-container").css("display", "block");
@@ -213,25 +250,28 @@
                     type: "post",
                     cache: false,
                     dataType: "json",
-                    data: { customerNo: 1 },
+                    data: { customerNo: customerNo },
                     success: function (data) {
-                        for (var i = 0; i < data.length; i++) {
-                            var html = [
-                                "<tr>",
-                                "<th width='30'><input type='checkbox' name='chk' value='" + data[i].reviewNo + "'></th>",
-                                "<th>" + data[i].reviewNo + "</th>",
-                                "<th>" + data[i].shop + "</th>",
-                                "<input type='hidden' name='customerId' value='" + data[i].designer.designerNo + "'>",
-                                "<th>" + data[i].designer.designerNo + "</th>",
-                                "<th>" + data[i].customer.customerId + "</th>",
-                                "<th>" + data[i].reviewContent + "</th>",
-                                "<th><button>삭제</button></th>",
-                                "</tr>"];
-                            $(".review-list").children('tbody').append(html.join());
-                        }
+                        if (data != null)
+                            for (var i = 0; i < data.length; i++) {
+                                var html = [
+                                    "<tr class='row-review'>",
+                                    "<th width='30'><input type='checkbox' name='chk' value='" + data[i].reviewNo + "'></th>",
+                                    "<th>" + data[i].reviewNo + "</th>",
+                                    "<th>" + data[i].shop.shopName + "</th>",
+                                    "<input type='hidden' name='customerId' value='" + data[i].designer.designerNo + "'>",
+                                    "<th>" + data[i].designer.designerName + "</th>",
+                                    "<th>" + data[i].customer.customerId + "</th>",
+                                    "<th>" + data[i].reviewContent + "</th>",
+                                    "<th><button class='delete-review' value='" + data[i].reviewNo + "'>삭제</button></th>",
+                                    "</tr>"];
+                                $(".review-list").children('tbody').append(html.join());
+                            }
                     }
                 })
-                setClickToTh();
+                setClickToReviewTr();
+                setClickToChk()
+                setClickToRemoveReviewBtn();
                 e.stopPropagation();
             })
 

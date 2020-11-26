@@ -46,8 +46,10 @@ public class HairshopSearchServlet extends HttpServlet {
 		}
 =======
 		ArrayList<Hairshop> list = new HairshopService().selectHairshopList();
+		int totalCount = new HairshopService().totalCount();
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshop.jsp");
 		request.setAttribute("list", list);
+		request.setAttribute("totalCount", totalCount);
 		rd.forward(request, response);
 >>>>>>> 6d0b30346eae69b8a421f42618b476a0b9c4c5d6:GetitHairProject/src/hairshop/controller/HairshopServlet.java
 	}
