@@ -25,11 +25,13 @@ DROP SEQUENCE shop_price_SEQ;
 DROP SEQUENCE likes_SEQ;
 DROP SEQUENCE admin_SEQ;
 DROP SEQUENCE REVIEW_COMMENT_SEQ;
+drop sequence hair_info_seq;
 
 -------------------------------------
 -- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
 
 -- hairshop Table Create SQL
+create sequence hair_info_seq;
 CREATE TABLE hairshop
 (
     shop_no          NUMBER           NOT NULL, 
@@ -54,15 +56,6 @@ START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER hairshop_AI_TRG
-BEFORE INSERT ON hairshop 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT hairshop_SEQ.NEXTVAL
-    INTO :NEW.shop_no
-    FROM DUAL;
-END;
-/
 
 --DROP TRIGGER hairshop_AI_TRG;
 /
@@ -137,15 +130,6 @@ START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER designer_AI_TRG
-BEFORE INSERT ON designer 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT designer_SEQ.NEXTVAL
-    INTO :NEW.designer_no
-    FROM DUAL;
-END;
-/
 
 --DROP TRIGGER designer_AI_TRG;
 /
@@ -270,15 +254,7 @@ START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER style_AI_TRG
-BEFORE INSERT ON style 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT style_SEQ.NEXTVAL
-    INTO :NEW.style_no
-    FROM DUAL;
-END;
-/
+
 
 --DROP TRIGGER style_AI_TRG;
 /
@@ -381,15 +357,6 @@ START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER review_AI_TRG
-BEFORE INSERT ON review 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT review_SEQ.NEXTVAL
-    INTO :NEW.review_no
-    FROM DUAL;
-END;
-/
 
 --DROP TRIGGER review_AI_TRG;
 /
@@ -509,15 +476,6 @@ START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER reserve_AI_TRG
-BEFORE INSERT ON reserve 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT reserve_SEQ.NEXTVAL
-    INTO :NEW.reserve_no
-    FROM DUAL;
-END;
-/
 
 --DROP TRIGGER reserve_AI_TRG;
 /
@@ -590,15 +548,7 @@ START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER designer_list_AI_TRG
-BEFORE INSERT ON designer_list 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT designer_list_SEQ.NEXTVAL
-    INTO :NEW.designerlist_no
-    FROM DUAL;
-END;
-/
+
 
 --DROP TRIGGER designer_list_AI_TRG;
 /
@@ -628,15 +578,7 @@ ALTER TABLE designer_list
         REFERENCES designer (designer_no)
 
 /
-CREATE OR REPLACE TRIGGER style_list_AI_TRG
-BEFORE INSERT ON style_list 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT style_list_SEQ.NEXTVAL
-    INTO :NEW.stylelist_no
-    FROM DUAL;
-END;
-/
+
 
 --DROP TRIGGER style_list_AI_TRG;
 /
@@ -681,15 +623,7 @@ START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER likes_AI_TRG
-BEFORE INSERT ON likes 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT likes_SEQ.NEXTVAL
-    INTO :NEW.like_no
-    FROM DUAL;
-END;
-/
+
 
 --DROP TRIGGER likes_AI_TRG;
 /
@@ -733,14 +667,7 @@ START WITH 1
 INCREMENT BY 1;
 /
 
-CREATE OR REPLACE TRIGGER admin_AI_TRG
-BEFORE INSERT ON admin 
-REFERENCING NEW AS NEW FOR EACH ROW 
-BEGIN 
-    SELECT admin_SEQ.NEXTVAL
-    INTO :NEW.admin_no
-    FROM DUAL;
-END;
+
 /
 
 --DROP TRIGGER admin_AI_TRG;
