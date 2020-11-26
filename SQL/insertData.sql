@@ -17,6 +17,11 @@ VALUES(1,'지성','곱슬','많음','가는모발','볼륨부족','푸석한모발','새치조금');
 INSERT INTO HAIRSHOP
 VALUES(DEFAULT,'123-45-67890','홍길헤어','서울 영등포구 당산동','02-1234-1234','08:00','21:00','매주 화요일',0,null,0,'상세주소','10123');
 
+--헤어샵 시술 가격 테이블 INSERT
+--헤어 샵 번호가 존재해야만 오류 발생 없음.
+INSERT INTO SHOP_PRICE
+VALUES(SHOP_PRICE_SEQ.NEXTVAL,1,15000);
+
 --디자이너 테이블 INSERT
 INSERT INTO DESIGNER
 VALUES(DEFAULT,'designer01','1234','여','김영희','asdf@naver.com','010-1234-5678',3,'직급','소개','키워드',null);
