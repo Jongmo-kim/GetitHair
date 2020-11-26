@@ -12,10 +12,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%-- <%@ include file="/WEB-INF/views/common/header.jsp" %> --%>
 	<section>
 		<div>
-			<table class="table table-striped">
+			<table>
 				<tr>
 					<th colspan="4" style="font-size:20px;">리뷰 리스트</th>
 				</tr>
@@ -33,6 +33,6 @@
 			</table>
 		</div>
 	</section>
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	<%-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --%>
 </body>
 </html>

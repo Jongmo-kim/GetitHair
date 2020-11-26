@@ -14,7 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%-- <%@ include file="/WEB-INF/views/common/header.jsp" %> --%>
 	<section>
 		<h1>리뷰관리</h1>
 		<div>
@@ -71,7 +71,7 @@
 				<%} // 댓글 for문 종료 지점%>
 			</div>
 	</section>
-	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	<%-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --%>
 	<script>
 	$(".recShow").click(function(){
 		$(this).hide();
