@@ -541,7 +541,7 @@ ALTER TABLE reserve
         REFERENCES hairshop (shop_no)
 /
 ALTER TABLE reserve
-    ADD CONSTRAINT FK_reserve_stylelist_no_style_list_style_no FOREIGN KEY (stylelist_no)
+    ADD CONSTRAINT FK_reserve_stylelist_no_style_list_ FOREIGN KEY (stylelist_no)
         REFERENCES style_list (stylelist_no)
 /
 
