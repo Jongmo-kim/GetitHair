@@ -3,6 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+    int pageSize = (Integer)request.getAttribute("pageSize");
+    int reqPage = (Integer)request.getAttribute("reqPage");
 	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
 	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
 	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
@@ -88,8 +90,7 @@
                                         <button>삭제</button>
                                     </th>
                                 </tr>
-                                <%
-                                        }
+                                <%}
                                         %>
                                 <%
                                     }
@@ -104,6 +105,16 @@
                                 </tr>
                             </tfoot>
                         </table>
+                    </div>
+                    <div class="page-nav">
+                        <%for(int i = reqPage-2; i<reqPage;i++){%>
+                            <%if(i > 0){%>
+                                <a href="mypageAdminReview?reqPage=<%=i%>"><%=i%></a>
+                            <%}%>
+                        <%}%>
+                        <%for(int i = reqPage; i<=pageSize;i++){%>
+                            <a href="mypageAdminReview?reqPage=<%=i%>"><%=i%></a>
+                        <%}%>
                     </div>
                 </form>
             </div>

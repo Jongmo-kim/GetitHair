@@ -19,14 +19,11 @@ public class ReviewDao {
 	private Review getSettedReviewProperties(ResultSet rs) {
 		Review rv = new Review();
 		try {
-			Style s = new Style();
-			s.setStyleNo(rs.getInt("style_no"));
 			rv.setReviewNo(rs.getInt("review_no"));
 			rv.setShop(new HairshopService().selectOneHairshop(rs.getInt("shop_no")));
 			rv.setDesigner(new DesignerService().selectOneDesigner(rs.getInt("designer_no")));
 			rv.setCustomer(new CustomerService().selectOneCustomer(rs.getInt("customer_no")));
-//			rv.setStyleNo(new StyleService().selectOneStyle(rs.getInt("style_no")));
-			rv.setStyle(s);
+			rv.setStyle(new StyleService().selectOneStyle(rs.getInt("style_no")));
 			rv.setReviewContent(rs.getString("review_content"));
 			rv.setReviewRate(rs.getInt("review_rate"));
 			rv.setReviewLikes(rs.getInt("review_likes"));
@@ -37,6 +34,31 @@ public class ReviewDao {
 			e.printStackTrace();
 		}
 		return rv;
+	}
+	public ArrayList<Review> selectAllReview(Connection conn, int reqPage, int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "SELECT * FROM (SELECT ROWNUM RN,RV.* FROM "
+				+ "(SELECT RV.* FROM review RV ORDER BY RV.REVIEW_NO DESC) RV) "
+				+ "WHERE RN BETWEEN ? AND ?";
+		ArrayList<Review> list = new ArrayList<Review>();
+		try {
+			pstmt=conn.prepareStatement(qrySelect);
+			pstmt.setInt(1, (maxPrintSize*(reqPage-1))+1);
+			pstmt.setInt(2, maxPrintSize*reqPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Review rv = getSettedReviewProperties(rs);
+				list.add(rv);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
 	}
 	public ArrayList<Review> selectAllReview(Connection conn){
 		PreparedStatement pstmt = null;
@@ -210,6 +232,30 @@ public class ReviewDao {
 		}
 		return result;
 	}
+	public int getMaxPageSize(Connection conn, int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		String qrySelect = "select count(*) cnt from review";
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(qrySelect);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+				if(result != 0) {
+					result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+	
 
 	
 }
