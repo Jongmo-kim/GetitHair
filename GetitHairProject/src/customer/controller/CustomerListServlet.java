@@ -1,4 +1,4 @@
-package hairinfo.controller;
+package customer.controller;
 
 import java.io.IOException;
 
@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.DebugTemplate;
-import hairinfo.model.service.HairinfoService;
-import hairinfo.model.vo.Hairinfo;
+import customer.model.service.CustomerService;
+import customer.model.vo.CustomerPageData;
 
 /**
- * Servlet implementation class UpdateHairinfoFrmServlet
+ * Servlet implementation class CustomerListServlet
  */
-@WebServlet(name = "UpdateHairinfoFrm", urlPatterns = { "/updateHairinfoFrm" })
-public class UpdateHairinfoFrmServlet extends HttpServlet {
+@WebServlet(name = "CustomerList", urlPatterns = { "/customerList" })
+public class CustomerListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateHairinfoFrmServlet() {
+    public CustomerListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +31,14 @@ public class UpdateHairinfoFrmServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1.인코딩
-		//2.views
-		int customerNo = Integer.parseInt(request.getParameter("customerNo"));		
-		//3.비지니스로직
-		Hairinfo hairinfo = new HairinfoService().selectOneHairinfo(customerNo);
-		//4.결과
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/updateHairinfoFrm.jsp");
-		request.setAttribute("hairinfo", hairinfo);
+		//2.view에서 넘어온 값 저장
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		//3.비지니스로직처리
+		CustomerPageData cpd = new CustomerService().customerSelectList(reqPage);
+		//4.결과처리
+		RequestDispatcher rd = request.getRequestDispatcher("/");
+		request.setAttribute("list", cpd.getList());
+		request.setAttribute("pageNavi", cpd.getPageNavi());
 		rd.forward(request, response);
 	}
 

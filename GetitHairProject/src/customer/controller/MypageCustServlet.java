@@ -19,6 +19,7 @@ import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 import hairinfo.model.service.HairinfoService;
 import hairinfo.model.vo.Hairinfo;
+import reserve.model.service.ReserveService;
 
 
 /**
@@ -42,9 +43,15 @@ public class MypageCustServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");		
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		
+		ReservePageDate rpd = new ReserveService().customerSelectList(reqPage);
+		
 		if(loginCustomer!=null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");	
 			request.setAttribute("loginCustomer", loginCustomer);
+			request.setAttribute("list", rpd.getList());
+			request.setAttribute("pageNavi", rpd.getPageNavi);
 			rd.forward(request, response);
 		}else {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
