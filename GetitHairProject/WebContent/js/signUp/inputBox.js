@@ -1,4 +1,4 @@
- var isDebugMode = true;
+ var isDebugMode = false;
     $(function () {
         //form-textbox에 먼저 이벤트를 할당하면 원하는대로 동작하지않음
         $('.dateOfBirth').on('focus click', dateOfBirthFunc);
@@ -231,18 +231,25 @@
         }
         var nextSpan = $(this).next();
         var inputVal = $(this).val();
-        toggleNextSpan(nextSpan, inputVal);
+        focusNextSpan(nextSpan, inputVal);
 
     }
-
+	function focusNextSpan(nextSpan, inputVal){
+		$(nextSpan).addClass('label-focused');
+	}
     function formTextboxBlurEvent(e) {
         if (isDebugMode) {
             console.log('formTextboxBlurEvent is called');
         }
         var nextSpan = $(this).next();
         var inputVal = $(this).val();
-        toggleNextSpan(nextSpan, inputVal);
+        blurNextSpan(nextSpan, inputVal);
     }
+	function blurNextSpan(nextSpan,inputVal){
+		if ($(nextSpan).is('.label-focused') && inputVal == "") {
+			$(nextSpan).removeClass('label-focused');
+		}
+	} 
     function toggleNextSpan(nextSpan, inputVal) {
         if ($(nextSpan).is('.label-focused')) {
             if (inputVal == "") {
