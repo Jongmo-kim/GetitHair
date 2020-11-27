@@ -1,4 +1,4 @@
-package designer.controller;
+package designerportfolio.controller;
 
 import java.io.IOException;
 
@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class DesignerReviewServlet
+ * Servlet implementation class DesignerPortfolioWriteFrmServlet
  */
-@WebServlet(name = "DesignerReview", urlPatterns = { "/designerReview" })
-public class DesignerReviewServlet extends HttpServlet {
+@WebServlet(name = "DesignerPortfolioWriteFrm", urlPatterns = { "/designerPortfolioWriteFrm" })
+public class DesignerPortfolioWriteFrmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DesignerReviewServlet() {
+    public DesignerPortfolioWriteFrmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,7 @@ public class DesignerReviewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/review/designer/designerReviewList.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/designer/designerPortfolioWriteFrm.jsp");
 		rd.forward(request, response);
 	}
 

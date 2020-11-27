@@ -1,25 +1,31 @@
 package designerportfolio.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
+import designerportfolio.model.service.DesignerPortfolioService;
+import designerportfolio.model.vo.DesignerPortfolio;
+
+
 /**
- * Servlet implementation class DesignerPortfolioServlet
+ * Servlet implementation class DesignerPortfolioMoreServlet
  */
-@WebServlet(name = "DesignerPortfolio", urlPatterns = { "/designerPortfolio" })
-public class DesignerPortfolioServlet extends HttpServlet {
+@WebServlet(name = "DesignerPortfolioMore", urlPatterns = { "/designerPortfolioMore" })
+public class DesignerPortfolioMoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DesignerPortfolioServlet() {
+    public DesignerPortfolioMoreServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,8 +34,15 @@ public class DesignerPortfolioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/designerPortfolio/designerPortfolioList.jsp");
-		rd.forward(request, response);
+		// 1. 인코딩
+		request.setCharacterEncoding("utf-8");
+		// 2. view에서 넘어온 값 저장
+		int start = Integer.parseInt(request.getParameter("start"));
+		// 3. 비지니스로직
+		ArrayList<DesignerPortfolio> list = new DesignerPortfolioService().DesignerPortfolioMore(start);
+		// 4. 결과처리
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(list,response.getWriter());
 	}
 
 	/**

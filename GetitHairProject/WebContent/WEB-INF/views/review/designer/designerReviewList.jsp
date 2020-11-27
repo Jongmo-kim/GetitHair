@@ -4,6 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%
     	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
+	
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -25,15 +26,15 @@
 				<th>작성자</th>
 				<th>작성일</th>
 			</tr>
-			
-			<%for(Review r : list) {%>
+		<%for(Review r : list) {%>
 			<tr>
 				<th><%=r.getReviewNo() %></th>
-				<th><a href="/reviewView?reviewNo=<%=r.getReviewNo() %>"><%=r.getReviewContent() %></a></th>
+				<th><%=r.getReviewContent() %></th>
 				<th><%=r.getCustomer() %></th>
 				<th><%=r.getReviewDate() %></th>
 			</tr>
-			<%} %>
+			<%} %> 
+		
 		</table>
 	</div>
 	</section>
