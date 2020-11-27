@@ -149,7 +149,7 @@
     	<h4><span style="font-size:12px"><%=review.get(i).getDesigner().getDesignerName()%> 디자이너</span></h4>
     	<br>
     	<p></p>
-    	<p style="font-size: 14px"><%=review.get(i).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(0).getReviewDate() %></span></p>
+    	<p style="font-size: 14px"><%=review.get(i).getCustomer().getCustomerName() %>님 - <%=review.get(i).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(0).getReviewDate() %></span></p>
     	<hr>
     	<%} %>
     </div>
