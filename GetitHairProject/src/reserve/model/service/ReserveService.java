@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
+import customer.model.vo.Customer;
 import reserve.model.dao.ReserveDao;
 import reserve.model.vo.Reserve;
 import reserve.model.vo.ReservePageData;
@@ -62,89 +63,7 @@ public class ReserveService {
 		commitOrRollback(conn, result);
 		JDBCTemplate.close(conn);
 		return result;
-	}
-	public ReservePageData reserveSelectList(int reqPage){
-		Connection conn = JDBCTemplate.getConnection();
-		ReserveDao dao = new ReserveDao();
-		int totalCount = dao.getTotalCount(conn);
-		int numPerPage = 10;
-		int totalPage = totalCount % numPerPage == 0 ? totalCount / numPerPage : totalCount / numPerPage + 1;
-		// reqPage = 1 -> start : 1, end : 10
-		int start = (reqPage - 1) * numPerPage + 1;
-		int end = reqPage * numPerPage;
-		ArrayList<Reserve> list = dao.selectList(conn, start, end);
-
-		// 페이지 네비게이션 작성 시작
-		int pageNaviSize = 5;
-		String pageNavi = "";
-		// 페이지네비 시작번호 구하기
-		// reqPage : 1~5 -> 1
-		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		// 이전버튼 : 페이지 시작번호가 1이 아닌경우에만 이전버튼 생성
-		if (pageNo != 1) {
-			pageNavi += "<a href='/mypageCust?reqPage=" + (pageNo - 1) + "&selStatus=전체'>이전</a>";
-		}
-
-		for (int i = 0; i < pageNaviSize; ++i) {
-			if (reqPage == pageNo) {
-				// 현재페이지
-				pageNavi += "<span class='naviNumber'>" + pageNo + "</span>";
-			} else {
-				pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "&selStatus=전체'>" + pageNo + "</a>";
-			}
-			++pageNo;
-			if (pageNo > totalPage) {
-				break;
-			}
-		}
-		if (pageNo <= totalPage) {
-			pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "&selStatus=전체'>다음</a>";
-		}
-		JDBCTemplate.close(conn);
-		ReservePageData rpd= new ReservePageData(list, pageNavi);
-		return rpd;
-	}
-	public ReservePageData reserveSelectListCustomer(int reqPage,int customerNo){
-		Connection conn = JDBCTemplate.getConnection();
-		ReserveDao dao = new ReserveDao();
-		int totalCount = dao.getTotalCountCustomer(conn,customerNo);
-		int numPerPage = 10;
-		int totalPage = totalCount % numPerPage == 0 ? totalCount / numPerPage : totalCount / numPerPage + 1;
-		// reqPage = 1 -> start : 1, end : 10
-		int start = (reqPage - 1) * numPerPage + 1;
-		int end = reqPage * numPerPage;
-		ArrayList<Reserve> list = dao.selectListCustomer(conn, start, end,customerNo);
-
-		// 페이지 네비게이션 작성 시작
-		int pageNaviSize = 5;
-		String pageNavi = "";
-		// 페이지네비 시작번호 구하기
-		// reqPage : 1~5 -> 1
-		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
-		// 이전버튼 : 페이지 시작번호가 1이 아닌경우에만 이전버튼 생성
-		if (pageNo != 1) {
-			pageNavi += "<a href='/mypageCust?reqPage=" + (pageNo - 1) + "&selStatus=전체'>이전</a>";
-		}
-
-		for (int i = 0; i < pageNaviSize; ++i) {
-			if (reqPage == pageNo) {
-				// 현재페이지
-				pageNavi += "<span class='naviNumber'>" + pageNo + "</span>";
-			} else {
-				pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "&selStatus=전체'>" + pageNo + "</a>";
-			}
-			++pageNo;
-			if (pageNo > totalPage) {
-				break;
-			}
-		}
-		if (pageNo <= totalPage) {
-			pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "&selStatus=전체'>다음</a>";
-		}
-		JDBCTemplate.close(conn);
-		ReservePageData rpd= new ReservePageData(list, pageNavi);
-		return rpd;
-	}
+	}	
 	
 	private void commitOrRollback(Connection conn, int result) {
 		if(result > 0) {
@@ -152,43 +71,44 @@ public class ReserveService {
 		} else {
 			JDBCTemplate.rollback(conn);
 		}
-	}
-	public ReservePageData reserveSelectListCustomerSelStatus(int reqPage, String selStatus,int customerNo) {
+	}	
+	public ReservePageData reserveSelectListCustomerSelStatus(int reqPage,Customer customer, String selStatus,String sqlAdd) {
 		Connection conn = JDBCTemplate.getConnection();
 		ReserveDao dao = new ReserveDao();
-		int totalCount = dao.getTotalCountCustomerSelStatus(conn,selStatus,customerNo);
+		int totalCount = dao.getTotalCountCustomerSelStatus(conn, customer, sqlAdd);
 		int numPerPage = 10;
 		int totalPage = totalCount % numPerPage == 0 ? totalCount / numPerPage : totalCount / numPerPage + 1;
 		// reqPage = 1 -> start : 1, end : 10
 		int start = (reqPage - 1) * numPerPage + 1;
 		int end = reqPage * numPerPage;
-		ArrayList<Reserve> list = dao.selectListCustomerSelStatus(conn, start, end, selStatus,customerNo);
-
+		ArrayList<Reserve> list = dao.selectListCustomerSelStatus(conn,customer,start,end,sqlAdd);
 		// 페이지 네비게이션 작성 시작
 		int pageNaviSize = 5;
 		String pageNavi = "";
+		String link = "<a href='/updateReserveFrm?customerNo="+customer.getCustomerNo()+"&selStatus="+selStatus+"&reqPage=";
 		// 페이지네비 시작번호 구하기
 		// reqPage : 1~5 -> 1
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 		// 이전버튼 : 페이지 시작번호가 1이 아닌경우에만 이전버튼 생성
 		if (pageNo != 1) {
-			pageNavi += "<a href='/mypageCust?reqPage=" + (pageNo - 1) + "&selStatus="+selStatus+"'>이전</a>";
+			pageNavi += link + (pageNo-1)+"'>이전</a>";
 		}
 
 		for (int i = 0; i < pageNaviSize; ++i) {
 			if (reqPage == pageNo) {
 				// 현재페이지
-				pageNavi += "<span class='naviNumber'>" + pageNo + "</span>";
+				pageNavi += "<span>" + pageNo + "</span>";
 			} else {
-				pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "&selStatus="+selStatus+"'>" + pageNo + "</a>";
+				pageNavi += link + pageNo + "'>" + pageNo + "</a>";
 			}
 			++pageNo;
 			if (pageNo > totalPage) {
 				break;
 			}
 		}
+		//다음버튼생성
 		if (pageNo <= totalPage) {
-			pageNavi += "<a class='naviNumber' href='/mypageCust?reqPage=" + pageNo + "&selStatus="+selStatus+"'>다음</a>";
+			pageNavi +=  link + (pageNo)+"'>다음</a>";
 		}		
 		ReservePageData rpd= new ReservePageData(list, pageNavi);
 		JDBCTemplate.close(conn);
@@ -197,5 +117,5 @@ public class ReserveService {
 	public Reserve insertReserve(int shopNo) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}	
 }
