@@ -1,6 +1,7 @@
 package customer.model.vo;
 
 import java.io.Serializable;
+import java.sql.Date;
 public class Customer implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int customerNo;
@@ -14,7 +15,7 @@ public class Customer implements Serializable{
 	private String addrDetail;
 	private String addrPostcode;
 	private String customerBirthdate;
-	private String customerEnrolldate;
+	private Date customerEnrolldate;
 	
 	public Customer() {
 		super();
@@ -22,7 +23,7 @@ public class Customer implements Serializable{
 	}
 	public Customer(int customerNo, String customerId, String customerPw, String customerGen, String customerName,
 			String customerEmail, String customerAddr, String customerPhone, String addrDetail, String addrPostcode,
-			String customerBirthdate, String customerEnrolldate) {
+			String customerBirthdate, Date customerEnrolldate) {
 		super();
 		this.customerNo = customerNo;
 		this.customerId = customerId;
@@ -103,10 +104,11 @@ public class Customer implements Serializable{
 	public void setCustomerBirthdate(String customerBirthdate) {
 		this.customerBirthdate = customerBirthdate;
 	}
-	public String getCustomerEnrolldate() {
+	
+	public Date getCustomerEnrolldate() {
 		return customerEnrolldate;
 	}
-	public void setCustomerEnrolldate(String customerEnrolldate) {
+	public void setCustomerEnrolldate(Date customerEnrolldate) {
 		this.customerEnrolldate = customerEnrolldate;
 	}
 	@Override

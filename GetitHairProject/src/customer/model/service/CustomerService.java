@@ -2,6 +2,8 @@ package customer.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+
+import common.DebugTemplate;
 import common.JDBCTemplate;
 import customer.model.dao.CustomerDao;
 import customer.model.vo.Customer;
@@ -75,26 +77,27 @@ public class CustomerService {
 	}
 	public int insertCustomer(Customer customer,Hairinfo hairinfo) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = 0;
 		int result1 = 0;
+		int result2 = 0;
 		result1 = new CustomerDao().insertCustomer(conn,customer);
 		if(result1>0) {
 			JDBCTemplate.commit(conn);
-		}else {
+			customer = selectOneCustomer(customer.getCustomerId());
+			if(result1>0) {
+				result2 = new HairinfoDao().insertHairinfo(conn,hairinfo,customer.getCustomerNo());
+			}
+			if(result2>0) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+			JDBCTemplate.close(conn);
+		} else {
 			JDBCTemplate.rollback(conn);
+			JDBCTemplate.close(conn);			
 		}
-		int result2 = 0;
-		result2 = new HairinfoDao().insertHairinfo(conn,hairinfo,customer.getCustomerNo());
-		if(result2>0) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		}
-		JDBCTemplate.close(conn);
-		if(result1>0 && result2>0) {
-			result = 1;
-		}
-		return result;
+		
+		return result2;
 	}
 	public CustomerPageData customerSelectList(int reqPage) {
 		Connection conn = JDBCTemplate.getConnection();

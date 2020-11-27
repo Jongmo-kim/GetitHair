@@ -26,7 +26,6 @@ public class CustomerDao {
 				customer = getCustomerFromRset(rset);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rset);
@@ -130,14 +129,14 @@ public class CustomerDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, customer.getCustomerId());
 			pstmt.setString(2, customer.getCustomerPw());
-			pstmt.setString(3, customer.getCustomerGen());
-			pstmt.setString(4, customer.getCustomerName());
-			pstmt.setString(5, customer.getCustomerEmail());
-			pstmt.setString(6, customer.getCustomerAddr());
-			pstmt.setString(7, customer.getCustomerPhone());
-			pstmt.setString(8, customer.getAddrDetail());
-			pstmt.setString(9, customer.getAddrPostcode());
-			pstmt.setString(10, customer.getCustomerBirthdate());
+			pstmt.setString(3, customer.getCustomerBirthdate());
+			pstmt.setString(4, customer.getCustomerGen());
+			pstmt.setString(5, customer.getCustomerName());
+			pstmt.setString(6, customer.getCustomerEmail());
+			pstmt.setString(7, customer.getCustomerAddr());
+			pstmt.setString(8, customer.getCustomerPhone());
+			pstmt.setString(9, customer.getAddrDetail());
+			pstmt.setString(10, customer.getAddrPostcode());			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -184,7 +183,6 @@ public class CustomerDao {
 				result = rset.getInt("cnt");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rset);
@@ -206,7 +204,7 @@ public class CustomerDao {
 			customer.setCustomerPhone(rset.getString("customer_phone"));
 			customer.setCustomerPw(rset.getString("customer_pw"));
 			customer.setCustomerBirthdate(rset.getString("customer_birthdate"));
-			customer.setCustomerEnrolldate(rset.getString("customer_enrolldate"));			
+			customer.setCustomerEnrolldate(rset.getDate("customer_enrolldate"));			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

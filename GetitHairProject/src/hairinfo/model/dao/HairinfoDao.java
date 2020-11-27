@@ -147,7 +147,7 @@ public class HairinfoDao {
 	public int insertHairinfo(Connection conn, Hairinfo hairinfo, int customerNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into customer values(?,?,?,?,?,?,?,?)";		
+		String query = "insert into hair_info values(?,?,?,?,?,?,?,?)";		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, customerNo);
