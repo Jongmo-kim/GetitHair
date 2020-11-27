@@ -121,7 +121,7 @@
 		</div>
 		<div class="mid">
 			<form action="/searchHairshop" method="get">
-				<input type="search" name="searchShop" placeholder="헤어샵 이름으로 검색">
+				<input type="search" name="searchShop" placeholder="헤어샵, 지역으로 검색">
 				<button type="submit">검색</button>
 			</form>
 			<div class="content">

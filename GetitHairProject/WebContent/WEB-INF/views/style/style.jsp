@@ -1,5 +1,10 @@
+<%@page import="style.model.vo.Style"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    	ArrayList<Style> list = (ArrayList<Style>)request.getAttribute("list");
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -91,6 +96,17 @@
 		      <div class="swiper-slide"><img src="/img/style/cut/리프컷.jpg"></div>
 		      <div class="swiper-slide"><img src="/img/style/cut/샌드컷.jpg"></div>
 		      <div class="swiper-slide"><img src="/img/style/cut/허쉬컷.jpeg"></div>
+		      <div class="swiper-slide"><img src="/img/style/perm/빌드펌.jpg"></div>
+			  <div class="swiper-slide"><img src="/img/style/perm/레인펌.jpg"></div>
+			  <div class="swiper-slide"><img src="/img/style/perm/엘리자벳펌.jpg"></div>
+			  <div class="swiper-slide"><img src="/img/style/perm/플라워펌.jpg"></div>
+			  <div class="swiper-slide"><img src="/img/style/color/밀크브라운.jpg"></div>
+			  <div class="swiper-slide"><img src="/img/style/color/밤비브라운.jpg"></div>
+			  <div class="swiper-slide"><img src="/img/style/color/솜브레.jpg"></div>
+			  <div class="swiper-slide"><img src="/img/style/color/애쉬블루.jpg"></div>
+			  <!-- <%for(Style s : list) {%>
+				<div class="swiper-slide"><img src="<%=s.getStyleImg()%>"></div>
+			  <%} %> -->
 		    </div>
 		    <!-- Add Arrows -->
 		    <div class="swiper-button-next"></div>
@@ -128,10 +144,11 @@
 					<input type="checkbox" name="bob">단발
 					<input type="checkbox" name="short">숏
 					<h1>perm</h1>
-					<img src="/img/style/perm/빌드펌.jpg">
-					<img src="/img/style/perm/레인펌.jpg">
-					<img src="/img/style/perm/엘리자벳펌.jpg">
-					<img src="/img/style/perm/플라워펌.jpg">
+					<%for(Style s : list) {%>
+						<%if(s.getStyleType().equals("perm")){ %>
+							<img src="<%=s.getStyleImg()%>">
+						<%} %>
+					<%} %>
 				</div>
 				<div class="style-sub color">
 					<input type="checkbox" name="long">롱
@@ -139,19 +156,21 @@
 					<input type="checkbox" name="bob">단발
 					<input type="checkbox" name="short">숏
 					<h1>color</h1>
-					<img src="/img/style/color/밀크브라운.jpg">
-					<img src="/img/style/color/밤비브라운.jpg">
-					<img src="/img/style/color/솜브레.jpg">
-					<img src="/img/style/color/애쉬블루.jpg">
+					<%for(Style s : list) {%>
+						<%if(s.getStyleType().equals("color")){ %>
+							<img src="<%=s.getStyleImg()%>">
+						<%} %>
+					<%} %>
 				</div>
 				<div class="style-sub etc">
 					<input type="checkbox" name="clinic">클리닉
 					<input type="checkbox" name="dry">드라이
 					<h1>etc</h1>
-					<img src="/img/style/etc/드라이.jpg">
-					<img src="/img/style/etc/클리닉.jpg">
-					<img src="/img/style/etc/클리닉2.png">
-					<img src="/img/style/etc/클리닉3.jpg">
+					<%for(Style s : list) {%>
+						<%if(s.getStyleType().equals("etc")){ %>
+							<img src="<%=s.getStyleImg()%>">
+						<%} %>
+					<%} %>
 				</div>
 			</div>
 			<div class="tab">
@@ -172,6 +191,10 @@
 	      slidesPerGroup: 4,
 	      loop: true,
 	      loopFillGroupWithBlank: true,
+	      autoplay: {
+		        delay: 3000,
+		        disableOnInteraction: false,
+		      },
 	      navigation: {
 	        nextEl: '.swiper-button-next',
 	        prevEl: '.swiper-button-prev',
