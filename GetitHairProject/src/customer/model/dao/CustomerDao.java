@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import customer.model.vo.Customer;
+import hairinfo.model.vo.Hairinfo;
 
 
 public class CustomerDao {	
