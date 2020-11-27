@@ -5,9 +5,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	Customer loginCustomer = (Customer) request.getAttribute("loginCustomer");
-	ArrayList<Reserve> list = (ArrayList<Reserve>)request.getAttribute("list");
-	String pageNavi = (String)request.getAttribute("pageNavi");
-	String selStatus = (String)request.getAttribute("selStatus");
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,71 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<style>
-ul.tabs {
-	margin: 0;
-	padding: 0;
-	float: left;
-	list-style: none;
-	height: 32px;
-	border-bottom: 1px solid #999;
-	width: 100%;
-}
-
-ul.tabs li {
-	float: right;
-	margin: 0;
-	padding: 0;
-	height: 31px;
-	line-height: 31px;
-	border: 1px solid #999;
-	margin-bottom: -1px;
-	overflow: hidden;
-	position: relative;
-	background: #e0e0e0;
-}
-
-ul.tabs li a {
-	text-decoration: none;
-	color: #000;
-	display: block;
-	font-size: 1.2em;
-	padding: 0 20px;
-	border: 1px solid #fff;
-	outline: none;
-}
-
-ul.tabs li a:hover {
-	background: #ccc;
-}
-
-html ul.tabs li.active, html ul.tabs li.active a:hover {
-	background: #fff;
-	border-bottom: 1px solid #fff;
-}
-
-.tab_container {
-	border: 1px solid #999;
-	border-top: none;
-	overflow: hidden;
-	clear: both;
-	float: left;
-	width: 100%;
-	background: #fff;
-}
-
-.tab_content {
-	padding: 20px;
-	font-size: 1.2em;
-}
-
-#pageNavi a,#pageNavi span{
-	font-size:14px;
-	margin:20px;
-}
-</style>
 </head>
-
 <body>
 	<ul>
 		<li>프로필관리
@@ -94,59 +28,19 @@ html ul.tabs li.active, html ul.tabs li.active a:hover {
 			</ul>
 		</li>
 		<li>예약관리
-			<div id="wrapper">
-		<ul class="tabs">
-			<li><a href="/mypageCust?reqPage=1&selStatus=취소">취소</a></li>
-			<li><a href="/mypageCust?reqPage=1&selStatus=완료">완료</a></li>
-			<li><a href="/mypageCust?reqPage=1&selStatus=예약">예약</a></li>
-			<li><a href="/mypageCust?reqPage=1&selStatus=전체">전체</a></li>
-		</ul>
-		<div class="tab_container">
-			<div id="tab4" class="tab_content">
-				<h1><%=selStatus %>영역</h1>
-				<table border="1">
-					<tr>
-						<th>1.예약번호</th>
-						<th>2.손님번호</th>
-						<th>3.디자이너번호</th>
-						<th>4.미용실번호</th>
-						<th>5.예약일시</th>
-						<th>6.상태코드</th>
-						<th>7.손님요청사항</th>
-						<th>8.디자이너요청사항</th>
-						<th>9.디자이너손님에 대한메모</th>
-					</tr>
-					<%for(Reserve r : list) {%>
-						<%if(r.getCustomer().getCustomerNo()==loginCustomer.getCustomerNo()) {%>
-						<tr>
-							<td><%=r.getReserveNo() %></td>
-							<td><%=r.getCustomer().getCustomerNo() %></td>
-							<td><%=r.getDesigner().getDesignerNo() %></td>
-							<td><%=r.getShop().getShopNo() %></td>
-							<td><%=r.getReserveDate() %></td>
-							<td><%=r.getReserveStatus() %></td>
-							<td><%=r.getReserveCustReq() %></td>
-							<td><%=r.getReserveDesignerReq() %></td>
-							<td><%=r.getReserveDesignerMemo()%></td>
-						</tr>
-						<%} %>
-					<%} %>
-				</table>
-				<div id ="pageNavi"><%=pageNavi %></div>		
-				</div>
-			</div>
-		</div>
-	</div>
-		
-		</li>
+			<ul>
+				<li><a
+					href="/updateReserveFrm?customerNo=<%=loginCustomer.getCustomerNo()%>&selStatus=전체&reqPage=1">예약폼으로가기</a>
+				</li>
+				<li><button>예약리스트보기</button></li>
+				<li><button>예약취소하기</button></li>
+				<li><button>예약수정하기</button></li>
+			</ul>			
 		<li>리뷰관리
 			<ul>
 				<li><a
 					href="/selectAllReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">리뷰리스트보기</a>
-				</li>
-				<li><button>1 2 3 4 5 </button></li>
-				<li><button>6 7 8 9 10</button></li>
-				<li><button>리뷰수정하기</button></li>
+				</li>				
 			</ul>
 		</li>
 		<li>찜목록
@@ -159,24 +53,8 @@ html ul.tabs li.active, html ul.tabs li.active a:hover {
 				<li><button>찜수정?할게있어?없는거같은데?</button></li>
 			</ul>
 		</li>
-	</ul>	
-	<script>
-	/*
-        $(document).ready(function() {
-            $(".tab_content").hide();
-            $("ul.tabs li:last").addClass("active").show();
-            $(".tab_content:last").show();
-            $("ul.tabs li").click(function() {
-                $("ul.tabs li").removeClass("active");
-                $(this).addClass("active");
-                $(".tab_content").hide();
-                var activeTab = $(this).find("a").attr("href");
-                $(activeTab).fadeIn();
-                return false;
-            });
-        });
-	*/
-    </script>
+	</ul>
+	
 </body>
 
 </html>
