@@ -43,7 +43,7 @@ BEGIN
     NUM1 := NUM1+1; 
     END LOOP;
 END;
-
+/
 -- ÇÊ¼ö!!!!!!
 COMMIT;
 
