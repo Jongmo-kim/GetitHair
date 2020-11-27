@@ -116,4 +116,25 @@ public class CustomerService {
 		JDBCTemplate.close(conn);		
 		return cpd;
 	}	
+	
+	//도현 admin 페이지에 필요해서 만든 페이징 메서드
+	// 총 페이지 개수를 반환 해주는 메서드
+		public int getMaxPageSize(int maxPrintSize) {
+			Connection conn = JDBCTemplate.getConnection();
+			int result = new CustomerDao().getMaxPageSize(conn,maxPrintSize);
+			if (result > 0) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+			JDBCTemplate.close(conn);
+			return result;
+		}
+	// 모든 리뷰의 리스트를 페이징 하여 가져옴.
+	public ArrayList<Customer> selectAllCusetomer(int reqPage,int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Customer> list = new CustomerDao().selectAllCusetomer(conn,reqPage,maxPrintSize);
+		JDBCTemplate.close(conn);
+		return list;
+	}
 }

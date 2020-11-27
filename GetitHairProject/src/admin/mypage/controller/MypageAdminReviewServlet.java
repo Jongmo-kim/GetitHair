@@ -47,7 +47,7 @@ public class MypageAdminReviewServlet extends HttpServlet {
 		if(type != 0 && !keyword.equals("")) { //검색으로 얻어올 경우
 			list = new ReviewService().selectAllReviewById(keyword);
 		}else { //검색이 아닐때 모든 리뷰를 반환.
-			int maxPrintSize = 10; //한 페이지에 출력될 리뷰 최대 갯수 지정.
+			int maxPrintSize = 20; //한 페이지에 출력될 리뷰 최대 갯수 지정.
 			pageSize = new ReviewService().getMaxPageSize(maxPrintSize);
 			list = new ReviewService().selectAllReview(reqPage,maxPrintSize);		
 		}

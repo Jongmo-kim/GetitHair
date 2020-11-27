@@ -7,7 +7,18 @@
     int reqPage = (Integer)request.getAttribute("reqPage");
 	ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
 	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
-	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
+    String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
+    
+    int maxSize = 5; //표시할 최대 페이지 개수
+    int pageStart = 1; //표시되는 시작 페이지
+    int pageEnd = 1; // 표시되는 마지막 페이지
+    for(int i = 1;i<=pageSize/5 + (pageSize%5 != 0 ? 1 : 0);i++){
+        if(i*maxSize>=reqPage){
+            pageStart = i*maxSize - (maxSize-1);
+            pageEnd = i*maxSize < pageSize ? i*maxSize : pageSize;
+            break;
+        }
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -20,7 +31,7 @@
         .admin-content {
             margin-top: 10px;
             width: 100%;
-            height: 800px;
+            
             box-shadow: 0px 0px 5px 0px gray;
             border-radius: 3px;
         }
@@ -107,13 +118,14 @@
                         </table>
                     </div>
                     <div class="page-nav">
-                        <%for(int i = reqPage-2; i<reqPage;i++){%>
-                            <%if(i > 0){%>
-                                <a href="mypageAdminReview?reqPage=<%=i%>"><%=i%></a>
-                            <%}%>
+                        <%if(pageStart!=1){%>
+                            <a href="mypageAdminReview?reqPage=<%=pageStart-1%>">이전</a>
                         <%}%>
-                        <%for(int i = reqPage; i<=pageSize;i++){%>
+                        <%for(int i = pageStart; i<=pageEnd;i++){%>
                             <a href="mypageAdminReview?reqPage=<%=i%>"><%=i%></a>
+                        <%}%>
+                        <%if(pageEnd<pageSize){%>
+                            <a href="mypageAdminReview?reqPage=<%=pageEnd+1%>">다음</a>
                         <%}%>
                     </div>
                 </form>

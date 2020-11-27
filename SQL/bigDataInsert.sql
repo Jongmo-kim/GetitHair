@@ -1,6 +1,5 @@
 --대량 입력
 
-
 --고객 테이블 INSERT (종모)
 DECLARE
 NUM1 NUMBER :=1;
