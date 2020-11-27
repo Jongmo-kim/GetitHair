@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"%>
     <%
     	Review r = (Review)request.getAttribute("r");
-    	//ArrayList<ReviewComment> list = (ArrayList<ReviewComment>)request.getAttribute("list");
+    	ArrayList<ReviewComment> list = (ArrayList<ReviewComment>)request.getAttribute("list");
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,32 +14,44 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%-- <%@ include file="/WEB-INF/views/common/header.jsp" %> --%>
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
-		<h1>리뷰관리</h1>
-		<div>
-			<h3>리뷰제목</h3>
-			<a href="#">관리<span></span></a>
-			<ul role="menu">
-				<li><a href="javascript:void(0)" class="recShow">답글달기</a></li>
-				<li><a href="#">신고하기</a></li>
-			</ul>
-			<p>리뷰내용 내용 내용</p>
-			<img src="#"> <span>★ 0.0</span>
-			<!-- 재예약시에만 노출되게 수정해야함 -->
-			<span>재예약</span> <span>0시간 전</span>
-		</div>
-		<%-- <div>
-			<h4>답글작성</h4>
-		</div>
+		<div class="table-wrapper" style="width:80%; margin:0 auto;">
+			<table class="table table-bordered">
+				<tr>
+					<th>작성자</th>
+					<td><%=r.getCustomer().getCustomerName() %></td>
+				</tr>
+				<!-- 시술 이미지 수정중 -->
+				<%-- <tr>
+					<th>시술이미지</th>
+					<td>
+						<%if(r.getReviewImg() != null) {%>
+						<img src="/img/file.png" width="16px">
+						<a href="javascript:fileDownload('<%=r.getReviewImg()%>','<%=r.getFilepath()%>')"><%=r.getFilename()%></a>
+						<%} %>
+					</td>
+				</tr> --%>
+				<tr>
+					<th>내용</th>
+					<!-- 엔터 안먹으니까 r.getReviewContentBr()로 수정해야함 -->
+					<td><%=r.getReviewContent() %></td>
+				</tr>
+				<tr style="text-align:center">
+					<th colspan="2">
+						<a href="javascript:history.go(-1)">목록으로</a>
+					</th>
+				</tr>
+			</table>
+			<%-- <%if(d != null) {%> --%>
 			<div class="inputComment">
-				<form action="/insertReviewComment" method="post">
+				<form action="/insertDesignerReviewComment" method="post">
 					<ul>
 						<li>
-							<!-- value 수정해야함 -->
-							<input type="hidden" name="reviewCommentWriter" value="d.getDesignerId()">
+							<%-- <input type="hidden" name="reviewCommentWriter" value="<%=d.getDesignerId() %>"> --%>
 							<input type="hidden" name="reviewRef" value="<%=r.getReviewNo() %>">
-							<textarea name="reviewCommentContent"></textarea>
+							<input type="hidden" name="reviewCommentRef" value="0">
+							<textarea class="form-control" name="reviewCommentContent"></textarea>
 						</li>
 						<li>
 							<button type="submit">등록</button>
@@ -47,9 +59,9 @@
 					</ul>
 				</form>
 			</div>
-			
-		<div class="commentList">
-				<%for(ReviewComment rc : list) {	// 댓글 출력 로직%>
+			<%-- <%} %> --%>
+			<div class="commentList">
+				<%for(ReviewComment rc : list) {	// for문을 통해서 댓글을 출력하는 로직%>
 						<ul>
 							<li>
 								<p><%=rc.getReviewCommentWriter() %></p>
@@ -57,21 +69,24 @@
 							</li>
 							<li>
 								<p><%=rc.getReviewCommentContentBr() %></p>
-								<textarea name="reviewCommentContent" class="changeComment" style="display:none;"><%=rc.getReviewCommentContent() %></textarea>
-								
+								<textarea name="reviewCommentContent" class="form-control changeComment" style="display:none;"><%=rc.getReviewCommentContent() %></textarea>
+								<%-- <%if(d!=null) {%> --%>
 								<p class="linkBox">
+									<%-- <%if(d.getDesignerId().equals(rc.getReviewCommentWriter())) {	// 작성자일때 보임%> --%>
 									<a href="javascript:void(0)" onclick="modifyComment(this,'<%=rc.getReviewCommentNo()%>','<%=r.getReviewNo()%>')">수정</a>
 									<a href="javascript:void(0)" onclick="deleteComment(this,'<%=rc.getReviewCommentNo()%>','<%=r.getReviewNo()%>')">삭제</a>
-									<!-- javascript:void(0) -> a태그 링크 무효화 -->
-									<a href="javascript:void(0)" class="recShow">답글달기</a>
+									<%-- <%} %> --%>
+									<a href="javascript:void(0)" class="recShow">댓글달기</a>
 								</p>
 							</li>
 						</ul>
+					<%-- <%} %> --%>
 					
 				<%} // 댓글 for문 종료 지점%>
-			</div> --%>
+			</div>
+		</div>
 	</section>
-	<%-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --%>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<!-- <script>
 	$(".recShow").click(function(){
 		$(this).hide();

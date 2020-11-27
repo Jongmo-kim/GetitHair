@@ -13,12 +13,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%-- <%@ include file="/WEB-INF/views/common/header.jsp" %> --%>
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
 	<div>
-		<table border="1">
+		<table class="table table-bordered">
 			<tr>
-				<th colspan="4" style="font-size: 20px;">리뷰 리스트</th>
+				<th colspan="4">리뷰 리스트</th>
 			</tr>
 			<tr>
 				<th>리뷰번호</th>
@@ -28,16 +28,16 @@
 			</tr>
 		<%for(Review r : list) {%>
 			<tr>
-				<th><%=r.getReviewNo() %></th>
-				<th><%=r.getReviewContent() %></th>
-				<th><%=r.getCustomer() %></th>
-				<th><%=r.getReviewDate() %></th>
+				<td style="font-size: 15px;"><%=r.getReviewNo() %></td>
+				<td style="font-size: 15px;"><a href="/designerReviewView?reviewNo=<%=r.getReviewNo()%>"><%=r.getReviewContent() %></a></td>
+				<td style="font-size: 15px;"><%=r.getCustomer().getCustomerName() %></td>
+				<td style="font-size: 15px;"><%=r.getReviewDate() %></td>
 			</tr>
 			<%} %> 
 		
 		</table>
 	</div>
 	</section>
-	<%-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --%>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

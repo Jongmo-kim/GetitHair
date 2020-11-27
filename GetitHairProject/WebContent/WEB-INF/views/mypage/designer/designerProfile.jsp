@@ -61,6 +61,7 @@
 					<th>소개글</th>
 					<td><input type="text" name="designerIntro" value="<%=designer.getDesignerIntro() %>"></td>
 				</tr>
+				<!-- 빼긴 해야될듯 -->
 				<tr>
 					<th>스타일키워드</th>
 					<td><input type="text" name="designerKeyword" value="<%=designer.getDesignerKeyword() %>"></td>
@@ -69,7 +70,7 @@
 					<th colspan="2" style="text-align: center">
 					<button type="submit">수정하기</button>
 					<!-- 디자이너 회원탈퇴부분 수정해야함 -->
-					<button type="button" onclick="location.href='/deleteMember?designerId=<%=designer.getDesignerId()%>'">회원탈퇴</button>
+					<button type="button" onclick="location.href='/deleteDesigner?designerId=<%=designer.getDesignerId()%>'">회원탈퇴</button>
 					</th>
 				</tr>
 			</table>
