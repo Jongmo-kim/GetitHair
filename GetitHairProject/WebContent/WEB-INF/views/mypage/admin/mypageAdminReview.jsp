@@ -9,7 +9,6 @@
 	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
     String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
     
-    int maxSize = 6; //표시할 최대 페이지 개수
     int pageStart = (Integer)request.getAttribute("pageStart"); //표시되는 시작 페이지
     int pageEnd = (Integer)request.getAttribute("pageEnd"); // 표시되는 마지막 페이지
 %>
@@ -20,6 +19,7 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <link rel="stylesheet" href="/css/mypage/admin/container.css">
+    <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
     <style>
         .admin-content {
             margin-top: 10px;
@@ -115,7 +115,7 @@
                             <a href="mypageAdminReview?reqPage=<%=pageStart-1%>">이전</a>
                         <%}%>
                         <%for(int i = pageStart; i<=pageEnd;i++){%>
-                            <a href="mypageAdminReview?reqPage=<%=i%>"><%=i%></a>
+                            <a href="mypageAdminReview?reqPage=<%=i%>" style="<%=i==reqPage ? "color: black;" : ""%></a>"><%=i%></a>
                         <%}%>
                         <%if(pageEnd<pageSize){%>
                             <a href="mypageAdminReview?reqPage=<%=pageEnd+1%>">다음</a>

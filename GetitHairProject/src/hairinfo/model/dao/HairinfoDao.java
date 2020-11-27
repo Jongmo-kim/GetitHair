@@ -144,5 +144,28 @@ public class HairinfoDao {
 		}
 		return cust;
 	}
+	public int insertHairinfo(Connection conn, Hairinfo hairinfo, int customerNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "insert into customer values(?,?,?,?,?,?,?,?)";		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, customerNo);
+			pstmt.setString(2, hairinfo.getMyhairScalp());
+			pstmt.setString(3, hairinfo.getMyhairCurly());
+			pstmt.setString(4, hairinfo.getMyhairRich());
+			pstmt.setString(5, hairinfo.getMyhairBold());
+			pstmt.setString(6, hairinfo.getMyhairVol());
+			pstmt.setString(7, hairinfo.getMyhairStatus());
+			pstmt.setString(8, hairinfo.getMyhairOld());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}	
+		return result;
+	}
 
 }
