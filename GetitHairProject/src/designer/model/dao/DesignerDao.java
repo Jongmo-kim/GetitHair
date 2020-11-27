@@ -181,4 +181,65 @@ public class DesignerDao {
 		}
 		return list;
 	}
+
+	public ArrayList<Designer> selectAllDesigner(Connection conn, int reqPage, int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Designer> list = new ArrayList<Designer>();
+		String query = "SELECT * FROM (SELECT ROWNUM RN,D.* FROM "
+				+ "(SELECT RV.* FROM designer D ORDER BY D.DESIGNER_NO DESC) D) "
+				+ "WHERE RN BETWEEN ? AND ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, (maxPrintSize*(reqPage-1))+1);
+			pstmt.setInt(2, maxPrintSize*reqPage);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Designer d = new Designer();
+				d.setDesignerNo(rset.getInt("designer_no"));
+				d.setDesignerId(rset.getString("designer_id"));
+				d.setDesignerPw(rset.getString("designer_pw"));
+				d.setDesignerGen(rset.getString("designer_gen"));
+				d.setDesignerName(rset.getString("designer_name"));
+				d.setDesignerEmail(rset.getString("designer_email"));
+				d.setDesignerPhone(rset.getString("designer_phone"));
+				d.setDesignerYear(rset.getInt("designer_year"));
+				d.setDesignerRank(rset.getString("designer_rank"));
+				d.setDesignerIntro(rset.getString("designer_intro"));
+				d.setDesignerKeyword(rset.getString("designer_keyword"));
+				d.setDesignerImg(rset.getString("designer_img"));
+				list.add(d);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public int getAllDesignerMaxPageSize(Connection conn, int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		String qrySelect = "select count(*) cnt from designer";
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(qrySelect);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+				if(result != 0) {
+					result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }

@@ -35,7 +35,7 @@ public class MypageAdminReviewServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		// 전달 받은 값 저장
-		// type value 1 : 아이디로 검색 , 2 : 이름으로 검색
+		// type value 1 : 아이디로 검색 
 		int type = request.getParameter("searchType") != null ? Integer.parseInt(request.getParameter("searchType")) : 0;
 		String keyword = request.getParameter("keyword");
 		//reqPage = 요청할 페이지 번호.
