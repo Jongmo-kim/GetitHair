@@ -35,11 +35,18 @@ public class ReserVationOkServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
-		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);
-		Reserve reserve = new ReserveService().insertReserve(hs.getShopNo());
+		Reserve reserve = new Reserve();
+		reserve.setReserveCustReq(request.getParameter("custReq"));
+		int result = new ReserveService().insertReserve(reserve);
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/hairshopDeta/msg.jsp");
-		rd.forward(request, response);
+		if(result > 0 ) {
+			request.setAttribute("msg", "예약완료");
+			request.setAttribute("loc", "/hairshop");
+		}else {
+			request.setAttribute("msg", "예약실패");
+			request.setAttribute("loc", "/hairshop");
+		}
+		rd.forward(request, response);	
 	}
 
 	/**

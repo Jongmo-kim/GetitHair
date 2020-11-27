@@ -39,10 +39,8 @@ public class ReserVationServlet extends HttpServlet {
 		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
 		//3. 비지니스
 		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);
-		Reserve reserve = new ReserveService().selectOneReserve(hs.getShopNo());
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/hairshopDeta/reserVation.jsp");
 		request.setAttribute("hs", hs);
-		request.setAttribute("reserve", reserve);
 		rd.forward(request, response);
 	}
 

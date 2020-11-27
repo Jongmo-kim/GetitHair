@@ -152,10 +152,8 @@ public class ReserveService {
 		ReservePageData rpd= new ReservePageData(list, pageNavi);
 		return rpd;
 	}
-	//샵 예약하기 
 	public Reserve insertReserve(int shopNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 }
