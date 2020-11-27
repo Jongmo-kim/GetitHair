@@ -25,24 +25,27 @@
 	</section>
 	<script>
 		$(function(){
-			photoMore(1);
+			disignerPortfolioMore(1);
 		});
 		$("#more-btn").click(function(){
-			photoMore($(this).val());
+			disignerPortfolioMore($(this).val());
 		});
-		function photoMore(start){
+		function designerPortfolioMore(start){
 			$.ajax({
 				url : "/designerPortfolioMore",
 				data : {start:start},
 				type : "post",
-				dataType : "json", // 이렇게 쓰던지, servlet에 추가하던지
+				dataType : "json",
 				success : function(data){
 					var html = "";
 					for(var i in data){
-						var p = data[i];
-						html += "<div class='photo border border-dark' style='width:600px; margin:0 auto; margin-bottom:10px;'>";
-						html += "<img src='/upload/designerPortfolio/"+p.filepath+"' width='100%'>";
-						html += "<p class='caption'>"+p.photoContent+"</p></div>";
+						var dp = data[i];
+						html += "<div class='photo border border-dark' style='width:400px; height:400px; margin:0 auto; margin-bottom:10px; display: inline-block;'>";
+						html += "<img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
+						html += "<p class='caption'>"+dp.styleName+"</p></div>";
+						if(i%5 == 0){
+							html += "<br>"
+						}
 					}
 					$("#photo-wrapper").append(html);
 					// 추가완료 후 더보기버튼 value -> 값 조정(start+5)

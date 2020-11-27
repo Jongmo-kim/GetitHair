@@ -66,10 +66,12 @@ public class DesignerPortfolioDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				DesignerPortfolio dp = new DesignerPortfolio();
-				dp.setPortfolioNo(rset.getInt("portfolio_no"));
-				dp.setPortfolioWriter(rset.getString("portfolio_writer"));
-				dp.setPortfolioContent(rset.getString("portfolio_content"));
+				dp.setPortfolioNo(rset.getInt("designer_portfolio_no"));
+				dp.setStyleName(rset.getString("designer_portfolio_style_name"));
+				dp.setPortfolioWriter(rset.getString("designer_no"));
+				dp.setPortfolioContent(rset.getString("designer_portfolio_content"));
 				dp.setFilepath(rset.getString("filepath"));
+				dp.setPortfolioDate(rset.getString("designer_portfolio_date"));
 				list.add(dp);
 				}
 		} catch (SQLException e) {

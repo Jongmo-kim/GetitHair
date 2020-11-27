@@ -16,7 +16,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
-		<div class="table-wrapper" style="width:80%; margin:0 auto;">
+		<div style="width:80%; margin:0 auto;">
 			<table class="table table-bordered">
 				<tr>
 					<th>작성자</th>
