@@ -154,8 +154,26 @@ public class LikesDao {
 		int result =0;
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, likes.getCustomer().getCustomerNo());
-			
+			pstmt.setInt(1, likeNo);			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateLikes(Connection conn, Likes likes) {
+		PreparedStatement pstmt = null;
+		String query = "update likes set customer_no=?,like_type=?,like_type_no=?";
+		int result =0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, likes.getLikesNo());
+			pstmt.setString(2, Character.toString(likes.getLikesType().getLikesType()));	
+			pstmt.setInt(3, likes.getLikesType().getLikesTypeNo());	
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

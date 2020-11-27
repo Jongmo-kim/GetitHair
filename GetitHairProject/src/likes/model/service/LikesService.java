@@ -59,4 +59,16 @@ public class LikesService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	public int updateLikes(Likes likes) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		result = new LikesDao().updateLikes(conn,likes);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 }
