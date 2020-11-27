@@ -34,12 +34,13 @@ public class SelectAllReviewListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1.인코딩 reqpage pagenavi
 		//2.view에서 넘어온값 저장
-		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
-		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
-		int numPerPage = 10;		
+		int customerNo = Integer.parseInt(request.getParameter("customerNo")); //회원
+		int reqPage = Integer.parseInt(request.getParameter("reqPage")); 
+		int numPerPage = 10;		//하나에 페이지당 10개씩
+		
 		//3.비지니스로직처리
-		int maxPageSize = new ReviewService().getMaxPageSize(numPerPage);
-		ArrayList<Review> list = new ReviewService().selectAllReview(reqPage, maxPageSize);
+		int maxPageSize = new ReviewService().getAllReviewMaxPageSize(numPerPage);
+		ArrayList<Review> list = new ReviewService().selectAllReviewByCustomerNo(customerNo, reqPage, maxPageSize);
 		//ArrayList<Review> list = new ReviewService().selectAllReviewByCustomerNo(customerNo);
 		//4.결과처리
 		if(list !=null) {
