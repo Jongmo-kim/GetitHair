@@ -6,6 +6,7 @@
     <%
     	Review r = (Review)request.getAttribute("r");
     	ArrayList<ReviewComment> list = (ArrayList<ReviewComment>)request.getAttribute("list");
+    	
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,10 +20,10 @@
 	<section>
 		<div style="width:80%; margin:0 auto;">
 			<table class="table table-bordered">
-				<%-- <tr>
+				<tr>
 					<th>작성자</th>
 					<td><%=r.getCustomer().getCustomerName() %></td>
-				</tr> --%>
+				</tr>
 				<!-- 시술 이미지 수정중 -->
 				<tr>
 					<th>시술이미지</th>
@@ -42,6 +43,7 @@
 					</th>
 				</tr>
 			</table>
+			<!-- 디자이너 로그인 구현 시 주석 제거  -->
 			<%-- <%if(d != null) {%> --%>
 			<div class="inputComment">
 				<form action="/insertDesignerReviewComment" method="post">
@@ -59,7 +61,7 @@
 				</form>
 			</div>
 			<%-- <%} %> --%>
-			<%-- <div class="commentList">
+			<div class="commentList">
 				<%for(ReviewComment rc : list) {	// for문을 통해서 댓글을 출력하는 로직%>
 						<ul>
 							<li>
@@ -67,27 +69,28 @@
 								<p><%=rc.getReviewCommentDate() %></p>
 							</li>
 							<li>
-								<p><%=rc.getReviewCommentContentBr() %></p>
+							<!-- 줄바꿈 오류 못잡음 (강사님한테 질문 한번 해보기) -->
+								<p><%=rc.getReviewCommentContent()%>
+								</p>
 								<textarea name="reviewCommentContent" class="form-control changeComment" style="display:none;"><%=rc.getReviewCommentContent() %></textarea>
-								<%if(d!=null) {%>
+								<%-- <%if(d!=null) {%> --%>
 								<p class="linkBox">
-									<%if(d.getDesignerId().equals(rc.getReviewCommentWriter())) {	// 작성자일때 보임%>
+									<%-- <%if(d.getDesignerId().equals(rc.getReviewCommentWriter())) {	// 작성자일때 보임%> --%>
 									<a href="javascript:void(0)" onclick="modifyComment(this,'<%=rc.getReviewCommentNo()%>','<%=r.getReviewNo()%>')">수정</a>
 									<a href="javascript:void(0)" onclick="deleteComment(this,'<%=rc.getReviewCommentNo()%>','<%=r.getReviewNo()%>')">삭제</a>
-									<%} %>
-									<a href="javascript:void(0)" class="recShow">댓글달기</a>
+									<%-- <%} %> --%>
 								</p>
 							</li>
 						</ul>
-					<%} %>
+					<%-- <%} %> --%>
 					
 				<%} // 댓글 for문 종료 지점%>
-			</div> --%>
+			</div>
 		</div>
 	</section>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
-	<!-- <script>
-	$(".recShow").click(function(){
+	<script>
+	/*$(".recShow").click(function(){
 		$(this).hide();
 		var idx = $(".recShow").index(this);
 		$(".recCancel").eq(idx).parents("div").css("display","block");
@@ -96,7 +99,7 @@
 		var idx = $(".recCancel").index(this);
 		$(this).parents(".re").css("display","none");
 		$(".recShow").eq(idx).show();
-	});
+	});*/
 	
 	function modifyComment(obj,commentNo,reviewNo){
 		$(obj).parent().prev().show();		// textarea를 보여주는 코드
@@ -122,7 +125,7 @@
 		$(obj).next().show();	// 답글 버튼 보임
 	}
 	function modifyComplete(obj,commentNo,reviewNo){
-		var form = $("<form action='/reviewCommentUpdate' method='post'></form>");
+		var form = $("<form action='/designerReviewCommentUpdate' method='post'></form>");
 		form.append($("<input type='text' name='reviewCommentNo' value='"+commentNo+"'>")); // append 자식으로 추가
 		form.append($("<input type='text' name='reviewNo' value='"+reviewNo+"'>"));
 		form.append($(obj).parent().prev());
@@ -133,10 +136,10 @@
 	
 	function deleteComment(obj,commentNo,reviewNo){
 		if(confirm("댓글을 삭제하시겠습니까?")){
-			location.href="/reviewCommentDelete?reviewCommentNo="+commentNo+"&reviewNo="+reviewNo;
+			location.href="/designerReviewCommentDelete?reviewCommentNo="+commentNo+"&reviewNo="+reviewNo;
 		}
 	}
-	</script> -->
+	</script>
 	
 </body>
 </html>
