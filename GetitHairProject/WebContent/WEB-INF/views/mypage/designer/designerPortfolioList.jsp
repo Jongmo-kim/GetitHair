@@ -13,11 +13,13 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
 		<div class="photo-container" style="width:80%; margin:0 auto; text-align:center;">
-			<h1>사진게시판</h1>
+			<h1>포트폴리오</h1>
+			<div style="text-align:right">
+				<a class="btn btn-outline-info" href="/designerPortfolioWriteFrm">글쓰기</a>
+			</div>
 			<div id="photo-wrapper" style="padding:100px;"></div>
 			<div id="photo-btn-container">
 				<button class="btn btn-outline-info" currentCount="0" value="" totalCount="<%=totalCount %>" id="more-btn">더보기</button>
-				<a class="btn btn-outline-info" href="/designerPortfolioWriteFrm">글쓰기</a>
 			</div>
 		</div>
 	</section>

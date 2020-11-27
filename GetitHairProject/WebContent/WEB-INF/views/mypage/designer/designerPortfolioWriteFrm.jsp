@@ -10,7 +10,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
 		<div class="table-wrapper" style="width:80%;text-align:center; margin:0 auto;">
-			<form action="/insertPhoto" method="post" enctype="multipart/form-data">
+			<form action="/insertDesignerPortfolio" method="post" enctype="multipart/form-data">
 				<table class="table table-bordered">
 					<tr>
 						<th colspan="2">포트폴리오</th>
@@ -19,7 +19,7 @@
 						<th>작성자</th>
 						<td>
 							<%-- <%=d.getDesignerId() %> --%>
-							<input type="hidden" name="photoWriter" value="">
+							<input type="hidden" name="portfolioWriter" value="">
 						</td>
 					</tr>
 					<tr>

@@ -45,7 +45,7 @@ public class InsertDesignerPortfolioServlet extends HttpServlet {
 			return;
 		}
 		String root = getServletContext().getRealPath("/");
-		String saveDirectory = root+"upload/photo";
+		String saveDirectory = root+"upload/designerPortfolio";
 		int maxSize = 10*1024*1024;
 		MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, maxSize,"UTF-8",new DefaultFileRenamePolicy());
 		DesignerPortfolio dp = new DesignerPortfolio();
@@ -59,7 +59,7 @@ public class InsertDesignerPortfolioServlet extends HttpServlet {
 		}else {
 			request.setAttribute("msg", "포트폴리오 등록에 실패했습니다. 관리자에게 문의하세요.");			
 		}
-		request.setAttribute("loc", "/DesignerPortfolioList");	// 더보기로 만들거라 reqPage안넣어도 됨
+		request.setAttribute("loc", "/designerPortfolioList");	// 더보기로 만들거라 reqPage안넣어도 됨
 		rd.forward(request, response);
 	}
 
