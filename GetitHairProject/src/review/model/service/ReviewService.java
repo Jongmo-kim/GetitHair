@@ -20,10 +20,15 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	// Paging 기능관련
+
 	// 총 페이지 개수를 반환 해주는 메서드
+	// ex) 검색된 리스트가 105개 이고 한 페이지에 출력할 리스트 개수(maxPrintSize)가 10개라면
+	// 105/10 = 10 이고 나머지가 존재하므로 11로 계산하여 반환 해줌.
 	public int getAllReviewMaxPageSize(int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDao().getMaxPageSize(conn,maxPrintSize);
+		int result = new ReviewDao().getMaxPageSize(conn, maxPrintSize);
 		if (result > 0) {
 			JDBCTemplate.commit(conn);
 		} else {
@@ -32,6 +37,50 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	// 모든 리뷰의 리스트를 페이징 하여 가져옴.
+	public ArrayList<Review> selectAllReview(int reqPage, int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Review> list = new ReviewDao().selectAllReview(conn, reqPage, maxPrintSize);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	// 회원 ID에 해당하는 모든 리뷰의 리스트를 가져옴.
+	public ArrayList<Review> selectAllReviewById(String keyword,int reqPage, int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		// customer 번호를 가져오는 메서드
+		int customerNo = new ReviewDao().selectCustomerNoById(conn, keyword);
+
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn, customerNo,reqPage,maxPrintSize);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	// 회원 번호에 해당하는 모든 리뷰의 리스트를 페이징 하여 가져옴.
+	public ArrayList<Review> selectAllReviewByCustomerNo(int customerNo,int reqPage, int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn, customerNo,reqPage,maxPrintSize);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	// 헤어샵 번호에 해당하는 모든 리뷰의 리스트를 페이징 하여 가져옴.
+	public ArrayList<Review> selectAllReviewByShopNo(int shopNo,int reqPage, int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByShopNo(conn, shopNo,reqPage,maxPrintSize);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	// 디자이너 번호에 해당하는 모든 리뷰의 리스트를 페이징 하여 가져옴.
+	public ArrayList<Review> selectAllReviewByDesignerNo(int designerNo,int reqPage, int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByDesignerNo(conn, designerNo,int reqPage, int maxPrintSize);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
 	// SELECT 구문
 
 	// 모든 리뷰의 리스트를 가져옴.
@@ -42,13 +91,6 @@ public class ReviewService {
 		return list;
 	}
 
-	// 모든 리뷰의 리스트를 페이징 하여 가져옴.
-	public ArrayList<Review> selectAllReview(int reqPage,int maxPrintSize) {
-		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list = new ReviewDao().selectAllReview(conn,reqPage,maxPrintSize);
-		JDBCTemplate.close(conn);
-		return list;
-	}
 	// 회원 ID에 해당하는 모든 리뷰의 리스트를 가져옴.
 	public ArrayList<Review> selectAllReviewById(String keyword) {
 		Connection conn = JDBCTemplate.getConnection();
