@@ -6,6 +6,8 @@ import common.JDBCTemplate;
 import customer.model.dao.CustomerDao;
 import customer.model.vo.Customer;
 import customer.model.vo.CustomerPageData;
+import hairinfo.model.dao.HairinfoDao;
+import hairinfo.model.vo.Hairinfo;
 
 
 public class CustomerService {
@@ -69,6 +71,29 @@ public class CustomerService {
 			JDBCTemplate.rollback(conn);
 		}
 		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int insertCustomer(Customer customer,Hairinfo hairinfo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		int result1 = 0;
+		result1 = new CustomerDao().insertCustomer(conn,customer);
+		if(result1>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		int result2 = 0;
+		result2 = new HairinfoDao().insertHairinfo(conn,hairinfo,customer.getCustomerNo());
+		if(result2>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		if(result1>0 && result2>0) {
+			result = 1;
+		}
 		return result;
 	}
 	public CustomerPageData customerSelectList(int reqPage) {

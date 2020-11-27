@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import customer.model.vo.Customer;
+import hairinfo.model.vo.Hairinfo;
 
 
 public class CustomerDao {	
@@ -236,5 +237,11 @@ public class CustomerDao {
 			JDBCTemplate.close(pstmt);
 		}		
 		return list;
+	}
+
+
+	public int insertCustomer(Connection conn, Customer customer, Hairinfo hairinfo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
