@@ -59,6 +59,12 @@ public class MypageAdminDesignerServlet extends HttpServlet {
 	    int [] startEnd = PagingCommon.getPageStartEnd(reqPage,maxSize, pageSize);
 		// 값 전달
 		request.setAttribute("list", list);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("reqPage", reqPage);
+		request.setAttribute("type", type);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("pageStart", startEnd[0]);
+		request.setAttribute("pageEnd", startEnd[1]);
 		// 메인 관리페이지로 이동
 		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminDesigner.jsp").forward(request, response);
 

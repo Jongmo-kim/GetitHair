@@ -5,22 +5,15 @@
 <%
     int pageSize = (Integer)request.getAttribute("pageSize");
     int reqPage = (Integer)request.getAttribute("reqPage");
-	ArrayList<Customer> list = (ArrayList<Customer>) request.getAttribute("list");
+	ArrayList<Customer> list = (ArrayList<Customer>)request.getAttribute("list");
 	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
 	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
 	
 	String sel1 = type == 1 ? "selected" : "";
     String sel2 = type == 2 ? "selected" : "";
-    int maxSize = 4; //표시할 최대 페이지 개수
-    int pageStart = 1; //표시되는 시작 페이지
-    int pageEnd = 1; // 표시되는 마지막 페이지
-    for(int i = 1;i<=pageSize/maxSize + (pageSize%maxSize != 0 ? 1 : 0);i++){
-        if(i*maxSize>=reqPage){
-            pageStart = i*maxSize - (maxSize-1);
-            pageEnd = i*maxSize < pageSize ? i*maxSize : pageSize;
-            break;
-        }
-    }
+
+    int pageStart = (Integer)request.getAttribute("pageStart"); //표시되는 시작 페이지
+    int pageEnd = (Integer)request.getAttribute("pageEnd"); // 표시되는 마지막 페이지
 %>
 <!DOCTYPE html>
 <html>
@@ -115,6 +108,9 @@
                 </tfoot>
             </table>
         </div>
+        <div class="page-nav">
+
+        </div>
     </div>
     <div class="admin-main-container">
         <header>
@@ -161,7 +157,7 @@
                                     <th><%=c.getCustomerName() %></th>
                                     <th><%=c.getCustomerEnrolldate() %></th>
                                     <th>
-                                        <button id="rvbtn" type="button">작성한 리뷰보기</button>
+                                        <button class="rvbtn" type="button">작성한 리뷰보기</button>
                                         <button class="del-btn">탈퇴</button>
                                     </th>
                                 </tr>
@@ -183,6 +179,7 @@
                         </table>
                     </div>
                     <div class="page-nav">
+                        <input type="hidden" id="reqPage" value="<%=reqPage%>">
                         <%if(pageStart!=1){%>
                             <a href="mypageAdminCustomer?reqPage=<%=pageStart-1%>">이전</a>
                         <%}%>
@@ -230,6 +227,7 @@
                 }
             });
         }
+        
         function setClickToRemoveReviewBtn() {
             $(document).off("click", ".delete-review");
             $(document).on("click", ".delete-review", function (e) {
@@ -253,29 +251,23 @@
                 e.stopPropagation();
             });
         }
-        $(function () {
-            setClickToTr();
-            setClickToChk()
-            $(".modal-overlay").click(function (e) {
-                $(".modal-overlay").css("display", "none");
-                $(".review-container").css("display", "none");
-            })
-            $("#close-modal").click(function (e) {
-                $(".modal-overlay").css("display", "none");
-                $(".review-container").css("display", "none");
-            })
-            //리뷰 보기 버튼 클릭 이벤트
-            $("#rvbtn").click(function (e) {
-                $(".modal-overlay").css("display", "block");
-                $(".review-container").css("display", "block");
+        function setClickToPageNo(customerNo,reqPage){
+            $(document).off("click", ".page-no");
+            $(document).on("click", ".page-no", function (e) {
                 $(".review-list").children('tbody').empty();
-                var customerNo = $(this).parent().siblings('th').eq(1).text();
-                $.ajax({
+                reviewAjax(customerNo,reqPage);
+                reviewPagingAjax(customerNo,reqPage);
+
+            });
+        }
+        function reviewAjax(customerNo,reqPage){
+            $.ajax({
                     url: "/adminSelectCustomerReview",
                     type: "post",
                     cache: false,
                     dataType: "json",
-                    data: { customerNo: customerNo },
+                    data: { customerNo: customerNo ,
+                            reqPage : reqPage  },
                     success: function (data) {
                         if (data != null)
                             for (var i = 0; i < data.length; i++) {
@@ -294,9 +286,59 @@
                             }
                     }
                 })
+        }
+        function reviewPagingAjax(customerNo,reqPage){
+            $(".review-container .page-nav").empty();
+            $.ajax({
+                    url: "/adminSelectReviewPaging",
+                    type: "post",
+                    cache: false,
+                    dataType: "json",
+                    data: { customerNo: customerNo,
+                            reqPage : reqPage  },
+                    success: function (data) {
+                        let html = [];
+                        
+                        if(data.pageStart!=1){
+                            html.push('<a href="#">이전</a>');
+                        }
+                        for(let i = data.pageStart; i<=data.pageEnd;i++){
+                            html.push('<a href="#" class="page-no" style="'+(i==data.reqPage ? "color: black;" : "")+'">'+i+'</a>');
+                        }
+                        if(data.pageEnd<data.maxPageSize){
+                            html.push('<a href="#">다음</a>');
+                        }
+                        $(".review-container .page-nav").append(html.join());
+                    }
+                })
+        }
+        $(function () {
+            setClickToTr();
+            setClickToChk()
+            $(".modal-overlay").click(function (e) {
+                $(".modal-overlay").css("display", "none");
+                $(".review-container").css("display", "none");
+            })
+            $("#close-modal").click(function (e) {
+                $(".modal-overlay").css("display", "none");
+                $(".review-container").css("display", "none");
+            })
+            //리뷰 보기 버튼 클릭 이벤트
+            $(".rvbtn").click(function (e) {
+                $(".modal-overlay").css("display", "block");
+                $(".review-container").css("display", "block");
+                $(".review-list").children('tbody').empty();
+                var customerNo = $(this).parent().siblings('th').eq(1).text();
+                var reqPage = $("#reqPage").val();
+                reviewAjax(customerNo,reqPage); // ajax 실행
+
                 setClickToReviewTr();
                 setClickToChk()
                 setClickToRemoveReviewBtn();
+                
+                reviewPagingAjax(customerNo,reqPage) // ajax 실행
+
+                setClickToPageNo(customerNo,reqPage);
                 e.stopPropagation();
             })
 

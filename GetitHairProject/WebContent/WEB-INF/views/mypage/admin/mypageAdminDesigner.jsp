@@ -3,12 +3,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+    int pageSize = (Integer)request.getAttribute("pageSize");
+    int reqPage = (Integer)request.getAttribute("reqPage");
 	ArrayList<Designer> list = (ArrayList<Designer>) request.getAttribute("list");
 	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
 	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
 	
 	String sel1 = type == 1 ? "selected" : "";
-	String sel2 = type == 2 ? "selected" : "";
+    String sel2 = type == 2 ? "selected" : "";
+    
+    int pageStart = (Integer)request.getAttribute("pageStart"); //표시되는 시작 페이지
+    int pageEnd = (Integer)request.getAttribute("pageEnd"); // 표시되는 마지막 페이지
 %>
 <!DOCTYPE html>
 <html>
@@ -17,6 +22,7 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <link rel="stylesheet" href="/css/mypage/admin/container.css">
+    <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
     <style>
         .modal-overlay {
             display: none;
@@ -169,6 +175,17 @@
                                 </tr>
                             </tfoot>
                         </table>
+                    </div>
+                    <div class="page-nav">
+                        <%if(pageStart!=1){%>
+                            <a href="mypageAdminDesigner?reqPage=<%=pageStart-1%>">이전</a>
+                        <%}%>
+                        <%for(int i = pageStart; i<=pageEnd;i++){%>
+                            <a href="mypageAdminDesigner?reqPage=<%=i%>" style="<%=i==reqPage ? "color: black;" : ""%></a>"><%=i%></a>
+                        <%}%>
+                        <%if(pageEnd<pageSize){%>
+                            <a href="mypageAdminDesigner?reqPage=<%=pageEnd+1%>">다음</a>
+                        <%}%>
                     </div>
                 </form>
             </div>
