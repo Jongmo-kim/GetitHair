@@ -70,14 +70,12 @@
     	flex-direction : column;
     	width: 20%;
     	height: 100%;
-    	background-color : beige;
-    	border-right: 5px solid #59362E;
+    	margin-top: 20px;
     }
     .mid{
     	overflow: hidden;
     	width : 80%;
     	margin : 0 auto;
-    	border: 1px solid black;
     }
     .swiper-slide>img{
     	width: 100%;
@@ -111,24 +109,41 @@
     .tab li{
     	list-style-type: none;
     }
+    .tab ul{
+    	margin: 0;
+    	padding: 0;
+    }
     #hairshopList img{
     	width: 100px;
     	height: 100px;
     }
-    .glyphicon{
+    #hairshopList .glyphicon{
     	color: lightgray;
     }
     #hairshopList>table{
     	margin: 50px;
     	height: 120px;
     }
-    .mid>form>button{
+    body button{
     	height: 50px;
     	width : 80px;
     	border: none;
     	border-radius: 10px;
     	background: #D9ABA0;
     	color: white;
+    }
+    .long{
+    	display: none;
+    	position: relative;
+    }
+    .short{
+    	text-align: center;
+    	width: 100px;
+    }
+    .long>a{
+    	position: absolute;
+    	left: 200px;
+    	top: 0px;
     }
 </style>
 <title>헤어샵 메인페이지</title>
@@ -150,11 +165,17 @@
 				<input type="search" name="searchShop" placeholder="헤어샵, 지역으로 검색">
 				<button type="submit">검색</button>
 			</form>
-			<div class="tab">
+			<div class="tab short">
+				<ul>
+					<li><a href="#"><img src="/img/main/menu.png"></a></li>
+				</ul>
+			</div>
+			<div class="tab long">
 				<ul>
 					<li><a href="#">지역 별</a></li>
 					<li><a href="/style">스타일</a></li>
 				</ul>
+				<a href="#"><img src="/img/main/x.png"></a>
 			</div>
 			<div class="content">
 				<div class="shop">
@@ -235,6 +256,14 @@
 		$(document).on("click","table",function(){//문서에서 테이블 찾아서 이벤트 걸어줌. 테이블이 동적으로 만들어진거라
 			var shopNo = $(this).children().find("input").val();
 			location.href="/hairshopDetail?shopNo="+shopNo;
+		});
+		$(".short a").click(function(){
+			$(".short").hide();
+			$(".long").show();
+		});
+		$(".long a").click(function(){
+			$(".long").hide();
+			$(".short").show();
 		});
 	  </script>
 </body>
