@@ -44,7 +44,6 @@ BEGIN
     END LOOP;
 END;
 /
-
 -- ÇÊ¼ö!!!!!!
 COMMIT;
 

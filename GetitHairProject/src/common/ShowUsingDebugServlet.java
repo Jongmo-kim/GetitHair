@@ -48,19 +48,17 @@ public class ShowUsingDebugServlet extends HttpServlet {
 		Hairshop hair = new HairshopService().selectOneHairshop(1);
 		Style style = new StyleService().selectOneStyle(1);
 		Reserve reserve = new ReserveService().selectOneReserve(1);
+		ArrayList<Customer> cList = new CustomerService().selectAllCustomer();
 		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(1);
+		
+		DebugTemplate.setCurrObjAtSession(request.getSession(), cList, "cList");
+		DebugTemplate.setCurrObjAtSession(request.getSession(), reserve, "reserve");
 		if(review == null) {
 			review = new ArrayList<Review>();
 			Review rev = new Review();
 			rev.setReviewNo(1);
 			review.add(rev);
 		}
-		System.out.println("Customer :" +c1.getCustomerName());
-		System.out.println("desginer :" +de.getDesignerName());
-		System.out.println("style :" +style.getStyleName());
-		System.out.println("reserve :" + reserve.getReserveNo());
-		System.out.println("review :" + review.get(0).getReviewNo());
-		System.out.println("hairshop :" + hair.getShopName());
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/");
 		rd.forward(request, response);
