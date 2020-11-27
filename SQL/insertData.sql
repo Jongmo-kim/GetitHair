@@ -35,7 +35,7 @@ BEGIN
         INSERT INTO SHOP_PRICE VALUES(SHOP_PRICE_SEQ.NEXTVAL,SHOP_PRICE_SEQ.currval,15000);
         INSERT INTO DESIGNER VALUES(DESIGNER_SEQ.NEXTVAL,'designer0'||designer_SEQ.currval,'1234','여','김영희','asdf@naver.com','010-1234-5678',3,'직급','소개','키워드',null);
         INSERT INTO DESIGNER_LIST VALUES(DESIGNER_LIST_SEQ.NEXTVAL,DESIGNER_SEQ.currval,DESIGNER_SEQ.currval);
-        INSERT INTO STYLE VALUES(STYLE_SEQ.NEXTVAL,'스타일타입','스타일이름','이미지주소',0);
+        INSERT INTO STYLE VALUES(STYLE_SEQ.NEXTVAL,'perm','스타일이름','이미지주소',0);
         INSERT INTO STYLE_LIST VALUES(style_list_seq.nextval,style_list_seq.currval,style_list_seq.currval,style_list_seq.currval);
         INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,RESERVE_SEQ.currval,RESERVE_SEQ.currval,RESERVE_SEQ.currval,RESERVE_SEQ.currval,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모');
         INSERT INTO REVIEW VALUES(review_seq.nextval,review_seq.currval,review_seq.currval,review_seq.currval,review_seq.currval,'리뷰인데 이 미용실 디자이너분 정말 마음에드네요',5,0,SYSDATE,NULL);
