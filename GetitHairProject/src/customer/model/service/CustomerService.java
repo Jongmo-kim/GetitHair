@@ -28,7 +28,7 @@ public class CustomerService {
 		JDBCTemplate.close(conn);
 		return loginCustomer;
 	}
-	public ArrayList<Customer> selectAllCusetomer() {
+	public ArrayList<Customer> selectAllCustomer() {
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Customer> list = new CustomerDao().selectAllCustomer(conn);
 

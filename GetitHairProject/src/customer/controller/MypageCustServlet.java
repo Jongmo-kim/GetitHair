@@ -44,12 +44,9 @@ public class MypageCustServlet extends HttpServlet {
 		
 		if(selStatus.equals("전체")) {
 			rpd = new ReserveService().reserveSelectList(reqPage);
-			System.out.println("전체 rpd.getList :" + rpd.getList().size());
 		}else {
 			rpd = new ReserveService().reserveSelectListSelStatus(reqPage,selStatus);
-			System.out.println("else rpd.getList :" + rpd.getList().size());
 		}
-		System.out.println("rpd.getList :" + rpd.getList().size());		
 		if(loginCustomer!=null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");	
 			request.setAttribute("loginCustomer", loginCustomer);
