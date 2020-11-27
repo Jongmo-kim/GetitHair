@@ -92,14 +92,14 @@ public class LikesService {
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 		// 이전버튼 : 페이지 시작번호가 1이 아닌경우에만 이전버튼 생성
 		if (pageNo != 1) {
-			pageNavi += "<a href='/likeListFrm?reqPage=" + (pageNo - 1) + ">이전</a>";
-		}
-
+			pageNavi += "<a href='/selectAllLikesList?customerNo="+customerNo+"&reqPage=" + (pageNo - 1) + "'>이전</a>";
+		}				
 		for (int i = 0; i < pageNaviSize; ++i) {
 			if (reqPage == pageNo) {
 				// 현재페이지
-				pageNavi += "<span class='naviNumber'>" + pageNo + "</span>";
+				pageNavi += "<span>" + pageNo + "</span>";
 			} else {
+				pageNavi += "<a href='/selectAllLikesList?customerNo="+customerNo+"&reqPage=" + pageNo + "'>" + pageNo + "</a>";
 			}
 			++pageNo;
 			if (pageNo > totalPage) {
@@ -107,7 +107,7 @@ public class LikesService {
 			}
 		}
 		if (pageNo <= totalPage) {
-			pageNavi += "<a class='naviNumber' href='/likeListFrm?reqPage=" + pageNo + ">다음</a>";
+			pageNavi += "<a href='/selectAllLikesList?customerNo="+customerNo+"&reqPage=" + pageNo + "'>다음</a>";
 		}		
 		LikesPageData lpd= new LikesPageData(list, pageNavi);
 		JDBCTemplate.close(conn);
