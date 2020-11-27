@@ -51,7 +51,8 @@ public class MypageAdminReviewServlet extends HttpServlet {
 			pageSize = new ReviewService().getAllReviewMaxPageSize(maxPrintSize);
 			list = new ReviewService().selectAllReview(reqPage,maxPrintSize);		
 		}
-	    int [] startEnd = new ReviewService().getPageStartEnd(reqPage, pageSize);
+		int maxSize = 5;
+	    int [] startEnd = new ReviewService().getPageStartEnd(reqPage,maxSize, pageSize);
 		// 값 전달
 		request.setAttribute("list", list);
 		request.setAttribute("pageSize", pageSize);

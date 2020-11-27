@@ -22,8 +22,9 @@ public class ReviewService {
 	}
 
 	// Paging 기능관련
-	public int[] getPageStartEnd(int reqPage, int pageSize) {
-		int maxSize = 6; //표시할 최대 페이지 개수
+	// reqPage, maxSize : 표시될 최대 페이지, pageSize : 총 페이지 
+	//페이지에 표시해야 할 시작번호와 끝번호를 반환 해줌.
+	public int[] getPageStartEnd(int reqPage, int maxSize,int pageSize) {
 	    int pageStart = 1; //표시되는 시작 페이지
 	    int pageEnd = 1; // 표시되는 마지막 페이지
 	    for(int i = 1;i<=pageSize/maxSize + (pageSize%maxSize != 0 ? 1 : 0);i++){
@@ -58,7 +59,7 @@ public class ReviewService {
 		return list;
 	}
 
-	// 회원 ID에 해당하는 모든 리뷰의 리스트를 가져옴.
+	// 회원 ID에 해당하는 모든 리뷰의 리스트를 페이징 하여 가져옴.
 	public ArrayList<Review> selectAllReviewById(String keyword,int reqPage, int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
 		// customer 번호를 가져오는 메서드
