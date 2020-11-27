@@ -184,6 +184,54 @@ public class LikesDao {
 		return result;
 	}
 
+	public int getTotalCount(Connection conn,int customerNo) {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = "select count(*) cnt from likes where customer_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, customerNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}	
+		
+		return result;
+	}	
+
+	public ArrayList<Likes> likeSelectListByCustomer(Connection conn, int start, int end, int customerNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset =  null;
+		String query = "select * from ( select rownum as rnum, n.* from (select * from likes where customer_no=? order by 1 desc)n ) where rnum between ? and ?";
+		ArrayList<Likes> list = new ArrayList<Likes>();		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, customerNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Likes likes = getLikesFromRset(rset);
+				list.add(likes);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}		
+		return list;
+	}
+
 	
 
 	

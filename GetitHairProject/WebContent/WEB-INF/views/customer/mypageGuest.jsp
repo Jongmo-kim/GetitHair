@@ -142,15 +142,18 @@ html ul.tabs li.active, html ul.tabs li.active a:hover {
 		<li>리뷰관리
 			<ul>
 				<li><a
-					href="/selectAllReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>">리뷰리스트보기</a>
+					href="/selectAllReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">리뷰리스트보기</a>
 				</li>
-				<li><button>리뷰보기</button></li>
-				<li><button>리뷰삭제하기</button></li>
+				<li><button>1 2 3 4 5 </button></li>
+				<li><button>6 7 8 9 10</button></li>
 				<li><button>리뷰수정하기</button></li>
 			</ul>
 		</li>
 		<li>찜목록
 			<ul>
+				<li><a
+					href="/selectAllLikesList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">찜리스트보기</a>
+				</li>
 				<li><button>찜목록보기</button></li>
 				<li><button>찜취소하기</button></li>
 				<li><button>찜수정?할게있어?없는거같은데?</button></li>

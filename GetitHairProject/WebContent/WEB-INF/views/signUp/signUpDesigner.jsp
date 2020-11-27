@@ -10,7 +10,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<link rel="stylesheet" href="/css/signUp/inputBox.css">
 	<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
-	<form action="/signUpDesigner" method="post">
+	<form action="/signUpDesigner" method="get">
 		<input type="hidden" name="designerNo" value="-1">
 	    <div class="container">
 	        <div class="name inputBox">
@@ -21,9 +21,11 @@
 	            <input type="password" class="form-textbox" name="designerPw">
 	            <span class="form-label">비밀번호</span>
 	        </div>
-	        <div class="inputBox">
-	            <label class="label" for="male">남</label><input type="radio" class="radio" name="gender" id="male" value="남">
-	            <label class="label" for="female">여</label><input type="radio" class="radio" name="gender" id="female" value="여">
+	        <div class="form-inline form-group ">
+	            <label class="col-sm-2 control-label" for="male">남자</label>
+	            <input class="form-control" type="radio" class="radio" name="designerGen" id="male" value="남" checked>
+	            <label class="col-sm-2 control-label" for="female">여자</label>
+	            <input class="form-control" type="radio" class="radio" name="designerGen" id="female" value="여">
 	        </div>
 			
 			<div class="name inputBox">
