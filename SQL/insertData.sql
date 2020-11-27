@@ -24,6 +24,7 @@
 --CUSTOMER 번호가 존재해야만 오류 발생 없음.
 --LIKE_TYPE 은 1글자의 영문자 H : HAIRSHOP , S : STYLE, R : REVIEW 
 
+
 DECLARE
 NUM1 NUMBER :=1;
 BEGIN

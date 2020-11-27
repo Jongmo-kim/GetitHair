@@ -10,7 +10,8 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<link rel="stylesheet" href="/css/signUp/inputBox.css">
 	<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
-	<form action="/signUpCustomer" method="post">
+	<form action="/signUpDesigner" method="post">
+		<input type="hidden" name="designerNo" value="-1">
 	    <div class="container">
 	        <div class="name inputBox">
 	            <input type="text" class="form-textbox" name="designerId">
@@ -21,8 +22,8 @@
 	            <span class="form-label">비밀번호</span>
 	        </div>
 	        <div class="inputBox">
-	            <input type="text" class="form-textbox dateOfBirth" name="designerGen">
-	            <span class="form-label">생년월일</span>
+	            <label class="label" for="male">남</label><input type="radio" class="radio" name="gender" id="male" value="남">
+	            <label class="label" for="female">여</label><input type="radio" class="radio" name="gender" id="female" value="여">
 	        </div>
 			
 			<div class="name inputBox">
@@ -32,32 +33,36 @@
 	        
 	        <div class="name inputBox">
 	            <input type="email" class="form-textbox" name="designerEmail">
-	            <span class="form-label">비밀번호</span>
-	        </div>
-	        <div class="name inputBox">
-	            <input type="text" class="form-textbox phone" name="customerGen">
-	            <span class="form-label">성별</span>
-	        </div>
-	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerName">
-	            <span class="form-label">이름</span>
-	        </div>
-	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerEmail">
 	            <span class="form-label">이메일</span>
 	        </div>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerAddr">
-	            <span class="form-label">주소</span>
+	            <input type="text" class="form-textbox phoneInput" name="designerPhone">
+	            <span class="form-label">전화번호</span>
+	        </div>
+	        <div class="name inputBox">
+	            <input type="text" class="form-textbox" name="designerYear">
+	            <span class="form-label">경력(년)</span>
+	        </div>
+	        <div class="name inputBox">
+	            <input type="text" class="form-textbox" name="designerRank">
+	            <span class="form-label">직급</span>
+	        </div>
+	        <div class="name inputBox">
+	            <input type="text" class="form-textbox" name="designerIntro">
+	            <span class="form-label">소개글</span>
 	        </div>
 	        
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="addrPostcode">
-	            <span class="form-label">Zipcode</span>
+	            <input type="text" class="form-textbox" name="designerKeyword">
+	            <span class="form-label">키워드</span>
 	        </div>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="addrDetail">
-	            <span class="form-label">상세표기</span>
+	        	이미지
+	            <input type="file">
+	        </div>
+	        <div class="name">
+		        <button class="btn btn-primary">제출</button>
+		        <button class="btn btn-primary" type="reset">초기화</button>
 	        </div>
 	   </div>
 	   </form>
