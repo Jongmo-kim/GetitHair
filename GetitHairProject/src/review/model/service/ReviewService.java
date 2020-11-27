@@ -21,7 +21,7 @@ public class ReviewService {
 		return result;
 	}
 	// 총 페이지 개수를 반환 해주는 메서드
-	public int getMaxPageSize(int maxPrintSize) {
+	public int getAllReviewMaxPageSize(int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ReviewDao().getMaxPageSize(conn,maxPrintSize);
 		if (result > 0) {

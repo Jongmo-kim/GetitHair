@@ -3,12 +3,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+    int pageSize = (Integer)request.getAttribute("pageSize");
+    int reqPage = (Integer)request.getAttribute("reqPage");
 	ArrayList<Customer> list = (ArrayList<Customer>) request.getAttribute("list");
 	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
 	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
 	
 	String sel1 = type == 1 ? "selected" : "";
-	String sel2 = type == 2 ? "selected" : "";
+    String sel2 = type == 2 ? "selected" : "";
+    int maxSize = 5; //표시할 최대 페이지 개수
+    int pageStart = 1; //표시되는 시작 페이지
+    int pageEnd = 1; // 표시되는 마지막 페이지
+    for(int i = 1;i<=pageSize/5 + (pageSize%5 != 0 ? 1 : 0);i++){
+        if(i*maxSize>=reqPage){
+            pageStart = i*maxSize - (maxSize-1);
+            pageEnd = i*maxSize < pageSize ? i*maxSize : pageSize;
+            break;
+        }
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -167,6 +179,17 @@
                                 </tr>
                             </tfoot>
                         </table>
+                    </div>
+                    <div class="page-nav">
+                        <%if(pageStart!=1){%>
+                            <a href="mypageAdminCustomer?reqPage=<%=pageStart-1%>">이전</a>
+                        <%}%>
+                        <%for(int i = pageStart; i<=pageEnd;i++){%>
+                            <a href="mypageAdminCustomer?reqPage=<%=i%>"><%=i%></a>
+                        <%}%>
+                        <%if(pageEnd<pageSize){%>
+                            <a href="mypageAdminCustomer?reqPage=<%=pageEnd+1%>">다음</a>
+                        <%}%>
                     </div>
                 </form>
             </div>

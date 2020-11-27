@@ -150,7 +150,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "select * from review where designer_no = ?";
-		ArrayList<Review> list = new ArrayList<Review>();;
+		ArrayList<Review> list = new ArrayList<Review>();
 		try {
 			pstmt=conn.prepareStatement(qrySelect);
 			pstmt.setInt(1, designerNo);
