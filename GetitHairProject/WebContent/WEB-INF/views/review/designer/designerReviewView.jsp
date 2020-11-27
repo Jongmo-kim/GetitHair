@@ -15,7 +15,8 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
-	<section>
+	<h1>리뷰 수정중</h1>
+	<%-- <section>
 		<div style="width:80%; margin:0 auto;">
 			<table class="table table-bordered">
 				<tr>
@@ -23,7 +24,7 @@
 					<td><%=r.getCustomer().getCustomerName() %></td>
 				</tr>
 				<!-- 시술 이미지 수정중 -->
-				<%-- <tr>
+				<tr>
 					<th>시술이미지</th>
 					<td>
 						<%if(r.getReviewImg() != null) {%>
@@ -31,7 +32,7 @@
 						<a href="javascript:fileDownload('<%=r.getReviewImg()%>','<%=r.getFilepath()%>')"><%=r.getFilename()%></a>
 						<%} %>
 					</td>
-				</tr> --%>
+				</tr>
 				<tr>
 					<th>내용</th>
 					<!-- 엔터 안먹으니까 r.getReviewContentBr()로 수정해야함 -->
@@ -43,12 +44,12 @@
 					</th>
 				</tr>
 			</table>
-			<%-- <%if(d != null) {%> --%>
+			<%if(d != null) {%>
 			<div class="inputComment">
 				<form action="/insertDesignerReviewComment" method="post">
 					<ul>
 						<li>
-							<%-- <input type="hidden" name="reviewCommentWriter" value="<%=d.getDesignerId() %>"> --%>
+							<input type="hidden" name="reviewCommentWriter" value="<%=d.getDesignerId() %>">
 							<input type="hidden" name="reviewRef" value="<%=r.getReviewNo() %>">
 							<input type="hidden" name="reviewCommentRef" value="0">
 							<textarea class="form-control" name="reviewCommentContent"></textarea>
@@ -59,7 +60,7 @@
 					</ul>
 				</form>
 			</div>
-			<%-- <%} %> --%>
+			<%} %>
 			<div class="commentList">
 				<%for(ReviewComment rc : list) {	// for문을 통해서 댓글을 출력하는 로직%>
 						<ul>
@@ -70,22 +71,22 @@
 							<li>
 								<p><%=rc.getReviewCommentContentBr() %></p>
 								<textarea name="reviewCommentContent" class="form-control changeComment" style="display:none;"><%=rc.getReviewCommentContent() %></textarea>
-								<%-- <%if(d!=null) {%> --%>
+								<%if(d!=null) {%>
 								<p class="linkBox">
-									<%-- <%if(d.getDesignerId().equals(rc.getReviewCommentWriter())) {	// 작성자일때 보임%> --%>
+									<%if(d.getDesignerId().equals(rc.getReviewCommentWriter())) {	// 작성자일때 보임%>
 									<a href="javascript:void(0)" onclick="modifyComment(this,'<%=rc.getReviewCommentNo()%>','<%=r.getReviewNo()%>')">수정</a>
 									<a href="javascript:void(0)" onclick="deleteComment(this,'<%=rc.getReviewCommentNo()%>','<%=r.getReviewNo()%>')">삭제</a>
-									<%-- <%} %> --%>
+									<%} %>
 									<a href="javascript:void(0)" class="recShow">댓글달기</a>
 								</p>
 							</li>
 						</ul>
-					<%-- <%} %> --%>
+					<%} %>
 					
 				<%} // 댓글 for문 종료 지점%>
 			</div>
 		</div>
-	</section>
+	</section> --%>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<!-- <script>
 	$(".recShow").click(function(){

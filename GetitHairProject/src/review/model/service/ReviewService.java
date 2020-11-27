@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import common.JDBCTemplate;
 import review.model.dao.ReviewDao;
 import review.model.vo.Review;
+import review.model.vo.ReviewComment;
+import review.model.vo.ReviewViewData;
 
 public class ReviewService {
 	// INSERT 구문
@@ -166,5 +168,15 @@ public class ReviewService {
 		}
 		JDBCTemplate.close(conn);
 		return result;
+	}
+
+	// 리뷰 번호로 해당리뷰 조회
+	public ReviewViewData selectReviewView(int reviewNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Review r = new ReviewDao().selectOneReview(conn,reviewNo);
+		ArrayList<ReviewComment> list = new ReviewDao().selectReviewCommentList(conn, reviewNo);
+		JDBCTemplate.close(conn);
+		ReviewViewData rvd = new ReviewViewData(r, list);
+		return rvd;
 	}
 }

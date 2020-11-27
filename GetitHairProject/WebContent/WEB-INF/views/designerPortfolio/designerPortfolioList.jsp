@@ -25,10 +25,10 @@
 	</section>
 	<script>
 		$(function(){
-			disignerPortfolioMore(1);
+			designerPortfolioMore(1);
 		});
 		$("#more-btn").click(function(){
-			disignerPortfolioMore($(this).val());
+			designerPortfolioMore($(this).val());
 		});
 		function designerPortfolioMore(start){
 			$.ajax({
@@ -40,12 +40,18 @@
 					var html = "";
 					for(var i in data){
 						var dp = data[i];
+						// ul 태그로 묶거나  div felx box 사용해서 묶음
+						// 일단 기능구현은 되니까 집가서 마무리...
+						html += "<ul>"
+						html += "<li></li>"
 						html += "<div class='photo border border-dark' style='width:400px; height:400px; margin:0 auto; margin-bottom:10px; display: inline-block;'>";
 						html += "<img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
 						html += "<p class='caption'>"+dp.styleName+"</p></div>";
-						if(i%5 == 0){
-							html += "<br>"
-						}
+						
+
+						html += "<div class='photo border border-dark' style='width:400px; height:400px; margin:0 auto; margin-bottom:10px; display: inline-block;'>";
+						html += "<img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
+						html += "<p class='caption'>"+dp.styleName+"</p></div>";
 					}
 					$("#photo-wrapper").append(html);
 					// 추가완료 후 더보기버튼 value -> 값 조정(start+5)

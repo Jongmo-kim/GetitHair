@@ -11,9 +11,9 @@
 	<section>
 		<div class="table-wrapper" style="width:80%;text-align:center; margin:0 auto;">
 			<form action="/insertDesignerPortfolio" method="post" enctype="multipart/form-data">
-				<table class="table table-bordered">
+				<table class="table">
 					<tr>
-						<th colspan="2">포트폴리오</th>
+						<th colspan="2">포트폴리오 작성</th>
 					</tr>
 					<tr>
 						<th>작성자</th>
@@ -23,22 +23,33 @@
 						</td>
 					</tr>
 					<tr>
-						<th>첨부파일</th>
+						<th>File</th>
 						<td>
 							<input type="file" name="filename" onchange="loadImg(this)">
 						</td>
 					</tr>
 					<tr>
-						<th>이미지보기</th>
-						<td>
+						<th colspan="2">Image Preview</th>
+					</tr>
+					<tr>
+						<td colspan="2">
 							<div id="img-viewer">
 								<img id="img-view" width="350">
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<th>내용</th>
+						<th>Style Type</th>
 						<td>
+							<%-- <%=d.getDesignerId() %> --%>
+							<input type="hidden" name="portfolioWriter" value="">
+						</td>
+					</tr>
+					<tr>
+						<th colspan="2">Content</th>
+					</tr>
+					<tr>
+						<td colspan="2">
 							<textarea rows="3" name="designerPortfolioContent" class="form-control"></textarea>
 						</td>
 					</tr>
