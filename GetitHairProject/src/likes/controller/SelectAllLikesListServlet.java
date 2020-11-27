@@ -1,7 +1,6 @@
-package reserve.controller;
+package likes.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.DebugTemplate;
-import reserve.model.service.ReserveService;
-import reserve.model.vo.Reserve;
+import likes.model.service.LikesService;
+import likes.model.vo.LikesPageData;
 
 /**
- * Servlet implementation class SelectAllReserveListServlet
+ * Servlet implementation class SelectAllLikesListServlet
  */
-@WebServlet(name = "SelectAllReserveList", urlPatterns = { "/selectAllReserveList" })
-public class SelectAllReserveListServlet extends HttpServlet {
+@WebServlet(name = "SelectAllLikesList", urlPatterns = { "/selectAllLikesList" })
+public class SelectAllLikesListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAllReserveListServlet() {
+    public SelectAllLikesListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +30,22 @@ public class SelectAllReserveListServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			
-		//1.인코딩
-		//2.view에서 넘어온값저장
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
-		//3.비지니스로직처리
-		ArrayList<Reserve> list = new ReserveService().selectAllByCust(customerNo);
-		//4.결과처리
-		if(list !=null) {
-			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllReserveListFrm.jsp");	
-			request.setAttribute("list", list);
-			rd.forward(request, response);	
+		int reqPage=  Integer.parseInt(request.getParameter("reqPage"));
+		LikesPageData lpd = new LikesService().LikesSelectListByCustomer(reqPage, customerNo);
+		
+		if(lpd != null) {
+			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllLikesListFrm.jsp");	
+			request.setAttribute("list", lpd.getList());
+			request.setAttribute("pageNavi", lpd.getPageNavi());
+			rd.forward(request, response);
 		}else {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			request.setAttribute("msg", "예약리스트를 조회 할 수 없습니다.");
+			request.setAttribute("msg", "찜리스트표시를 취소합니다.");
 			request.setAttribute("loc", "/");
-			rd.forward(request, response);	
-		}	
+			rd.forward(request, response);
+		}
 	}
 
 	/**

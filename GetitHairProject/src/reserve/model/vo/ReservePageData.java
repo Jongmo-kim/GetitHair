@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class ReservePageData {
 	private ArrayList<Reserve> list;
-	private String reqPage;
-	public ReservePageData(ArrayList<Reserve> list, String reqPage) {
+	private String pageNavi;
+	public ReservePageData(ArrayList<Reserve> list, String pageNavi) {
 		super();
 		this.list = list;
-		this.reqPage = reqPage;
+		this.pageNavi = pageNavi;
 	}
 	public ReservePageData() {
 		super();
@@ -19,11 +19,11 @@ public class ReservePageData {
 	public void setList(ArrayList<Reserve> list) {
 		this.list = list;
 	}
-	public String getReqPage() {
-		return reqPage;
+	public String getPageNavi() {
+		return pageNavi;
 	}
-	public void setReqPage(String reqPage) {
-		this.reqPage = reqPage;
+	public void getPageNavi(String pageNavi) {
+		this.pageNavi = pageNavi;
 	}
 	
 }

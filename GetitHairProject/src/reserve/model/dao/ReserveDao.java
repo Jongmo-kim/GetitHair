@@ -219,6 +219,7 @@ public class ReserveDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}		
 		return result;
@@ -246,37 +247,17 @@ public class ReserveDao {
 		}
 		return list;
 	}
-
-	public int getTotalCountSelStatus(Connection conn, String selStatus) {
-		int result =0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = "select count(*) cnt from reserve where reserve_status=?";
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, selStatus);
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				result = rset.getInt("cnt");
-			}			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}		
-		return result;
-	}
-
-	public ArrayList<Reserve> selectListSelStatus(Connection conn, int start, int end, String selStatus) {
+	
+	public ArrayList<Reserve> selectListCustomer(Connection conn, int startNum, int endNum,int customerNo) {
 		ArrayList<Reserve> list = new ArrayList<Reserve>();
-		String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where reserve_status=? order by 1 desc)N) where rnum between ? and ?";
+		String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where customer_no=? order by 1 desc)N) where rnum between ? and ?";
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, selStatus);
-			pstmt.setInt(2, start);
-			pstmt.setInt(3, end);
+			pstmt.setInt(1, customerNo);
+			pstmt.setInt(2, startNum);
+			pstmt.setInt(3, endNum);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Reserve r  = getReserveFromRset(rset);
@@ -290,4 +271,74 @@ public class ReserveDao {
 		}
 		return list;
 	}
+
+	public int getTotalCountCustomerSelStatus(Connection conn, String selStatus,int customerNo) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "select count(*) cnt from reserve where customer_no=? and reserve_status=?";
+		try {
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setInt(1, customerNo);	
+			pstmt.setString(2, selStatus);					
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}		
+		return result;
+	}
+
+	public ArrayList<Reserve> selectListCustomerSelStatus(Connection conn, int start, int end, String selStatus,int customerNo) {
+		ArrayList<Reserve> list = new ArrayList<Reserve>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where reserve_status=? and customer_no=? order by 1 desc)N) where rnum between ? and ?";
+				
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, selStatus);
+			pstmt.setInt(2, customerNo);
+			pstmt.setInt(3, start);
+			pstmt.setInt(4, end);					
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Reserve r  = getReserveFromRset(rset);
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public int getTotalCountCustomer(Connection conn, int customerNo) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "select count(*) cnt from reserve where and customer_no=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, customerNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("cnt");
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}		
+		return result;
+	}
+
 }

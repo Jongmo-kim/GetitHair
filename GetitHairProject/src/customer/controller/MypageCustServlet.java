@@ -36,27 +36,35 @@ public class MypageCustServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//1.인코딩
+		//2.view에서넘어온값저장
 		HttpSession session = request.getSession(false);
-		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");		
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");	
 		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
 		String selStatus = request.getParameter("selStatus");
-		ReservePageData rpd = null;
 		
+		if(loginCustomer == null) {
+			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+			request.setAttribute("msg", "회원정보가 없습니다.");
+			request.setAttribute("loc", "/");
+			rd.forward(request, response);			
+		}		
+		//3.비지니스로직처리
+		ReservePageData rpd = new ReserveService().reserveSelectListCustomerSelStatus(reqPage,selStatus,loginCustomer.getCustomerNo());
 		if(selStatus.equals("전체")) {
-			rpd = new ReserveService().reserveSelectList(reqPage);
-		}else {
-			rpd = new ReserveService().reserveSelectListSelStatus(reqPage,selStatus);
-		}
-		if(loginCustomer!=null) {
+			rpd = new ReserveService().reserveSelectListCustomer(reqPage,loginCustomer.getCustomerNo());
+		}	
+		//4.결과처리
+		if(rpd!=null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");	
 			request.setAttribute("loginCustomer", loginCustomer);
 			request.setAttribute("list", rpd.getList());
-			request.setAttribute("pageNavi", rpd.getReqPage());
+			request.setAttribute("pageNavi", rpd.getPageNavi());
 			request.setAttribute("selStatus", selStatus);
 			rd.forward(request, response);
-		}else {
+		}else{
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			request.setAttribute("msg", "회원정보가 없습니다. 로그인부터 해주세요.");
+			request.setAttribute("msg", "리스트 조회를 실패했습니다.");
 			request.setAttribute("loc", "/");
 			rd.forward(request, response);
 		}

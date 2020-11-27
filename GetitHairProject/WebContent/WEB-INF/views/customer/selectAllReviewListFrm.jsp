@@ -4,7 +4,11 @@
     pageEncoding="UTF-8"%>
     <%
    	 ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
-    
+     int start = (Integer)request.getAttribute("start");
+     int end = (Integer)request.getAttribute("end");
+     int reqPage = (Integer)request.getAttribute("reqPage");
+     int maxPageSize = (Integer)request.getAttribute("maxPageSize");
+     int customerNo = (Integer)request.getAttribute("customerNo");
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -41,5 +45,18 @@
 				</tr>
 				<%} %>			
 		</table>
+		<div>
+			<%if(start!=1){ %>
+				<a href="/selectAllReviewList?customerNo=<%=customerNo %>&reqPage=<%=(start-1) %>">이전</a>
+			<%} %>
+			<%for(int i = start ; i<= end ;i++){ %>
+				<a href = "/selectAllReviewList?customerNo=<%=customerNo %>&reqPage=<%=i%>"> <%=i %></a>
+			<%} %>
+			<%if(end < maxPageSize){ %>
+				<a href="/selectAllReviewList?customerNo=<%=customerNo %>&reqPage=<%=(end+1) %>">다음</a>
+			<%} %>
+			
+		</div>
+		
 </body>
 </html>
