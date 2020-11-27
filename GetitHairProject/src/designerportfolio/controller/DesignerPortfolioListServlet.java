@@ -31,7 +31,7 @@ public class DesignerPortfolioListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int totalCount = new DesignerPortfolioService().totalCount();
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/mypage/designer/designerPortfolioList.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/designerPortfolio/designerPortfolioList.jsp");
 		request.setAttribute("totalCount", totalCount);
 		rd.forward(request, response);
 	}

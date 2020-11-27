@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 import admin.mypage.model.service.AdminService;
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
-import review.model.service.ReviewService;
 
 /**
  * Servlet implementation class MypageAdminCustomerServlet
@@ -42,21 +41,27 @@ public class MypageAdminCustomerServlet extends HttpServlet {
 		// type value 1 : 아이디로 검색 , 2 : 이름으로 검색
 		int type = request.getParameter("searchType") != null ? Integer.parseInt(request.getParameter("searchType")) : 0;
 		String keyword = request.getParameter("keyword");
+		//reqPage = 요청할 페이지 번호.
+		int reqPage = request.getParameter("reqPage") != null ? Integer.parseInt(request.getParameter("reqPage")) : 1;
 
 		// 비즈니스 로직
+		int pageSize = 0;
 		ArrayList<Customer> list = null;
 		if(type == 1 && !keyword.equals("")) { //id 검색일 경우
 			list = new AdminService().getCustomerListById(keyword);
 		}else if(type == 2 && !keyword.equals("")){ //name 검색일 경우 
 			list = new AdminService().getCustomerListByName(keyword);		
 		}else { //검색이 아닐경우
-			list = new CustomerService().selectAllCusetomer();
+			int maxPrintSize = 20; //한 페이지에 출력될 리뷰 최대 갯수 지정.
+			pageSize = new CustomerService().getMaxPageSize(maxPrintSize);
+			list = new CustomerService().selectAllCusetomer(reqPage,maxPrintSize);
 		}
-
 		// 값 전달
+		request.setAttribute("list", list);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("reqPage", reqPage);
 		request.setAttribute("type", type);
 		request.setAttribute("keyword", keyword);
-		request.setAttribute("list", list);
 		// 메인 관리페이지로 이동
 		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminCustomer.jsp").forward(request, response);
 	}

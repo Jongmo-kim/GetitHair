@@ -35,7 +35,7 @@ public class DebugTemplate {
 			System.out.printf("%s의 객체\n",tag);
 			for(Object obj : list) {
 				System.out.printf("%s의 %d번째 객체\n",tag,count++);
-				System.out.println(obj);
+				System.out.println(obj.toString());
 				System.out.println("------------------------------------");
 			}
 			System.out.println();

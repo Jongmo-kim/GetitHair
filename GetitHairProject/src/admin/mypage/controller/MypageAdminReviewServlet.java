@@ -43,20 +43,24 @@ public class MypageAdminReviewServlet extends HttpServlet {
 		
 		//비즈니스 로직
 		int pageSize = 0;
+		int maxPrintSize = 10; //한 페이지에 출력될 리뷰 최대 갯수 지정.
 		ArrayList<Review> list = null;
 		if(type != 0 && !keyword.equals("")) { //검색으로 얻어올 경우
-			list = new ReviewService().selectAllReviewById(keyword);
+			list = new ReviewService().selectAllReviewById(keyword,reqPage,maxPrintSize);
 		}else { //검색이 아닐때 모든 리뷰를 반환.
-			int maxPrintSize = 10; //한 페이지에 출력될 리뷰 최대 갯수 지정.
-			pageSize = new ReviewService().getMaxPageSize(maxPrintSize);
+			pageSize = new ReviewService().getAllReviewMaxPageSize(maxPrintSize);
 			list = new ReviewService().selectAllReview(reqPage,maxPrintSize);		
 		}
+		int maxSize = 5;
+	    int [] startEnd = new ReviewService().getPageStartEnd(reqPage,maxSize, pageSize);
 		// 값 전달
 		request.setAttribute("list", list);
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("reqPage", reqPage);
 		request.setAttribute("type", type);
 		request.setAttribute("keyword", keyword);
+		request.setAttribute("pageStart", startEnd[0]);
+		request.setAttribute("pageEnd", startEnd[1]);
 		// 메인 관리페이지로 이동
 		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminReview.jsp").forward(request, response);
 	}

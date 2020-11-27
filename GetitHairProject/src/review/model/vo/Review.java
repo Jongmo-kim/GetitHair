@@ -76,6 +76,10 @@ public class Review {
 		this.style = style;
 	}
 
+	public String getReviewContentBr() {
+		return reviewContent.replace("\r\n", "<br>");
+	}
+	
 	public String getReviewContent() {
 		return reviewContent;
 	}

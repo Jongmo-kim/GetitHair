@@ -238,10 +238,57 @@ public class CustomerDao {
 		}		
 		return list;
 	}
-
-
-	public int insertCustomer(Connection conn, Customer customer, Hairinfo hairinfo) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	//도현 admin 페이지에 필요해서 만든 페이징 메서드
+	public int getMaxPageSize(Connection conn, int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		String qrySelect = "select count(*) cnt from customer";
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(qrySelect);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+				if(result != 0) {
+					result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+//		System.out.println(result);
+		return result;
 	}
+
+	public ArrayList<Customer> selectAllCusetomer(Connection conn, int reqPage, int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "SELECT * FROM (SELECT ROWNUM RN,CUST.* FROM "
+				+ "(SELECT CUST.* FROM customer CUST ORDER BY CUST.customer_no DESC) CUST) "
+				+ "WHERE RN BETWEEN ? AND ?";
+		ArrayList<Customer> list = new ArrayList<Customer>();
+		try {
+			pstmt=conn.prepareStatement(qrySelect);
+			pstmt.setInt(1, (maxPrintSize*(reqPage-1))+1);
+			pstmt.setInt(2, maxPrintSize*reqPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Customer cust = getCustomerFromRset(rs);
+				list.add(cust);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+
 }

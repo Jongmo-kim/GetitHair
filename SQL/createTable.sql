@@ -245,7 +245,8 @@ CREATE TABLE style
     style_name     VARCHAR2(30)     NOT NULL, 
     style_img      VARCHAR2(300)    NOT NULL, 
     style_likes    NUMBER           DEFAULT 0 NOT NULL, 
-    CONSTRAINT STYLE_PK PRIMARY KEY (style_no)
+    CONSTRAINT STYLE_PK PRIMARY KEY (style_no),
+    check(style_type in ('cut','perm','color','etc'))
 )
 /
 

@@ -81,6 +81,33 @@ public class ReviewDao {
 		}
 		return list;
 	}
+	public ArrayList<Review> selectAllReviewByCustomerNo(Connection conn, int customerNo, int reqPage,
+			int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "SELECT * FROM (SELECT ROWNUM RN,RV.* FROM "
+				+ "(SELECT RV.* FROM review RV where customer_no = ? ORDER BY RV.REVIEW_NO DESC) RV) "
+				+ "WHERE RN BETWEEN ? AND ?";
+		ArrayList<Review> list = new ArrayList<Review>();;
+		try {
+			pstmt=conn.prepareStatement(qrySelect);
+			pstmt.setInt(1, customerNo);
+			pstmt.setInt(2, (maxPrintSize*(reqPage-1))+1);
+			pstmt.setInt(3, maxPrintSize*reqPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Review rv = getSettedReviewProperties(rs);
+				list.add(rv);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 	public ArrayList<Review> selectAllReviewByCustomerNo(Connection conn, int customerNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -124,6 +151,32 @@ public class ReviewDao {
 		}
 		return custNo;
 	}
+	public ArrayList<Review> selectAllReviewByShopNo(Connection conn, int shopNo, int reqPage, int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "SELECT * FROM (SELECT ROWNUM RN,RV.* FROM "
+				+ "(SELECT RV.* FROM review RV where shop_no = ? ORDER BY RV.REVIEW_NO DESC) RV) "
+				+ "WHERE RN BETWEEN ? AND ?";
+		ArrayList<Review> list = new ArrayList<Review>();;
+		try {
+			pstmt=conn.prepareStatement(qrySelect);
+			pstmt.setInt(1, shopNo);
+			pstmt.setInt(2, (maxPrintSize*(reqPage-1))+1);
+			pstmt.setInt(3, maxPrintSize*reqPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Review rv = getSettedReviewProperties(rs);
+				list.add(rv);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 	public ArrayList<Review> selectAllReviewByShopNo(Connection conn, int shopNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -146,11 +199,38 @@ public class ReviewDao {
 		}
 		return list;
 	}
+	public ArrayList<Review> selectAllReviewByDesignerNo(Connection conn, int designerNo, int reqPage,
+			int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "SELECT * FROM (SELECT ROWNUM RN,RV.* FROM "
+				+ "(SELECT RV.* FROM review RV where designer_no = ? ORDER BY RV.REVIEW_NO DESC) RV) "
+				+ "WHERE RN BETWEEN ? AND ?";
+		ArrayList<Review> list = new ArrayList<Review>();;
+		try {
+			pstmt=conn.prepareStatement(qrySelect);
+			pstmt.setInt(1, designerNo);
+			pstmt.setInt(2, (maxPrintSize*(reqPage-1))+1);
+			pstmt.setInt(3, maxPrintSize*reqPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Review rv = getSettedReviewProperties(rs);
+				list.add(rv);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 	public ArrayList<Review> selectAllReviewByDesignerNo(Connection conn, int designerNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "select * from review where designer_no = ?";
-		ArrayList<Review> list = new ArrayList<Review>();;
+		ArrayList<Review> list = new ArrayList<Review>();
 		try {
 			pstmt=conn.prepareStatement(qrySelect);
 			pstmt.setInt(1, designerNo);
@@ -255,6 +335,9 @@ public class ReviewDao {
 		System.out.println(result);
 		return result;
 	}
+	
+	
+	
 	
 
 	
