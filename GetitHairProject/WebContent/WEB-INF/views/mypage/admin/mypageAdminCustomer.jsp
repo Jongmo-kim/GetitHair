@@ -11,10 +11,10 @@
 	
 	String sel1 = type == 1 ? "selected" : "";
     String sel2 = type == 2 ? "selected" : "";
-    int maxSize = 5; //표시할 최대 페이지 개수
+    int maxSize = 4; //표시할 최대 페이지 개수
     int pageStart = 1; //표시되는 시작 페이지
     int pageEnd = 1; // 표시되는 마지막 페이지
-    for(int i = 1;i<=pageSize/maxSize + (pageSize%5 != 0 ? 1 : 0);i++){
+    for(int i = 1;i<=pageSize/maxSize + (pageSize%maxSize != 0 ? 1 : 0);i++){
         if(i*maxSize>=reqPage){
             pageStart = i*maxSize - (maxSize-1);
             pageEnd = i*maxSize < pageSize ? i*maxSize : pageSize;
@@ -29,6 +29,7 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <link rel="stylesheet" href="/css/mypage/admin/container.css">
+    <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
     <style>
         .modal-overlay {
             display: none;
@@ -77,6 +78,7 @@
             border-bottom: 1px solid gray;
             height: 30px;
         }
+        
     </style>
 </head>
 
@@ -185,7 +187,7 @@
                             <a href="mypageAdminCustomer?reqPage=<%=pageStart-1%>">이전</a>
                         <%}%>
                         <%for(int i = pageStart; i<=pageEnd;i++){%>
-                            <a href="mypageAdminCustomer?reqPage=<%=i%>"><%=i%></a>
+                            <a href="mypageAdminCustomer?reqPage=<%=i%>" style="<%=i==reqPage ? "color: black;" : ""%>"><%=i%></a>
                         <%}%>
                         <%if(pageEnd<pageSize){%>
                             <a href="mypageAdminCustomer?reqPage=<%=pageEnd+1%>">다음</a>

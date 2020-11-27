@@ -1,9 +1,9 @@
-<%@page import="customer.model.vo.Customer"%>
+<%@page import="designer.model.vo.Designer"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	ArrayList<Customer> list = (ArrayList<Customer>) request.getAttribute("list");
+	ArrayList<Designer> list = (ArrayList<Designer>) request.getAttribute("list");
 	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
 	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
 	
@@ -82,7 +82,7 @@
                         <th></th>
                         <th>번호</th>
                         <th>샵</th>
-                        <th>디자이너</th>
+                        <th>디자이너</th> 
                         <th>작성자</th>
                         <th>내용</th>
                         <th>기능</th>
@@ -136,17 +136,18 @@
                             <tbody>
                                 <%if(list != null){%>
                                 <%
-                                    for (Customer c : list) {
+                                    for (Designer c : list) {
                                         %>
                                 <tr>
-                                    <th width="30"><input type="checkbox" name="chk" value="<%=c.getCustomerId() %>">
+                                    <th width="30"><input type="checkbox" name="chk" value="<%=c.getDesignerId() %>">
                                     </th>
-                                    <th><%=c.getCustomerNo() %></th>
-                                    <input type="hidden" name="customerId" value="<%=c.getCustomerId() %>">
-                                    <th><%=c.getCustomerId() %></th>
-                                    <th><%=c.getCustomerGen() %></th>
-                                    <th><%=c.getCustomerName() %></th>
-                                    <th><%=c.getCustomerEnrolldate() %></th>
+                                    <th><%=c.getDesignerNo() %></th>
+                                    <input type="hidden" name="customerId" value="<%=c.getDesignerId() %>">
+                                    <th><%=c.getDesignerId() %></th>
+                                    <th><%=c.getDesignerGen() %></th>
+                                    <th><%=c.getDesignerName() %></th>
+                                    <th><%=c.getDesignerYear() %></th>
+                                    <th><%=c.getDesignerRank() %></th>
                                     <th>
                                         <button id="rvbtn" type="button">작성한 리뷰보기</button>
                                         <button>탈퇴</button>

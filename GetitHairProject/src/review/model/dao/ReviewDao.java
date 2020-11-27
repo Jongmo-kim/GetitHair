@@ -335,6 +335,30 @@ public class ReviewDao {
 		System.out.println(result);
 		return result;
 	}
+	public int getMaxPageSizeByCustomerNo(Connection conn, int maxPrintSize, int customerNo) {
+		PreparedStatement pstmt = null;
+		String qrySelect = "select count(*) cnt from review where customer_no = ?";
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(qrySelect);
+			pstmt.setInt(1, customerNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+				if(result != 0) {
+					result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
 	
 	
 	

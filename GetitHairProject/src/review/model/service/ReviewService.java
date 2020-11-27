@@ -42,11 +42,12 @@ public class ReviewService {
 	public int getAllReviewMaxPageSize(int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ReviewDao().getMaxPageSize(conn, maxPrintSize);
-		if (result > 0) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int getAllReviewByCustomerNoMaxPageSize(int maxPrintSize,int customerNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDao().getMaxPageSizeByCustomerNo(conn, maxPrintSize,customerNo);
 		JDBCTemplate.close(conn);
 		return result;
 	}
@@ -89,7 +90,7 @@ public class ReviewService {
 	// 디자이너 번호에 해당하는 모든 리뷰의 리스트를 페이징 하여 가져옴.
 	public ArrayList<Review> selectAllReviewByDesignerNo(int designerNo,int reqPage, int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list = new ReviewDao().selectAllReviewByDesignerNo(conn, designerNo,int reqPage, int maxPrintSize);
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByDesignerNo(conn, designerNo,reqPage,maxPrintSize);
 		JDBCTemplate.close(conn);
 		return list;
 	}
