@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hairinfo.model.service.HairinfoService;
+import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 import reserve.model.service.ReserveService;
 import reserve.model.vo.Reserve;
@@ -34,9 +35,11 @@ public class ReserVationOkServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		Reserve reserve = new ReserveService().selectOneReserve(hs.getShopNo());
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/hairshopDeta/reserVation.jsp");
-		request.setAttribute("reserve", reserve);
+		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
+		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);
+		Reserve reserve = new ReserveService().insertReserve(hs.getShopNo());
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/hairshopDeta/msg.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

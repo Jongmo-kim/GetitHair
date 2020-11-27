@@ -22,7 +22,7 @@
 	<div style="width: 800px; height: 500px;">
 		<h2>예약하기</h2>
 		<div>
-		<form action="/reserVationOk" method="get">
+		<form action="/reserVationOk?shopNo=<%=hs.getShopNo() %>" method="get">
 		<br>
 		<p>매장 : <%=hs.getShopName() %></p>
 		<p>
