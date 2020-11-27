@@ -187,7 +187,7 @@ public class DesignerDao {
 		ResultSet rset = null;
 		ArrayList<Designer> list = new ArrayList<Designer>();
 		String query = "SELECT * FROM (SELECT ROWNUM RN,D.* FROM "
-				+ "(SELECT RV.* FROM designer D ORDER BY D.DESIGNER_NO DESC) D) "
+				+ "(SELECT D.* FROM designer D ORDER BY D.DESIGNER_NO DESC) D) "
 				+ "WHERE RN BETWEEN ? AND ?";
 		try {
 			pstmt = conn.prepareStatement(query);
