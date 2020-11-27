@@ -98,7 +98,7 @@ public class Reserve {
 		str += "reserveStatus :"+reserveStatus+"\n";
 		str += "reserveCustReq :"+reserveDesignerReq+"\n";
 		str += "reserveDesignerReq :"+reserveDesignerMemo+"\n";
-		return super.toString();
+		return str;
 	}
 	
 }
