@@ -45,6 +45,12 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	public int getAllReviewByCustomerNoMaxPageSize(int maxPrintSize,int customerNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDao().getMaxPageSizeByCustomerNo(conn, maxPrintSize,customerNo);
+		JDBCTemplate.close(conn);
+		return result;
+	}
 
 	// 모든 리뷰의 리스트를 페이징 하여 가져옴.
 	public ArrayList<Review> selectAllReview(int reqPage, int maxPrintSize) {
