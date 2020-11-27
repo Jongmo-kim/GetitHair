@@ -14,7 +14,7 @@
     int maxSize = 5; //표시할 최대 페이지 개수
     int pageStart = 1; //표시되는 시작 페이지
     int pageEnd = 1; // 표시되는 마지막 페이지
-    for(int i = 1;i<=pageSize/5 + (pageSize%5 != 0 ? 1 : 0);i++){
+    for(int i = 1;i<=pageSize/maxSize + (pageSize%5 != 0 ? 1 : 0);i++){
         if(i*maxSize>=reqPage){
             pageStart = i*maxSize - (maxSize-1);
             pageEnd = i*maxSize < pageSize ? i*maxSize : pageSize;

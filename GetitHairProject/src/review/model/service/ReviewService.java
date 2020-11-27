@@ -22,7 +22,19 @@ public class ReviewService {
 	}
 
 	// Paging 기능관련
-
+	public int[] getPageStartEnd(int reqPage, int pageSize) {
+		int maxSize = 6; //표시할 최대 페이지 개수
+	    int pageStart = 1; //표시되는 시작 페이지
+	    int pageEnd = 1; // 표시되는 마지막 페이지
+	    for(int i = 1;i<=pageSize/maxSize + (pageSize%maxSize != 0 ? 1 : 0);i++){
+	        if(i*maxSize>=reqPage){
+	            pageStart = i*maxSize - (maxSize-1);
+	            pageEnd = i*maxSize < pageSize ? i*maxSize : pageSize;
+	            break;
+	        }
+	    }
+	    return new int[] {pageStart,pageEnd};
+	}
 	// 총 페이지 개수를 반환 해주는 메서드
 	// ex) 검색된 리스트가 105개 이고 한 페이지에 출력할 리스트 개수(maxPrintSize)가 10개라면
 	// 105/10 = 10 이고 나머지가 존재하므로 11로 계산하여 반환 해줌.

@@ -9,16 +9,9 @@
 	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
     String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
     
-    int maxSize = 5; //표시할 최대 페이지 개수
-    int pageStart = 1; //표시되는 시작 페이지
-    int pageEnd = 1; // 표시되는 마지막 페이지
-    for(int i = 1;i<=pageSize/5 + (pageSize%5 != 0 ? 1 : 0);i++){
-        if(i*maxSize>=reqPage){
-            pageStart = i*maxSize - (maxSize-1);
-            pageEnd = i*maxSize < pageSize ? i*maxSize : pageSize;
-            break;
-        }
-    }
+    int maxSize = 6; //표시할 최대 페이지 개수
+    int pageStart = (Integer)request.getAttribute("pageStart"); //표시되는 시작 페이지
+    int pageEnd = (Integer)request.getAttribute("pageEnd"); // 표시되는 마지막 페이지
 %>
 <!DOCTYPE html>
 <html>
