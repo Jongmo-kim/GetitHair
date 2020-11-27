@@ -170,6 +170,7 @@ public class ReviewService {
 		return result;
 	}
 
+	// 아래부터 박은영 코드
 	// 리뷰 번호로 해당리뷰 조회
 	public ReviewViewData selectReviewView(int reviewNo) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -178,5 +179,42 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		ReviewViewData rvd = new ReviewViewData(r, list);
 		return rvd;
+	}
+	
+	// 리뷰댓글 추가 메소드
+	public int insertReviewComment(ReviewComment rc) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDao().insertReviewComment(conn,rc);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public int deleteReviewComment(int reviewCommentNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDao().deleteReviewComment(conn, reviewCommentNo);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public int updateReviewComment(int reviewCommentNo, String reviewCommentContent) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDao().updateReviewComment(conn, reviewCommentNo, reviewCommentContent);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
 	}
 }

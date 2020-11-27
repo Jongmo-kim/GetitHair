@@ -1,7 +1,6 @@
-package designer.controller;
+package review.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import designer.model.service.DesignerService;
 import review.model.service.ReviewService;
 import review.model.vo.ReviewComment;
-import review.model.vo.ReviewViewData;
 
 /**
- * Servlet implementation class DesignerReviewViewServlet
+ * Servlet implementation class InsertDesignerReviewCommentServlet
  */
-@WebServlet(name = "DesignerReviewView", urlPatterns = { "/designerReviewView" })
-public class DesignerReviewViewServlet extends HttpServlet {
+@WebServlet(name = "InsertDesignerReviewComment", urlPatterns = { "/insertDesignerReviewComment" })
+public class InsertDesignerReviewCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DesignerReviewViewServlet() {
+    public InsertDesignerReviewCommentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,19 +32,22 @@ public class DesignerReviewViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
-		ReviewViewData rvd = new ReviewService().selectReviewView(reviewNo);
-		if(rvd.getR() == null) {
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/common/msg.jsp");
-			request.setAttribute("msg", "리뷰가 존재하지 않습니다.");
-			request.setAttribute("loc", "/designerReviewList?reqPage=1");
-			rd.forward(request, response);
+		ReviewComment rc = new ReviewComment();
+		rc.setReviewCommentWriter(request.getParameter("reviewCommentWriter"));
+		rc.setReviewCommentWriter(request.getParameter("reviewCommentWriter"));
+		rc.setReviewRef(Integer.parseInt(request.getParameter("reviewRef")));
+		// 3. 비지니스 로직
+		int result = new ReviewService().insertReviewComment(rc);
+		
+		// 4. 결과처리
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+		if(result>0) {
+			request.setAttribute("msg", "댓글 등록이 완료되었습니다.");
 		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/review/designer/designerReviewView.jsp");
-			request.setAttribute("r", rvd.getR());
-			request.setAttribute("list", rvd.getList());
-			rd.forward(request, response);
+			request.setAttribute("msg", "댓글 등록에 실패하였습니다. 관리자에게 문의하세요.");
 		}
+		request.setAttribute("loc", "/designerReviewView?reviewNo="+rc.getReviewRef());
+		rd.forward(request, response);
 	}
 
 	/**
