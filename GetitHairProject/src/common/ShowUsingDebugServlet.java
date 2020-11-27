@@ -48,9 +48,8 @@ public class ShowUsingDebugServlet extends HttpServlet {
 		Hairshop hair = new HairshopService().selectOneHairshop(1);
 		Style style = new StyleService().selectOneStyle(1);
 		Reserve reserve = new ReserveService().selectOneReserve(1);
-		ArrayList<Customer> cList = new CustomerService().selectAllCusetomer();
+		ArrayList<Customer> cList = new CustomerService().selectAllCustomer();
 		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(1);
-		
 		
 		DebugTemplate.setCurrObjAtSession(request.getSession(), cList, "cList");
 		DebugTemplate.setCurrObjAtSession(request.getSession(), reserve, "reserve");
