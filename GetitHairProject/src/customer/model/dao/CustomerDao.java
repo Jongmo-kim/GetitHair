@@ -119,6 +119,23 @@ public class CustomerDao {
 		}
 		return result;
 	}
+	
+	public int deleteCustomer(Connection conn, int customerNo) {
+		PreparedStatement pstmt =null;
+		int result =0;
+		String query ="delete from customer where customer_no = ?";		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, customerNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 
 	public int insertCustomer(Connection conn, Customer customer) {
 		PreparedStatement pstmt = null;
