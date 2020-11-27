@@ -43,8 +43,8 @@ public class EncodeFilter implements Filter {
 			if(isDebugMode) {
 				printAllObjects(session);
 				printRequestURI(req);
-				request.setCharacterEncoding("utf-8");
 			}
+			request.setCharacterEncoding("utf-8");
 			chain.doFilter(request, response);			
 		}
 		

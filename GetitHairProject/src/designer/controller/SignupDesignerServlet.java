@@ -39,7 +39,6 @@ public class SignupDesignerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Designer designer = DesignerTemplate.setDesigner(request);
-		DebugTemplate.setCurrObjAtSession(request.getSession(), designer, "designer");
 		int result = new DesignerService().insertDesigner(designer);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result >0) {
