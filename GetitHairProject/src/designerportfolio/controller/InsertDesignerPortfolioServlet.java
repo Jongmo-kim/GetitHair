@@ -50,7 +50,7 @@ public class InsertDesignerPortfolioServlet extends HttpServlet {
 		MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, maxSize,"UTF-8",new DefaultFileRenamePolicy());
 		DesignerPortfolio dp = new DesignerPortfolio();
 		dp.setFilepath(mRequest.getFilesystemName("filename"));
-		dp.setPortfolioComment(mRequest.getParameter("PortfolioContent"));
+		dp.setPortfolioContent(mRequest.getParameter("PortfolioContent"));
 		dp.setPortfolioWriter(mRequest.getParameter("PortfolioWriter"));
 		int result = new DesignerPortfolioService().insertDesignerPortfolio(dp);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
