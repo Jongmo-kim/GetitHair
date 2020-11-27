@@ -36,12 +36,12 @@ public class DesignerPortfolioDao {
 	public int insertDesignerPortfolio(Connection conn, DesignerPortfolio dp) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into designer_portfolio values(designer_portfolio_seq.nextval,?,?,?,?)";
+		String query = "insert into designer_portfolio values(designer_portfolio_seq.nextval,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'))";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, dp.getPortfolioWriter());
-			pstmt.setString(2, dp.getPortfolioComment());
-			pstmt.setString(3, dp.getStyleName());
+			pstmt.setString(2, dp.getStyleName());
+			pstmt.setString(3, dp.getPortfolioContent());
 			pstmt.setString(4, dp.getFilepath());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -68,7 +68,7 @@ public class DesignerPortfolioDao {
 				DesignerPortfolio dp = new DesignerPortfolio();
 				dp.setPortfolioNo(rset.getInt("portfolio_no"));
 				dp.setPortfolioWriter(rset.getString("portfolio_writer"));
-				dp.setPortfolioComment(rset.getString("portfolio_comment"));
+				dp.setPortfolioContent(rset.getString("portfolio_content"));
 				dp.setFilepath(rset.getString("filepath"));
 				list.add(dp);
 				}
