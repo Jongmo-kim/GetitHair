@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import designer.model.dao.DesignerDao;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
+import reserve.model.dao.ReserveDao;
+import reserve.model.service.ReserveService;
+import reserve.model.vo.Reserve;
 
 /**
  * Servlet implementation class DesignerReserveServlet
@@ -33,12 +37,18 @@ public class DesignerReserveServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		ArrayList<Hairshop> list = new HairshopService().selectHairshopList();
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshop.jsp");
-		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reserve/designer/designerReserve.jsp"); 20-11-25 18:47 충돌나서 일단 요거 죽였어요
-		request.setAttribute("list", list);
-		
-		rd.forward(request, response);
+		int DesignerNo = 1;//Integer.parseInt(request.getParameter("DesignerNo"));
+		ArrayList<Reserve> list = new ReserveService().selectAllByDesigner(DesignerNo);
+		if(list !=null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/reserve/designer/designerReserve.jsp"); 
+			request.setAttribute("list", list);
+			rd.forward(request, response);
+		}else {
+			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+			request.setAttribute("msg", "예약내역이 존재하지 않습니다.");
+			request.setAttribute("loc", "/");
+			rd.forward(request, response);	
+		}	
 	}
 
 	/**

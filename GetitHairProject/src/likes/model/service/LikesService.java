@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import likes.model.dao.LikesDao;
+import likes.model.vo.LikesPageData;
 import likes.model.vo.Likes;
+
 
 public class LikesService {
 	public Likes selectOneLikes(int customerNo) {
@@ -59,4 +61,57 @@ public class LikesService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	public int updateLikes(Likes likes) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		result = new LikesDao().updateLikes(conn,likes);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public LikesPageData LikesSelectListByCustomer(int reqPage,int customerNo){
+		Connection conn = JDBCTemplate.getConnection();
+		LikesDao dao = new LikesDao();
+		int totalCount = dao.getTotalCount(conn,customerNo);
+		int numPerPage = 10;
+		int totalPage = totalCount % numPerPage == 0 ? totalCount / numPerPage : totalCount / numPerPage + 1;
+		// reqPage = 1 -> start : 1, end : 10
+		int start = (reqPage - 1) * numPerPage + 1;
+		int end = reqPage * numPerPage;
+		ArrayList<Likes> list = dao.likeSelectListByCustomer(conn, start, end,customerNo);
+
+		// 페이지 네비게이션 작성 시작
+		int pageNaviSize = 5;
+		String pageNavi = "";
+		// 페이지네비 시작번호 구하기
+		// reqPage : 1~5 -> 1
+		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
+		// 이전버튼 : 페이지 시작번호가 1이 아닌경우에만 이전버튼 생성
+		if (pageNo != 1) {
+			pageNavi += "<a href='/likeListFrm?reqPage=" + (pageNo - 1) + ">이전</a>";
+		}
+
+		for (int i = 0; i < pageNaviSize; ++i) {
+			if (reqPage == pageNo) {
+				// 현재페이지
+				pageNavi += "<span class='naviNumber'>" + pageNo + "</span>";
+			} else {
+			}
+			++pageNo;
+			if (pageNo > totalPage) {
+				break;
+			}
+		}
+		if (pageNo <= totalPage) {
+			pageNavi += "<a class='naviNumber' href='/likeListFrm?reqPage=" + pageNo + ">다음</a>";
+		}		
+		LikesPageData lpd= new LikesPageData(list, pageNavi);
+		JDBCTemplate.close(conn);
+		return lpd;
+	}
+	
 }

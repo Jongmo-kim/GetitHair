@@ -12,6 +12,7 @@ DROP TABLE SHOP_PRICE CASCADE CONSTRAINTS;
 DROP TABLE RESERVE CASCADE CONSTRAINTS;
 DROP TABLE ADMIN CASCADE CONSTRAINTS;
 DROP TABLE REVIEW_COMMENT CASCADE CONSTRAINTS;
+DROP TABLE DESIGNER_PORTFOLIO CASCADE CONSTRAINTS;
 -- 시퀀스 삭제
 DROP SEQUENCE hairshop_SEQ;
 DROP SEQUENCE designer_SEQ;
@@ -26,6 +27,7 @@ DROP SEQUENCE likes_SEQ;
 DROP SEQUENCE admin_SEQ;
 DROP SEQUENCE REVIEW_COMMENT_SEQ;
 drop sequence hair_info_seq;
+DROP SEQUENCE DESIGNER_PORTFOLIO_SEQ;
 
 -------------------------------------
 -- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
@@ -698,4 +700,18 @@ create or replace trigger likes_tri
         update style set style_likes = style_likes + 1 where style_no = :NEW.like_type_no;
     end;
     /
+
+-- designer_portfolio table (은영)
+CREATE TABLE DESIGNER_PORTFOLIO(
+    DESIGNER_PORTFOLIO_NO NUMBER PRIMARY KEY,   -- 글번호
+    DESIGNER_NO NUMBER,                         -- 작성자
+    DESIGNER_PORTFOLIO_STYLE_NAME VARCHAR2(30), -- 시술명
+    DESIGNER_PORTFOLIO_CONTENT VARCHAR2(600),   -- 코멘트
+    FILEPATH VARCHAR2(300),                     -- 시술사진
+    DESIGNER_PORTFOLIO_DATE VARCHAR2(10),       -- 글작성날짜
+    FOREIGN KEY (DESIGNER_NO) REFERENCES DESIGNER (DESIGNER_NO)
+);
+CREATE SEQUENCE DESIGNER_PORTFOLIO_SEQ;
+
+
 commit;

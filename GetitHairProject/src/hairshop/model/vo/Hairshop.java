@@ -118,4 +118,4 @@ public class Hairshop {
 	public void setAddrPostcode(String addrPostcode) {
 		this.addrPostcode = addrPostcode;
 	}
-	}
+}

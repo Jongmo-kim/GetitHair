@@ -7,6 +7,10 @@ import common.JDBCTemplate;
 import designer.model.dao.DesignerDao;
 import designer.model.vo.Designer;
 import designer.model.vo.DesignerList;
+import review.model.dao.ReviewDao;
+import review.model.vo.Review;
+import review.model.vo.ReviewComment;
+import review.model.vo.ReviewViewData;
 
 public class DesignerService {
 	public Designer selectOneDesigner(int designerNo) {
@@ -66,4 +70,19 @@ public class DesignerService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+
+	//페이징관련 기능 추가
+	public int getAllDesignerMaxPageSize(int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new DesignerDao().getAllDesignerMaxPageSize(conn,maxPrintSize);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public ArrayList<Designer> selectAllDesigner(int reqPage, int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Designer> list = new DesignerDao().selectAllDesigner(conn,reqPage,maxPrintSize);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
 }

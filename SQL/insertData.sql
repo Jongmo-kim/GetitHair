@@ -24,6 +24,7 @@
 --CUSTOMER 번호가 존재해야만 오류 발생 없음.
 --LIKE_TYPE 은 1글자의 영문자 H : HAIRSHOP , S : STYLE, R : REVIEW 
 
+
 DECLARE
 NUM1 NUMBER :=1;
 BEGIN
@@ -40,6 +41,7 @@ BEGIN
         INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,RESERVE_SEQ.currval,RESERVE_SEQ.currval,RESERVE_SEQ.currval,RESERVE_SEQ.currval,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모');
         INSERT INTO REVIEW VALUES(review_seq.nextval,review_seq.currval,review_seq.currval,review_seq.currval,review_seq.currval,'리뷰인데 이 미용실 디자이너분 정말 마음에드네요',5,0,SYSDATE,NULL);
         INSERT INTO LIKES VALUES(likes_seq.nextval,likes_seq.currval,decode(MOD(floor(DBMS_RANDOM.VALUE(1,4)),3),0,'h',1,'r',2,'s'),likes_seq.currval);
+        INSERT INTO DESIGNER_PORTFOLIO VALUES(DESIGNER_PORTFOLIO_SEQ.NEXTVAL,1,'레이어드컷','레이어드컷 시술 사진입니다.','img01.jpg',TO_CHAR(SYSDATE,'yyyy-mm-dd'));    -- 포트폴리오 insert문
     NUM1 := NUM1+1; 
     END LOOP;
 END;

@@ -103,7 +103,7 @@
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">회원가입 목록<span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu">
 					<li><a href="/signUpCustomerForm">고객회원가입</a></li>
-					<li><a href="#">디자이너가입</a></li>
+					<li><a href="/signupDesignerForm">디자이너가입</a></li>
 					<li><a href="#">헤어샵등록</a></li>
 				</ul>
 			</li>

@@ -54,27 +54,28 @@
       align-items: center;
     }
     input[type="search"]{
-    	width : 800px;
+    	width : 700px;
     	height: 50px;
-    }
-    .content table{
-    	margin: 0 auto;
+    	border-radius : 10px;
+    	outline: none;
     }
     .content{
     	float: left;
     	overflow: hidden;
-    	width: 90%;
+    	width: 80%;
     }
     .tab{
     	float: left;
     	display: flex;
     	flex-direction : column;
+    	width: 20%;
+    	height: 100%;
+    	margin-top: 20px;
     }
     .mid{
     	overflow: hidden;
     	width : 80%;
     	margin : 0 auto;
-    	border: 1px solid black;
     }
     .swiper-slide>img{
     	width: 100%;
@@ -100,9 +101,49 @@
     	width: 250px;
     	height: 250px;
     }
-    .shop img{
+    .tab a{
+    	display : inline-block;
+    	width: 100%;
+    	text-decoration : none;
+    }
+    .tab li{
+    	list-style-type: none;
+    }
+    .tab ul{
+    	margin: 0;
+    	padding: 0;
+    }
+    #hairshopList img{
     	width: 100px;
     	height: 100px;
+    }
+    #hairshopList .glyphicon{
+    	color: lightgray;
+    }
+    #hairshopList>table{
+    	margin: 50px;
+    	height: 120px;
+    }
+    body button{
+    	height: 50px;
+    	width : 80px;
+    	border: none;
+    	border-radius: 10px;
+    	background: #D9ABA0;
+    	color: white;
+    }
+    .long{
+    	display: none;
+    	position: relative;
+    }
+    .short{
+    	text-align: center;
+    	width: 100px;
+    }
+    .long>a{
+    	position: absolute;
+    	left: 200px;
+    	top: 0px;
     }
 </style>
 <title>헤어샵 메인페이지</title>
@@ -124,6 +165,18 @@
 				<input type="search" name="searchShop" placeholder="헤어샵, 지역으로 검색">
 				<button type="submit">검색</button>
 			</form>
+			<div class="tab short">
+				<ul>
+					<li><a href="#"><img src="/img/main/menu.png"></a></li>
+				</ul>
+			</div>
+			<div class="tab long">
+				<ul>
+					<li><a href="#">지역 별</a></li>
+					<li><a href="/style">스타일</a></li>
+				</ul>
+				<a href="#"><img src="/img/main/x.png"></a>
+			</div>
 			<div class="content">
 				<div class="shop">
 					<h2>헤어샵</h2>
@@ -139,10 +192,6 @@
 					<img src="/img/style/perm/레이어드 펌.jpg">
 					<p class="caption">레이어드펌</p>
 				</div>
-			</div>
-			<div class="tab">
-				<button name="place">지역</button>
-				<button name="style">스타일</button>
 			</div>
 		</div>
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
@@ -182,12 +231,13 @@
 					var html ="";
 					for(var i in data){
 						var h = data[i];
-						html += "<table style='cursor:pointer;'><tr><th rowspan='3'><img src = "+h.shopImg+"></th>";
-						html += "<td>"+h.shopName+"</td>";
+						html += "<table style='cursor:pointer;'><tr><th rowspan='4'><img src = "+h.shopImg+"></th>";
+						html += "<td colspan='2' style='font-size:20px;'>"+h.shopName+"</td></tr>";
 						html += "<input type='hidden' name='shopNo' value="+h.shopNo+">";
-						html += "<td><span>"+h.shopRate+"</span><span>"+h.shopLikes+"</span></td></tr>";
-						html += "<tr><td colspan='2'>"+h.shopAddr+"</td></tr>";
-						html += "<tr><td colspan='2'>"+h.shopOpen+" ~ "+h.shopClose+"</td></tr></table>";
+						html += "<tr><td><span class='glyphicon glyphicon-star'></span> <span>"+h.shopRate+"</span></td>";
+						html += "<td><span class='glyphicon glyphicon-heart'></span> <span>"+h.shopLikes+"</span></td></tr>";
+						html += "<tr><td colspan='2' style='font-size:15px;'>"+h.shopAddr+"</td></tr>";
+						html += "<tr><td colspan='2' style='font-size:15px;'>"+h.shopOpen+" ~ "+h.shopClose+"</td></tr></table>";
 					}
 					$("#hairshopList").append(html);
 					$("#more-btn").val(Number(start)+5);
@@ -207,8 +257,13 @@
 			var shopNo = $(this).children().find("input").val();
 			location.href="/hairshopDetail?shopNo="+shopNo;
 		});
-		$(".tab>button:last-child").click(function(){
-			location.href="/style";
+		$(".short a").click(function(){
+			$(".short").hide();
+			$(".long").show();
+		});
+		$(".long a").click(function(){
+			$(".long").hide();
+			$(".short").show();
 		});
 	  </script>
 </body>

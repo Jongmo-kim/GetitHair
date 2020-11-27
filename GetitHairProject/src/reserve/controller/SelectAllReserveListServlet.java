@@ -39,7 +39,6 @@ public class SelectAllReserveListServlet extends HttpServlet {
 		//3.비지니스로직처리
 		ArrayList<Reserve> list = new ReserveService().selectAllByCust(customerNo);
 		//4.결과처리
-		System.out.println(list.get(0).getReserveNo());
 		if(list !=null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllReserveListFrm.jsp");	
 			request.setAttribute("list", list);

@@ -94,7 +94,6 @@
         } else if (isSpecalChar(e.key)) {
             return false;
         }
-		return false;
     }
     //구분선
     function phoneInputFunc(e) {

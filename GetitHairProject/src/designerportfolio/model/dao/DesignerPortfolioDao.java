@@ -36,12 +36,12 @@ public class DesignerPortfolioDao {
 	public int insertDesignerPortfolio(Connection conn, DesignerPortfolio dp) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into designer_portfolio values(designer_portfolio_seq.nextval,?,?,?,?)";
+		String query = "insert into designer_portfolio values(designer_portfolio_seq.nextval,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'))";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, dp.getPortfolioWriter());
-			pstmt.setString(2, dp.getPortfolioComment());
-			pstmt.setString(3, dp.getStyleName());
+			pstmt.setString(2, dp.getStyleName());
+			pstmt.setString(3, dp.getPortfolioContent());
 			pstmt.setString(4, dp.getFilepath());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -66,10 +66,12 @@ public class DesignerPortfolioDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				DesignerPortfolio dp = new DesignerPortfolio();
-				dp.setPortfolioNo(rset.getInt("portfolio_no"));
-				dp.setPortfolioWriter(rset.getString("portfolio_writer"));
-				dp.setPortfolioComment(rset.getString("portfolio_comment"));
+				dp.setPortfolioNo(rset.getInt("designer_portfolio_no"));
+				dp.setStyleName(rset.getString("designer_portfolio_style_name"));
+				dp.setPortfolioWriter(rset.getString("designer_no"));
+				dp.setPortfolioContent(rset.getString("designer_portfolio_content"));
 				dp.setFilepath(rset.getString("filepath"));
+				dp.setPortfolioDate(rset.getString("designer_portfolio_date"));
 				list.add(dp);
 				}
 		} catch (SQLException e) {

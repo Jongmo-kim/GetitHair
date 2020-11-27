@@ -34,17 +34,24 @@ public class SelectAllReviewListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1.인코딩 reqpage pagenavi
 		//2.view에서 넘어온값 저장
-		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
-		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
-		int numPerPage = 10;		
+		int customerNo = Integer.parseInt(request.getParameter("customerNo")); //회원
+		int reqPage = Integer.parseInt(request.getParameter("reqPage")); 
+		int numPerPage = 10;		//하나에 페이지당 10개씩
+		int maxSize = 5; //1 2 3 4 5 => 5개 네비 최대 갯수 표시 6개면  6으로 시작함
+
 		//3.비지니스로직처리
-		int maxPageSize = new ReviewService().getMaxPageSize(numPerPage);
-		ArrayList<Review> list = new ReviewService().selectAllReview(reqPage, maxPageSize);
-		//ArrayList<Review> list = new ReviewService().selectAllReviewByCustomerNo(customerNo);
+		int maxPageSize = new ReviewService().getAllReviewByCustomerNoMaxPageSize(numPerPage,customerNo);//cust기준 최대 페이지개수
+		ArrayList<Review> list = new ReviewService().selectAllReviewByCustomerNo(customerNo, reqPage, numPerPage); //리스트작업
+		int[] startEnd = new ReviewService().getPageStartEnd(reqPage, maxSize, maxPageSize); //시작숫자와 끝숫자 int배열에 저장
 		//4.결과처리
 		if(list !=null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllReviewListFrm.jsp");
 			request.setAttribute("list", list);
+			request.setAttribute("start", startEnd[0]);
+			request.setAttribute("end", startEnd[1]);
+			request.setAttribute("reqPage", reqPage);
+			request.setAttribute("maxPageSize", maxPageSize);
+			request.setAttribute("customerNo", customerNo);
 			rd.forward(request, response);	
 		}else {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");

@@ -12,6 +12,7 @@ import designer.model.vo.Designer;
 import designer.model.service.DesignerService;
 import hairshop.model.service.HairshopService;
 import review.model.vo.Review;
+import review.model.vo.ReviewComment;
 import style.model.service.StyleService;
 import style.model.vo.Style;
 
@@ -360,9 +361,61 @@ public class ReviewDao {
 		return result;
 	}
 	
+	// 리뷰 넘버로 해당리뷰 조회
+	public Review selectOneReview(Connection conn, int reviewNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset =  null;
+		Review r = null;
+		String query = "select * from review where review_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, reviewNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				r = new Review();
+				r.setReviewImg(rset.getString("review_img"));
+				r.setReviewNo(rset.getInt("review_no"));
+				r.setReviewContent(rset.getString("review_content"));
+				r.setReviewDate(rset.getString("review_date"));
+				// ...?
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return r;
+	}
 	
+	// 리뷰 댓글 조회
+	public ArrayList<ReviewComment> selectReviewCommentList(Connection conn, int reviewNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from review_comment where review_ref=? order by 1";
+		ArrayList<ReviewComment> list = new ArrayList<ReviewComment>();
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, reviewNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				ReviewComment rc = new ReviewComment();
+				rc.setReviewCommentNo(rset.getInt("review_comment_no"));
+				rc.setReviewCommentWriter(rset.getString("review_comment_writer"));
+				rc.setReviewCommentContent(rset.getString("review_comment_content"));
+				rc.setReviewRef(rset.getInt("review_ref"));
+				rc.setReviewCommentDate(rset.getString("review_comment_date"));
+				list.add(rc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 	
-	
-
 	
 }

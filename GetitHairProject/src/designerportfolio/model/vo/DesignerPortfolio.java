@@ -4,20 +4,22 @@ public class DesignerPortfolio {
 	private int portfolioNo;
 	private String portfolioWriter;
 	private String styleName;
-	private String portfolioComment;
+	private String portfolioContent;
 	private String filepath;
+	private String portfolioDate;
 	public DesignerPortfolio() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DesignerPortfolio(int portfolioNo, String portfolioWriter, String styleName, String portfolioComment,
-			String filepath) {
+	public DesignerPortfolio(int portfolioNo, String portfolioWriter, String styleName, String portfolioContent,
+			String filepath, String portfolioDate) {
 		super();
 		this.portfolioNo = portfolioNo;
 		this.portfolioWriter = portfolioWriter;
 		this.styleName = styleName;
-		this.portfolioComment = portfolioComment;
+		this.portfolioContent = portfolioContent;
 		this.filepath = filepath;
+		this.portfolioDate = portfolioDate;
 	}
 	public int getPortfolioNo() {
 		return portfolioNo;
@@ -37,16 +39,22 @@ public class DesignerPortfolio {
 	public void setStyleName(String styleName) {
 		this.styleName = styleName;
 	}
-	public String getPortfolioComment() {
-		return portfolioComment;
+	public String getPortfolioContent() {
+		return portfolioContent;
 	}
-	public void setPortfolioComment(String portfolioComment) {
-		this.portfolioComment = portfolioComment;
+	public void setPortfolioContent(String portfolioContent) {
+		this.portfolioContent = portfolioContent;
 	}
 	public String getFilepath() {
 		return filepath;
 	}
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
+	}
+	public String getPortfolioDate() {
+		return portfolioDate;
+	}
+	public void setPortfolioDate(String portfolioDate) {
+		this.portfolioDate = portfolioDate;
 	}
 }
