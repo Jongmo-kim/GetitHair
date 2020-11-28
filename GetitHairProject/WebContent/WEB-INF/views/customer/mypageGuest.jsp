@@ -1,21 +1,17 @@
+<%@page import="customer.model.vo.Customer"%>
 <%@page import="reserve.model.vo.Reserve"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="customer.model.vo.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	Customer loginCustomer = (Customer) request.getAttribute("loginCustomer");
-	
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<ul>
 		<li>프로필관리
 			<ul>
@@ -41,7 +37,9 @@
 				<li><a
 					href="/updateReserveFrm?customerNo=<%=loginCustomer.getCustomerNo()%>&selStatus=전체&reqPage=1">예약폼으로가기</a>
 				</li>
-				<li><button>예약리스트보기</button></li>
+				<li>					
+					<%@ include file="/WEB-INF/views/customer/mypageGuestReserveList.jsp" %>
+				</li>
 				<li><button>예약취소하기</button></li>
 				<li><button>예약수정하기</button></li>
 			</ul>			
@@ -49,7 +47,10 @@
 			<ul>
 				<li><a
 					href="/selectAllReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">리뷰리스트보기</a>
-				</li>				
+				</li>	
+				<li>					
+					<%@ include file="/WEB-INF/views/customer/mypageGuestReviewList.jsp" %>
+				</li>		
 			</ul>
 		</li>
 		<li>찜목록
