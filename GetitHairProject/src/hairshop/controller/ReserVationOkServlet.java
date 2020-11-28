@@ -1,5 +1,6 @@
 package hairshop.controller;
 
+import java.io.Console;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -37,7 +38,9 @@ public class ReserVationOkServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		Reserve reserve = new Reserve();
 		reserve.setReserveCustReq(request.getParameter("custReq"));
+		
 		int result = new ReserveService().insertReserve(reserve);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/hairshopDeta/msg.jsp");
 		if(result > 0 ) {
 			request.setAttribute("msg", "예약완료");
