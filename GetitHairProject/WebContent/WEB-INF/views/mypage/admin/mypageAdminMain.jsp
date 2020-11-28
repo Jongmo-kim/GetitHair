@@ -35,7 +35,6 @@
 </head>
 
 <body>
-
     <div class="admin-main-container">
         <header>
             <%@ include file="/WEB-INF/views/mypage/admin/common/header.jsp" %>
@@ -43,16 +42,27 @@
         <section>
             <div class="admin-content">
                 <div class="customer-summary">
-                    <div class="customer-count">
-                        <span>회원수 : </span>
+                    <div class="count-all">
+                        <span>회원 :${customerCnt} 명</span>
                     </div>
-                    
+                    <div class="count-week">
+                        <span>일주일간 가입한 회원</span>
+                    </div>
                 </div>
                 <div class="designer-summary">
-                    
+                    <div class="count-all">
+                        <span>디자이너 : ${designerCnt} 명</span>
+                    </div>
+                </div>
+                <div class="review-summary">
+                    <div class="count-all">
+                        <span>리뷰 : ${reviewCnt} 개</span>
+                    </div>
                 </div>
                 <div class="shop-summary">
-
+                    <div class="count-all">
+                        <span>헤어샵 : ${shopCnt} 개</span>
+                    </div>
                 </div>
             </div>
         </section>

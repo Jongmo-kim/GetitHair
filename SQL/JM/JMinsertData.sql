@@ -28,7 +28,7 @@
 DECLARE
 NUM1 NUMBER :=1;
 BEGIN
-    WHILE(NUM1<101)
+    WHILE(NUM1<31)
     LOOP
         INSERT INTO CUSTOMER VALUES(CUSTOMER_SEQ.NEXTVAL,'user0'||CUSTOMER_SEQ.CURRVAL,'1234','1990-08-08','남성','홍길동','asd@naver.com','경기도 고양시 덕양구','010-1234-5678','상세주소','10001',sysdate);
         INSERT INTO HAIR_INFO VALUES(hair_info_seq.nextval,'지성','곱슬','많음','가는모발','볼륨부족','푸석한모발','새치조금');
@@ -38,7 +38,7 @@ BEGIN
         INSERT INTO DESIGNER_LIST VALUES(DESIGNER_LIST_SEQ.NEXTVAL,DESIGNER_SEQ.currval,DESIGNER_SEQ.currval);
         INSERT INTO STYLE VALUES(STYLE_SEQ.NEXTVAL,'perm','스타일이름','이미지주소',0);
         INSERT INTO STYLE_LIST VALUES(style_list_seq.nextval,style_list_seq.currval,style_list_seq.currval,style_list_seq.currval);
-        INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,RESERVE_SEQ.currval,RESERVE_SEQ.currval,RESERVE_SEQ.currval,RESERVE_SEQ.currval,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모',sysdate-NUM1*20,sysdate-NUM1*20-2,'reservetitle');
+      INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모',sysdate-NUM1*20-2, sysdate-NUM1*20,'reservetitle');
         INSERT INTO REVIEW VALUES(review_seq.nextval,review_seq.currval,review_seq.currval,review_seq.currval,review_seq.currval,'리뷰인데 이 미용실 디자이너분 정말 마음에드네요',5,0,SYSDATE,NULL);
         INSERT INTO LIKES VALUES(likes_seq.nextval,likes_seq.currval,decode(MOD(floor(DBMS_RANDOM.VALUE(1,4)),3),0,'h',1,'r',2,'s'),likes_seq.currval);
         INSERT INTO DESIGNER_PORTFOLIO VALUES(DESIGNER_PORTFOLIO_SEQ.NEXTVAL,1,'레이어드컷','레이어드컷 시술 사진입니다.','img01.jpg',TO_CHAR(SYSDATE,'yyyy-mm-dd'));    -- 포트폴리오 insert문
@@ -46,7 +46,19 @@ BEGIN
     END LOOP;
 END;
 /
+--reserve 예약명추가
+DECLARE
+NUM1 NUMBER :=1;
+BEGIN
+    WHILE(NUM1<31)
+    LOOP
+      INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모',sysdate-NUM1*20-2, sysdate-NUM1*20,'reservetitle');
+       NUM1 := NUM1+1; 
+    END LOOP;
+END;
+/
 -- 필수!!!!!!
 COMMIT;
 
-
+select * from reserve;
+commit;

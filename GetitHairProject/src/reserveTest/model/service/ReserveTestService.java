@@ -1,6 +1,7 @@
 package reserveTest.model.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
@@ -114,4 +115,16 @@ public class ReserveTestService {
 		JDBCTemplate.close(conn);
 		return rpd;
 	}
+	public int updateDateReserveTest(int no, String title, Date startDate, Date endDate) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReserveTestDao().updateDateReserveTest(conn,no,title,startDate,endDate);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+		
 }

@@ -40,10 +40,11 @@ public class MypageAdminReviewServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 		//reqPage = 요청할 페이지 번호.
 		int reqPage = request.getParameter("reqPage") != null ? Integer.parseInt(request.getParameter("reqPage")) : 1;
+		//한 페이지에 출력될 리스트 최대 갯수.
+		int maxPrintSize = request.getParameter("list_num") != null ? Integer.parseInt(request.getParameter("list_num")) : 20;
 		
 		//비즈니스 로직
 		int pageSize = 0;
-		int maxPrintSize = 10; //한 페이지에 출력될 리뷰 최대 갯수 지정.
 		ArrayList<Review> list = null;
 		if(type != 0 && !keyword.equals("")) { //검색으로 얻어올 경우
 			list = new ReviewService().selectAllReviewById(keyword,reqPage,maxPrintSize);

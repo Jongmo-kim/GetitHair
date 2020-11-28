@@ -40,25 +40,26 @@ public class MypageAdminCustomerServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		// 전달 받은 값 저장
 		// type value 1 : 아이디로 검색 , 2 : 이름으로 검색
-		int type = request.getParameter("searchType") != null ? Integer.parseInt(request.getParameter("searchType")) : 0;
+		int type = request.getParameter("searchType") != null ? Integer.parseInt(request.getParameter("searchType"))
+				: 0;
 		String keyword = request.getParameter("keyword");
-		//reqPage = 요청할 페이지 번호.
+		// reqPage = 요청할 페이지 번호.
 		int reqPage = request.getParameter("reqPage") != null ? Integer.parseInt(request.getParameter("reqPage")) : 1;
-
+		// 한 페이지에 출력될 리스트 최대 갯수.
+		int maxPrintSize = request.getParameter("list_num") != null ? Integer.parseInt(request.getParameter("list_num")) : 20;
 		// 비즈니스 로직
 		int pageSize = 0;
 		ArrayList<Customer> list = null;
-		if(type == 1 && !keyword.equals("")) { //id 검색일 경우
+		if (type == 1 && !keyword.equals("")) { // id 검색일 경우
 			list = new AdminService().getCustomerListById(keyword);
-		}else if(type == 2 && !keyword.equals("")){ //name 검색일 경우 
-			list = new AdminService().getCustomerListByName(keyword);		
-		}else { //검색이 아닐경우
-			int maxPrintSize = 20; //한 페이지에 출력될 리뷰 최대 갯수 지정.
+		} else if (type == 2 && !keyword.equals("")) { // name 검색일 경우
+			list = new AdminService().getCustomerListByName(keyword);
+		} else { // 검색이 아닐경우
 			pageSize = new CustomerService().getMaxPageSize(maxPrintSize);
-			list = new CustomerService().selectAllCusetomer(reqPage,maxPrintSize);
+			list = new CustomerService().selectAllCusetomer(reqPage, maxPrintSize);
 		}
 		int maxSize = 5;
-	    int [] startEnd = PagingCommon.getPageStartEnd(reqPage,maxSize, pageSize);
+		int[] startEnd = PagingCommon.getPageStartEnd(reqPage, maxSize, pageSize);
 		// 값 전달
 		request.setAttribute("list", list);
 		request.setAttribute("pageSize", pageSize);

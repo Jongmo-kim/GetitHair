@@ -13,30 +13,6 @@
     <link rel="stylesheet" href="/css/mypage/admin/container.css">
     <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
     <style>
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-
-            background-color: gray;
-            opacity: 0.5;
-        }
-
-        .review-container {
-            display: none;
-            position: fixed;
-            width: 1000px;
-            height: 800px;
-            top: 50%;
-            left: 50%;
-            margin-top: -400px;
-            margin-left: -500px;
-            background-color: white;
-            box-shadow: 0px 0px 5px 0px gray;
-            border-radius: 3px;
-        }
-
         .admin-content {
             margin-top: 10px;
             width: 100%;
@@ -45,18 +21,18 @@
             border-radius: 3px;
         }
 
-        .customer-list,
+        .reserve-list,
         .review-list {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .customer-list>tbody>tr:hover,
+        .reserve-list>tbody>tr:hover,
         .review-list>tbody>tr:hover {
             background-color: rgb(235, 232, 232);
         }
 
-        .customer-list th {
+        .reserve-list th {
             border-bottom: 1px solid gray;
             height: 30px;
         }
@@ -64,42 +40,6 @@
 </head>
 
 <body>
-    <div class="modal-overlay">
-    </div>
-    <div class="review-container">
-        <div class="header" style="width: 100%;text-align: right;">
-            <span id="close-modal">닫기</span>
-        </div>
-        <div class="review-list-wrap">
-            <table class="review-list">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>번호</th>
-                        <th>샵</th>
-                        <th>디자이너</th>
-                        <th>작성자</th>
-                        <th>내용</th>
-                        <th>기능</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="7">
-                            <button>선택한 리뷰 삭제</button>
-                            <button type="reset">전체 선택해제</button>
-                        </th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-        <div class="page-nav">
-
-        </div>
-    </div>
     <div class="admin-main-container">
         <header>
             <%@ include file="/WEB-INF/views/mypage/admin/common/header.jsp"%>
@@ -110,31 +50,33 @@
                     <%@ include file="/WEB-INF/views/mypage/admin/common/search-nav.jsp"%>
                 </form>
                 <form action="/adminDeleteCustomer" method="POST">
-                    <div class="customer-list-wrap">
-                        <table class="customer-list">
+                    <div class="reserve-list-wrap">
+                        <table class="reserve-list">
                             <thead>
                                 <tr>
                                     <th></th>
                                     <th>번호</th>
-                                    <th>아이디</th>
-                                    <th>성별</th>
-                                    <th>이름</th>
-                                    <th>가입일</th>
+                                    <th>미용실</th>
+                                    <th>예약자</th>
+                                    <th>디자이너</th>
+                                    <th>상태</th>
+                                    <th>예약일</th>
                                     <th>기능</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <c:if test="${not empty list}">
-                                    <c:forEach var="c" items="${list}">
+                                    <c:forEach var="rsv" items="${list}">
                                         <tr>
-                                            <th width="30"><input type="checkbox" name="customerNo"
-                                                    value="${c.customerNo}">
+                                            <th width="30"><input type="checkbox" name="reserveNo"
+                                                    value="${rsv.reserveNo}">
                                             </th>
-                                            <th>${c.customerNo}</th>
-                                            <th>${c.customerId}</th>
-                                            <th>${c.customerGen}</th>
-                                            <th>${c.customerName}</th>
-                                            <th>${c.customerEnrolldate}</th>
+                                            <th>${rsv.reserveNo}</th>
+                                            <th>${rsv.shop.shopName}</th>
+                                            <th>${rsv.customer.customerId}</th>
+                                            <th>${rsv.designer.designerName}</th>
+                                            <th>${rsv.reserveStatus}</th>
+                                            <th>${rsv.reserveDate}</th>
                                             <th>
                                                 <button class="rvbtn" type="button">작성한 리뷰보기</button>
                                                 <button class="del-one-btn">탈퇴</button>
@@ -145,7 +87,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th colspan="7">
+                                    <th colspan="8">
                                         <button class="btn-allcheck" type="button">전체선택</button>
                                         <button class="del-btn">선택회원 탈퇴</button>
                                         <button type="reset">전체 선택해제</button>
@@ -156,15 +98,15 @@
                     </div>
                     <div class="page-nav">
                         <c:if test="${pageStart!=1}">
-                            <a href="mypageAdminCustomer?reqPage=${pageStart-1}">이전</a>
+                            <a href="mypageAdminReserve?reqPage=${pageStart-1}">이전</a>
                         </c:if>
                         <c:forEach var="i" begin="${pageStart}" end="${pageEnd}">
-                            <a href="mypageAdminCustomer?reqPage=${i}"
+                            <a href="mypageAdminReserve?reqPage=${i}"
                                 style="${i==(not empty param.reqPage ? param.reqPage : 1) ? " color: black;" : ""
                                 }">${i}</a>
                         </c:forEach>
                         <c:if test="${pageEnd<pageSize}">
-                            <a href="mypageAdminCustomer?reqPage=${pageEnd+1}">다음</a>
+                            <a href="mypageAdminReserve?reqPage=${pageEnd+1}">다음</a>
                         </c:if>
                     </div>
                 </form>

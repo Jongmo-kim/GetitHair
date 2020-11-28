@@ -35,18 +35,19 @@ public class AdminDeleteCustomerServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		// 값 받기
-		String[] customerId = request.getParameterValues("customerId");
+		String[] customerNo = request.getParameterValues("customerNo");
 
 		// 비즈니스 로직
 		int result = 0;
-		for (int i = 0; i < customerId.length; i++) {
-			result += new CustomerService().deleteCustomer(customerId[i]);
+		for (int i = 0; i < customerNo.length; i++) {
+			result += new CustomerService().deleteCustomer(Integer.parseInt(customerNo[i]));
 		}
 
 		if (result > 0) {
 			request.setAttribute("msg", "삭제에 성공하였습니다.");
 			request.setAttribute("loc", "/mypageAdminCustomer");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
+			System.out.println("회원 삭제 완료");
 			
 		} else {
 			request.setAttribute("msg", "삭제에 실패했습니다.");

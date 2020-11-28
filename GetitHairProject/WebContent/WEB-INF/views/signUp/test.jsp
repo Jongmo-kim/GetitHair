@@ -6,7 +6,9 @@
     pageEncoding="UTF-8"%>
    <%
    		ArrayList<ReserveTest> rt1 = new ReserveTestService().selectAllByDesigner(1);
-   		System.out.println(rt1.get(0));
+   		if(rt1 == null){
+   			 rt1  = new ArrayList<ReserveTest>();
+   		}
    %>
 <!DOCTYPE html>
 <html>
@@ -14,10 +16,9 @@
 <meta charset='utf-8' />
 <link href='/calendarapi/lib/main.css' rel='stylesheet' />
 <script src='/calendarapi/lib/main.js'></script>
+
 <script>
-  function consolelog(log){
-    console.log(log);
-  }
+
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
@@ -44,68 +45,26 @@
         calendar.unselect();
       },
       eventClick: function(arg) {
-        if (confirm('Are you sure you want to delete this event?')) {
-          arg.event.remove()
-        }
+        //modal
+        //arg.events
+          alert(arg.event.end);
+          
+        
       },
       editable: true,
       dayMaxEvents: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2020-09-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2020-09-07',
-          end: '2020-09-10'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2020-09-09T16:00:00'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2020-09-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2020-09-11',
-          end: '2020-09-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2020-09-12T10:30:00',
-          end: '2020-09-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2020-09-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2020-09-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2020-09-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2020-09-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2020-09-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2020-09-28'
-        }
-      ]
+      
+      	events: [
+      		<% for(ReserveTest r : rt1){ %>
+      		{ 
+	      		title:'<%=r.getReserveTitle()%>',
+    	   		start : <%=r.getReserveStartDate().getTime()%>,
+       			end : <%=r.getReserveEndDate().getTime()%>,
+       			id: <%=r.getReserveNo()%>
+       			},
+      		<%}%>
+      	]
+      
     });
     document.getElementById('submitBtn').addEventListener('click',function(){
       var arr = calendar.getEvents();
@@ -122,23 +81,35 @@
         titles.push(arr[i].title);
         startDate.push(arr[i].start);
         endDate.push(arr[i].end);
+        console.log(arr[i].end);
+        reserveNo.push(arr[i].id);
       }
-      [apple,pineapple];
-      
+    
       var JsonTitles = JSON.stringify(titles);
       var JsonStartDate = JSON.stringify(startDate);
       var JsonEndDate = JSON.stringify(endDate);
+      var JsonReserveNo = JSON.stringify(reserveNo);
       $.ajax({
     	 type: "get",
     	 url: "/test2Form",
-    	 data : {JsonEndDate:JsonEndDate,JsonStartDate:JsonStartDate,JsonTitles:JsonTitles},
+    	 data : {JsonEndDate:JsonEndDate,JsonStartDate:JsonStartDate,JsonTitles:JsonTitles,JsonReserveNo:JsonReserveNo},
     	 dataType:"JSON",
+    	 beforeSend: function() {
+    		  $('#loading_indicator').show().fadeIn('fast');
+    		  $('#submitBtn').hide();
+    		 },
     	 success : function(data){
-    		 $("#ajaxResult").html(data);
+    		 var result = data.result;
+    		 $("#ajaxResult").html('수정된 reserve 갯수 :'+result);
     	 },
     	 error : function(data){
-    		 $("#ajaxResult").html(data);
-    	 }
+    		 var result = data.result;
+    		 $("#ajaxResult").html(result);
+    	 },
+    	 	complete: function() {
+    		  $('#loading_indicator').fadeOut();
+    		  $('#submitBtn').show();
+    		 }
       });
     });
     calendar.render();
@@ -166,8 +137,16 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<h1 id="ajaxResult"></h1>
+<h1 id="ajaxResult">수정여부</h1>
   <div id='calendar'></div>
-  <button id="submitBtn" type="button">제출하기</button>
+  <div style="position:fixed; top:500px;">
+  	<button id="submitBtn" type="button" class="btn btn-primary" style="width:200px; height:200px">제출하기</button>
+  	<div id="loading_indicator" style="display:none;">
+	 <p style="text-align: center; top:0;  position: absolute;">
+	 	<img src="/img/signup/loading.gif" />
+	 </p>
+	</div>
+  </div>
+	
 </body>
 </html>
