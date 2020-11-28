@@ -108,7 +108,14 @@
         <section>
             <div class="admin-content">
                 <form action="/mypageAdminCustomer" method="GET">
-                    <%@ include file="/WEB-INF/views/mypage/admin/common/search-nav.jsp"%>
+                    <div class="customer-search">
+                        <select name="searchType">
+                            <option value="1" ${param.searchType==1 ? "selected" : "" }>아이디</option>
+                            <option value="2" ${param.searchType==2 ? "selected" : "" }>이름</option>
+                        </select>
+                        <input type="text" name="keyword" value="<%=keyword%>">
+                        <button>검색</button>
+                    </div>
                 </form>
                 <form action="/adminDeleteCustomer">
                     <div class="customer-list-wrap">
