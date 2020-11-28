@@ -13,7 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/updateHairinfo?customerNo=10" method="post">
+	<form action="/updateHairinfo" method="post">
 		<table>
 			<tr>
 				<!-- <th>회원번호</th> -->

@@ -8,26 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-
+import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
-
-import reserve.model.service.ReserveService;
-import reserve.model.vo.ReservePageData;
-
+import hairinfo.model.service.HairinfoService;
+import hairinfo.model.vo.Hairinfo;
 
 /**
- * Servlet implementation class MypageCustServlet
+ * Servlet implementation class UpdateAllCustomerFrmServlet
  */
-@WebServlet(name = "MypageCust", urlPatterns = { "/mypageCust" })
-public class MypageCustServlet extends HttpServlet {
+@WebServlet(name = "UpdateAllCustomerFrm", urlPatterns = { "/updateAllCustomerFrm" })
+public class UpdateAllCustomerFrmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageCustServlet() {
+    public UpdateAllCustomerFrmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,19 +33,15 @@ public class MypageCustServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
-		if(loginCustomer !=null) {
-			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");	
-			request.setAttribute("loginCustomer", loginCustomer);
-			rd.forward(request, response);
-		}else{
-			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			request.setAttribute("msg", "회원정보가 일치하지않습니다. 회원으로 로그인해주세요");
-			request.setAttribute("loc", "/");
-			rd.forward(request, response);
-		}
-				
+		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
+		Customer customer = new CustomerService().selectOneCustomer(customerNo);
+		Hairinfo hairinfo = new HairinfoService().selectOneHairinfo(customerNo);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/updateAllCustomerFrm.jsp");
+		request.setAttribute("customer", customer);	
+		request.setAttribute("hairinfo", hairinfo);
+		request.setAttribute("msg", "");
+		rd.forward(request, response);
+		
 	}
 
 	/**
