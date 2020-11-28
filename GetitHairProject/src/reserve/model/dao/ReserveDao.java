@@ -344,8 +344,8 @@ public class ReserveDao {
   		ArrayList<Reserve> list = new ArrayList<Reserve>();
   		PreparedStatement pstmt = null;
   		ResultSet rset = null;
-  		String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where customer_no=? "+sqlAdd+" order by 1 desc)N) where rnum between ? and ?";
-  				
+  		//String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where customer_no=? "+sqlAdd+" order by 1 desc)N) where rnum between ? and ?";
+  		String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where customer_no = ? "+sqlAdd+"  order by 1 desc)N) where rnum between ? and ?";	
   		try {
   			pstmt = conn.prepareStatement(sql);			
   			pstmt.setInt(1, customer.getCustomerNo());
@@ -356,6 +356,7 @@ public class ReserveDao {
   				Reserve r  = getReserveFromRset(rset);
   				list.add(r);
   			}
+  			//System.out.println("dao List.size = "+list.size());
   		} catch (SQLException e) {
   			e.printStackTrace();
   		} finally {
@@ -369,13 +370,19 @@ public class ReserveDao {
   		int result =0;
   		PreparedStatement pstmt = null;
   		ResultSet rset = null;
-  		String sql = "select count(*) cnt from reserve where customer_no=?"+sqlAdd;
+  		String sql = "select count(*) cnt from reserve where customer_no= ? "+sqlAdd;
   		try {
+  			
   			pstmt = conn.prepareStatement(sql);			
   			pstmt.setInt(1, customer.getCustomerNo());				
   			rset = pstmt.executeQuery();
   			if(rset.next()) {
   				result = rset.getInt("cnt");
+  				System.out.println("totalcount.result = " + result);
+  				System.out.println("totalcount.sql = " + sql);
+  				System.out.println("totalcount.customer.getCustomerNo() = " + customer.getCustomerNo());
+  				System.out.println("totalcount.conn.prepareStatement(sql) = " + conn.prepareStatement(sql));
+  				System.out.println("totalcount.pstmt.executeQuery() = "+pstmt.executeQuery());
   			}			
   		} catch (SQLException e) {
   			e.printStackTrace();

@@ -78,14 +78,20 @@ public class ReserveService {
 		int totalCount = dao.getTotalCountCustomerSelStatus(conn, customer, sqlAdd);
 		int numPerPage = 10;
 		int totalPage = totalCount % numPerPage == 0 ? totalCount / numPerPage : totalCount / numPerPage + 1;
+		//System.out.println("service totalCount = "+totalCount);
+		//System.out.println("service totalPage = "+totalPage);
 		// reqPage = 1 -> start : 1, end : 10
 		int start = (reqPage - 1) * numPerPage + 1;
 		int end = reqPage * numPerPage;
+		//System.out.println("service start = "+start);
+		//System.out.println("service end = "+end);
 		ArrayList<Reserve> list = dao.selectListCustomerSelStatus(conn,customer,start,end,sqlAdd);
+		//System.out.println("service List.size = "+list.size());
 		// 페이지 네비게이션 작성 시작
 		int pageNaviSize = 5;
 		String pageNavi = "";
-		String link = "<a href='/updateReserveFrm?customerNo="+customer.getCustomerNo()+"&selStatus="+selStatus+"&reqPage=";
+		//String link = "<a href='/updateReserveFrm?customerNo="+customer.getCustomerNo()+"&selStatus="+selStatus+"&reqPage=";
+		String link = "<a href='/mypageCust?selStatus="+selStatus+"&reqPage=";
 		// 페이지네비 시작번호 구하기
 		// reqPage : 1~5 -> 1
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;

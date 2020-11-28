@@ -17,7 +17,7 @@ import reserve.model.vo.Reserve;
 /**
  * Servlet implementation class SelectAllReserveListServlet
  */
-@WebServlet(name = "SelectAllReserveList", urlPatterns = { "/selectAllReserveListTest" })
+@WebServlet(name = "SelectAllReserveListTest", urlPatterns = { "/selectAllReserveListTest" })
 public class SelectAllReserveListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

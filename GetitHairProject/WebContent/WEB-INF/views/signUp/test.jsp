@@ -1,5 +1,13 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="reserveTest.model.service.ReserveTestService"%>
+<%@page import="reserveTest.model.dao.ReserveTestDao"%>
+<%@page import="reserveTest.model.vo.ReserveTest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%
+   		ArrayList<ReserveTest> rt1 = new ReserveTestService().selectAllByDesigner(1);
+   		System.out.println(rt1.get(0));
+   %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,15 +112,19 @@
       var titles = [];
 	  var startDate = [];
 	  var endDate = [];
+	  var reserveNo = [];
 	  
       for(var i = 0 ; i < arr.length; ++i){
         console.log(arr[i].title);
         console.log(arr[i].start);
         console.log(arr[i].end);
+        
         titles.push(arr[i].title);
         startDate.push(arr[i].start);
         endDate.push(arr[i].end);
       }
+      [apple,pineapple];
+      
       var JsonTitles = JSON.stringify(titles);
       var JsonStartDate = JSON.stringify(startDate);
       var JsonEndDate = JSON.stringify(endDate);
