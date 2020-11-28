@@ -41,7 +41,8 @@ public class SignUpCustomerServlet extends HttpServlet {
 		Hairinfo hairinfo = HairinfoTemplate.setHairinfo(request);
 		DebugTemplate.setCurrObjAtSession(request.getSession(), cust, "Customer");
 		DebugTemplate.setCurrObjAtSession(request.getSession(), hairinfo, "hairInfo");
-		int result = new CustomerService().insertCustomer(cust,hairinfo);
+		//int result = new CustomerService().insertCustomer(cust,hairinfo);
+		int result = new CustomerService().insertAllCustomer(cust, hairinfo);//태민변경테스트
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result == 0) {
 			request.setAttribute("msg", "회원가입 실패");

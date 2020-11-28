@@ -12,7 +12,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
-		<div class="photo-container" style="width:80%; margin:0 auto; text-align:center;">
+		<div class="photo-container" style="width:1700px; margin:0 auto; text-align:center;">
 			<h1>포트폴리오</h1>
 			<div style="text-align:right">
 				<a class="btn btn-outline-info" href="/designerPortfolioWriteFrm">글쓰기</a>
@@ -42,20 +42,22 @@
 						var dp = data[i];
 						// ul 태그로 묶거나  div felx box 사용해서 묶음
 						// 일단 기능구현은 되니까 집가서 마무리...
-						html += "<ul>"
+						/* html += "<ul>"
 						html += "<li></li>"
 						html += "<div class='photo border border-dark' style='width:400px; height:400px; margin:0 auto; margin-bottom:10px; display: inline-block;'>";
 						html += "<img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
-						html += "<p class='caption'>"+dp.styleName+"</p></div>";
+						html += "<p class='caption'>"+dp.styleName+"</p></div>"; */
 						
 
-						html += "<div class='photo border border-dark' style='width:400px; height:400px; margin:0 auto; margin-bottom:10px; display: inline-block;'>";
+						html += "<div class='photo border border-dark' style='width:300px; height: 300px; margin:0 auto; display: inline-block; padding: 7px;'>";
 						html += "<img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
-						html += "<p class='caption'>"+dp.styleName+"</p></div>";
+						html += "<a href='#' style='background-image: url('images/bg-house.png');'>img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
+						//html += "<p class='caption'>"+dp.styleName+"</p>";
+						html += "</div>"
 					}
 					$("#photo-wrapper").append(html);
 					// 추가완료 후 더보기버튼 value -> 값 조정(start+5)
-					$("#more-btn").val(Number(start)+5);
+					$("#more-btn").val(Number(start)+4);
 					// 현재 몇 번까지 가지고왔는지 체크
 					var currCount = $("#more-btn").attr("currentCount");	// 0인 상태
 					$("#more-btn").attr("currentCount",Number(currCount)+data.length);

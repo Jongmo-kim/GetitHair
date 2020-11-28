@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import designer.model.service.DesignerService;
 import review.model.service.ReviewService;
+import review.model.vo.ReviewComment;
 import review.model.vo.ReviewViewData;
 
 /**

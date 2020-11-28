@@ -313,6 +313,8 @@
                 })
         }
         $(function () {
+            $(".admin-nav a:eq(1)").css("background-color","whitesmoke");
+
             setClickToTr();
             setClickToChk()
             $(".modal-overlay").click(function (e) {

@@ -37,7 +37,7 @@ public class AdminDao {
 				cust.setCustomerPhone(rs.getString("customer_phone"));
 				cust.setCustomerPw(rs.getString("customer_pw"));
 				cust.setCustomerBirthdate(rs.getString("customer_birthdate"));
-				cust.setCustomerEnrolldate(rs.getString("customer_enrolldate"));
+				cust.setCustomerEnrolldate(rs.getDate("customer_enrolldate"));
 				list.add(cust);
 			}
 		} catch (SQLException e) {
@@ -77,7 +77,7 @@ public class AdminDao {
 				cust.setCustomerPhone(rs.getString("customer_phone"));
 				cust.setCustomerPw(rs.getString("customer_pw"));
 				cust.setCustomerBirthdate(rs.getString("customer_birthdate"));
-				cust.setCustomerEnrolldate(rs.getString("customer_enrolldate"));
+				cust.setCustomerEnrolldate(rs.getDate("customer_enrolldate"));
 				list.add(cust);
 			}
 		} catch (SQLException e) {

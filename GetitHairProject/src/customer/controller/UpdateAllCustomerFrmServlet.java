@@ -35,7 +35,7 @@ public class UpdateAllCustomerFrmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
 		Customer customer = new CustomerService().selectOneCustomer(customerNo);
-		Hairinfo hairinfo = new HairinfoService().selectOneHairinfo(customerNo);		
+		Hairinfo hairinfo = new HairinfoService().selectOneHairinfo(customerNo);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/updateAllCustomerFrm.jsp");
 		request.setAttribute("customer", customer);	
 		request.setAttribute("hairinfo", hairinfo);

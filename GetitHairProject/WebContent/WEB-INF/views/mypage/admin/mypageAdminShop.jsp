@@ -247,6 +247,7 @@
             });
         }
         $(function () {
+            $(".admin-nav a:eq(4)").css("background-color","whitesmoke");
             setClickToTr();
             setClickToChk()
             $(".modal-overlay").click(function (e) {
