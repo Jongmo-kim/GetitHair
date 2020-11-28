@@ -36,10 +36,13 @@
             font-size: large;
             text-align: center;
             line-height: 50px;
-            width: 200px;
+            width: 180px;
             height: 50px;
         }
-
+        .admin-nav>li:last-child>a{
+            color: black;
+            background-color: brown;
+        }
         .admin-nav>li>a:hover {
             background-color: whitesmoke;
         }
@@ -53,7 +56,9 @@
             <li><a href="mypageAdminCustomer">회원 관리</a></li>
             <li><a href="mypageAdminReview">리뷰 관리</a></li>
             <li><a href="mypageAdminDesigner">디자이너 관리</a></li>
+            <li><a href="mypageAdminReserve">예약 관리</a></li>
             <li><a href="mypageAdminShop">미용실 관리</a></li>
+            <li><a href="/">나가기</a></li>
         </ul>
     </div>
 </body>

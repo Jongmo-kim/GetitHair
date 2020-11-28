@@ -65,39 +65,6 @@
 </head>
 
 <body>
-    <div class="modal-overlay">
-    </div>
-    <div class="review-container">
-        <div class="header" style="width: 100%;text-align: right;">
-            <span id="close-modal">닫기</span>
-        </div>
-        <div class="review-list-wrap">
-            <table class="review-list">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>번호</th>
-                        <th>샵</th>
-                        <th>디자이너</th>
-                        <th>작성자</th>
-                        <th>내용</th>
-                        <th>기능</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="7">
-                            <button>선택한 리뷰 삭제</button>
-                            <button type="reset">전체 선택해제</button>
-                        </th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
     <div class="admin-main-container">
         <header>
             <%@ include file="/WEB-INF/views/mypage/admin/common/header.jsp"%>
@@ -105,14 +72,7 @@
         <section>
             <div class="admin-content">
                 <form action="/mypageAdminCustomer" method="GET">
-                    <div class="customer-search">
-                        <select name="searchType">
-                            <option value="1" ${param.searchType==1 ? "selected" : "" }>아이디</option>
-                            <option value="2" ${param.searchType==2 ? "selected" : "" }>이름</option>
-                        </select>
-                        <input type="text" name="keyword" value="<%=keyword%>">
-                        <button>검색</button>
-                    </div>
+                    <%@ include file="/WEB-INF/views/mypage/admin/common/search-nav.jsp"%>
                 </form>
                 <form action="/adminDeleteCustomer">
                     <div class="customer-list-wrap">
@@ -142,7 +102,6 @@
                                             <th>${de.designerYear}</th>
                                             <th>${de.designerRank}</th>
                                             <th>
-                                                <button id="rvbtn" type="button">작성한 리뷰보기</button>
                                                 <button>탈퇴</button>
                                             </th>
                                         </tr>
@@ -249,48 +208,6 @@
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
             })
-            //리뷰 보기 버튼 클릭 이벤트
-            $("#rvbtn").click(function (e) {
-                $(".modal-overlay").css("display", "block");
-                $(".review-container").css("display", "block");
-                $(".review-list").children('tbody').empty();
-                var customerNo = $(this).parent().siblings('th').eq(1).text();
-                $.ajax({
-                    url: "/adminSelectCustomerReview",
-                    type: "post",
-                    cache: false,
-                    dataType: "json",
-                    data: {
-                        customerNo: customerNo
-                    },
-                    success: function (data) {
-                        if (data != null)
-                            for (var i = 0; i < data.length; i++) {
-                                var html = [
-                                    "<tr class='row-review'>",
-                                    "<th width='30'><input type='checkbox' name='chk' value='" +
-                                    data[i].reviewNo + "'></th>",
-                                    "<th>" + data[i].reviewNo + "</th>",
-                                    "<th>" + data[i].shop.shopName + "</th>",
-                                    "<input type='hidden' name='customerId' value='" +
-                                    data[i].designer.designerNo + "'>",
-                                    "<th>" + data[i].designer.designerName + "</th>",
-                                    "<th>" + data[i].customer.customerId + "</th>",
-                                    "<th>" + data[i].reviewContent + "</th>",
-                                    "<th><button class='delete-review' value='" + data[
-                                        i].reviewNo + "'>삭제</button></th>",
-                                    "</tr>"
-                                ];
-                                $(".review-list").children('tbody').append(html.join());
-                            }
-                    }
-                })
-                setClickToReviewTr();
-                setClickToChk()
-                setClickToRemoveReviewBtn();
-                e.stopPropagation();
-            })
-
         });
     </script>
 </body>

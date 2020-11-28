@@ -53,6 +53,12 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	public int getAllReviewByShopNoMaxPageSize(int maxPrintSize,int shopNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDao().getMaxPageSizeByShopNo(conn, maxPrintSize,shopNo);
+		JDBCTemplate.close(conn);
+		return result;
+	}
 
 	// 모든 리뷰의 리스트를 페이징 하여 가져옴.
 	public ArrayList<Review> selectAllReview(int reqPage, int maxPrintSize) {
@@ -98,7 +104,14 @@ public class ReviewService {
 	}
 
 	// SELECT 구문
-
+	
+	// 모든 리뷰 개수를 가져옴
+	public int selectAllReviewCount() {
+		Connection conn = JDBCTemplate.getConnection();
+		int count = new ReviewDao().selectAllReviewCount(conn);
+		JDBCTemplate.close(conn);
+		return count;
+	}
 	// 모든 리뷰의 리스트를 가져옴.
 	public ArrayList<Review> selectAllReview() {
 		Connection conn = JDBCTemplate.getConnection();
@@ -217,4 +230,6 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	
 }

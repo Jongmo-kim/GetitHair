@@ -37,12 +37,18 @@ public class AdminSelectReviewPagingServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		// 값 받아오기
-		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
+		String customerNo = request.getParameter("customerNo");
+		String shopNo = request.getParameter("shopNo");
 		// reqPage = 요청할 페이지 번호.
 		int reqPage = request.getParameter("reqPage") != null ? Integer.parseInt(request.getParameter("reqPage")) : 1;
 		// 비즈니스 로직
 		int maxPrintSize = 10; //한 페이지에 출력될 리뷰 최대 갯수 지정.
-		int pageSize = new ReviewService().getAllReviewByCustomerNoMaxPageSize(maxPrintSize, customerNo);
+		int pageSize;
+		if(customerNo != null) {
+			pageSize = new ReviewService().getAllReviewByCustomerNoMaxPageSize(maxPrintSize, Integer.parseInt(customerNo));
+		}else {
+			pageSize = new ReviewService().getAllReviewByShopNoMaxPageSize(maxPrintSize, Integer.parseInt(shopNo));
+		}
 		int maxSize = 5;
 	    int [] startEnd = new ReviewService().getPageStartEnd(reqPage,maxSize, pageSize);
 	    Gson gson = new Gson();
