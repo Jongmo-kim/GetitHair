@@ -51,7 +51,7 @@
 
 						html += "<div class='photo border border-dark' style='width:300px; height: 300px; margin:0 auto; display: inline-block; padding: 7px;'>";
 						html += "<img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
-						html += "<a href='#' style='background-image: url('images/bg-house.png');'>img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
+						html += "<a href='#' style='background-image: url('/upload/designerPortfolio/"+dp.filepath+"');'>test</a>";
 						//html += "<p class='caption'>"+dp.styleName+"</p>";
 						html += "</div>"
 					}

@@ -74,6 +74,11 @@ public class test2FormServlet extends HttpServlet {
 			}
 			
 			int result = new ReserveTestService().updateDateReserveTest(no,title,start,end);
+
+			if(result > 0) {
+				
+			}
+
 		}
 		
 	

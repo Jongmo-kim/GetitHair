@@ -134,7 +134,9 @@
 <body>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
   <div id='calendar'></div>
+  <div>
   <button id="submitBtn" type="button">제출하기</button>
+  </div>
 	<div id="indicator" style="display:block;">
 	 <p style="text-align: center; padding: 16px 0 0 0; left: 50%; top: 50%; position: absolute;">
 	 	<img src="/img/signup/loading.gif" />
