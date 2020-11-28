@@ -20,39 +20,49 @@ import review.model.vo.Review;
 @WebServlet("/adminSelectCustomerReview")
 public class AdminSelectCustomerReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminSelectCustomerReviewServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
-		//값 받아오기
-		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
-		//비즈니스 로직
-		ArrayList<Review> list = new ReviewService().selectAllReviewByCustomerNo(customerNo);
-		Gson gson = new Gson();
-		String json = gson.toJson(list);
-		
-		//값 전달하기
-		response.setContentType("application/json; charset=utf-8");
-		response.getWriter().print(json);
-		System.out.println(json);
-		
+	public AdminSelectCustomerReviewServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// ajax 이용한 특정회원의 리뷰 불러오기
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+
+		// 값 받아오기
+		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
+		// reqPage = 요청할 페이지 번호.
+		int reqPage = request.getParameter("reqPage") != null ? Integer.parseInt(request.getParameter("reqPage")) : 1;
+		// 비즈니스 로직
+		int maxPrintSize = 10; //한 페이지에 출력될 리뷰 최대 갯수 지정.
+		int pageSize = new ReviewService().getAllReviewByCustomerNoMaxPageSize(maxPrintSize, customerNo);
+		ArrayList<Review> list = new ReviewService().selectAllReviewByCustomerNo(customerNo,reqPage,maxPrintSize);
+		Gson gson = new Gson();
+		String json = gson.toJson(list);
+		int maxSize = 5;
+	    int [] startEnd = new ReviewService().getPageStartEnd(reqPage,maxSize, pageSize);
+		// 값 전달하기
+		response.setContentType("application/json; charset=utf-8");
+		response.getWriter().print(json);
+		System.out.println(json);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

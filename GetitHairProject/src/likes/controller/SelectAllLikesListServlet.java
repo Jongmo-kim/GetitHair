@@ -34,7 +34,6 @@ public class SelectAllLikesListServlet extends HttpServlet {
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
 		int reqPage=  Integer.parseInt(request.getParameter("reqPage"));
 		LikesPageData lpd = new LikesService().LikesSelectListByCustomer(reqPage, customerNo);
-		
 		if(lpd != null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/selectAllLikesListFrm.jsp");	
 			request.setAttribute("list", lpd.getList());

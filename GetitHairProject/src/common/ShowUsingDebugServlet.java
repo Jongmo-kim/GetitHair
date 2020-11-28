@@ -1,6 +1,7 @@
 package common;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 import designer.model.service.DesignerService;
 import designer.model.vo.Designer;
+import hairinfo.model.dao.HairinfoDao;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 import reserve.model.service.ReserveService;
@@ -43,22 +45,22 @@ public class ShowUsingDebugServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Customer c1 = new CustomerService().selectOneCustomer(1);
-		Designer de = new DesignerService().selectOneDesigner(1);
-		Hairshop hair = new HairshopService().selectOneHairshop(1);
-		Style style = new StyleService().selectOneStyle(1);
-		Reserve reserve = new ReserveService().selectOneReserve(1);
-		ArrayList<Customer> cList = new CustomerService().selectAllCustomer();
-		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(1);
-		
-		DebugTemplate.setCurrObjAtSession(request.getSession(), cList, "cList");
-		DebugTemplate.setCurrObjAtSession(request.getSession(), reserve, "reserve");
-		if(review == null) {
-			review = new ArrayList<Review>();
-			Review rev = new Review();
-			rev.setReviewNo(1);
-			review.add(rev);
-		}
+//		Customer c1 = new CustomerService().selectOneCustomer(1);
+//		Designer de = new DesignerService().selectOneDesigner(1);
+//		Hairshop hair = new HairshopService().selectOneHairshop(1);
+//		Style style = new StyleService().selectOneStyle(1);
+//		Reserve reserve = new ReserveService().selectOneReserve(1);
+//		ArrayList<Customer> cList = new CustomerService().selectAllCustomer();
+//		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(1);
+//		
+//		DebugTemplate.setCurrObjAtSession(request.getSession(), cList, "cList");
+//		DebugTemplate.setCurrObjAtSession(request.getSession(), reserve, "reserve");
+//		if(review == null) {
+//			review = new ArrayList<Review>();
+//			Review rev = new Review();
+//			rev.setReviewNo(1);
+//			review.add(rev);
+//		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/");
 		rd.forward(request, response);

@@ -1,5 +1,9 @@
 package common;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 
 import customer.model.vo.Customer;
@@ -7,7 +11,8 @@ import customer.model.vo.Customer;
 public class CustTemplate {
 	public static Customer setCust(HttpServletRequest request) {
 		
-		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
+		
+		int customerNo = request.getParameter("customerNo")==null ? -1 :Integer.parseInt(request.getParameter("customerNo")); 
 		String customerId = request.getParameter("customerId");
 		String customerPw = request.getParameter("customerPw");
 		String customerGen = request.getParameter("customerGen");
@@ -19,14 +24,26 @@ public class CustTemplate {
 		String addrPostcode = request.getParameter("addrPostcode");
 		String customerBirthdate = request.getParameter("customerBirthdate");
 		String customerEnrolldate = request.getParameter("customerEnrolldate");		
-		
+
 		Customer customer = new Customer();
+		//"yyyy년 mm월 dd일" -> sql.date
+		
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 mm월 dd일");
+//		try {
+//			java.util.Date to = sdf.parse(customerBirthdate);
+//			java.sql.Date sqlDate = new java.sql.Date(to.getTime());
+//			customer.setCustomerBirthdate(sqlDate);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+		
+		
+		customer.setCustomerBirthdate("Whoadd?");
 		customer.setAddrDetail(addrDetail);
 		customer.setAddrPostcode(addrPostcode);
 		customer.setCustomerAddr(customerAddr);
-		customer.setCustomerBirthdate(customerBirthdate);
 		customer.setCustomerEmail(customerEmail);
-		customer.setCustomerEnrolldate(customerEnrolldate);
+		customer.setCustomerEnrolldate(null);
 		customer.setCustomerGen(customerGen);
 		customer.setCustomerId(customerId);
 		customer.setCustomerName(customerName);

@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
+import customer.model.dao.CustomerDao;
 import customer.model.service.CustomerService;
+import customer.model.vo.Customer;
 import designer.model.vo.Designer;
+import designer.model.dao.DesignerDao;
 import designer.model.service.DesignerService;
+import hairshop.model.dao.HairshopDao;
 import hairshop.model.service.HairshopService;
+import hairshop.model.vo.Hairshop;
 import review.model.vo.Review;
 import review.model.vo.ReviewComment;
 import style.model.service.StyleService;
@@ -377,7 +382,16 @@ public class ReviewDao {
 				r.setReviewNo(rset.getInt("review_no"));
 				r.setReviewContent(rset.getString("review_content"));
 				r.setReviewDate(rset.getString("review_date"));
-				// ...?
+				//hairshp
+				Hairshop hairshop = new HairshopDao().selectOneHairshop(conn, rset.getInt("shop_no"));
+				r.setShop(hairshop);
+				//Designer
+				Designer designer = new DesignerDao().selectOneDesigner(conn, rset.getInt("designer_no"));
+				r.setDesigner(designer);
+				//Customer
+				Customer customer = new CustomerDao().selectOneCustomer(conn, rset.getInt("customer_no"));
+				r.setCustomer(customer);
+				r.setReviewLikes(rset.getInt("review_Likes"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -415,6 +429,59 @@ public class ReviewDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return list;
+	}
+	
+	// 리뷰 댓글 추가
+	public int insertReviewComment(Connection conn, ReviewComment rc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "insert into review_comment values (review_comment_seq.nextval,?,?,?,to_char(sysdate,'yyyy-mm-dd'))";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, rc.getReviewCommentWriter());
+			pstmt.setString(2, rc.getReviewCommentContent());
+			pstmt.setInt(3, rc.getReviewRef());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	public int deleteReviewComment(Connection conn, int reviewCommentNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "delete from review_comment where review_comment_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, reviewCommentNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	public int updateReviewComment(Connection conn, int reviewCommentNo, String reviewCommentContent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update review_comment set review_comment_content=? where review_comment_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, reviewCommentContent);
+			pstmt.setInt(2, reviewCommentNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
 	}
 	
 	

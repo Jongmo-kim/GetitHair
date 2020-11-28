@@ -1,5 +1,6 @@
 package hairinfo.model.dao;
 
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -84,13 +85,13 @@ public class HairinfoDao {
 	public int deleteHairinfo(Connection conn, int customerNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "delete from hair_info where customer_no = ?";		
+		String query = "delete from hair_info where customer_no = ?";
+		System.out.println(customerNo);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, customerNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(pstmt);
@@ -147,7 +148,7 @@ public class HairinfoDao {
 	public int insertHairinfo(Connection conn, Hairinfo hairinfo, int customerNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into customer values(?,?,?,?,?,?,?,?)";		
+		String query = "insert into hair_info values(?,?,?,?,?,?,?,?)";		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, customerNo);
@@ -166,6 +167,10 @@ public class HairinfoDao {
 			JDBCTemplate.close(pstmt);
 		}	
 		return result;
+	}
+	public int insertHairinfo(Connection conn, int customerNo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

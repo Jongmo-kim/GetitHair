@@ -20,7 +20,9 @@ public class DesignerTemplate {
 		String rank = request.getParameter("designerRank");
 		String intro = request.getParameter("designerIntro");
 		String keyword = request.getParameter("designerKeyword");
-		if((boolean)request.getSession().getAttribute("isDebugmode")) {
+		
+		Object debugMode = request.getSession().getAttribute("isDebugmode");
+		if(debugMode != null && (boolean)debugMode) {
 			System.out.println("DesignerId : " +id);
 			System.out.println("Designerpw : " +pw);
 			System.out.println("Designergen : " +Gen);
@@ -31,7 +33,7 @@ public class DesignerTemplate {
 			System.out.println("Designerrank : " +rank);
 			System.out.println("Designerintro : " +intro);
 			System.out.println("Designerkey : " +keyword);
-		}			System.out.println("Designergen : " +Gen);
+		}			
 		designer.setDesignerEmail(email);
 		designer.setDesignerGen(Gen);
 		designer.setDesignerId(id);

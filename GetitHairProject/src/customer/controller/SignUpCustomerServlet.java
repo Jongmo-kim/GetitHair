@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.CustTemplate;
+import common.DebugTemplate;
 import common.HairinfoTemplate;
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
@@ -38,9 +39,11 @@ public class SignUpCustomerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Customer cust = CustTemplate.setCust(request);
 		Hairinfo hairinfo = HairinfoTemplate.setHairinfo(request);
-		
-		int result = new CustomerService().insertCustomer(cust,hairinfo);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/common/msg.jsp");
+		DebugTemplate.setCurrObjAtSession(request.getSession(), cust, "Customer");
+		DebugTemplate.setCurrObjAtSession(request.getSession(), hairinfo, "hairInfo");
+		//int result = new CustomerService().insertCustomer(cust,hairinfo);
+		int result = new CustomerService().insertAllCustomer(cust, hairinfo);//태민변경테스트
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result == 0) {
 			request.setAttribute("msg", "회원가입 실패");
 			request.setAttribute("loc", "/");

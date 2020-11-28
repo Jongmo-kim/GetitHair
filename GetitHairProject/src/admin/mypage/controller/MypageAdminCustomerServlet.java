@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import admin.mypage.model.service.AdminService;
+import common.PagingCommon;
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 
@@ -56,12 +57,14 @@ public class MypageAdminCustomerServlet extends HttpServlet {
 			pageSize = new CustomerService().getMaxPageSize(maxPrintSize);
 			list = new CustomerService().selectAllCusetomer(reqPage,maxPrintSize);
 		}
+		int maxSize = 5;
+	    int [] startEnd = PagingCommon.getPageStartEnd(reqPage,maxSize, pageSize);
 		// 값 전달
 		request.setAttribute("list", list);
 		request.setAttribute("pageSize", pageSize);
-		request.setAttribute("reqPage", reqPage);
-		request.setAttribute("type", type);
 		request.setAttribute("keyword", keyword);
+		request.setAttribute("pageStart", startEnd[0]);
+		request.setAttribute("pageEnd", startEnd[1]);
 		// 메인 관리페이지로 이동
 		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminCustomer.jsp").forward(request, response);
 	}

@@ -10,7 +10,7 @@ import hairinfo.model.vo.Hairinfo;
 
 public class HairinfoTemplate {
 	public static Hairinfo setHairinfo(HttpServletRequest request) {
-		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
+		int customerNo = request.getParameter("customerNo")==null ? -1 :Integer.parseInt(request.getParameter("customerNo")); 
 		String myhairScalp = request.getParameter("myhairScalp");
 		String myhairCurly = request.getParameter("myhairCurly");
 		String myhairRich  = request.getParameter("myhairRich");
@@ -19,6 +19,9 @@ public class HairinfoTemplate {
 		String myhairStatus = request.getParameter("myhairStatus");
 		String myhairOld = request.getParameter("myhairOld");
 		Customer c = new CustomerService().selectOneCustomer(customerNo);
+		if(c==null) {
+			c = new Customer();
+		}
 		Hairinfo hairinfo = new Hairinfo();
 		hairinfo.setCustomer(c);
 		hairinfo.setMyhairScalp(myhairScalp);
