@@ -123,5 +123,23 @@ public class ReserveService {
 	public Reserve insertReserve(int shopNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	//아래부터 도현 메서드
+	//paging 으로 가져오는 메서드
+	public int getAllReserveMaxPageSize(int maxPrintSize) {
+		// TODO Auto-generated method stub getTotalCount
+		Connection conn = JDBCTemplate.getConnection();
+		int count = new ReserveDao().getTotalCount(conn);
+		count = (count / maxPrintSize) + ((count % maxPrintSize) != 0 ? 1 : 0);
+		JDBCTemplate.close(conn);
+		return count;
 	}	
+	public ArrayList<Reserve> selectAllReservePaging(int reqPage, int maxPrintSize) {
+		ArrayList<Reserve> list;
+		Connection conn = JDBCTemplate.getConnection();
+		list = new ReserveDao().selectList(conn,(maxPrintSize*(reqPage-1))+1,maxPrintSize*reqPage);
+		JDBCTemplate.close(conn);
+		return list;
+	}
 }
