@@ -24,8 +24,8 @@
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
 <!-- //jQuery 호출 -->
 <link rel="stylesheet" href="/css/header/header.css">
-<link rel="stylesheet" href="/css/signUp/signUpCustomer.css">
-<script type="text/javascript" src="/js/signUp/signUpCustomer.js"></script>
+<link rel="stylesheet" href="/css/signUp/inputBox.css">
+<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
 <header>
 	<h1>header입니다</h1>
 <div class="container">	

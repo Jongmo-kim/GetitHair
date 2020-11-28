@@ -106,11 +106,33 @@
     });
     document.getElementById('submitBtn').addEventListener('click',function(){
       var arr = calendar.getEvents();
+      var titles = [];
+	  var startDate = [];
+	  var endDate = [];
+	  
       for(var i = 0 ; i < arr.length; ++i){
         console.log(arr[i].title);
         console.log(arr[i].start);
         console.log(arr[i].end);
+        titles.push(arr[i].title);
+        startDate.push(arr[i].start);
+        endDate.push(arr[i].end);
       }
+      var JsonTitles = JSON.stringify(titles);
+      var JsonStartDate = JSON.stringify(startDate);
+      var JsonEndDate = JSON.stringify(endDate);
+      $.ajax({
+    	 type: "get",
+    	 url: "/test2Form",
+    	 data : {JsonEndDate:JsonEndDate,JsonStartDate:JsonStartDate,JsonTitles:JsonTitles},
+    	 dataType:"JSON",
+    	 success : function(data){
+    		 $("#ajaxResult").html(data);
+    	 },
+    	 error : function(data){
+    		 $("#ajaxResult").html(data);
+    	 }
+      });
     });
     calendar.render();
     
@@ -136,8 +158,8 @@
 </style>
 </head>
 <body>
- <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+<h1 id="ajaxResult"></h1>
   <div id='calendar'></div>
   <button id="submitBtn" type="button">제출하기</button>
 </body>
