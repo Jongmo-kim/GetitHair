@@ -30,8 +30,7 @@ public class DebugModeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean isDebuggedMode = Boolean.parseBoolean(request.getParameter("isDebugmode").replaceAll("'", ""));
-		HttpSession session =  request.getSession();
-		session.setAttribute("isDebugmode", isDebuggedMode);
+		DebugTemplate.setDebugMode(isDebuggedMode);
 		RequestDispatcher rd = request.getRequestDispatcher("/");
 		rd.forward(request, response);
 	}

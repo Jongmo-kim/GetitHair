@@ -81,7 +81,6 @@
         titles.push(arr[i].title);
         startDate.push(arr[i].start);
         endDate.push(arr[i].end);
-        console.log(arr[i].end);
         reserveNo.push(arr[i].id);
       }
     
@@ -141,11 +140,12 @@
   <div id='calendar'></div>
   <div style="position:fixed; top:500px;">
   	<button id="submitBtn" type="button" class="btn btn-primary" style="width:200px; height:200px">제출하기</button>
-  	<div id="loading_indicator" style="display:none;">
+  	
+  	<span id="loading_indicator" style="display:none;">
 	 <p style="text-align: center; top:0;  position: absolute;">
 	 	<img src="/img/signup/loading.gif" />
 	 </p>
-	</div>
+	</span>
   </div>
 	
 </body>

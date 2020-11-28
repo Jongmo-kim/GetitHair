@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import reserve.model.vo.Reserve;
 
 public class DebugTemplate {
-	
+	static boolean DebugMode = false;
 	public static void setCurrObjAtSession(HttpSession session, Object obj,String tag) {
 		
 		if(obj instanceof Collection<?>) {
@@ -24,7 +24,11 @@ public class DebugTemplate {
 			printAllObjects(session);
 		}
 	}
+	
 
+	public static void  setDebugMode(boolean isDebugMode) {
+		DebugMode = isDebugMode;
+	}
 	public static void printAllObjects(HttpSession session) {
 		ArrayList<Object> list = (ArrayList<Object>)session.getAttribute("Objects");
 		String tag = (String)session.getAttribute("tag");

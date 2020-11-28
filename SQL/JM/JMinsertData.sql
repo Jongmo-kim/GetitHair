@@ -52,7 +52,7 @@ NUM1 NUMBER :=1;
 BEGIN
     WHILE(NUM1<31)
     LOOP
-      INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모',sysdate-NUM1*20-2, sysdate-NUM1*20,'reservetitle');
+      INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모',sysdate-NUM1*20, sysdate-NUM1*20,'reservetitle');
        NUM1 := NUM1+1; 
     END LOOP;
 END;

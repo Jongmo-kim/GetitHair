@@ -48,7 +48,10 @@ public class test2FormServlet extends HttpServlet {
 		String End = request.getParameter("JsonEndDate");
 		String reserveNo = request.getParameter("JsonReserveNo");
 		JsonParser parser = new JsonParser();
-		
+		System.out.println(Title);
+		System.out.println(Start);
+		System.out.println(End);
+		System.out.println(reserveNo);
 		JsonArray jsonTitle = (JsonArray)parser.parse(Title);
 		JsonArray jsonStart = (JsonArray)parser.parse(Start);
 		JsonArray jsonEnd = (JsonArray)parser.parse(End);
@@ -64,6 +67,7 @@ public class test2FormServlet extends HttpServlet {
 			String start = jsonStart.get(i).toString();
 			String end = jsonEnd.get(i).toString();
 			int no = Integer.parseInt(jsonNo.get(i).toString().replaceAll("\"", ""));
+			
 			DateFormat dateFormat = new SimpleDateFormat("\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"");
 			java.sql.Date startDate = null;
 			java.sql.Date endDate = null;
@@ -71,7 +75,9 @@ public class test2FormServlet extends HttpServlet {
 				java.util.Date date = dateFormat.parse(start);
 				startDate = new java.sql.Date(date.getTime()+86400000);
 				date = dateFormat.parse(end);
-				endDate = new java.sql.Date(date.getTime()+86400000);//왜인지 모르겠지만 date가 하루씩 밀림 그러므로 1day -> millsec = 86400000을 더한다
+				endDate= new java.sql.Date(date.getTime()+86400000);//왜인지 모르겠지만 date가 하루씩 밀림 그러므로 1day -> millsec = 86400000을 더한다
+				
+				
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

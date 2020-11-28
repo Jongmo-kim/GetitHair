@@ -34,19 +34,19 @@ public class EncodeFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpSession session = req.getSession();
-		Object isDebuggedMode = session.getAttribute("isDebugmode");
-		if( isDebuggedMode == null) {
+		boolean isDebuggedMode = DebugTemplate.DebugMode;
+		if( isDebuggedMode == false) {
 			request.setCharacterEncoding("utf-8");
 			chain.doFilter(request, response);
 		} else {
-			boolean isDebugMode = (boolean)isDebuggedMode;
-			if(isDebugMode) {
+			if(isDebuggedMode) {
 				printAllObjects(session);
 				printRequestURI(req);
 			}
 			request.setCharacterEncoding("utf-8");
-			chain.doFilter(request, response);			
+			chain.doFilter(request, response);	
 		}
+		
 		
 	}
 	

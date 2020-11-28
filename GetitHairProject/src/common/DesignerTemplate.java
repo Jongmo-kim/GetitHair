@@ -21,8 +21,7 @@ public class DesignerTemplate {
 		String intro = request.getParameter("designerIntro");
 		String keyword = request.getParameter("designerKeyword");
 		
-		Object debugMode = request.getSession().getAttribute("isDebugmode");
-		if(debugMode != null && (boolean)debugMode) {
+		if(DebugTemplate.DebugMode) {
 			System.out.println("DesignerId : " +id);
 			System.out.println("Designerpw : " +pw);
 			System.out.println("Designergen : " +Gen);
