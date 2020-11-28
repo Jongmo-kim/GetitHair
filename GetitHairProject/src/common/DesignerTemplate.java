@@ -20,6 +20,7 @@ public class DesignerTemplate {
 		String rank = request.getParameter("designerRank");
 		String intro = request.getParameter("designerIntro");
 		String keyword = request.getParameter("designerKeyword");
+		
 		Object debugMode = request.getSession().getAttribute("isDebugmode");
 		if(debugMode != null && (boolean)debugMode) {
 			System.out.println("DesignerId : " +id);

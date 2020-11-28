@@ -10,7 +10,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<link rel="stylesheet" href="/css/signUp/inputBox.css">
 	<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
-	<form action="/signUpDesigner" method="get">
+	<form action="/signUpDesigner" method="post" enctype="">
 		<input type="hidden" name="designerNo" value="-1">
 	    <div class="container">
 	        <div class="name inputBox">

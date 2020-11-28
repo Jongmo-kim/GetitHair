@@ -96,6 +96,7 @@
 					<li><a href="/debugMode?isDebugmode='false'">디버그모드 끄기</a></li>
 					<li><a href="/showUsingDebug">디버그모드 객체넣어 테스트</a></li>
 					<li><a href="/showUsingDebug">서블렛테스트버튼</a></li>
+					<li><a href="/testForm">testJsp</a></li>
 				</ul>
 			</li>
 			
