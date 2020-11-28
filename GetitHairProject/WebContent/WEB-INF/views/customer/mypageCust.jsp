@@ -9,7 +9,7 @@
 	String pageNavi = (String) request.getAttribute("pageNavi");
 	String selStatus = (String) request.getAttribute("selStatus");
 	int reqPage= (Integer) request.getAttribute("reqPage");
-	List<String> numList = new ArrayList<String>();
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -54,7 +54,7 @@
 					</h1>
 					<input type="checkBox" id="allCheck"><label for="allCheck">전체선택</label>
 					<button type="button" class="btn btn-primary" onclick="location.href='#'">삭제</button>
-					<button type="button" class="btn btn-primary" id="allDelBtn" onclick="location.href='/deleteReserveList?'" >삭제테스트</button>
+					<button type="button" class="btn btn-primary" id="allDelBtn">삭제테스트</button>
 					<table class="table" border="1">
 						<tr>							
 							<th>선택</th>
@@ -91,10 +91,32 @@
 		$("#allDelBtn").click(function(){
 			var chkList = new Array();
 			var obj = $(".subChk");
+			var selStatus = '<%=selStatus %>' ;
+			var reqPage = <%=reqPage %>;
 			$("input:checkbox[class='subChk']:checked").each(function(){
 				chkList.push(this.value);				
+			});				
+			var JsonChkList = JSON.stringify(chkList);			
+			$.ajax({
+				url : "/deleteReserveList",
+				data : {JsonChkList:JsonChkList,
+					selStatus:selStatus,
+					reqPage:reqPage},
+				type : "get",
+				dataType: "JSON",
+				success : function(data){					
+					console.log("서버전송성공");
+					location.href="/mypageCust?selStatus="+selStatus+"&reqPage="+reqPage;
+				},
+				error : function(data){
+					console.log("꾸엥실패");
+					location.href="/mypageCust?selStatus="+selStatus+"&reqPage="+reqPage;
+				},
+				conplete : function(){
+					console.log("무조건출석");
+				}
 			});
-			console.log(chkList);
+			
 		});		
 		$("#allCheck").click(function(){			
 			if($("#allCheck").prop("checked")){
