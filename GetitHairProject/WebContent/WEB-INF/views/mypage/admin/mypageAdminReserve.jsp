@@ -79,7 +79,7 @@
                                             <th>${rsv.reserveDate}</th>
                                             <th>
                                                 <button class="rvbtn" type="button">작성한 리뷰보기</button>
-                                                <button class="del-one-btn">탈퇴</button>
+                                                <button class="del-one-btn">삭제</button>
                                             </th>
                                         </tr>
                                     </c:forEach>
@@ -89,7 +89,7 @@
                                 <tr>
                                     <th colspan="8">
                                         <button class="btn-allcheck" type="button">전체선택</button>
-                                        <button class="del-btn">선택회원 탈퇴</button>
+                                        <button class="del-btn">선택예약 삭제</button>
                                         <button type="reset">전체 선택해제</button>
                                     </th>
                                 </tr>
@@ -285,22 +285,6 @@
                 if (!confirm("정말 탈퇴하시겠습니까?")) {
                     return false; //취소 눌렀을 시 submit 이벤트 발생 방지
                 }
-            })
-            //리뷰 보기 버튼 클릭 이벤트
-            $(".rvbtn").click(function (e) {
-                $(".modal-overlay").css("display", "block");
-                $(".review-container").css("display", "block");
-                $(".review-list").children('tbody').empty();
-                var customerNo = $(this).parent().siblings('th').eq(1).text();
-                var reqPage = 1;
-                reviewAjax(customerNo, reqPage); // ajax 실행
-
-                setClickToReviewTr();
-                setClickToChk()
-                setClickToRemoveReviewBtn();
-
-                setClickToPageNo(customerNo, reqPage);
-                e.stopPropagation();
             })
 
         });
