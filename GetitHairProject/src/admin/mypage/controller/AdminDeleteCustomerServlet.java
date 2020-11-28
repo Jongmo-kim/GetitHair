@@ -47,7 +47,7 @@ public class AdminDeleteCustomerServlet extends HttpServlet {
 			request.setAttribute("msg", "삭제에 성공하였습니다.");
 			request.setAttribute("loc", "/mypageAdminCustomer");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
-			;
+			
 		} else {
 			request.setAttribute("msg", "삭제에 실패했습니다.");
 			request.setAttribute("loc", "/mypageAdminCustomer");

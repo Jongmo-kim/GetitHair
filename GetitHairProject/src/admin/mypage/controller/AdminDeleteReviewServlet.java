@@ -35,14 +35,28 @@ public class AdminDeleteReviewServlet extends HttpServlet {
 
 		// 값 받기
 		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+		String isAjax = request.getParameter("isAjax"); // Ajax 요청인지 아닌지 판단
 
 		// 비즈니스 로직
 		int result = new ReviewService().deleteReviewByReviewNo(reviewNo);
-		response.setContentType("text/plain; charset=utf-8");
-		if (result > 0) {
-			response.getWriter().print("삭제성공");
+		if (isAjax != null) { // Ajax를 이용한 요청일 경우
+			response.setContentType("text/plain; charset=utf-8");
+			if (result > 0) {
+				response.getWriter().print("삭제성공");
+			} else {
+				response.getWriter().print("삭제실패");
+			}
 		} else {
-			response.getWriter().print("삭제실패");
+			if (result > 0) {
+				request.setAttribute("msg", "삭제에 성공하였습니다.");
+				request.setAttribute("loc", "/mypageAdminReview");
+				request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
+
+			} else {
+				request.setAttribute("msg", "삭제에 실패했습니다.");
+				request.setAttribute("loc", "/mypageAdminReview");
+				request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
+			}
 		}
 	}
 
