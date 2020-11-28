@@ -53,10 +53,10 @@
     <div class="admin-nav-wrap">
         <ul class="admin-nav">
             <li><a href="mypageAdmin">홈</a></li>
-            <li><a href="mypageAdminCustomer">회원 관리</a></li>
-            <li><a href="mypageAdminReview">리뷰 관리</a></li>
-            <li><a href="mypageAdminDesigner">디자이너 관리</a></li>
-            <li><a href="mypageAdminReserve">예약 관리</a></li>
+            <li><a href="mypageAdminCustomer?list_num=20">회원 관리</a></li>
+            <li><a href="mypageAdminReview?list_num=20">리뷰 관리</a></li>
+            <li><a href="mypageAdminDesigner?list_num=20">디자이너 관리</a></li>
+            <li><a href="mypageAdminReserve?list_num=20">예약 관리</a></li>
             <li><a href="mypageAdminShop">미용실 관리</a></li>
             <li><a href="/">나가기</a></li>
         </ul>

@@ -13,6 +13,18 @@
 			<option value="2" ${param.searchType==2 ? "selected" : "" }>이름</option>
 		</select> <input type="text" name="keyword" value="${empty keyword ? null : keyword}">
 		<button>검색</button>
+		<select name="list_num">
+			<option value=15 ${param.list_num == 15 ? "selected" : ""}>15개</option>
+			<option value=20 ${param.list_num == 20 ? "selected" : ""}>20개</option>
+			<option value=25 ${param.list_num == 25 ? "selected" : ""}>25개</option>
+		</select>
 	</div>
+	<script>
+		$(document).ready(function () {
+			$("[name=list_num").on("change",function (e) {  
+                $(this).parents('form').trigger("submit");
+            })
+		});
+	</script>
 </body>
 </html>

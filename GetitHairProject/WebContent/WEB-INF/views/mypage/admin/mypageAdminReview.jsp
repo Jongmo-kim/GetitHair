@@ -94,15 +94,15 @@
                     </div>
                     <div class="page-nav">
                         <c:if test="${pageStart!=1}">
-                            <a href="mypageAdminReview?reqPage=${pageStart-1}">이전</a>
+                            <a href="mypageAdminReview?reqPage=${pageStart-1}&list_num=${empty param.list_num ? 20 : param.list_num}">이전</a>
                         </c:if>
                         <c:forEach var="i" begin="${pageStart}" end="${pageEnd}">
-                            <a href="mypageAdminReview?reqPage=${i}"
+                            <a href="mypageAdminReview?reqPage=${i}&list_num=${empty param.list_num ? 20 : param.list_num}"
                                 style="${i==(not empty param.reqPage ? param.reqPage : 1) ? " color: black;" : ""
                                 }">${i}</a>
                         </c:forEach>
                         <c:if test="${pageEnd<pageSize}">
-                            <a href="mypageAdminReview?reqPage=${pageEnd+1}">다음</a>
+                            <a href="mypageAdminReview?reqPage=${pageEnd+1}&list_num=${empty param.list_num ? 20 : param.list_num}">다음</a>
                         </c:if>
                     </div>
                 </form>
