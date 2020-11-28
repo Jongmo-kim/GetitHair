@@ -175,12 +175,12 @@ public class CustomerService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	public int deleteAllCustomer(int customerNo) {
+	public int deleteCustomer(int customerNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = 0;
 		//int custResult = new CustomerDao().deleteCustomer(conn, customerNo);
 		//int hairinfoResult = new HairinfoDao().deleteHairinfo(conn, customerNo);
-		result = (new CustomerDao().deleteCustomer(conn, customerNo))*(new HairinfoDao().deleteHairinfo(conn, customerNo));
+		result = new CustomerDao().deleteCustomer(conn, customerNo);
 		//System.out.println("custResult = "+custResult);
 		//System.out.println("hairinfoResult = "+hairinfoResult);
 		if(result>0) {
