@@ -1,3 +1,4 @@
+<%@page import="reserve.model.service.ReserveService"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="style.model.service.StyleService"%>
 <%@page import="style.model.dao.StyleDao"%>
@@ -37,11 +38,11 @@
 		<div>
 		<form action="/reserVationOk?shopNo=<%=hs.getShopNo() %>" method="get">
 		<br>
-		<p>매장 : <%=hs.getShopName() %><input type="hidden" name="reserveShopName" value="<%=hs.getShopName() %>"></p>
+		<p>매장 : <%=hs.getShopName() %><input type="hidden" name="ShopName" value="<%=hs.getShopName() %>"></p>
 		<p>
 		시술 <select>
 			<%for(int i=0; i<style.size(); i++){ %>
-			<option value="<%=style.get(i).getStyleName() %>" name="reserve"><%=style.get(i).getStyleName() %></option>
+			<option value="<%=style.get(i).getStyleName() %>" name="styleName"><%=style.get(i).getStyleName() %></option>
 			<%} %>
 			</select>
 		</p>

@@ -3,17 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-    int pageSize = (Integer)request.getAttribute("pageSize");
-    int reqPage = (Integer)request.getAttribute("reqPage");
-	ArrayList<Designer> list = (ArrayList<Designer>) request.getAttribute("list");
-	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
 	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
-	
-	String sel1 = type == 1 ? "selected" : "";
-    String sel2 = type == 2 ? "selected" : "";
-    
-    int pageStart = (Integer)request.getAttribute("pageStart"); //표시되는 시작 페이지
-    int pageEnd = (Integer)request.getAttribute("pageEnd"); // 표시되는 마지막 페이지
 %>
 <!DOCTYPE html>
 <html>
@@ -88,7 +78,7 @@
                         <th></th>
                         <th>번호</th>
                         <th>샵</th>
-                        <th>디자이너</th> 
+                        <th>디자이너</th>
                         <th>작성자</th>
                         <th>내용</th>
                         <th>기능</th>
@@ -117,8 +107,8 @@
                 <form action="/mypageAdminCustomer" method="GET">
                     <div class="customer-search">
                         <select name="searchType">
-                            <option value="1" <%=sel1 %>>아이디</option>
-                            <option value="2" <%=sel2 %>>이름</option>
+                            <option value="1" ${param.searchType==1 ? "selected" : "" }>아이디</option>
+                            <option value="2" ${param.searchType==2 ? "selected" : "" }>이름</option>
                         </select>
                         <input type="text" name="keyword" value="<%=keyword%>">
                         <button>검색</button>
@@ -140,31 +130,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%if(list != null){%>
-                                <%
-                                    for (Designer c : list) {
-                                        %>
-                                <tr>
-                                    <th width="30"><input type="checkbox" name="chk" value="<%=c.getDesignerId() %>">
-                                    </th>
-                                    <th><%=c.getDesignerNo() %></th>
-                                    <input type="hidden" name="customerId" value="<%=c.getDesignerId() %>">
-                                    <th><%=c.getDesignerId() %></th>
-                                    <th><%=c.getDesignerGen() %></th>
-                                    <th><%=c.getDesignerName() %></th>
-                                    <th><%=c.getDesignerYear() %></th>
-                                    <th><%=c.getDesignerRank() %></th>
-                                    <th>
-                                        <button id="rvbtn" type="button">작성한 리뷰보기</button>
-                                        <button>탈퇴</button>
-                                    </th>
-                                </tr>
-                                <%
-                                    }
-                                    %>
-                                <%
-                                }
-                                %>
+                                <c:if test="${not empty list}">
+                                    <c:forEach var="de" items="${list}">
+                                        <tr>
+                                            <th width="30"><input type="checkbox" name="chk" value="${de.designerId}">
+                                            </th>
+                                            <th>${de.designerNo}</th>
+                                            <th>${de.designerId}</th>
+                                            <th>${de.designerGen}</th>
+                                            <th>${de.designerName}</th>
+                                            <th>${de.designerYear}</th>
+                                            <th>${de.designerRank}</th>
+                                            <th>
+                                                <button id="rvbtn" type="button">작성한 리뷰보기</button>
+                                                <button>탈퇴</button>
+                                            </th>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -177,15 +160,17 @@
                         </table>
                     </div>
                     <div class="page-nav">
-                        <%if(pageStart!=1){%>
-                            <a href="mypageAdminDesigner?reqPage=<%=pageStart-1%>">이전</a>
-                        <%}%>
-                        <%for(int i = pageStart; i<=pageEnd;i++){%>
-                            <a href="mypageAdminDesigner?reqPage=<%=i%>" style="<%=i==reqPage ? "color: black;" : ""%></a>"><%=i%></a>
-                        <%}%>
-                        <%if(pageEnd<pageSize){%>
-                            <a href="mypageAdminDesigner?reqPage=<%=pageEnd+1%>">다음</a>
-                        <%}%>
+                        <c:if test="${pageStart!=1}">
+                            <a href="mypageAdminDesigner?reqPage=${pageStart-1}">이전</a>
+                        </c:if>
+                        <c:forEach var="i" begin="${pageStart}" end="${pageEnd}">
+                            <a href="mypageAdminDesigner?reqPage=${i}"
+                                style="${i==(not empty param.reqPage ? param.reqPage : 1) ? " color: black;" : ""
+                                }">${i}</a>
+                        </c:forEach>
+                        <c:if test="${pageEnd<pageSize}">
+                            <a href="mypageAdminDesigner?reqPage=${pageEnd+1}">다음</a>
+                        </c:if>
                     </div>
                 </form>
             </div>
@@ -203,6 +188,7 @@
                 }
             });
         }
+
         function setClickToReviewTr() {
             $(document).off("click", ".row-review");
             $(document).on("click", ".row-review", function (e) {
@@ -214,6 +200,7 @@
                 }
             });
         }
+
         function setClickToChk() {
             $(document).off("click", "[name=chk]");
             $(document).on("click", "[name=chk]", function (e) {
@@ -224,6 +211,7 @@
                 }
             });
         }
+
         function setClickToRemoveReviewBtn() {
             $(document).off("click", ".delete-review");
             $(document).on("click", ".delete-review", function (e) {
@@ -235,7 +223,9 @@
                         type: "post",
                         cache: false,
                         dataType: "text",
-                        data: { reviewNo: reviewNo },
+                        data: {
+                            reviewNo: reviewNo
+                        },
                         success: function (data) {
                             alert(data);
                             console.log(data);
@@ -248,7 +238,7 @@
             });
         }
         $(function () {
-            $(".admin-nav a:eq(3)").css("background-color","whitesmoke");
+            $(".admin-nav a:eq(3)").css("background-color", "whitesmoke");
             setClickToTr();
             setClickToChk()
             $(".modal-overlay").click(function (e) {
@@ -270,21 +260,27 @@
                     type: "post",
                     cache: false,
                     dataType: "json",
-                    data: { customerNo: customerNo },
+                    data: {
+                        customerNo: customerNo
+                    },
                     success: function (data) {
                         if (data != null)
                             for (var i = 0; i < data.length; i++) {
                                 var html = [
                                     "<tr class='row-review'>",
-                                    "<th width='30'><input type='checkbox' name='chk' value='" + data[i].reviewNo + "'></th>",
+                                    "<th width='30'><input type='checkbox' name='chk' value='" +
+                                    data[i].reviewNo + "'></th>",
                                     "<th>" + data[i].reviewNo + "</th>",
                                     "<th>" + data[i].shop.shopName + "</th>",
-                                    "<input type='hidden' name='customerId' value='" + data[i].designer.designerNo + "'>",
+                                    "<input type='hidden' name='customerId' value='" +
+                                    data[i].designer.designerNo + "'>",
                                     "<th>" + data[i].designer.designerName + "</th>",
                                     "<th>" + data[i].customer.customerId + "</th>",
                                     "<th>" + data[i].reviewContent + "</th>",
-                                    "<th><button class='delete-review' value='" + data[i].reviewNo + "'>삭제</button></th>",
-                                    "</tr>"];
+                                    "<th><button class='delete-review' value='" + data[
+                                        i].reviewNo + "'>삭제</button></th>",
+                                    "</tr>"
+                                ];
                                 $(".review-list").children('tbody').append(html.join());
                             }
                     }

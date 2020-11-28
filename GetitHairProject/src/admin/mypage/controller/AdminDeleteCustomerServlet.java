@@ -17,30 +17,38 @@ import customer.model.service.CustomerService;
 @WebServlet("/adminDeleteCustomer")
 public class AdminDeleteCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminDeleteCustomerServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public AdminDeleteCustomerServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
+
 		// 값 받기
-		String customerId = request.getParameter("customerId");
-		
-		//비즈니스 로직
-		int result = new CustomerService().deleteCustomer(customerId);
-		
-		if(result > 0) {
-			request.getRequestDispatcher("/mypageAdminCustomer").forward(request, response);;
-		}else {
+		String[] customerId = request.getParameterValues("customerId");
+
+		// 비즈니스 로직
+		int result = 0;
+		for (int i = 0; i < customerId.length; i++) {
+			result += new CustomerService().deleteCustomer(customerId[i]);
+		}
+
+		if (result > 0) {
+			request.setAttribute("msg", "삭제에 성공하였습니다.");
+			request.setAttribute("loc", "/mypageAdminCustomer");
+			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
+			
+		} else {
 			request.setAttribute("msg", "삭제에 실패했습니다.");
 			request.setAttribute("loc", "/mypageAdminCustomer");
 			request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
@@ -48,9 +56,11 @@ public class AdminDeleteCustomerServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

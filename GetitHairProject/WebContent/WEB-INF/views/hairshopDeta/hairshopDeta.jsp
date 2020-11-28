@@ -1,3 +1,5 @@
+<%@page import="likes.model.service.LikesService"%>
+<%@page import="likes.model.vo.Likes"%>
 <%@page import="designer.model.vo.Designer"%>
 <%@page import="designer.model.service.DesignerService"%>
 <%@page import="javax.swing.text.View"%>
@@ -10,7 +12,9 @@
     <%
     	Hairshop hs = (Hairshop)request.getAttribute("hs");
    		ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
+   		Likes like = (Likes)request.getAttribute("like");
     	ArrayList<Designer> designerList = new DesignerService().selectAllDesigner();
+    	
     %>
 <!DOCTYPE html>
 <html>
@@ -26,6 +30,8 @@
 	<!-- 스타일 부분 -->
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=yehjayrzn1&submodules=geocoder"></script>
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 
 <style media="screen">
@@ -98,8 +104,10 @@
 
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active" style="width: 100%">
+  	<div class="col-md-4">
       	 <input type="hidden" value ="<%=hs.getShopNo() %>">
-		 <h3 style="font-weight: bold; margin-bottom: 0;"><%=hs.getShopName() %> <label style="font-size: 16px;"><%=hs.getShopLikes() %><span class="material-icons" style="font-size: 14px;" id="shopLike">favorite_border</span></label></h3>
+      	 <input type="hidden" name="likeShopNo" id="likeShopNo" value ="<%=like.getLikesType() %>">
+		 <h3 style="font-weight: bold; margin-bottom: 0;"><%=hs.getShopName() %> <label style="font-size: 15px;" id="shopLike"><%=hs.getShopLikes() %><span class="material-icons" style="font-size: 14px;">favorite</span></label></h3>
 		 <p style="font-size: 15px; font-weight: 100;">평점 : <%=hs.getShopRate() %>점</p>
 		 <br>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 16px;">place</span>장소</h4>
@@ -108,6 +116,10 @@
 		 <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
 		 <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
+	</div>
+	<div class="col-md-2"></div>
+	
+	<div class="col-md-6" id="map" style="height: 280px; margin-top: 20px; border: 2px solid #a2a2b2"><div></div></div>
     </div>
     <div id="menu1" class="tab-pane fade">
     	<br>
@@ -167,6 +179,60 @@
         dynamicBullets: true,
       },
     });
+		$(function(){
+			var shopNo = $("#likeShopNo").val();
+			var shopLike= $("#shopLike").val();
+			$.ajax({
+				url : "/shopLikesUp",
+				date : {
+					shopNo : shopNo,
+					shopLike : shopLike
+				},
+				success : function(){
+					
+				}
+			})
+		})
+		
+		window.onload=function(){
+   			//아무 값도 지정하지 않고 지도객체를 불러오면 서울시청 중심으로 불러와짐
+   			/* var map = new naver.maps.Map("map"); */
+   			var map = new naver.maps.Map("map",{
+   				center : new naver.maps.LatLng(35.1541767, 129.1202395),	//지도 중심좌표설정
+   				zoom : 18,												//지도 확대 크기
+   				zoomControl : true,										//지도 확대 컨트롤
+   				zoomControlOptions : {
+   					position : naver.maps.Position.TOP_RIGHT,			//줌 컨트롤러 위치설정
+   					style : naver.maps.ZoomControlStyle.SMALL		
+   				}
+   			});
+   			//지도에 클릭이벤트 추가
+   			naver.maps.Event.addListener(map,'click',function(e){
+   				marker.setPosition(e.coord);
+   				if(infoWindow != null){
+   					if(infoWindow.getMap()){
+   						infoWindow.close();
+   					}
+   				}
+   				//위경도 좌표를 주소로 가져오는기능 reverseGeocode - > submodule추가해야 사용가능
+   				naver.maps.Service.reverseGeocode({
+   					location : new naver.maps.LatLng(e.coord.lat(), e.coord.lng())	//위경도
+   				},function(status, response){
+   					if(status != naver.maps.Service.Status.OK){
+   						return alert("주소검색오류");
+   					}
+   					var result = response.result;
+   					var items = result.items;	//json형태로 주소값을 갖고옴
+   					var address = items[1].address;	//0번이 지번, 1번이 도로명
+   					contentString = [
+   						'<div class="iw_inner">',
+   						'<p style="color:black";>'+address+"</p>",
+   						'</div>'
+   					].join('');
+   					
+   				});
+   			});
+   		}
 	</script>
 </body>
 </html>
