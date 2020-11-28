@@ -1,19 +1,9 @@
 <%@page import="customer.model.vo.Customer"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%
-    int pageSize = (Integer)request.getAttribute("pageSize");
-    int reqPage = (Integer)request.getAttribute("reqPage");
-	ArrayList<Customer> list = (ArrayList<Customer>)request.getAttribute("list");
-	int type = request.getAttribute("type") != null ? (Integer)request.getAttribute("type") : 0;
 	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
-	
-	String sel1 = type == 1 ? "selected" : "";
-    String sel2 = type == 2 ? "selected" : "";
-
-    int pageStart = (Integer)request.getAttribute("pageStart"); //표시되는 시작 페이지
-    int pageEnd = (Integer)request.getAttribute("pageEnd"); // 표시되는 마지막 페이지
 %>
 <!DOCTYPE html>
 <html>
@@ -71,7 +61,6 @@
             border-bottom: 1px solid gray;
             height: 30px;
         }
-        
     </style>
 </head>
 
@@ -121,14 +110,14 @@
                 <form action="/mypageAdminCustomer" method="GET">
                     <div class="customer-search">
                         <select name="searchType">
-                            <option value="1" <%=sel1 %>>아이디</option>
-                            <option value="2" <%=sel2 %>>이름</option>
+                            <option value="1" ${param.searchType==1 ? "selected" : "" }>아이디</option>
+                            <option value="2" ${param.searchType==2 ? "selected" : "" }>이름</option>
                         </select>
                         <input type="text" name="keyword" value="<%=keyword%>">
                         <button>검색</button>
                     </div>
                 </form>
-                <form action="/adminDeleteCustomer">
+                <form action="/adminDeleteCustomer" method="POST">
                     <div class="customer-list-wrap">
                         <table class="customer-list">
                             <thead>
@@ -143,30 +132,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%if(list != null){%>
-                                <%
-                                    for (Customer c : list) {
-                                        %>
-                                <tr>
-                                    <th width="30"><input type="checkbox" name="chk" value="<%=c.getCustomerId() %>">
-                                    </th>
-                                    <th><%=c.getCustomerNo() %></th>
-                                    <input type="hidden" name="customerId" value="<%=c.getCustomerId() %>">
-                                    <th><%=c.getCustomerId() %></th>
-                                    <th><%=c.getCustomerGen() %></th>
-                                    <th><%=c.getCustomerName() %></th>
-                                    <th><%=c.getCustomerEnrolldate() %></th>
-                                    <th>
-                                        <button class="rvbtn" type="button">작성한 리뷰보기</button>
-                                        <button class="del-btn">탈퇴</button>
-                                    </th>
-                                </tr>
-                                <%
-                                    }
-                                    %>
-                                <%
-                                }
-                                %>
+                                <c:if test="${not empty list}">
+                                    <c:forEach var="c" items="${list}">
+                                        <tr>
+                                            <th width="30"><input type="checkbox" name="customerId"
+                                                    value="${c.customerId}">
+                                            </th>
+                                            <th>${c.customerNo}</th>
+                                            <th>${c.customerId}</th>
+                                            <th>${c.customerGen}</th>
+                                            <th>${c.customerName}</th>
+                                            <th>${c.customerEnrolldate}</th>
+                                            <th>
+                                                <button class="rvbtn" type="button">작성한 리뷰보기</button>
+                                                <button class="del-one-btn">탈퇴</button>
+                                            </th>
+                                        </tr>
+                                    </c:forEach>
+                                </c:if>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -179,16 +162,17 @@
                         </table>
                     </div>
                     <div class="page-nav">
-                        <input type="hidden" id="reqPage" value="<%=reqPage%>">
-                        <%if(pageStart!=1){%>
-                            <a href="mypageAdminCustomer?reqPage=<%=pageStart-1%>">이전</a>
-                        <%}%>
-                        <%for(int i = pageStart; i<=pageEnd;i++){%>
-                            <a href="mypageAdminCustomer?reqPage=<%=i%>" style="<%=i==reqPage ? "color: black;" : ""%>"><%=i%></a>
-                        <%}%>
-                        <%if(pageEnd<pageSize){%>
-                            <a href="mypageAdminCustomer?reqPage=<%=pageEnd+1%>">다음</a>
-                        <%}%>
+                        <c:if test="${pageStart!=1}">
+                            <a href="mypageAdminCustomer?reqPage=${pageStart-1}">이전</a>
+                        </c:if>
+                        <c:forEach var="i" begin="${pageStart}" end="${pageEnd}">
+                            <a href="mypageAdminCustomer?reqPage=${i}"
+                                style="${i==(not empty param.reqPage ? param.reqPage : 1) ? " color: black;" : ""
+                                }">${i}</a>
+                        </c:forEach>
+                        <c:if test="${pageEnd<pageSize}">
+                            <a href="mypageAdminCustomer?reqPage=${pageEnd+1}">다음</a>
+                        </c:if>
                     </div>
                 </form>
             </div>
@@ -206,6 +190,7 @@
                 }
             });
         }
+
         function setClickToReviewTr() {
             $(document).off("click", ".row-review");
             $(document).on("click", ".row-review", function (e) {
@@ -217,6 +202,7 @@
                 }
             });
         }
+
         function setClickToChk() {
             $(document).off("click", "[name=chk]");
             $(document).on("click", "[name=chk]", function (e) {
@@ -227,7 +213,7 @@
                 }
             });
         }
-        
+
         function setClickToRemoveReviewBtn() {
             $(document).off("click", ".delete-review");
             $(document).on("click", ".delete-review", function (e) {
@@ -239,7 +225,9 @@
                         type: "post",
                         cache: false,
                         dataType: "text",
-                        data: { reviewNo: reviewNo },
+                        data: {
+                            reviewNo: reviewNo
+                        },
                         success: function (data) {
                             alert(data);
                             console.log(data);
@@ -251,69 +239,81 @@
                 e.stopPropagation();
             });
         }
-        function setClickToPageNo(customerNo,reqPage){
+
+        function setClickToPageNo(customerNo, reqPage) {
             $(document).off("click", ".page-no");
             $(document).on("click", ".page-no", function (e) {
                 $(".review-list").children('tbody').empty();
-                reviewAjax(customerNo,reqPage);
-                reviewPagingAjax(customerNo,reqPage);
+                reviewAjax(customerNo, reqPage);
+                reviewPagingAjax(customerNo, reqPage);
 
             });
         }
-        function reviewAjax(customerNo,reqPage){
+
+        function reviewAjax(customerNo, reqPage) {
             $.ajax({
-                    url: "/adminSelectCustomerReview",
-                    type: "post",
-                    cache: false,
-                    dataType: "json",
-                    data: { customerNo: customerNo ,
-                            reqPage : reqPage  },
-                    success: function (data) {
-                        if (data != null)
-                            for (var i = 0; i < data.length; i++) {
-                                var html = [
-                                    "<tr class='row-review'>",
-                                    "<th width='30'><input type='checkbox' name='chk' value='" + data[i].reviewNo + "'></th>",
-                                    "<th>" + data[i].reviewNo + "</th>",
-                                    "<th>" + data[i].shop.shopName + "</th>",
-                                    "<input type='hidden' name='customerId' value='" + data[i].designer.designerNo + "'>",
-                                    "<th>" + data[i].designer.designerName + "</th>",
-                                    "<th>" + data[i].customer.customerId + "</th>",
-                                    "<th>" + data[i].reviewContent + "</th>",
-                                    "<th><button class='delete-review' value='" + data[i].reviewNo + "'>삭제</button></th>",
-                                    "</tr>"];
-                                $(".review-list").children('tbody').append(html.join());
-                            }
-                    }
-                })
+                url: "/adminSelectCustomerReview",
+                type: "post",
+                cache: false,
+                dataType: "json",
+                data: {
+                    customerNo: customerNo,
+                    reqPage: reqPage
+                },
+                success: function (data) {
+                    if (data != null)
+                        for (var i = 0; i < data.length; i++) {
+                            var html = [
+                                "<tr class='row-review'>",
+                                "<th width='30'><input type='checkbox' name='chk' value='" + data[i]
+                                .reviewNo + "'></th>",
+                                "<th>" + data[i].reviewNo + "</th>",
+                                "<th>" + data[i].shop.shopName + "</th>",
+                                "<input type='hidden' name='customerId' value='" + data[i].designer
+                                .designerNo + "'>",
+                                "<th>" + data[i].designer.designerName + "</th>",
+                                "<th>" + data[i].customer.customerId + "</th>",
+                                "<th>" + data[i].reviewContent + "</th>",
+                                "<th><button class='delete-review' value='" + data[i].reviewNo +
+                                "'>삭제</button></th>",
+                                "</tr>"
+                            ];
+                            $(".review-list").children('tbody').append(html.join());
+                        }
+                }
+            })
         }
-        function reviewPagingAjax(customerNo,reqPage){
+
+        function reviewPagingAjax(customerNo, reqPage) {
             $(".review-container .page-nav").empty();
             $.ajax({
-                    url: "/adminSelectReviewPaging",
-                    type: "post",
-                    cache: false,
-                    dataType: "json",
-                    data: { customerNo: customerNo,
-                            reqPage : reqPage  },
-                    success: function (data) {
-                        let html = [];
-                        
-                        if(data.pageStart!=1){
-                            html.push('<a href="#">이전</a>');
-                        }
-                        for(let i = data.pageStart; i<=data.pageEnd;i++){
-                            html.push('<a href="#" class="page-no" style="'+(i==data.reqPage ? "color: black;" : "")+'">'+i+'</a>');
-                        }
-                        if(data.pageEnd<data.maxPageSize){
-                            html.push('<a href="#">다음</a>');
-                        }
-                        $(".review-container .page-nav").append(html.join());
+                url: "/adminSelectReviewPaging",
+                type: "post",
+                cache: false,
+                dataType: "json",
+                data: {
+                    customerNo: customerNo,
+                    reqPage: reqPage
+                },
+                success: function (data) {
+                    let html = [];
+
+                    if (data.pageStart != 1) {
+                        html.push('<a href="#">이전</a>');
                     }
-                })
+                    for (let i = data.pageStart; i <= data.pageEnd; i++) {
+                        html.push('<a href="#" class="page-no" style="' + (i == data.reqPage ?
+                            "color: black;" : "") + '">' + i + '</a>');
+                    }
+                    if (data.pageEnd < data.maxPageSize) {
+                        html.push('<a href="#">다음</a>');
+                    }
+                    $(".review-container .page-nav").append(html.join());
+                }
+            })
         }
         $(function () {
-            $(".admin-nav a:eq(1)").css("background-color","whitesmoke");
+            $(".admin-nav a:eq(1)").css("background-color", "whitesmoke");
 
             setClickToTr();
             setClickToChk()
@@ -325,6 +325,19 @@
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
             })
+            //한명 탈퇴 버튼 클릭 이벤트
+            $(".del-one-btn").on("click", function (e) {
+                $("input:checkbox[name=customerId]").prop("checked", false);
+                if (!confirm("정말 탈퇴하시겠습니까?")) {
+                    return false; //취소 눌렀을 시 submit 이벤트 발생 방지
+                }
+            })
+            //선택회원 탈퇴 버튼 클릭 이벤트
+            $(".del-btn").on("click", function (e) {
+                if (!confirm("정말 탈퇴하시겠습니까?")) {
+                    return false; //취소 눌렀을 시 submit 이벤트 발생 방지
+                }
+            })
             //리뷰 보기 버튼 클릭 이벤트
             $(".rvbtn").click(function (e) {
                 $(".modal-overlay").css("display", "block");
@@ -332,15 +345,15 @@
                 $(".review-list").children('tbody').empty();
                 var customerNo = $(this).parent().siblings('th').eq(1).text();
                 var reqPage = $("#reqPage").val();
-                reviewAjax(customerNo,reqPage); // ajax 실행
+                reviewAjax(customerNo, reqPage); // ajax 실행
 
                 setClickToReviewTr();
                 setClickToChk()
                 setClickToRemoveReviewBtn();
-                
-                reviewPagingAjax(customerNo,reqPage) // ajax 실행
 
-                setClickToPageNo(customerNo,reqPage);
+                reviewPagingAjax(customerNo, reqPage) // ajax 실행
+
+                setClickToPageNo(customerNo, reqPage);
                 e.stopPropagation();
             })
 
