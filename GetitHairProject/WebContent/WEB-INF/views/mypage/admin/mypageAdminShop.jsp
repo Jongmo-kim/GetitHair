@@ -46,18 +46,18 @@
             border-radius: 3px;
         }
 
-        .customer-list,
+        .shop-list,
         .review-list {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .customer-list>tbody>tr:hover,
+        .shop-list>tbody>tr:hover,
         .review-list>tbody>tr:hover {
             background-color: rgb(235, 232, 232);
         }
 
-        .customer-list th {
+        .shop-list th {
             border-bottom: 1px solid gray;
             height: 30px;
         }
@@ -107,8 +107,8 @@
         </header>
         <section>
             <div class="admin-content">
-                <form action="/mypageAdminCustomer" method="GET">
-                    <div class="customer-search">
+                <form action="/mypageAdminShop" method="GET">
+                    <div class="shop-search">
                         <select name="searchType">
                             <option value="1" ${param.searchType==1 ? "selected" : "" }>아이디</option>
                             <option value="2" ${param.searchType==2 ? "selected" : "" }>이름</option>
@@ -117,9 +117,9 @@
                         <button>검색</button>
                     </div>
                 </form>
-                <form action="/adminDeleteCustomer">
-                    <div class="customer-list-wrap">
-                        <table class="customer-list">
+                <form action="/adminDeleteShop">
+                    <div class="shop-list-wrap">
+                        <table class="shop-list">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -146,7 +146,7 @@
                                             <th>${hs.addrPostcode}</th>
                                             <th>
                                                 <button class="rvbtn" type="button">미용실 리뷰목록</button>
-                                                <button>탈퇴</button>
+                                                <button>삭제</button>
                                             </th>
                                         </tr>
                                     </c:forEach>
@@ -155,7 +155,8 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="8">
-                                        <button>선택회원 탈퇴</button>
+                                        <button class="btn-allcheck" type="button">전체선택</button>
+                                        <button>선택한 샵 삭제</button>
                                         <button type="reset">전체 선택해제</button>
                                     </th>
                                 </tr>
@@ -314,6 +315,12 @@
                 }
             })
         }
+        function toggleCheckbox(checkbox) {
+            if ($(checkbox).prop("checked") == true)
+                $(checkbox).prop("checked", false);
+            else if ($(checkbox).prop("checked") == false)
+                $(checkbox).prop("checked", true);
+        }
         $(function () {
             $(".admin-nav a:eq(5)").css("background-color", "whitesmoke");
             setClickToTr();
@@ -325,6 +332,12 @@
             $("#close-modal").click(function (e) {
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
+            })
+            // 전체 선택 버튼 클릭 이벤트
+            $(".btn-allcheck").on("click", function (e) {
+                console.log($(".shop-list tbody th>input:checkbox"));
+                toggleCheckbox($(".shop-list tbody th>input:checkbox"));
+
             })
             //미용실 리뷰 목록 버튼 클릭 이벤트
             $(".rvbtn").click(function (e) {

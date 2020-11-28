@@ -46,18 +46,18 @@
             border-radius: 3px;
         }
 
-        .customer-list,
+        .designer-list,
         .review-list {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .customer-list>tbody>tr:hover,
+        .designer-list>tbody>tr:hover,
         .review-list>tbody>tr:hover {
             background-color: rgb(235, 232, 232);
         }
 
-        .customer-list th {
+        .designer-list th {
             border-bottom: 1px solid gray;
             height: 30px;
         }
@@ -71,12 +71,12 @@
         </header>
         <section>
             <div class="admin-content">
-                <form action="/mypageAdminCustomer" method="GET">
+                <form action="/mypageAdminDesigner" method="GET">
                     <%@ include file="/WEB-INF/views/mypage/admin/common/search-nav.jsp"%>
                 </form>
-                <form action="/adminDeleteCustomer">
-                    <div class="customer-list-wrap">
-                        <table class="customer-list">
+                <form action="/adminDeleteDesigner">
+                    <div class="designer-list-wrap">
+                        <table class="designer-list">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -93,7 +93,7 @@
                                 <c:if test="${not empty list}">
                                     <c:forEach var="de" items="${list}">
                                         <tr>
-                                            <th width="30"><input type="checkbox" name="chk" value="${de.designerId}">
+                                            <th width="30"><input type="checkbox" name="designerId" value="${de.designerId}">
                                             </th>
                                             <th>${de.designerNo}</th>
                                             <th>${de.designerId}</th>

@@ -407,7 +407,7 @@ ALTER TABLE review
 
 ALTER TABLE review
     ADD CONSTRAINT FK_review_designer_no_designer FOREIGN KEY (designer_no)
-        REFERENCES designer (designer_no)
+        REFERENCES designer (designer_no) ON DELETE SET NULL
 /
 
 ALTER TABLE review
@@ -523,7 +523,7 @@ ALTER TABLE reserve
 
 ALTER TABLE reserve
     ADD CONSTRAINT FK_reserve_designer_no_designe FOREIGN KEY (designer_no)
-        REFERENCES designer (designer_no)
+        REFERENCES designer (designer_no) ON DELETE SET NULL
 /
 
 ALTER TABLE reserve
@@ -578,7 +578,7 @@ ALTER TABLE designer_list
 
 ALTER TABLE designer_list
     ADD CONSTRAINT FK_designer_list_designer_no_d FOREIGN KEY (designer_no)
-        REFERENCES designer (designer_no)
+        REFERENCES designer (designer_no) ON DELETE CASCADE
 
 /
 
@@ -603,7 +603,7 @@ COMMENT ON COLUMN style_list.designer_no IS '디자이너번호'
 
 ALTER TABLE style_list
     ADD CONSTRAINT FK_style_list_designer_no_desi FOREIGN KEY (designer_no)
-        REFERENCES designer (designer_no)
+        REFERENCES designer (designer_no)  ON DELETE CASCADE
 /
 
 ALTER TABLE style_list
