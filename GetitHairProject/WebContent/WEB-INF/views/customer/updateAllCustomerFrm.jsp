@@ -547,10 +547,7 @@
 				</td>
 			</tr>
 		</table>
-		<input type="submit" value="회원수정">
-		<button type="button"
-			onclick="location.href='/deleteAllCustomer?customerNo=<%=customer.getCustomerNo()%>'">회원탈퇴</button>
+		<input type="submit" value="회원수정">		
 	</form>
-
 </body>
 </html>

@@ -2,8 +2,6 @@ package customer.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-
-import common.DebugTemplate;
 import common.JDBCTemplate;
 import customer.model.dao.CustomerDao;
 import customer.model.vo.Customer;
@@ -193,6 +191,7 @@ public class CustomerService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	
 	public int insertAllCustomer(Customer customer,Hairinfo hairinfo) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = 0;

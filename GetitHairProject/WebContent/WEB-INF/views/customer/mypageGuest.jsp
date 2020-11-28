@@ -19,6 +19,12 @@
 	<ul>
 		<li>프로필관리
 			<ul>
+				<li><button type="button"
+			onclick="location.href='/updateAllCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>'">정보수정</button>			
+				</li>
+				<li><button type="button"
+			onclick="location.href='/deleteAllCustomer?customerNo=<%=loginCustomer.getCustomerNo()%>'">회원탈퇴</button>
+				</li>
 				<li><a
 					href="/updateAllCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>">정보수정 및 탈퇴</a>
 				</li>

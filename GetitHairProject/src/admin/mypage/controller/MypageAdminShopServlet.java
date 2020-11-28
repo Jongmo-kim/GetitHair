@@ -60,8 +60,6 @@ public class MypageAdminShopServlet extends HttpServlet {
 		// 값 전달
 		request.setAttribute("list", list);
 		request.setAttribute("pageSize", pageSize);
-		request.setAttribute("reqPage", reqPage);
-		request.setAttribute("type", type);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("pageStart", startEnd[0]);
 		request.setAttribute("pageEnd", startEnd[1]);
