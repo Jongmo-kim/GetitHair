@@ -133,7 +133,7 @@
 </head>
 
 <body>
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    
     <div id='calendar' class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"></div>
     <br>
     <button id="submitBtn" type="button" class="btn btn-primary">저장하기</button>
