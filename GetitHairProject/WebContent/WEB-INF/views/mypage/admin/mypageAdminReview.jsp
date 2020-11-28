@@ -73,7 +73,7 @@
                                 <c:if test="${not empty list}">
                                     <c:forEach var="rv" items="${list}">
                                         <tr>
-                                            <th width="30"><input type="checkbox" name="chk" value="${rv.reviewNo}">
+                                            <th width="30"><input type="checkbox" name="reviewNo" value="${rv.reviewNo}">
                                             </th>
                                             <th>${rv.reviewNo}</th>
                                             <th>${rv.shop.shopName}</th>
@@ -82,7 +82,7 @@
                                             <th>${rv.reviewContent}</th>
                                             <th>
                                                 <button id="rvbtn" type="button">작성한 리뷰보기</button>
-                                                <button>삭제</button>
+                                                <button class="del-one-btn">삭제</button>
                                             </th>
                                         </tr>
                                     </c:forEach>
@@ -91,7 +91,7 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="7">
-                                        <button>선택회원 탈퇴</button>
+                                        <button class="del-btn">선택회원 탈퇴</button>
                                         <button type="reset">전체 선택해제</button>
                                     </th>
                                 </tr>
@@ -161,6 +161,19 @@
             $("#close-modal").click(function (e) {
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
+            })
+            //리뷰 삭제 버튼 클릭 이벤트
+            $(".del-one-btn").on("click", function (e) {
+                $("input:checkbox[name=customerId]").prop("checked", false);
+                if (!confirm("정말 삭제하시겠습니까?")) {
+                    return false; //취소 눌렀을 시 submit 이벤트 발생 방지
+                }
+            })
+            //선택리뷰 삭제 버튼 클릭 이벤트
+            $(".del-btn").on("click", function (e) {
+                if (!confirm("정말 삭제하시겠습니까?")) {
+                    return false; //취소 눌렀을 시 submit 이벤트 발생 방지
+                }
             })
             //리뷰 보기 버튼 클릭 이벤트
             $("#rvbtn").click(function (e) {
