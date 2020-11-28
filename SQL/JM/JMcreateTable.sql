@@ -1,4 +1,4 @@
--- í…Œì´ë¸” ì‚­ì œ
+-- Å×ÀÌºí »èÁ¦
 DROP TABLE CUSTOMER CASCADE CONSTRAINTS;
 DROP TABLE REVIEW CASCADE CONSTRAINTS;
 DROP TABLE HAIRSHOP CASCADE CONSTRAINTS;
@@ -13,7 +13,7 @@ DROP TABLE RESERVE CASCADE CONSTRAINTS;
 DROP TABLE ADMIN CASCADE CONSTRAINTS;
 DROP TABLE REVIEW_COMMENT CASCADE CONSTRAINTS;
 DROP TABLE DESIGNER_PORTFOLIO CASCADE CONSTRAINTS;
--- ì‹œí€€ìŠ¤ ì‚­ì œ
+-- ½ÃÄö½º »èÁ¦
 DROP SEQUENCE hairshop_SEQ;
 DROP SEQUENCE designer_SEQ;
 DROP SEQUENCE customer_SEQ;
@@ -30,7 +30,7 @@ drop sequence hair_info_seq;
 DROP SEQUENCE DESIGNER_PORTFOLIO_SEQ;
 
 -------------------------------------
--- í…Œì´ë¸” ìˆœì„œëŠ” ê´€ê³„ë¥¼ ê³ ë ¤í•˜ì—¬ í•œ ë²ˆì— ì‹¤í–‰í•´ë„ ì—ëŸ¬ê°€ ë°œìƒí•˜ì§€ ì•Šê²Œ ì •ë ¬ë˜ì—ˆìŠµë‹ˆë‹¤.
+-- Å×ÀÌºí ¼ø¼­´Â °ü°è¸¦ °í·ÁÇÏ¿© ÇÑ ¹ø¿¡ ½ÇÇàÇØµµ ¿¡·¯°¡ ¹ß»ıÇÏÁö ¾Ê°Ô Á¤·ÄµÇ¾ú½À´Ï´Ù.
 
 -- hairshop Table Create SQL
 create sequence hair_info_seq;
@@ -65,46 +65,46 @@ INCREMENT BY 1;
 --DROP SEQUENCE hairshop_SEQ;
 /
 
-COMMENT ON TABLE hairshop IS 'í—¤ì–´ìƒµ'
+COMMENT ON TABLE hairshop IS 'Çì¾î¼¥'
 /
 
-COMMENT ON COLUMN hairshop.shop_no IS 'í—¤ì–´ìƒµë²ˆí˜¸'
+COMMENT ON COLUMN hairshop.shop_no IS 'Çì¾î¼¥¹øÈ£'
 /
 
-COMMENT ON COLUMN hairshop.shop_comp_no IS 'ì‚¬ì—…ìë“±ë¡ë²ˆí˜¸'
+COMMENT ON COLUMN hairshop.shop_comp_no IS '»ç¾÷ÀÚµî·Ï¹øÈ£'
 /
 
-COMMENT ON COLUMN hairshop.shop_name IS 'ì‚¬ì—…ìëª…'
+COMMENT ON COLUMN hairshop.shop_name IS '»ç¾÷ÀÚ¸í'
 /
 
-COMMENT ON COLUMN hairshop.shop_addr IS 'ì£¼ì†Œì§€'
+COMMENT ON COLUMN hairshop.shop_addr IS 'ÁÖ¼ÒÁö'
 /
 
-COMMENT ON COLUMN hairshop.shop_phone IS 'ì „í™”ë²ˆí˜¸'
+COMMENT ON COLUMN hairshop.shop_phone IS 'ÀüÈ­¹øÈ£'
 /
 
-COMMENT ON COLUMN hairshop.shop_open IS 'ì˜ì—…ì‹œì‘ì‹œê°„'
+COMMENT ON COLUMN hairshop.shop_open IS '¿µ¾÷½ÃÀÛ½Ã°£'
 /
 
-COMMENT ON COLUMN hairshop.shop_close IS 'ì˜ì—…ë§ˆê°ì‹œê°„'
+COMMENT ON COLUMN hairshop.shop_close IS '¿µ¾÷¸¶°¨½Ã°£'
 /
 
-COMMENT ON COLUMN hairshop.shop_holiday IS 'ì •ê¸°íœ´ë¬´ì¼'
+COMMENT ON COLUMN hairshop.shop_holiday IS 'Á¤±âÈŞ¹«ÀÏ'
 /
 
-COMMENT ON COLUMN hairshop.shop_rate IS 'í‰ì '
+COMMENT ON COLUMN hairshop.shop_rate IS 'ÆòÁ¡'
 /
 
-COMMENT ON COLUMN hairshop.shop_img IS 'ë§¤ì¥ì´ë¯¸ì§€'
+COMMENT ON COLUMN hairshop.shop_img IS '¸ÅÀåÀÌ¹ÌÁö'
 /
 
-COMMENT ON COLUMN hairshop.shop_likes IS 'ì¢‹ì•„ìš”ìˆ˜'
+COMMENT ON COLUMN hairshop.shop_likes IS 'ÁÁ¾Æ¿ä¼ö'
 /
 
-COMMENT ON COLUMN hairshop.addr_detail IS 'ìƒì„¸ì£¼ì†Œ'
+COMMENT ON COLUMN hairshop.addr_detail IS '»ó¼¼ÁÖ¼Ò'
 /
 
-COMMENT ON COLUMN hairshop.addr_postcode IS 'ìš°í¸ë²ˆí˜¸'
+COMMENT ON COLUMN hairshop.addr_postcode IS '¿ìÆí¹øÈ£'
 /
 
 
@@ -139,43 +139,43 @@ INCREMENT BY 1;
 --DROP SEQUENCE designer_SEQ;
 /
 
-COMMENT ON TABLE designer IS 'ë””ìì´ë„ˆ'
+COMMENT ON TABLE designer IS 'µğÀÚÀÌ³Ê'
 /
 
-COMMENT ON COLUMN designer.designer_no IS 'ë””ìì´ë„ˆë²ˆí˜¸'
+COMMENT ON COLUMN designer.designer_no IS 'µğÀÚÀÌ³Ê¹øÈ£'
 /
 
-COMMENT ON COLUMN designer.designer_id IS 'ì•„ì´ë””'
+COMMENT ON COLUMN designer.designer_id IS '¾ÆÀÌµğ'
 /
 
-COMMENT ON COLUMN designer.designer_pw IS 'ë¹„ë°€ë²ˆí˜¸'
+COMMENT ON COLUMN designer.designer_pw IS 'ºñ¹Ğ¹øÈ£'
 /
 
-COMMENT ON COLUMN designer.designer_gen IS 'ì„±ë³„'
+COMMENT ON COLUMN designer.designer_gen IS '¼ºº°'
 /
 
-COMMENT ON COLUMN designer.designer_name IS 'ì´ë¦„'
+COMMENT ON COLUMN designer.designer_name IS 'ÀÌ¸§'
 /
 
-COMMENT ON COLUMN designer.designer_email IS 'ì´ë©”ì¼'
+COMMENT ON COLUMN designer.designer_email IS 'ÀÌ¸ŞÀÏ'
 /
 
-COMMENT ON COLUMN designer.designer_phone IS 'í•¸ë“œí°ë²ˆí˜¸'
+COMMENT ON COLUMN designer.designer_phone IS 'ÇÚµåÆù¹øÈ£'
 /
 
-COMMENT ON COLUMN designer.designer_year IS 'ê²½ë ¥'
+COMMENT ON COLUMN designer.designer_year IS '°æ·Â'
 /
 
-COMMENT ON COLUMN designer.designer_rank IS 'ì§ê¸‰'
+COMMENT ON COLUMN designer.designer_rank IS 'Á÷±Ş'
 /
 
-COMMENT ON COLUMN designer.designer_intro IS 'ì†Œê°œë§'
+COMMENT ON COLUMN designer.designer_intro IS '¼Ò°³¸»'
 /
 
-COMMENT ON COLUMN designer.designer_keyword IS 'ìŠ¤íƒ€ì¼í‚¤ì›Œë“œ(ì˜ˆì •'
+COMMENT ON COLUMN designer.designer_keyword IS '½ºÅ¸ÀÏÅ°¿öµå(¿¹Á¤'
 /
 
-COMMENT ON COLUMN designer.designer_img IS 'ë””ìì´ë„ˆí”„ë¡œí•„ì´ë¯¸ì§€'
+COMMENT ON COLUMN designer.designer_img IS 'µğÀÚÀÌ³ÊÇÁ·ÎÇÊÀÌ¹ÌÁö'
 /
 
 -- hairshop Table Create SQL
@@ -205,37 +205,37 @@ INCREMENT BY 1;
 --DROP SEQUENCE customer_SEQ;
 /
 
-COMMENT ON TABLE customer IS 'íšŒì›'
+COMMENT ON TABLE customer IS 'È¸¿ø'
 /
 
-COMMENT ON COLUMN customer.customer_no IS 'íšŒì›ë²ˆí˜¸'
+COMMENT ON COLUMN customer.customer_no IS 'È¸¿ø¹øÈ£'
 /
 
-COMMENT ON COLUMN customer.customer_id IS 'ì•„ì´ë””'
+COMMENT ON COLUMN customer.customer_id IS '¾ÆÀÌµğ'
 /
 
-COMMENT ON COLUMN customer.customer_pw IS 'ë¹„ë°€ë²ˆí˜¸'
+COMMENT ON COLUMN customer.customer_pw IS 'ºñ¹Ğ¹øÈ£'
 /
 
-COMMENT ON COLUMN customer.customer_gen IS 'ì„±ë³„'
+COMMENT ON COLUMN customer.customer_gen IS '¼ºº°'
 /
 
-COMMENT ON COLUMN customer.customer_name IS 'ì´ë¦„'
+COMMENT ON COLUMN customer.customer_name IS 'ÀÌ¸§'
 /
 
-COMMENT ON COLUMN customer.customer_email IS 'ì´ë©”ì¼'
+COMMENT ON COLUMN customer.customer_email IS 'ÀÌ¸ŞÀÏ'
 /
 
-COMMENT ON COLUMN customer.customer_addr IS 'ì£¼ì†Œ'
+COMMENT ON COLUMN customer.customer_addr IS 'ÁÖ¼Ò'
 /
 
-COMMENT ON COLUMN customer.customer_phone IS 'í•¸ë“œí°ë²ˆí˜¸'
+COMMENT ON COLUMN customer.customer_phone IS 'ÇÚµåÆù¹øÈ£'
 /
 
-COMMENT ON COLUMN customer.addr_detail IS 'ìƒì„¸ì£¼ì†Œ'
+COMMENT ON COLUMN customer.addr_detail IS '»ó¼¼ÁÖ¼Ò'
 /
 
-COMMENT ON COLUMN customer.addr_postcode IS 'ìš°í¸ë²ˆí˜¸'
+COMMENT ON COLUMN customer.addr_postcode IS '¿ìÆí¹øÈ£'
 /
 
 
@@ -265,22 +265,22 @@ INCREMENT BY 1;
 --DROP SEQUENCE style_SEQ;
 /
 
-COMMENT ON TABLE style IS 'í—¤ì–´ìŠ¤íƒ€ì¼'
+COMMENT ON TABLE style IS 'Çì¾î½ºÅ¸ÀÏ'
 /
 
-COMMENT ON COLUMN style.style_no IS 'ì‹œìˆ ë²ˆí˜¸'
+COMMENT ON COLUMN style.style_no IS '½Ã¼ú¹øÈ£'
 /
 
-COMMENT ON COLUMN style.style_type IS 'ì‹œìˆ íƒ€ì…'
+COMMENT ON COLUMN style.style_type IS '½Ã¼úÅ¸ÀÔ'
 /
 
-COMMENT ON COLUMN style.style_name IS 'ì‹œìˆ ëª…'
+COMMENT ON COLUMN style.style_name IS '½Ã¼ú¸í'
 /
 
-COMMENT ON COLUMN style.style_img IS 'ìŠ¤íƒ€ì¼ì´ë¯¸ì§€'
+COMMENT ON COLUMN style.style_img IS '½ºÅ¸ÀÏÀÌ¹ÌÁö'
 /
 
-COMMENT ON COLUMN style.style_likes IS 'ì¢‹ì•„ìš”ìˆ˜'
+COMMENT ON COLUMN style.style_likes IS 'ÁÁ¾Æ¿ä¼ö'
 /
 
 
@@ -288,47 +288,47 @@ COMMENT ON COLUMN style.style_likes IS 'ì¢‹ì•„ìš”ìˆ˜'
 CREATE TABLE hair_info
 (
     customer_no      NUMBER          NOT NULL,
-    myhair_scalp     VARCHAR2(20)    NULL, --ë‘í”¼ìƒíƒœ myhair_scalp //in(ì§€ì„±,ê±´ì„±,ë¹„ë“¬,ë¯¼ê°ì„±,ì¤‘ì„±,ëª¨ë¦„)
-    myhair_curly     VARCHAR2(20)    NULL, --ê³±ìŠ¬ì •ë„ myhair_curly //in(ê³±ìŠ¬,ë°˜ê³±ìŠ¬,ì§ëª¨,ëª¨ë¦„)
-    myhair_rich      VARCHAR2(20)    NULL, --ë¨¸ë¦¬ìˆ± myhair_rich    //in(ë§ìŒ,ë³´í†µ,ì ìŒ,íƒˆëª¨,ëª¨ë¦„)
-    myhair_bold      VARCHAR2(20)    NULL, --ëª¨ë°œêµµê¸° myhair_bold  //in(ê°€ëŠ”ëª¨ë°œ,ì¤‘ê°„ëª¨ë°œ,ë‘êº¼ìš´ëª¨ë°œ,ëª¨ë¦„)
-    myhair_vol       VARCHAR2(20)    NULL, --ë³¼ë¥¨ myhair_vol    //in(ë³¼ë¥¨ë¶€ì¡±,ëœ¨ëŠ”ë¨¸ë¦¬,ê³ ë¯¼ì—†ìŒ,ëª¨ë¦„)
-    myhair_status    VARCHAR2(20)    NULL, --ëª¨ë°œìƒíƒœ myhair_status //in(ëŠê¸°ëŠ”ëª¨ë°œ,í‘¸ì„í•œëª¨ë°œ,ê±´ê°•í•œëª¨ë°œ,ëª¨ë¦„)
-    myhair_old       VARCHAR2(20)    NULL, --ëª¨ë°œë…¸í™”ìƒíƒœ myhair_old   //in(ìƒˆì¹˜ì¡°ê¸ˆ,ìƒˆì¹˜ë§ìŒ,ìƒˆì¹˜ì—†ìŒ,ëª¨ë¦„)
+    myhair_scalp     VARCHAR2(20)    NULL, --µÎÇÇ»óÅÂ myhair_scalp //in(Áö¼º,°Ç¼º,ºñµë,¹Î°¨¼º,Áß¼º,¸ğ¸§)
+    myhair_curly     VARCHAR2(20)    NULL, --°ö½½Á¤µµ myhair_curly //in(°ö½½,¹İ°ö½½,Á÷¸ğ,¸ğ¸§)
+    myhair_rich      VARCHAR2(20)    NULL, --¸Ó¸®½¢ myhair_rich    //in(¸¹À½,º¸Åë,ÀûÀ½,Å»¸ğ,¸ğ¸§)
+    myhair_bold      VARCHAR2(20)    NULL, --¸ğ¹ß±½±â myhair_bold  //in(°¡´Â¸ğ¹ß,Áß°£¸ğ¹ß,µÎ²¨¿î¸ğ¹ß,¸ğ¸§)
+    myhair_vol       VARCHAR2(20)    NULL, --º¼·ı myhair_vol    //in(º¼·ıºÎÁ·,¶ß´Â¸Ó¸®,°í¹Î¾øÀ½,¸ğ¸§)
+    myhair_status    VARCHAR2(20)    NULL, --¸ğ¹ß»óÅÂ myhair_status //in(²÷±â´Â¸ğ¹ß,Çª¼®ÇÑ¸ğ¹ß,°Ç°­ÇÑ¸ğ¹ß,¸ğ¸§)
+    myhair_old       VARCHAR2(20)    NULL, --¸ğ¹ß³ëÈ­»óÅÂ myhair_old   //in(»õÄ¡Á¶±İ,»õÄ¡¸¹À½,»õÄ¡¾øÀ½,¸ğ¸§)
     CONSTRAINT HAIR_INFO_PK PRIMARY KEY (customer_no),   
-    check(myhair_scalp in ('ì§€ì„±','ê±´ì„±','ë¹„ë“¬','ë¯¼ê°ì„±','ì¤‘ì„±','ëª¨ë¦„')),
-    check(myhair_curly in ('ê³±ìŠ¬','ë°˜ê³±ìŠ¬','ì§ëª¨','ëª¨ë¦„')),
-    check(myhair_rich in ('ë§ìŒ','ë³´í†µ','ì ìŒ','íƒˆëª¨','ëª¨ë¦„')),
-    check(myhair_bold in ('ê°€ëŠ”ëª¨ë°œ','ì¤‘ê°„ëª¨ë°œ','ë‘êº¼ìš´ëª¨ë°œ','ëª¨ë¦„')),
-    check(myhair_vol in ('ë³¼ë¥¨ë¶€ì¡±','ëœ¨ëŠ”ë¨¸ë¦¬','ê³ ë¯¼ì—†ìŒ','ëª¨ë¦„')),
-    check(myhair_status in ('ëŠê¸°ëŠ”ëª¨ë°œ','í‘¸ì„í•œëª¨ë°œ','ê±´ê°•í•œëª¨ë°œ','ëª¨ë¦„')),
-    check(myhair_old in ('ìƒˆì¹˜ì¡°ê¸ˆ','ìƒˆì¹˜ë§ìŒ','ìƒˆì¹˜ì—†ìŒ','ëª¨ë¦„'))
+    check(myhair_scalp in ('Áö¼º','°Ç¼º','ºñµë','¹Î°¨¼º','Áß¼º','¸ğ¸§')),
+    check(myhair_curly in ('°ö½½','¹İ°ö½½','Á÷¸ğ','¸ğ¸§')),
+    check(myhair_rich in ('¸¹À½','º¸Åë','ÀûÀ½','Å»¸ğ','¸ğ¸§')),
+    check(myhair_bold in ('°¡´Â¸ğ¹ß','Áß°£¸ğ¹ß','µÎ²¨¿î¸ğ¹ß','¸ğ¸§')),
+    check(myhair_vol in ('º¼·ıºÎÁ·','¶ß´Â¸Ó¸®','°í¹Î¾øÀ½','¸ğ¸§')),
+    check(myhair_status in ('²÷±â´Â¸ğ¹ß','Çª¼®ÇÑ¸ğ¹ß','°Ç°­ÇÑ¸ğ¹ß','¸ğ¸§')),
+    check(myhair_old in ('»õÄ¡Á¶±İ','»õÄ¡¸¹À½','»õÄ¡¾øÀ½','¸ğ¸§'))
 );
 
 /
 
-COMMENT ON TABLE hair_info IS 'ì¶”ê°€ì •ë³´'
+COMMENT ON TABLE hair_info IS 'Ãß°¡Á¤º¸'
 /
 
-COMMENT ON COLUMN hair_info.customer_no IS 'íšŒì›ë²ˆí˜¸'
+COMMENT ON COLUMN hair_info.customer_no IS 'È¸¿ø¹øÈ£'
 /
 
-COMMENT ON COLUMN hair_info.myhair_curly IS 'ê³±ìŠ¬ì •ë„'
+COMMENT ON COLUMN hair_info.myhair_curly IS '°ö½½Á¤µµ'
 /
 
-COMMENT ON COLUMN hair_info.myhair_rich IS 'ë¨¸ë¦¬ìˆ±'
+COMMENT ON COLUMN hair_info.myhair_rich IS '¸Ó¸®½¢'
 /
 
-COMMENT ON COLUMN hair_info.myhair_bold IS 'ëª¨ë°œêµµê¸°'
+COMMENT ON COLUMN hair_info.myhair_bold IS '¸ğ¹ß±½±â'
 /
 
-COMMENT ON COLUMN hair_info.myhair_vol IS 'ëª¨ë°œë³¼ë¥¨'
+COMMENT ON COLUMN hair_info.myhair_vol IS '¸ğ¹ßº¼·ı'
 /
 
-COMMENT ON COLUMN hair_info.myhair_status IS 'ëª¨ë°œìƒíƒœ'
+COMMENT ON COLUMN hair_info.myhair_status IS '¸ğ¹ß»óÅÂ'
 /
 
-COMMENT ON COLUMN hair_info.myhair_old IS 'ëª¨ë°œë…¸í™”ìƒíƒœ'
+COMMENT ON COLUMN hair_info.myhair_old IS '¸ğ¹ß³ëÈ­»óÅÂ'
 /
 
 ALTER TABLE hair_info
@@ -336,7 +336,6 @@ ALTER TABLE hair_info
         REFERENCES customer (customer_no)
         ON DELETE CASCADE
 /
-
 
 -- hairshop Table Create SQL
 CREATE TABLE review
@@ -367,37 +366,37 @@ INCREMENT BY 1;
 --DROP SEQUENCE review_SEQ;
 /
 
-COMMENT ON TABLE review IS 'ë¦¬ë·°'
+COMMENT ON TABLE review IS '¸®ºä'
 /
 
-COMMENT ON COLUMN review.review_no IS 'ë¦¬ë·°ë²ˆí˜¸'
+COMMENT ON COLUMN review.review_no IS '¸®ºä¹øÈ£'
 /
 
-COMMENT ON COLUMN review.shop_no IS 'ë¯¸ìš©ì‹¤ë²ˆí˜¸'
+COMMENT ON COLUMN review.shop_no IS '¹Ì¿ë½Ç¹øÈ£'
 /
 
-COMMENT ON COLUMN review.designer_no IS 'ë””ìì´ë„ˆë²ˆí˜¸'
+COMMENT ON COLUMN review.designer_no IS 'µğÀÚÀÌ³Ê¹øÈ£'
 /
 
-COMMENT ON COLUMN review.customer_no IS 'íšŒì›ë²ˆí˜¸'
+COMMENT ON COLUMN review.customer_no IS 'È¸¿ø¹øÈ£'
 /
 
-COMMENT ON COLUMN review.style_no IS 'ì‹œìˆ ë²ˆí˜¸'
+COMMENT ON COLUMN review.style_no IS '½Ã¼ú¹øÈ£'
 /
 
-COMMENT ON COLUMN review.review_content IS 'ë¦¬ë·°ë‚´ìš©'
+COMMENT ON COLUMN review.review_content IS '¸®ºä³»¿ë'
 /
 
-COMMENT ON COLUMN review.review_rate IS 'í‰ì '
+COMMENT ON COLUMN review.review_rate IS 'ÆòÁ¡'
 /
 
-COMMENT ON COLUMN review.review_likes IS 'ì¢‹ì•„ìš”ìˆ˜'
+COMMENT ON COLUMN review.review_likes IS 'ÁÁ¾Æ¿ä¼ö'
 /
 
-COMMENT ON COLUMN review.review_date IS 'ì‘ì„±ë‚ ì§œ'
+COMMENT ON COLUMN review.review_date IS 'ÀÛ¼º³¯Â¥'
 /
 
-COMMENT ON COLUMN review.review_img IS 'ë¦¬ë·°ì´ë¯¸ì§€'
+COMMENT ON COLUMN review.review_img IS '¸®ºäÀÌ¹ÌÁö'
 /
 
 ALTER TABLE review
@@ -419,7 +418,7 @@ ALTER TABLE review
     ADD CONSTRAINT FK_review_style_no_style_style FOREIGN KEY (style_no)
         REFERENCES style (style_no)
 /
--- ì‹œìˆ  ê°€ê²© í…Œì´ë¸”
+-- ½Ã¼ú °¡°İ Å×ÀÌºí
 CREATE TABLE shop_price
 (
     shop_price_no    NUMBER    NOT NULL, 
@@ -432,7 +431,7 @@ CREATE SEQUENCE shop_price_SEQ
 START WITH 1
 INCREMENT BY 1;
 /
---ì™¸ë˜í‚¤ ì¶”ê°€
+--¿Ü·¡Å° Ãß°¡
 ALTER TABLE shop_price
     ADD CONSTRAINT shop_price_shop_noFK FOREIGN KEY (shop_no)
         REFERENCES hairshop (shop_no)
@@ -467,10 +466,13 @@ CREATE TABLE reserve
     reserve_status           char(6)          NOT NULL, 
     reserve_cust_req         VARCHAR2(300)    NULL, 
     reserve_designer_req     VARCHAR2(300)    NULL, 
-    reserve_designer_memo    VARCHAR2(300)    NULL, 
+    reserve_designer_memo    VARCHAR2(300)    NULL,
+    reserve_startdate        DATE         ,
+    reserve_enddate         DATE,
+    reserve_title           varchar2(50),
     CONSTRAINT RESERVE_PK PRIMARY KEY (reserve_no),
-    --íƒœë¯¼ check ì œì•½ì¡°ê±´ ì¶”ê°€
-    check(reserve_status in ('ì˜ˆì•½','ì™„ë£Œ','ì·¨ì†Œ'))
+    --ÅÂ¹Î check Á¦¾àÁ¶°Ç Ãß°¡
+    check(reserve_status in ('¿¹¾à','¿Ï·á','Ãë¼Ò'))
 )
 /
 
@@ -486,34 +488,34 @@ INCREMENT BY 1;
 --DROP SEQUENCE reserve_SEQ;
 /
 
-COMMENT ON TABLE reserve IS 'ì˜ˆì•½'
+COMMENT ON TABLE reserve IS '¿¹¾à'
 /
 
-COMMENT ON COLUMN reserve.reserve_no IS 'ì˜ˆì•½ë²ˆí˜¸'
+COMMENT ON COLUMN reserve.reserve_no IS '¿¹¾à¹øÈ£'
 /
 
-COMMENT ON COLUMN reserve.customer_no IS 'ì†ë‹˜ë²ˆí˜¸'
+COMMENT ON COLUMN reserve.customer_no IS '¼Õ´Ô¹øÈ£'
 /
 
-COMMENT ON COLUMN reserve.designer_no IS 'ë””ìì´ë„ˆë²ˆí˜¸'
+COMMENT ON COLUMN reserve.designer_no IS 'µğÀÚÀÌ³Ê¹øÈ£'
 /
 
-COMMENT ON COLUMN reserve.shop_no IS 'ë¯¸ìš©ì‹¤ë²ˆí˜¸'
+COMMENT ON COLUMN reserve.shop_no IS '¹Ì¿ë½Ç¹øÈ£'
 /
 
-COMMENT ON COLUMN reserve.reserve_date IS 'ì˜ˆì•½ì¼ì‹œ'
+COMMENT ON COLUMN reserve.reserve_date IS '¿¹¾àÀÏ½Ã'
 /
 
-COMMENT ON COLUMN reserve.reserve_status IS 'ìƒíƒœì½”ë“œ'
+COMMENT ON COLUMN reserve.reserve_status IS '»óÅÂÄÚµå'
 /
 
-COMMENT ON COLUMN reserve.reserve_cust_req IS 'ì†ë‹˜ ìš”ì²­ì‚¬í•­'
+COMMENT ON COLUMN reserve.reserve_cust_req IS '¼Õ´Ô ¿äÃ»»çÇ×'
 /
 
-COMMENT ON COLUMN reserve.reserve_designer_req IS 'ë””ìì´ë„ˆ ìš”ì²­ì‚¬í•­'
+COMMENT ON COLUMN reserve.reserve_designer_req IS 'µğÀÚÀÌ³Ê ¿äÃ»»çÇ×'
 /
 
-COMMENT ON COLUMN reserve.reserve_designer_memo IS 'ë””ìì´ë„ˆ ì†ë‹˜ì— ëŒ€í•œ ë©”ëª¨'
+COMMENT ON COLUMN reserve.reserve_designer_memo IS 'µğÀÚÀÌ³Ê ¼Õ´Ô¿¡ ´ëÇÑ ¸Ş¸ğ'
 /
 
 ALTER TABLE reserve
@@ -559,16 +561,16 @@ INCREMENT BY 1;
 --DROP SEQUENCE designer_list_SEQ;
 /
 
-COMMENT ON TABLE designer_list IS 'ë””ìì´ë„ˆë¦¬ìŠ¤íŠ¸'
+COMMENT ON TABLE designer_list IS 'µğÀÚÀÌ³Ê¸®½ºÆ®'
 /
 
-COMMENT ON COLUMN designer_list.designerlist_no IS 'ë””ìì´ë„ˆë¦¬ìŠ¤íŠ¸ëª©ë¡ë²ˆí˜¸'
+COMMENT ON COLUMN designer_list.designerlist_no IS 'µğÀÚÀÌ³Ê¸®½ºÆ®¸ñ·Ï¹øÈ£'
 /
 
-COMMENT ON COLUMN designer_list.shop_no IS 'í—¤ì–´ìƒµë²ˆí˜¸'
+COMMENT ON COLUMN designer_list.shop_no IS 'Çì¾î¼¥¹øÈ£'
 /
 
-COMMENT ON COLUMN designer_list.designer_no IS 'ë””ìì´ë„ˆë²ˆí˜¸'
+COMMENT ON COLUMN designer_list.designer_no IS 'µğÀÚÀÌ³Ê¹øÈ£'
 /
 
 ALTER TABLE designer_list
@@ -589,16 +591,16 @@ ALTER TABLE designer_list
 --DROP SEQUENCE style_list_SEQ;
 /
 
-COMMENT ON TABLE style_list IS 'í—¤ì–´ìŠ¤íƒ€ì¼ë¦¬ìŠ¤íŠ¸'
+COMMENT ON TABLE style_list IS 'Çì¾î½ºÅ¸ÀÏ¸®½ºÆ®'
 /
 
-COMMENT ON COLUMN style_list.stylelist_no IS 'í—¤ì–´ìŠ¤íƒ€ì¼ë¦¬ìŠ¤íŠ¸ë²ˆí˜¸'
+COMMENT ON COLUMN style_list.stylelist_no IS 'Çì¾î½ºÅ¸ÀÏ¸®½ºÆ®¹øÈ£'
 /
 
-COMMENT ON COLUMN style_list.style_no IS 'í—¤ì–´ìŠ¤íƒ€ì¼ë²ˆí˜¸'
+COMMENT ON COLUMN style_list.style_no IS 'Çì¾î½ºÅ¸ÀÏ¹øÈ£'
 /
 
-COMMENT ON COLUMN style_list.designer_no IS 'ë””ìì´ë„ˆë²ˆí˜¸'
+COMMENT ON COLUMN style_list.designer_no IS 'µğÀÚÀÌ³Ê¹øÈ£'
 /
 
 ALTER TABLE style_list
@@ -634,19 +636,19 @@ INCREMENT BY 1;
 --DROP SEQUENCE likes_SEQ;
 /
 
-COMMENT ON TABLE likes IS 'ì¢‹ì•„ìš”'
+COMMENT ON TABLE likes IS 'ÁÁ¾Æ¿ä'
 /
 
-COMMENT ON COLUMN likes.like_no IS 'ì¢‹ì•„ìš”ë²ˆí˜¸'
+COMMENT ON COLUMN likes.like_no IS 'ÁÁ¾Æ¿ä¹øÈ£'
 /
 
-COMMENT ON COLUMN likes.customer_no IS 'íšŒì›ë²ˆí˜¸'
+COMMENT ON COLUMN likes.customer_no IS 'È¸¿ø¹øÈ£'
 /
 
-COMMENT ON COLUMN likes.like_type IS 'êµ¬ë¶„íƒ€ì…(h rs'
+COMMENT ON COLUMN likes.like_type IS '±¸ºĞÅ¸ÀÔ(h rs'
 /
 
-COMMENT ON COLUMN likes.like_type_no IS 'í—¤ì–´ìƒµë²ˆí˜¸ or ì‹œìˆ ë²ˆí˜¸'
+COMMENT ON COLUMN likes.like_type_no IS 'Çì¾î¼¥¹øÈ£ or ½Ã¼ú¹øÈ£'
 /
 
 ALTER TABLE likes
@@ -678,19 +680,19 @@ INCREMENT BY 1;
 
 --DROP SEQUENCE admin_SEQ;
 /
--- review_comment table (ì€ì˜)
+-- review_comment table (Àº¿µ)
 CREATE TABLE REVIEW_COMMENT(
-    REVIEW_COMMENT_NO    NUMBER PRIMARY KEY,    -- ë‹µê¸€ ì‹ë³„ë²ˆí˜¸
-    REVIEW_COMMENT_WRITER VARCHAR2(20),         -- ë‹µê¸€ ì‘ì„±ì
-    REVIEW_COMMENT_CONTENT VARCHAR2(1000),      -- ë‹µê¸€ ë‚´ìš©
-    REVIEW_REF NUMBER,                          -- ì–´ë–¤ ë¦¬ë·°ì˜ ë‹µê¸€ì¸ì§€ ê¸°ë¡í•˜ëŠ” ê°’
+    REVIEW_COMMENT_NO    NUMBER PRIMARY KEY,    -- ´ä±Û ½Äº°¹øÈ£
+    REVIEW_COMMENT_WRITER VARCHAR2(20),         -- ´ä±Û ÀÛ¼ºÀÚ
+    REVIEW_COMMENT_CONTENT VARCHAR2(1000),      -- ´ä±Û ³»¿ë
+    REVIEW_REF NUMBER,                          -- ¾î¶² ¸®ºäÀÇ ´ä±ÛÀÎÁö ±â·ÏÇÏ´Â °ª
     REVIEW_COMMENT_DATE VARCHAR2(10),
     CONSTRAINT FK_REVIEW_COMMENT_WRITER FOREIGN KEY (REVIEW_COMMENT_WRITER) REFERENCES DESIGNER(DESIGNER_ID) ON DELETE SET NULL,
     CONSTRAINT FK_REVIEW_REF FOREIGN KEY (REVIEW_REF) REFERENCES REVIEW(REVIEW_NO) ON DELETE CASCADE
 );
 
 CREATE SEQUENCE REVIEW_COMMENT_SEQ;
---ê¹€ì¢…ëª¨ê°€í•¨
+--±èÁ¾¸ğ°¡ÇÔ
 create or replace trigger likes_tri
     AFTER INSERT ON likes
     for each row
@@ -701,14 +703,14 @@ create or replace trigger likes_tri
     end;
     /
 
--- designer_portfolio table (ì€ì˜)
+-- designer_portfolio table (Àº¿µ)
 CREATE TABLE DESIGNER_PORTFOLIO(
-    DESIGNER_PORTFOLIO_NO NUMBER PRIMARY KEY,   -- ê¸€ë²ˆí˜¸
-    DESIGNER_NO NUMBER,                         -- ì‘ì„±ì
-    DESIGNER_PORTFOLIO_STYLE_NAME VARCHAR2(30), -- ì‹œìˆ ëª…
-    DESIGNER_PORTFOLIO_CONTENT VARCHAR2(600),   -- ì½”ë©˜íŠ¸
-    FILEPATH VARCHAR2(300),                     -- ì‹œìˆ ì‚¬ì§„
-    DESIGNER_PORTFOLIO_DATE VARCHAR2(10),       -- ê¸€ì‘ì„±ë‚ ì§œ
+    DESIGNER_PORTFOLIO_NO NUMBER PRIMARY KEY,   -- ±Û¹øÈ£
+    DESIGNER_NO NUMBER,                         -- ÀÛ¼ºÀÚ
+    DESIGNER_PORTFOLIO_STYLE_NAME VARCHAR2(30), -- ½Ã¼ú¸í
+    DESIGNER_PORTFOLIO_CONTENT VARCHAR2(600),   -- ÄÚ¸àÆ®
+    FILEPATH VARCHAR2(300),                     -- ½Ã¼ú»çÁø
+    DESIGNER_PORTFOLIO_DATE VARCHAR2(10),       -- ±ÛÀÛ¼º³¯Â¥
     FOREIGN KEY (DESIGNER_NO) REFERENCES DESIGNER (DESIGNER_NO)
 );
 CREATE SEQUENCE DESIGNER_PORTFOLIO_SEQ;

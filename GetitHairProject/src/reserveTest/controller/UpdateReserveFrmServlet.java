@@ -17,7 +17,7 @@ import reserve.model.vo.ReservePageData;
 /**
  * Servlet implementation class UpdateReserveFrmServlet
  */
-@WebServlet(name = "UpdateReserveFrm", urlPatterns = { "/updateReserveFrmTest" })
+@WebServlet(name = "UpdateReserveFrmTest", urlPatterns = { "/updateReserveFrmTest" })
 public class UpdateReserveFrmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
