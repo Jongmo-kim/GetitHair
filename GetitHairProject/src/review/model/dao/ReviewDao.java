@@ -362,7 +362,6 @@ public class ReviewDao {
 		}finally {
 			JDBCTemplate.close(pstmt);
 		}
-		System.out.println(result);
 		return result;
 	}
 	

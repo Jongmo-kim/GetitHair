@@ -371,18 +371,12 @@ public class ReserveDao {
   		PreparedStatement pstmt = null;
   		ResultSet rset = null;
   		String sql = "select count(*) cnt from reserve where customer_no= ? "+sqlAdd;
-  		try {
-  			
+  		try {  			
   			pstmt = conn.prepareStatement(sql);			
   			pstmt.setInt(1, customer.getCustomerNo());				
   			rset = pstmt.executeQuery();
   			if(rset.next()) {
   				result = rset.getInt("cnt");
-  				System.out.println("totalcount.result = " + result);
-  				System.out.println("totalcount.sql = " + sql);
-  				System.out.println("totalcount.customer.getCustomerNo() = " + customer.getCustomerNo());
-  				System.out.println("totalcount.conn.prepareStatement(sql) = " + conn.prepareStatement(sql));
-  				System.out.println("totalcount.pstmt.executeQuery() = "+pstmt.executeQuery());
   			}			
   		} catch (SQLException e) {
   			e.printStackTrace();
