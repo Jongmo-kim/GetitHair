@@ -20,6 +20,9 @@
 		<li>프로필관리
 			<ul>
 				<li><a
+					href="/updateAllCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>">정보수정 및 탈퇴</a>
+				</li>
+				<li><a
 					href="/updateCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>">Customer프로필보기</a>
 				</li>
 				<li><a

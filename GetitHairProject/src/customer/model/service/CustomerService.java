@@ -165,4 +165,49 @@ public class CustomerService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	public int updateAllHairinfo(Customer customer, Hairinfo hairinfo) {
+		Connection conn =JDBCTemplate.getConnection();
+		int result = 0;
+		result = (new CustomerDao().updateCustomer(conn, customer))*(new HairinfoDao().updateHairinfo(conn, hairinfo));
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int deleteAllCustomer(int customerNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		//int custResult = new CustomerDao().deleteCustomer(conn, customerNo);
+		//int hairinfoResult = new HairinfoDao().deleteHairinfo(conn, customerNo);
+		result = (new CustomerDao().deleteCustomer(conn, customerNo))*(new HairinfoDao().deleteHairinfo(conn, customerNo));
+		//System.out.println("custResult = "+custResult);
+		//System.out.println("hairinfoResult = "+hairinfoResult);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);			
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int insertAllCustomer(Customer customer,Hairinfo hairinfo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		int custResult2 = new CustomerDao().insertCustomer(conn, customer);
+		int hairinfoResult2 = new HairinfoDao().insertHairinfo(conn,hairinfo,customer.getCustomerNo());
+		//result = (new CustomerDao().insertCustomer(conn, customer))*(new HairinfoDao().insertHairinfo(conn,hairinfo,customer.getCustomerNo()));
+		result = custResult2*hairinfoResult2;
+		System.out.println("custResult2 = "+custResult2);
+		System.out.println("hairinfoResult2 = "+hairinfoResult2);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);			
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 }

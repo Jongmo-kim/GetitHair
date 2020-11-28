@@ -10,25 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.CustTemplate;
-import common.DebugTemplate;
 import common.HairinfoTemplate;
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 import hairinfo.model.service.HairinfoService;
 import hairinfo.model.vo.Hairinfo;
-import hairshop.model.vo.Hairshop;
 
 /**
- * Servlet implementation class SignUpCustomerServlet
+ * Servlet implementation class UpdateAllCustomerServlet
  */
-@WebServlet(name = "SignUpCustomer", urlPatterns = { "/signUpCustomer" })
-public class SignUpCustomerServlet extends HttpServlet {
+@WebServlet(name = "UpdateAllCustomer", urlPatterns = { "/updateAllCustomer" })
+public class UpdateAllCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignUpCustomerServlet() {
+    public UpdateAllCustomerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,27 +35,30 @@ public class SignUpCustomerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Customer cust = CustTemplate.setCust(request);
+		Customer customer = CustTemplate.setCust(request);
 		Hairinfo hairinfo = HairinfoTemplate.setHairinfo(request);
-		DebugTemplate.setCurrObjAtSession(request.getSession(), cust, "Customer");
-		DebugTemplate.setCurrObjAtSession(request.getSession(), hairinfo, "hairInfo");
-		//int result = new CustomerService().insertCustomer(cust,hairinfo);
-		int result = new CustomerService().insertAllCustomer(cust, hairinfo);//태민변경테스트
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-		if(result == 0) {
-			request.setAttribute("msg", "회원가입 실패");
-			request.setAttribute("loc", "/");
-		} else {
-			request.setAttribute("msg", "회원가입 성공");
-			request.setAttribute("loc", "/");
+		int result = new CustomerService().updateAllHairinfo(customer,hairinfo);
+		if(result>0) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/updateAllCustomerFrm.jsp");
+			request.setAttribute("msg", "회원정보 수정완료");
+			request.setAttribute("customer", customer);	
+			request.setAttribute("hairinfo", hairinfo);
+			rd.forward(request, response);
+			
+		}else {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+			request.setAttribute("msg", "회원수정에 실패했습니다.");
+			request.setAttribute("loc", "/WEB-INF/views/customer/updateCustomerFrm.jsp");
+			rd.forward(request, response);
 		}
-		rd.forward(request, response);
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
