@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="reserve.model.vo.Reserve"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="customer.model.vo.Customer"%>
@@ -7,6 +8,8 @@
 	ArrayList<Reserve> reserveList = (ArrayList<Reserve>) request.getAttribute("reserveList");
 	String pageNavi = (String) request.getAttribute("pageNavi");
 	String selStatus = (String) request.getAttribute("selStatus");
+	int reqPage= (Integer) request.getAttribute("reqPage");
+	List<String> numList = new ArrayList<String>();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,6 +17,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -48,29 +52,32 @@
 				<div class="tab_container">
 					<h1>예약 <%=selStatus%> List
 					</h1>
+					<input type="checkBox" id="allCheck"><label for="allCheck">전체선택</label>
+					<button type="button" class="btn btn-primary" onclick="location.href='#'">삭제</button>
+					<button type="button" class="btn btn-primary" id="allDelBtn" onclick="location.href='/deleteReserveList?'" >삭제테스트</button>
 					<table class="table" border="1">
-						<tr>
-							<th>1.예약번호</th>
-							<th>2.손님번호</th>
-							<th>3.디자이너번호</th>
-							<th>4.미용실번호</th>
-							<th>5.예약일시</th>
-							<th>6.상태코드</th>
-							<th>7.손님요청사항</th>
-							<th>8.디자이너요청사항</th>
-							<th>9.디자이너손님에 대한메모</th>
+						<tr>							
+							<th>선택</th>
+							<th>예약번호</th>
+							<th>예약일시</th>
+							<th>미용실이름</th>
+							<th>디자이너 이름</th>
+							<th>디자이너 요청사항</th>
+							<th>상태코드</th>
+							<th>기능버튼1</th>
+							<th>기능버튼2</th>							
 						</tr>
 						<%	for (Reserve r : reserveList) {	%>
 						<tr>
+							<td><input type="checkBox" class="subChk" value="<%=r.getReserveNo()%>"></td>
 							<td><%=r.getReserveNo()%></td>
-							<td><%=r.getCustomer().getCustomerNo()%></td>
-							<td><%=r.getDesigner().getDesignerNo()%></td>
-							<td><%=r.getShop().getShopNo()%></td>
 							<td><%=r.getReserveDate()%></td>
-							<td><%=r.getReserveStatus()%></td>
-							<td><%=r.getReserveCustReq()%></td>
+							<td><%=r.getShop().getShopName()%></td>
+							<td><%=r.getDesigner().getDesignerName()%></td>
 							<td><%=r.getReserveDesignerReq()%></td>
-							<td><%=r.getReserveDesignerMemo()%></td>
+							<td><%=r.getReserveStatus()%></td>
+							<td><button type="button" class="btn btn-primary">다시 예약하기</button></td>
+							<td><button onclick = "location.href='/deleteReserve?reserveNo=<%=r.getReserveNo() %>&selStatus=<%=selStatus %>&reqPage=<%=reqPage %>'" type="button" class="btn btn-primary">예약 삭제하기</button></td>							
 						</tr>
 						<%}	%>
 					</table>
@@ -79,6 +86,24 @@
 			</li>
 		</ul>
 	</div>
+	<script>
+	$(function(){
+		$("#allDelBtn").click(function(){
+			var chkList = new Array();
+			var obj = $(".subChk");
+			$("input:checkbox[class='subChk']:checked").each(function(){
+				chkList.push(this.value);				
+			});
+			console.log(chkList);
+		});		
+		$("#allCheck").click(function(){			
+			if($("#allCheck").prop("checked")){
+				$(".subChk").prop("checked",true);
+			}else{
+				$(".subChk").prop("checked",false);
+			}
+		});			
+	});
+	</script>
 </body>
-
 </html>

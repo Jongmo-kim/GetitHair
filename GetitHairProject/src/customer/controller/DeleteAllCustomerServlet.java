@@ -31,7 +31,7 @@ public class DeleteAllCustomerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
-		int result = new CustomerService().deleteAllCustomer(customerNo);
+		int result = new CustomerService().deleteCustomer(customerNo);
 		RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result>0) {
 			request.setAttribute("msg", "회원탈퇴 성공했습니다 ^_^");

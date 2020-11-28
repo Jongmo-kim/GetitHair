@@ -75,7 +75,7 @@ public class ReserveService {
 	public ReservePageData reserveSelectListCustomerSelStatus(int reqPage,Customer customer, String selStatus,String sqlAdd) {
 		Connection conn = JDBCTemplate.getConnection();
 		ReserveDao dao = new ReserveDao();
-		int totalCount = dao.getTotalCountCustomerSelStatus(conn, customer, sqlAdd);
+		int totalCount = dao.getTotalCountCustomerSelStatus(conn, customer.getCustomerNo(), sqlAdd);
 		int numPerPage = 10;
 		int totalPage = totalCount % numPerPage == 0 ? totalCount / numPerPage : totalCount / numPerPage + 1;
 		//System.out.println("service totalCount = "+totalCount);
@@ -123,5 +123,14 @@ public class ReserveService {
 	public Reserve insertReserve(int shopNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public int getReserveTotalPage(int reserveNo, int customerNo, String selStatus, String sqlAdd) {
+		Connection conn = JDBCTemplate.getConnection();
+		ReserveDao dao = new ReserveDao();
+		int totalCount = dao.getTotalCountCustomerSelStatus(conn,customerNo,sqlAdd);
+		int numPerPage = 10;
+		int totalPage = totalCount % numPerPage == 0 ? totalCount / numPerPage : totalCount / numPerPage + 1;		
+		JDBCTemplate.close(conn);
+		return totalPage;
 	}	
 }

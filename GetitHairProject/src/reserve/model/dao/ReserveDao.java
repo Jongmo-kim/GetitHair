@@ -366,14 +366,14 @@ public class ReserveDao {
   		return list;
   	}
    
-   public int getTotalCountCustomerSelStatus(Connection conn,Customer customer, String sqlAdd) {
+   public int getTotalCountCustomerSelStatus(Connection conn,int customerNo, String sqlAdd) {
   		int result =0;
   		PreparedStatement pstmt = null;
   		ResultSet rset = null;
   		String sql = "select count(*) cnt from reserve where customer_no= ? "+sqlAdd;
   		try {  			
   			pstmt = conn.prepareStatement(sql);			
-  			pstmt.setInt(1, customer.getCustomerNo());				
+  			pstmt.setInt(1, customerNo);				
   			rset = pstmt.executeQuery();
   			if(rset.next()) {
   				result = rset.getInt("cnt");
