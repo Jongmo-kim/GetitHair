@@ -1,14 +1,15 @@
 <%@page import="review.model.vo.Review"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%
-   	 ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("listReview");
-     int start = (Integer)request.getAttribute("startReview");
-     int end = (Integer)request.getAttribute("endReview");
-     int reqPage = (Integer)request.getAttribute("reqPageReviw");
-     int maxPageSize = (Integer)request.getAttribute("maxPageSizeReview");
-    %>
+	pageEncoding="UTF-8"%>
+<%
+	ArrayList<Review> list = (ArrayList<Review>) request.getAttribute("list");
+	int start = (Integer) request.getAttribute("start");
+	int end = (Integer) request.getAttribute("end");
+	int reqPage = (Integer) request.getAttribute("reqPage");
+	int maxPageSize = (Integer) request.getAttribute("maxPageSize");
+	int customerNo = (Integer) request.getAttribute("customerNo");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,8 +17,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table border="1">
-			<tr>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<h1>리뷰 관리</h1>
+	<table class="table" border="1">
+		<tr>
 				<th>1.리뷰번호</th>
 				<th>2.미용실번호</th>
 				<th>3.디자이너번호</th>
@@ -42,20 +45,17 @@
 					<td><%=r.getReviewDate() %></td>
 					<td><%=r.getReviewImg()%></td>							
 				</tr>
-				<%} %>			
-		</table>
-		<div>
-			<%if(start!=1){ %>
-				<a href="/selectAllReviewList?reqPage=<%=(start-1) %>">이전</a>
-			<%} %>
-			<%for(int i = start ; i<= end ;i++){ %>
-				<a href = "/selectAllReviewList?reqPage=<%=i%>"> <%=i %></a>
-			<%} %>
-			<%if(end < maxPageSize){ %>
-				<a href="/selectAllReviewList?&reqPage=<%=(end+1) %>">다음</a>
-			<%} %>
-			
-		</div>
-		
+				<%} %>
+	</table>
+	<div>
+		<%if (start != 1) {	%>
+		<a href="/mypageCustReviewList?customerNo=<%=customerNo%>&reqPage=<%=(start - 1)%>">이전</a>
+		<%}%>
+		<%for (int i = start; i <= end; i++) {%>
+		<a href="/mypageCustReviewList?customerNo=<%=customerNo%>&reqPage=<%=i%>"><%=i%></a>
+		<% } %>
+		<% if (end < maxPageSize) {	%>
+		<a href="/mypageCustReviewList?customerNo=<%=customerNo%>&reqPage=<%=(end + 1)%>">다음</a> <%	}%>
+	</div>
 </body>
 </html>

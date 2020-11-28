@@ -382,7 +382,6 @@ public class ReviewDao {
 		}finally {
 			JDBCTemplate.close(pstmt);
 		}
-		System.out.println(result);
 		return result;
 	}
 	public int getMaxPageSizeByShopNo(Connection conn, int maxPrintSize, int shopNo) {

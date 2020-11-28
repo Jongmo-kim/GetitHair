@@ -1,6 +1,7 @@
 package customer.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,8 @@ import customer.model.vo.Customer;
 import reserve.model.service.ReserveService;
 import reserve.model.vo.Reserve;
 import reserve.model.vo.ReservePageData;
+import review.model.service.ReviewService;
+import review.model.vo.Review;
 
 
 /**
@@ -45,7 +48,8 @@ public class MypageCustServlet extends HttpServlet {
 			request.setAttribute("loc", "/");
 			rd.forward(request, response);
 		}
-		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
+		//예약 리스트 view에서 저장
+		int reqPage = Integer.parseInt(request.getParameter("reqPage"));		
 		String selStatus = request.getParameter("selStatus");
 		String sqlAdd ="";
 		if(selStatus.equals("예약")) {
@@ -54,20 +58,15 @@ public class MypageCustServlet extends HttpServlet {
 			sqlAdd = " and reserve_status='완료' ";
 		}else if(selStatus.equals("취소")) {
 			sqlAdd = " and reserve_status='취소' ";
-		}		
-		//System.out.println("loginCustomer.custNo = "+loginCustomer.getCustomerNo());
-		//System.out.println("reqPage = "+reqPage);
-		//System.out.println("selStatus = "+selStatus);
-		//System.out.println("sqlAdd = "+sqlAdd);
-		ReservePageData rpd = new ReserveService().reserveSelectListCustomerSelStatus(reqPage, loginCustomer,selStatus,sqlAdd);
-		//System.out.println("rpd.listSize = "+rpd.getList().size());
-		//System.out.println("rpd.pageNavi = "+rpd.getPageNavi());
-		RequestDispatcher rd1 =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuest.jsp");
-		RequestDispatcher rd2 =request.getRequestDispatcher("/WEB-INF/views/customer/mypageGuestReserveList.jsp");		
-		request.setAttribute("customer", loginCustomer);
-		request.setAttribute("selStatus", selStatus);
-		request.setAttribute("list", rpd.getList());
-		request.setAttribute("pageNavi", rpd.getPageNavi());
+		}	
+		
+		//예약리스트 비지니스로직
+		ReservePageData rpd = new ReserveService().reserveSelectListCustomerSelStatus(reqPage, loginCustomer,selStatus,sqlAdd);				
+		RequestDispatcher rd1 =request.getRequestDispatcher("/WEB-INF/views/customer/mypageCust.jsp");		
+		request.setAttribute("reserveList", rpd.getList()); 
+		request.setAttribute("pageNavi", rpd.getPageNavi()); 
+		request.setAttribute("selStatus", selStatus);  
+
 		rd1.forward(request, response);	
 
 	}
