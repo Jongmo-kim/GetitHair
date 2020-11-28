@@ -468,7 +468,7 @@ CREATE TABLE reserve
     reserve_designer_req     VARCHAR2(300)    NULL, 
     reserve_designer_memo    VARCHAR2(300)    NULL,
     reserve_startdate        DATE         ,
-    reserve_enddate         DATE,
+    reserve_enddate         DATE        ,
     reserve_title           varchar2(50),
     CONSTRAINT RESERVE_PK PRIMARY KEY (reserve_no),
     --태민 check 제약조건 추가

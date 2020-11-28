@@ -38,7 +38,7 @@ BEGIN
         INSERT INTO DESIGNER_LIST VALUES(DESIGNER_LIST_SEQ.NEXTVAL,DESIGNER_SEQ.currval,DESIGNER_SEQ.currval);
         INSERT INTO STYLE VALUES(STYLE_SEQ.NEXTVAL,'perm','스타일이름','이미지주소',0);
         INSERT INTO STYLE_LIST VALUES(style_list_seq.nextval,style_list_seq.currval,style_list_seq.currval,style_list_seq.currval);
-        INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,RESERVE_SEQ.currval,RESERVE_SEQ.currval,RESERVE_SEQ.currval,RESERVE_SEQ.currval,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모',sysdate-NUM1*20,sysdate-NUM1*20-2,'reservetitle');
+      INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모',sysdate-NUM1*20-2, sysdate-NUM1*20,'reservetitle');
         INSERT INTO REVIEW VALUES(review_seq.nextval,review_seq.currval,review_seq.currval,review_seq.currval,review_seq.currval,'리뷰인데 이 미용실 디자이너분 정말 마음에드네요',5,0,SYSDATE,NULL);
         INSERT INTO LIKES VALUES(likes_seq.nextval,likes_seq.currval,decode(MOD(floor(DBMS_RANDOM.VALUE(1,4)),3),0,'h',1,'r',2,'s'),likes_seq.currval);
         INSERT INTO DESIGNER_PORTFOLIO VALUES(DESIGNER_PORTFOLIO_SEQ.NEXTVAL,1,'레이어드컷','레이어드컷 시술 사진입니다.','img01.jpg',TO_CHAR(SYSDATE,'yyyy-mm-dd'));    -- 포트폴리오 insert문
@@ -61,3 +61,4 @@ END;
 COMMIT;
 
 select * from reserve;
+commit;

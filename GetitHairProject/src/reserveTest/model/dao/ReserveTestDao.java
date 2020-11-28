@@ -1,6 +1,7 @@
 package reserveTest.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -390,5 +391,25 @@ public class ReserveTestDao {
   			JDBCTemplate.close(pstmt);
   		}		
   		return result;
-  	}   
+  	}
+
+public int updateDateReserveTest(Connection conn, int no, String title, Date startDate, Date endDate) {
+	PreparedStatement pstmt = null;
+	String sql = "update reserve set reserve_startdate = ? , reserve_endDate = ?, reserve_title = ? where reserve_no = ?";
+	int result = 0;
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setDate(1, startDate);
+		pstmt.setDate(2, endDate);
+		pstmt.setString(3, title);
+		pstmt.setInt(4, no);
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally{
+		JDBCTemplate.close(pstmt);
+	}
+	
+	return result;
+}   
 }

@@ -6,7 +6,9 @@
     pageEncoding="UTF-8"%>
    <%
    		ArrayList<ReserveTest> rt1 = new ReserveTestService().selectAllByDesigner(1);
-   		
+   		if(rt1 == null){
+   			 rt1  = new ArrayList<ReserveTest>();
+   		}
    %>
 <!DOCTYPE html>
 <html>
@@ -97,10 +99,12 @@
     		  $('#submitBtn').hide();
     		 },
     	 success : function(data){
-    		 $("#ajaxResult").html(data);
+    		 var result = data.result;
+    		 $("#ajaxResult").html('수정된 reserve 갯수 :'+result);
     	 },
     	 error : function(data){
-    		 $("#ajaxResult").html(data);
+    		 var result = data.result;
+    		 $("#ajaxResult").html(result);
     	 },
     	 	complete: function() {
     		  $('#loading_indicator').fadeOut();
@@ -133,14 +137,16 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<h1 id="ajaxResult">수정여부</h1>
   <div id='calendar'></div>
-  <div>
-  <button id="submitBtn" type="button">제출하기</button>
-  </div>
-	<div id="indicator" style="display:block;">
-	 <p style="text-align: center; padding: 16px 0 0 0; left: 50%; top: 50%; position: absolute;">
+  <div style="position:fixed; top:500px;">
+  	<button id="submitBtn" type="button" class="btn btn-primary" style="width:200px; height:200px">제출하기</button>
+  	<div id="loading_indicator" style="display:none;">
+	 <p style="text-align: center; top:0;  position: absolute;">
 	 	<img src="/img/signup/loading.gif" />
 	 </p>
 	</div>
+  </div>
+	
 </body>
 </html>
