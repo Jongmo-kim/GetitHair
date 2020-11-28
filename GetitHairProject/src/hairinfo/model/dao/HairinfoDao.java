@@ -89,8 +89,8 @@ public class HairinfoDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, customerNo);
 			result = pstmt.executeUpdate();
+			System.out.println("result : " + result);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(pstmt);
@@ -166,6 +166,10 @@ public class HairinfoDao {
 			JDBCTemplate.close(pstmt);
 		}	
 		return result;
+	}
+	public int insertHairinfo(Connection conn, int customerNo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

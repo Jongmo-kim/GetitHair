@@ -165,4 +165,41 @@ public class CustomerService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	public int updateAllHairinfo(Customer customer, Hairinfo hairinfo) {
+		Connection conn =JDBCTemplate.getConnection();
+		int result = 0;
+		result = (new CustomerDao().updateCustomer(conn, customer))*(new HairinfoDao().updateHairinfo(conn, hairinfo));
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int deleteAllCustomer(int customerNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		result = (new HairinfoDao().deleteHairinfo(conn, customerNo))*(new CustomerDao().deleteCustomer(conn, customerNo));
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);			
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int insertAllCustomer(Customer customer, Hairinfo hairinfo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		result = (new HairinfoDao().insertHairinfo(conn, hairinfo,customer.getCustomerNo()))*(new CustomerDao().insertCustomer(conn, customer));
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);			
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	
 }
