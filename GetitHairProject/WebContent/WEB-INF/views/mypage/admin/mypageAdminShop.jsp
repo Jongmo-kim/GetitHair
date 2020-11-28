@@ -97,6 +97,9 @@
                 </tfoot>
             </table>
         </div>
+        <div class="page-nav">
+
+        </div>
     </div>
     <div class="admin-main-container">
         <header>
@@ -105,14 +108,7 @@
         <section>
             <div class="admin-content">
                 <form action="/mypageAdminCustomer" method="GET">
-                    <div class="customer-search">
-                        <select name="searchType">
-                            <option value="1" ${param.searchType == 1 ? "selected" : ""}>아이디</option>
-                            <option value="2" ${param.searchType == 2 ? "selected" : ""}>이름</option>
-                        </select>
-                        <input type="text" name="keyword" value="<%=keyword%>">
-                        <button>검색</button>
-                    </div>
+                    <%@ include file="/WEB-INF/views/mypage/admin/common/search-nav.jsp"%>
                 </form>
                 <form action="/adminDeleteCustomer">
                     <div class="customer-list-wrap">
@@ -142,7 +138,7 @@
                                             <th>${hs.shopLikes}</th>
                                             <th>${hs.addrPostcode}</th>
                                             <th>
-                                                <button id="rvbtn" type="button">작성한 리뷰보기</button>
+                                                <button class="rvbtn" type="button">미용실 리뷰목록</button>
                                                 <button>탈퇴</button>
                                             </th>
                                         </tr>
@@ -218,27 +214,101 @@
                 if (confirm("정말 삭제하시겠습니까?")) {
 
                     let reviewNo = $(this).val();
+                    let shopNo = $(this).attr("data-shopNo");
                     $.ajax({
                         url: "/adminDeleteReview",
                         type: "post",
                         cache: false,
                         dataType: "text",
                         data: {
-                            reviewNo: reviewNo
+                            reviewNo: reviewNo,
+                            isAjax: true
                         },
                         success: function (data) {
                             alert(data);
                             console.log(data);
                             //삭제후 리스트를 다시 불러옴.
-                            $("#rvbtn").trigger("click");
+                            $(".review-list").children('tbody').empty();
+                            reviewAjax(shopNo, 1);
                         }
                     })
                 }
                 e.stopPropagation();
             });
         }
+        function setClickToPageNo(shopNo, reqPage) {
+            $(document).off("click", ".page-no");
+            $(document).on("click", ".page-no", function (e) {
+                $(".review-list").children('tbody').empty();
+                reviewAjax(shopNo, reqPage);
+
+            });
+        }
+        //리뷰목록 불러오기
+        function reviewAjax(shopNo, reqPage) {
+            $.ajax({
+                url: "/adminSelectShopReview",
+                type: "post",
+                cache: false,
+                dataType: "json",
+                data: {
+                    shopNo: shopNo,
+                    reqPage: reqPage
+                },
+                success: function (data) {
+                    if (data != null)
+                        for (var i = 0; i < data.length; i++) {
+                            var html = [
+                                "<tr class='row-review'>",
+                                "<th width='30'><input type='checkbox' name='chk' value='" + data[i]
+                                .reviewNo + "'></th>",
+                                "<th>" + data[i].reviewNo + "</th>",
+                                "<th>" + data[i].shop.shopName + "</th>",
+                                "<th>" + data[i].designer.designerName + "</th>",
+                                "<th>" + data[i].customer.customerId + "</th>",
+                                "<th>" + data[i].reviewContent + "</th>",
+                                "<th><button class='delete-review' value='" + data[i].reviewNo +
+                                "'data-shopNo='"+data[i].shop.shopNo+"'>삭제</button></th>",
+                                "</tr>"
+                            ];
+                            $(".review-list").children('tbody').append(html.join());
+                        }
+                        reviewPagingAjax(shopNo,reqPage);
+                        console.log(data);
+                }
+            })
+        }
+        //리뷰목록 페이징
+        function reviewPagingAjax(shopNo, reqPage) {
+            $(".review-container .page-nav").empty();
+            $.ajax({
+                url: "/adminSelectReviewPaging",
+                type: "post",
+                cache: false,
+                dataType: "json",
+                data: {
+                    shopNo: shopNo,
+                    reqPage: reqPage
+                },
+                success: function (data) {
+                    let html = [];
+
+                    if (data.pageStart != 1) {
+                        html.push('<a href="#">이전</a>');
+                    }
+                    for (let i = data.pageStart; i <= data.pageEnd; i++) {
+                        html.push('<a href="#" class="page-no" style="' + (i == data.reqPage ?
+                            "color: black;" : "") + '">' + i + '</a>');
+                    }
+                    if (data.pageEnd < data.maxPageSize) {
+                        html.push('<a href="#">다음</a>');
+                    }
+                    $(".review-container .page-nav").append(html.join());
+                }
+            })
+        }
         $(function () {
-            $(".admin-nav a:eq(4)").css("background-color", "whitesmoke");
+            $(".admin-nav a:eq(5)").css("background-color", "whitesmoke");
             setClickToTr();
             setClickToChk()
             $(".modal-overlay").click(function (e) {
@@ -249,45 +319,20 @@
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
             })
-            //리뷰 보기 버튼 클릭 이벤트
-            $("#rvbtn").click(function (e) {
+            //미용실 리뷰 목록 버튼 클릭 이벤트
+            $(".rvbtn").click(function (e) {
                 $(".modal-overlay").css("display", "block");
                 $(".review-container").css("display", "block");
                 $(".review-list").children('tbody').empty();
-                var customerNo = $(this).parent().siblings('th').eq(1).text();
-                $.ajax({
-                    url: "/adminSelectCustomerReview",
-                    type: "post",
-                    cache: false,
-                    dataType: "json",
-                    data: {
-                        customerNo: customerNo
-                    },
-                    success: function (data) {
-                        if (data != null)
-                            for (var i = 0; i < data.length; i++) {
-                                var html = [
-                                    "<tr class='row-review'>",
-                                    "<th width='30'><input type='checkbox' name='chk' value='" +
-                                    data[i].reviewNo + "'></th>",
-                                    "<th>" + data[i].reviewNo + "</th>",
-                                    "<th>" + data[i].shop.shopName + "</th>",
-                                    "<input type='hidden' name='customerId' value='" +
-                                    data[i].designer.designerNo + "'>",
-                                    "<th>" + data[i].designer.designerName + "</th>",
-                                    "<th>" + data[i].customer.customerId + "</th>",
-                                    "<th>" + data[i].reviewContent + "</th>",
-                                    "<th><button class='delete-review' value='" + data[
-                                        i].reviewNo + "'>삭제</button></th>",
-                                    "</tr>"
-                                ];
-                                $(".review-list").children('tbody').append(html.join());
-                            }
-                    }
-                })
+                var shopNo = $(this).parent().siblings('th').eq(1).text();
+                var reqPage = 1;
+                reviewAjax(shopNo, reqPage); // ajax 실행
+
                 setClickToReviewTr();
                 setClickToChk()
                 setClickToRemoveReviewBtn();
+
+                setClickToPageNo(shopNo, reqPage);
                 e.stopPropagation();
             })
 

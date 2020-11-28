@@ -34,11 +34,14 @@ public class AdminDeleteReviewServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		// 값 받기
-		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+		String[] reviewNo = request.getParameterValues("reviewNo");
 		String isAjax = request.getParameter("isAjax"); // Ajax 요청인지 아닌지 판단
 
 		// 비즈니스 로직
-		int result = new ReviewService().deleteReviewByReviewNo(reviewNo);
+		int result = 0;
+		for (int i = 0; i < reviewNo.length; i++) {
+			result += new ReviewService().deleteReviewByReviewNo(Integer.parseInt((reviewNo[i])));
+		}
 		if (isAjax != null) { // Ajax를 이용한 요청일 경우
 			response.setContentType("text/plain; charset=utf-8");
 			if (result > 0) {

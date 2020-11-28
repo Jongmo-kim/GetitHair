@@ -45,7 +45,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "SELECT * FROM (SELECT ROWNUM RN,RV.* FROM "
-				+ "(SELECT RV.* FROM review RV ORDER BY RV.REVIEW_NO DESC) RV) "
+				+ "(SELECT * FROM review ORDER BY REVIEW_NO DESC) RV) "
 				+ "WHERE RN BETWEEN ? AND ?";
 		ArrayList<Review> list = new ArrayList<Review>();
 		try {
@@ -70,7 +70,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "select * from review";
-		ArrayList<Review> list = new ArrayList<Review>();;
+		ArrayList<Review> list = new ArrayList<Review>();
 		try {
 			pstmt=conn.prepareStatement(qrySelect);
 			rs = pstmt.executeQuery();
@@ -86,6 +86,26 @@ public class ReviewDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return list;
+	}
+	public int selectAllReviewCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "select count(*) from review";
+		int count = 0;
+		try {
+			pstmt=conn.prepareStatement(qrySelect);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return count;
 	}
 	public ArrayList<Review> selectAllReviewByCustomerNo(Connection conn, int customerNo, int reqPage,
 			int maxPrintSize) {
@@ -365,6 +385,30 @@ public class ReviewDao {
 		System.out.println(result);
 		return result;
 	}
+	public int getMaxPageSizeByShopNo(Connection conn, int maxPrintSize, int shopNo) {
+		PreparedStatement pstmt = null;
+		String qrySelect = "select count(*) cnt from review where shop_no = ?";
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(qrySelect);
+			pstmt.setInt(1, shopNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("cnt");
+				if(result != 0) {
+					result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
 	
 	// 리뷰 넘버로 해당리뷰 조회
 	public Review selectOneReview(Connection conn, int reviewNo) {
@@ -483,6 +527,7 @@ public class ReviewDao {
 		}
 		return result;
 	}
+	
 	
 	
 }

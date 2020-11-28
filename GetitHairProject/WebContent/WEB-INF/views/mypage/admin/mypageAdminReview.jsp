@@ -47,13 +47,7 @@
         <section>
             <div class="admin-content">
                 <form action="/mypageAdminReview" method="GET">
-                    <div class="review-search">
-                        <select name="searchType">
-                            <option value="1" ${param.searchType==1 ? "selected" : "" }>아이디</option>
-                        </select>
-                        <input type="text" name="keyword" value="<%=keyword%>">
-                        <button>검색</button>
-                    </div>
+                    <%@ include file="/WEB-INF/views/mypage/admin/common/search-nav.jsp"%>
                 </form>
                 <form action="/adminDeleteReview">
                     <div class="review-list-wrap">
@@ -78,10 +72,9 @@
                                             <th>${rv.reviewNo}</th>
                                             <th>${rv.shop.shopName}</th>
                                             <th>${rv.designer.designerName}</th>
-                                            <th>${rv.customer.customerId}</th>
+                                            <th>${empty rv.customer.customerId ? "탈퇴한 회원" : rv.customer.customerId}</th>
                                             <th>${rv.reviewContent}</th>
                                             <th>
-                                                <button id="rvbtn" type="button">작성한 리뷰보기</button>
                                                 <button class="del-one-btn">삭제</button>
                                             </th>
                                         </tr>
@@ -91,7 +84,8 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="7">
-                                        <button class="del-btn">선택회원 탈퇴</button>
+                                        <button class="btn-allcheck" type="button">전체선택</button>
+                                        <button class="del-btn">선택리뷰 삭제</button>
                                         <button type="reset">전체 선택해제</button>
                                     </th>
                                 </tr>
@@ -150,6 +144,12 @@
                 }
             });
         }
+        function toggleCheckbox(checkbox) {
+            if ($(checkbox).prop("checked") == true)
+                $(checkbox).prop("checked", false);
+            else if ($(checkbox).prop("checked") == false)
+                $(checkbox).prop("checked", true);
+        }
         $(function () {
             $(".admin-nav a:eq(2)").css("background-color", "whitesmoke");
             setClickToTr();
@@ -161,6 +161,11 @@
             $("#close-modal").click(function (e) {
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
+            })
+            // 전체 선택 버튼 클릭 이벤트
+            $(".btn-allcheck").on("click", function (e) {
+                toggleCheckbox($(".admin-content tbody th>input:checkbox"));
+                
             })
             //리뷰 삭제 버튼 클릭 이벤트
             $(".del-one-btn").on("click", function (e) {
@@ -174,44 +179,6 @@
                 if (!confirm("정말 삭제하시겠습니까?")) {
                     return false; //취소 눌렀을 시 submit 이벤트 발생 방지
                 }
-            })
-            //리뷰 보기 버튼 클릭 이벤트
-            $("#rvbtn").click(function (e) {
-                $(".modal-overlay").css("display", "block");
-                $(".review-container").css("display", "block");
-                $(".review-list").children('tbody').empty();
-                var customerNo = $(this).parent().siblings('th').eq(1).text();
-                $.ajax({
-                    url: "/adminSelectCustomerReview",
-                    type: "post",
-                    cache: false,
-                    dataType: "json",
-                    data: {
-                        customerNo: 1
-                    },
-                    success: function (data) {
-                        for (var i = 0; i < data.length; i++) {
-                            var html = [
-                                "<tr class='row-review'>",
-                                "<th width='30'><input type='checkbox' name='chk' value='" +
-                                data[i].reviewNo + "'></th>",
-                                "<th>" + data[i].reviewNo + "</th>",
-                                "<th>" + data[i].shop.shopName + "</th>",
-                                "<input type='hidden' name='customerId' value='" + data[
-                                    i].designer.designerNo + "'>",
-                                "<th>" + data[i].designer.designerName + "</th>",
-                                "<th>" + data[i].customer.customerId + "</th>",
-                                "<th>" + data[i].reviewContent + "</th>",
-                                "<th><button>삭제</button></th>",
-                                "</tr>"
-                            ];
-                            $(".review-list").children('tbody').append(html.join());
-                        }
-                    }
-                })
-                setClickToReviewTr();
-                setClickToChk()
-                e.stopPropagation();
             })
 
         });

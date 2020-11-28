@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
 %>
 <!DOCTYPE html>
 <html>
@@ -108,14 +107,7 @@
         <section>
             <div class="admin-content">
                 <form action="/mypageAdminCustomer" method="GET">
-                    <div class="customer-search">
-                        <select name="searchType">
-                            <option value="1" ${param.searchType==1 ? "selected" : "" }>아이디</option>
-                            <option value="2" ${param.searchType==2 ? "selected" : "" }>이름</option>
-                        </select>
-                        <input type="text" name="keyword" value="<%=keyword%>">
-                        <button>검색</button>
-                    </div>
+                    <%@ include file="/WEB-INF/views/mypage/admin/common/search-nav.jsp"%>
                 </form>
                 <form action="/adminDeleteCustomer" method="POST">
                     <div class="customer-list-wrap">
@@ -135,8 +127,8 @@
                                 <c:if test="${not empty list}">
                                     <c:forEach var="c" items="${list}">
                                         <tr>
-                                            <th width="30"><input type="checkbox" name="customerId"
-                                                    value="${c.customerId}">
+                                            <th width="30"><input type="checkbox" name="customerNo"
+                                                    value="${c.customerNo}">
                                             </th>
                                             <th>${c.customerNo}</th>
                                             <th>${c.customerId}</th>
@@ -154,6 +146,7 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="7">
+                                        <button class="btn-allcheck" type="button">전체선택</button>
                                         <button class="del-btn">선택회원 탈퇴</button>
                                         <button type="reset">전체 선택해제</button>
                                     </th>
@@ -220,19 +213,21 @@
                 if (confirm("정말 삭제하시겠습니까?")) {
 
                     let reviewNo = $(this).val();
+                    let customerNo = $(this).attr("data-customerNo");
                     $.ajax({
                         url: "/adminDeleteReview",
                         type: "post",
                         cache: false,
                         dataType: "text",
                         data: {
-                            reviewNo: reviewNo
+                            reviewNo: reviewNo,
+                            isAjax: true
                         },
                         success: function (data) {
                             alert(data);
-                            console.log(data);
                             //삭제후 리스트를 다시 불러옴.
-                            $("#rvbtn").trigger("click");
+                            $(".review-list").children('tbody').empty();
+                            reviewAjax(customerNo, 1);
                         }
                     })
                 }
@@ -245,11 +240,10 @@
             $(document).on("click", ".page-no", function (e) {
                 $(".review-list").children('tbody').empty();
                 reviewAjax(customerNo, reqPage);
-                reviewPagingAjax(customerNo, reqPage);
 
             });
         }
-
+        //리뷰목록 불러오기
         function reviewAjax(customerNo, reqPage) {
             $.ajax({
                 url: "/adminSelectCustomerReview",
@@ -269,21 +263,20 @@
                                 .reviewNo + "'></th>",
                                 "<th>" + data[i].reviewNo + "</th>",
                                 "<th>" + data[i].shop.shopName + "</th>",
-                                "<input type='hidden' name='customerId' value='" + data[i].designer
-                                .designerNo + "'>",
                                 "<th>" + data[i].designer.designerName + "</th>",
                                 "<th>" + data[i].customer.customerId + "</th>",
                                 "<th>" + data[i].reviewContent + "</th>",
                                 "<th><button class='delete-review' value='" + data[i].reviewNo +
-                                "'>삭제</button></th>",
+                                "'data-customerNo='"+data[i].customer.customerNo+"'>삭제</button></th>",
                                 "</tr>"
                             ];
                             $(".review-list").children('tbody').append(html.join());
                         }
+                        reviewPagingAjax(customerNo,reqPage);
                 }
             })
         }
-
+        //리뷰목록 페이징
         function reviewPagingAjax(customerNo, reqPage) {
             $(".review-container .page-nav").empty();
             $.ajax({
@@ -312,6 +305,13 @@
                 }
             })
         }
+
+        function toggleCheckbox(checkbox) {
+            if ($(checkbox).prop("checked") == true)
+                $(checkbox).prop("checked", false);
+            else if ($(checkbox).prop("checked") == false)
+                $(checkbox).prop("checked", true);
+        }
         $(function () {
             $(".admin-nav a:eq(1)").css("background-color", "whitesmoke");
 
@@ -324,6 +324,12 @@
             $("#close-modal").click(function (e) {
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
+            })
+            // 전체 선택 버튼 클릭 이벤트
+            $(".btn-allcheck").on("click", function (e) {
+                console.log($(".customer-list tbody th>input:checkbox"));
+                toggleCheckbox($(".customer-list tbody th>input:checkbox"));
+
             })
             //한명 탈퇴 버튼 클릭 이벤트
             $(".del-one-btn").on("click", function (e) {
@@ -344,14 +350,12 @@
                 $(".review-container").css("display", "block");
                 $(".review-list").children('tbody').empty();
                 var customerNo = $(this).parent().siblings('th').eq(1).text();
-                var reqPage = $("#reqPage").val();
+                var reqPage = 1;
                 reviewAjax(customerNo, reqPage); // ajax 실행
 
                 setClickToReviewTr();
                 setClickToChk()
                 setClickToRemoveReviewBtn();
-
-                reviewPagingAjax(customerNo, reqPage) // ajax 실행
 
                 setClickToPageNo(customerNo, reqPage);
                 e.stopPropagation();
