@@ -2,6 +2,7 @@ package reserve.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -42,34 +43,51 @@ public class DeleteReserveListServlet extends HttpServlet {
 		//view에서 넘어온 값저장
 		String JsonChkList = request.getParameter("JsonChkList");		
 		int reqPage = Integer.parseInt(request.getParameter("reqPage"));	
-		String selStatus = request.getParameter("selStatus");
+		String selStatus = request.getParameter("selStatus");		
+		System.out.println("selStatus = " + selStatus);
+		System.out.println("beforeReqPage = " + reqPage);
 		int result = 0;
 		int reserveNo = 0;		
 		JsonParser parser = new JsonParser();		
 		JsonArray jsonChklist = (JsonArray)parser.parse(JsonChkList);			
-		//비지니스 로직		
+		//비지니스 로직	
+		Reserve reserve = new ReserveService().selectOneReserve(reserveNo);		
+		int maxPrintSize = 10;
+		int beforeTotalPage = new  ReserveService().getAllReserveMaxPageSize(maxPrintSize,selStatus);
+		System.out.println("beforeTotalPage = "+beforeTotalPage);
+		System.out.println("jsonChklist.size() = "+jsonChklist.size());
 		for(int i=0;i<jsonChklist.size();i++) {
-			reserveNo = Integer.parseInt(jsonChklist.get(i).toString().replace("\"", ""));					
+			System.out.println("JsonChkList("+i+") = "+jsonChklist.get(i).toString());
+			System.out.println("JsonChkList("+i+").replace = "+jsonChklist.get(i).toString().replace("\"", ""));
+			reserveNo = Integer.parseInt(jsonChklist.get(i).toString().replace("\"", ""));		
+			System.out.println("reserveNo = "+reserveNo);
 			result += new ReserveService().deleteReserve(reserveNo);
-		}		
-		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-		//if(result>0) {			
-		//	request.setAttribute("msg", "예약리스트에서 삭제 완료되었습니다.");
-		//	request.setAttribute("loc", "/mypageCust?selStatus="+selStatus+"&reqPage="+reqPage);
-		//}else {
-		//	request.setAttribute("msg", "예약리스트에서 삭제 실패되었습니다.");
-		//	request.setAttribute("loc", "/mypageCust?selStatus="+selStatus+"&reqPage="+reqPage);
-		//}
-		//rd.forward(request, response);
+		}
+		if(result>0) {
+			System.out.println("result = "+result);
+			reserve = new ReserveService().selectOneReserve(reserveNo); //customer정보조회때문에 reserve객체생성
+			int afterTotalPage = new  ReserveService().getAllReserveMaxPageSize(maxPrintSize,selStatus);
+			System.out.println("afterTotalPage = "+afterTotalPage);
+			if(beforeTotalPage>afterTotalPage) {
+				reqPage--;
+				if (reqPage <= 0) {
+					reqPage = 1;
+				}
+			}
+
+			System.out.println("afterReqPage = " + reqPage);
+		}
+		JSONObject resultJson = new JSONObject();
+		resultJson.put("result", result);
+		resultJson.put("reqPage", reqPage);
+		resultJson.put("selStatus", URLEncoder.encode(selStatus.toString(),"UTF-8"));
 		
+		System.out.println("resultJson = "+resultJson);
+		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
-		out.print(result);
-		out.print(reqPage);
-		out.print(selStatus);
+		out.print(resultJson);
 		out.flush();
-		out.close();
-		
-		
+		out.close();			
 
 	}
 

@@ -50,11 +50,10 @@
 						href="/mypageCust?selStatus=취소&reqPage=1">취소</a>
 				</div>
 				<div class="tab_container">
-					<h1>예약 <%=selStatus%> List
+					<h1><%=selStatus%> List
 					</h1>
 					<input type="checkBox" id="allCheck"><label for="allCheck">전체선택</label>
-					<button type="button" class="btn btn-primary" onclick="location.href='#'">삭제</button>
-					<button type="button" class="btn btn-primary" id="allDelBtn">삭제테스트</button>
+					<button type="button" class="btn btn-primary" id="allDelBtn">삭제</button>
 					<table class="table" border="1">
 						<tr>							
 							<th>선택</th>
@@ -99,21 +98,32 @@
 			var JsonChkList = JSON.stringify(chkList);			
 			$.ajax({
 				url : "/deleteReserveList",
+				type : "get",
 				data : {JsonChkList:JsonChkList,
 					selStatus:selStatus,
-					reqPage:reqPage},
-				type : "get",
+					reqPage:reqPage},				
 				dataType: "JSON",
-				success : function(data){					
-					console.log("서버전송성공");
-					location.href="/mypageCust?selStatus="+selStatus+"&reqPage="+reqPage;
+				success : function(data){
+					var result=data.result;
+					var reqPage2 =data.reqPage;
+					var selStatus2 = data.selStatus;
+					console.log("성공 호출");
+					alert("총  "+result+"개 삭제완료 되었습니다.");
+					console.log("result = "+result);
+					console.log("reqPage = "+reqPage2);
+					console.log("selStatus = "+selStatus2);
+					location.href="/mypageCust?selStatus="+selStatus2+"&reqPage="+reqPage2;
 				},
 				error : function(data){
-					console.log("꾸엥실패");
-					location.href="/mypageCust?selStatus="+selStatus+"&reqPage="+reqPage;
-				},
-				conplete : function(){
-					console.log("무조건출석");
+					var result=data.result;
+					var reqPage2 =data.reqPage;
+					var selStatus2 = data.selStatus;
+					console.log("실패 호출");
+					alert("선택된 항목이 삭제되지 않았습니다.");
+					console.log("result = "+result);
+					console.log("reqPage = "+reqPage2);
+					console.log("selStatus = "+selStatus2);
+					location.href="/mypageCust?selStatus="+selStatus2+"&reqPage="+reqPage2;
 				}
 			});
 			

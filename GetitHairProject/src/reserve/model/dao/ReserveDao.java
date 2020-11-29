@@ -386,4 +386,24 @@ public class ReserveDao {
   		}		
   		return result;
   	}
+
+public int getTotalCount(Connection conn, String sqlAdd) {
+	int result =0;
+    PreparedStatement pstmt = null;
+    ResultSet rset = null;
+    String sql = "select count(*) cnt from reserve "+sqlAdd;
+    try {
+       pstmt = conn.prepareStatement(sql);
+       rset = pstmt.executeQuery();
+       if(rset.next()) {
+          result = rset.getInt("cnt");
+       }         
+    } catch (SQLException e) {
+       e.printStackTrace();
+    }finally {
+       JDBCTemplate.close(rset);
+       JDBCTemplate.close(pstmt);
+    }      
+    return result;
+}
 }

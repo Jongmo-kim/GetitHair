@@ -125,7 +125,7 @@ public class ReserveService {
 		return null;
 	}
 	
-	public int getReserveTotalPage(int reserveNo, int customerNo, String selStatus, String sqlAdd) {
+	public int getReserveTotalPageByCust(int customerNo, String selStatus, String sqlAdd) {
 		Connection conn = JDBCTemplate.getConnection();
 		ReserveDao dao = new ReserveDao();
 		int totalCount = dao.getTotalCountCustomerSelStatus(conn,customerNo,sqlAdd);
@@ -153,5 +153,23 @@ public class ReserveService {
 		list = new ReserveDao().selectList(conn,(maxPrintSize*(reqPage-1))+1,maxPrintSize*reqPage);
 		JDBCTemplate.close(conn);
 		return list;
+	}
+	//아래부터 태민 메서드 (뒤늦은 주석추가..)
+	//paging 으로 가져오는 메서드 (selStatus조건 sql문 추가)
+	public int getAllReserveMaxPageSize(int maxPrintSize, String selStatus) {
+		String sqlAdd ="";
+		if(selStatus.equals("예약")) {
+			sqlAdd = " where reserve_status='예약' ";
+		}else if(selStatus.equals("완료")) {
+			sqlAdd = " where reserve_status='완료' ";
+		}else if(selStatus.equals("취소")) {
+			sqlAdd = " where reserve_status='취소' ";
+		}
+		Connection conn = JDBCTemplate.getConnection();
+		int count = new ReserveDao().getTotalCount(conn,sqlAdd);
+		count = (count / maxPrintSize) + ((count % maxPrintSize) != 0 ? 1 : 0);
+		JDBCTemplate.close(conn);
+		return count;
+
 	}
 }

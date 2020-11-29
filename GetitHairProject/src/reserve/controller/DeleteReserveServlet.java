@@ -45,14 +45,14 @@ public class DeleteReserveServlet extends HttpServlet {
 		//totalcount구하고 numPerPage구하고 totalPage를 구하면
 		//그래서 totalPage가 줄어들었다면 줄어든 페이지로 이동한다
 		Reserve reserve = new ReserveService().selectOneReserve(reserveNo);
-		int totalPage1 = new ReserveService().getReserveTotalPage(reserveNo,reserve.getCustomer().getCustomerNo(),selStatus,sqlAdd);
-		int totalPage2 = 0;		
+		int beforeTotalPage = new ReserveService().getReserveTotalPageByCust(reserve.getCustomer().getCustomerNo(),selStatus,sqlAdd);
+		int afterTotalPage = 0;		
 		int result = new ReserveService().deleteReserve(reserveNo);
 		//결과처리
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result>0) {
-			totalPage2 = new ReserveService().getReserveTotalPage(reserveNo,reserve.getCustomer().getCustomerNo(),selStatus,sqlAdd);
-			if(totalPage1>totalPage2) {
+			afterTotalPage = new ReserveService().getReserveTotalPageByCust(reserve.getCustomer().getCustomerNo(),selStatus,sqlAdd);
+			if(beforeTotalPage>afterTotalPage) {
 				reqPage--;
 			}
 			request.setAttribute("msg", "예약리스트에서 삭제 완료되었습니다.");
