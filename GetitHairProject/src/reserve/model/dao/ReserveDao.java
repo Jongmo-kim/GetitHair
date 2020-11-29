@@ -406,4 +406,24 @@ public int getTotalCount(Connection conn, String sqlAdd) {
     }      
     return result;
 }
+
+public int insertReReserve(Connection conn, Reserve reserve) {
+	PreparedStatement pstmt = null;
+    String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,?,'1004','예약',?,'','')";
+    int result = 0 ;
+    try {
+       pstmt = conn.prepareStatement(sql);
+       pstmt.setInt(1, reserve.getCustomer().getCustomerNo());
+       pstmt.setInt(2, reserve.getDesigner().getDesignerNo());
+       pstmt.setInt(3, reserve.getShop().getShopNo());
+       pstmt.setDate(4, reserve.getReserveDate());
+       pstmt.setString(5,reserve.getReserveCustReq());
+       result = pstmt.executeUpdate();
+    } catch (SQLException e) {
+       e.printStackTrace();
+    } finally {
+       JDBCTemplate.close(pstmt);
+    }
+    return result;
+}
 }

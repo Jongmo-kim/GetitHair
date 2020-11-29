@@ -71,7 +71,7 @@
                                             </th>
                                             <th>${rv.reviewNo}</th>
                                             <th>${rv.shop.shopName}</th>
-                                            <th>${rv.designer.designerName}</th>
+                                            <th>${empty rv.designer.designerName ? "탈퇴함" : rv.designer.designerName}</th>
                                             <th>${empty rv.customer.customerId ? "탈퇴한 회원" : rv.customer.customerId}</th>
                                             <th>${rv.reviewContent}</th>
                                             <th>

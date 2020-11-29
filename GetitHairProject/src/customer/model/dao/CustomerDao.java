@@ -256,29 +256,6 @@ public class CustomerDao {
 	}
 	
 	//도현 admin 페이지에 필요해서 만든 페이징 메서드
-	public int getMaxPageSize(Connection conn, int maxPrintSize) {
-		PreparedStatement pstmt = null;
-		String qrySelect = "select count(*) cnt from customer";
-		ResultSet rs = null;
-		int result = 0;
-		try {
-			pstmt = conn.prepareStatement(qrySelect);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				result = rs.getInt("cnt");
-				if(result != 0) {
-					result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0);
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-//		System.out.println(result);
-		return result;
-	}
 
 	public ArrayList<Customer> selectAllCusetomer(Connection conn, int reqPage, int maxPrintSize) {
 		PreparedStatement pstmt = null;
@@ -305,6 +282,31 @@ public class CustomerDao {
 		}
 		return list;
 	}
+
+	public ArrayList<Customer> selectAllCustomer(Connection conn, String startDate, String endDate) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Customer> list = new ArrayList<Customer>();
+		String query = "select * from customer where customer_enrolldate between ? and ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, startDate);
+			pstmt.setString(2, endDate);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Customer cust = getCustomerFromRset(rset);				
+				list.add(cust);				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;	
+	}
+///////////////////////////////////////////////////////////
 
 
 }

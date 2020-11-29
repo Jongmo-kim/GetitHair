@@ -54,7 +54,10 @@ public class DeleteReserveServlet extends HttpServlet {
 			afterTotalPage = new ReserveService().getReserveTotalPageByCust(reserve.getCustomer().getCustomerNo(),selStatus,sqlAdd);
 			if(beforeTotalPage>afterTotalPage) {
 				reqPage--;
-			}
+				if(reqPage<=0) {
+					reqPage=1;
+				}
+			}			
 			request.setAttribute("msg", "예약리스트에서 삭제 완료되었습니다.");
 			request.setAttribute("loc", "/mypageCust?selStatus="+selStatus+"&reqPage="+reqPage);
 		}else {

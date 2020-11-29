@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import common.DebugTemplate;
 import common.JDBCTemplate;
 import customer.model.dao.CustomerDao;
 import customer.model.service.CustomerService;
@@ -412,4 +413,40 @@ public int updateDateReserveTest(Connection conn, int no, String title, Date sta
 	
 	return result;
 }   
+
+	public int updateReserveCalnedar(Connection conn, ReserveTest rt) {
+		PreparedStatement pstmt = null;
+		String query = "update reserve set reserve_title=?, reserve_date=?, reserve_startdate=?, reserve_enddate=?, reserve_status=?, reserve_cust_req=?, reserve_designer_req=?, reserve_designer_memo=? where reserve_no=?";
+		int result = 0;
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, rt.getReserveTitle());
+			pstmt.setDate(2, rt.getReserveDate());
+			pstmt.setDate(3, rt.getReserveStartDate());
+			pstmt.setDate(4, rt.getReserveEndDate());
+			pstmt.setString(5, rt.getReserveStatus());
+			pstmt.setString(6, rt.getReserveCustReq());
+			pstmt.setString(7, rt.getReserveDesignerReq());
+			pstmt.setString(8, rt.getReserveDesignerMemo());
+			pstmt.setInt(9, rt.getReserveNo());
+			result = pstmt.executeUpdate();
+			System.out.println(rt.getReserveNo());
+			System.out.println(rt.getReserveTitle());
+			System.out.println(rt.getReserveStatus());
+			System.out.println(rt.getReserveCustReq());
+			System.out.println(rt.getReserveDesignerReq());
+			System.out.println(rt.getReserveDesignerMemo());
+			System.out.println(rt.getReserveDate());
+			System.out.println(rt.getReserveEndDate());
+			System.out.println(rt.getReserveStartDate());
+			System.out.println("dao result : " + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}
 }

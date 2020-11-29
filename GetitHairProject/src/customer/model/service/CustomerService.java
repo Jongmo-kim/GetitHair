@@ -147,12 +147,8 @@ public class CustomerService {
 	// 총 페이지 개수를 반환 해주는 메서드
 		public int getMaxPageSize(int maxPrintSize) {
 			Connection conn = JDBCTemplate.getConnection();
-			int result = new CustomerDao().getMaxPageSize(conn,maxPrintSize);
-			if (result > 0) {
-				JDBCTemplate.commit(conn);
-			} else {
-				JDBCTemplate.rollback(conn);
-			}
+			int result = new CustomerDao().totalCount(conn);
+			result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0);
 			JDBCTemplate.close(conn);
 			return result;
 		}
@@ -163,6 +159,16 @@ public class CustomerService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	//가입 일자별 회원 수 가져오기
+	public ArrayList<Customer> selectAllCustomer(String startDate,String endDate) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Customer> list = new CustomerDao().selectAllCustomer(conn,startDate,endDate);
+
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	
+	////////////////////////////////////////////////////////////////
 	public int updateAllHairinfo(Customer customer, Hairinfo hairinfo) {
 		Connection conn =JDBCTemplate.getConnection();
 		int result = 0;
