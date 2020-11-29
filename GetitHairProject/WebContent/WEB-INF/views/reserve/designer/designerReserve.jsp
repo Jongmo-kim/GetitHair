@@ -72,9 +72,55 @@
                 	//data-toggle="modal" data-target="#myModal"
                     var selectEvent = arg.el;
                 	var event = arg.event;
+                	var reserveNo = arg.event.id;
                 	selectEvent.setAttribute('data-toggle', 'modal'); 
                 	selectEvent.setAttribute('data-target', '#myModal');
-                	
+                	//모달창을 띄웠으니 그안 inputvalue에 값을 채울거에요
+                	//어떻게 채울거냐면 reserveNo로 값을 가져와야하는데 지금 html에서는 가져올수없으니
+                	//ajax를 통해 sevlet을 호출하여 모든 rserve요소들을 가져올거에요
+                	//1. ajax 요청을 받을 적당한 servlet만들기
+                	//2. reserveNo를 ajax를 통해 servlet에 보내기
+                	//3. servlet에서 받은 data로 input tag에 값 채워넣기
+                	$.ajax({
+                		url : "/reserveCalnedarUpdate?reserveNo="+reserveNo,
+                		type : "post",
+                		success : function(data){
+                			console.log(data);
+                			var reserveNo = data.reserveNo;
+                			var reserveNo = data.reserveNo;
+                			var reserveNo = data.reserveNo;
+                			var reserveNo = data.reserveNo;
+                			var reserveNo = data.reserveNo;
+                			var reserveNo = data.reserveNo;
+                			var reserveNo = data.reserveNo;
+                			var reserveNo = data.reserveNo;
+                			var reserveNo = data.reserveNo;
+                			var reserveNo = data.reservTitle;
+                			
+                			var InputTagTitle = $('[name="reservTitle"]');
+                			$(InputTagTitle).html(reserveNo);
+                			console.log(data);
+                			console.log(data.reserveNo);
+                			console.log(data.reserveStartDate);
+                			console.log(data.reserveEndDate);
+                			console.log(data.reserveTitle);
+                			console.log(data.reserveStatus);
+                			console.log(data.reserveCustReq);
+                			console.log(data.reserveDesignerReq);
+                			console.log(data.reserveDisignerMemo);
+                			console.log(data.customerName);
+                		},beforeSend: function() {
+                    		  $('#loading_indicator').show().fadeIn('fast');
+                      		  $('#submitBtn').hide();
+                      		 },
+                    	error : function(){
+                    		
+                    	},
+                    	complete : function(){
+                    		 $('#loading_indicator').fadeOut();
+                      		  $('#submitBtn').show();
+                    	}
+                	})
                 },
                 editable: true,
                 dayMaxEvents: true, // allow "more" link when too many events
@@ -116,11 +162,16 @@
                 	success : function(){
                 		$('#result').css('display','block');
                 	},
+                	 beforeSend: function() {
+                  		  $('#loading_indicator').show().fadeIn('fast');
+                  		  $('#submitBtn').hide();
+                  		 },
                 	error : function(){
                 		
                 	},
                 	complete : function(){
-                		
+                		 $('#loading_indicator').fadeOut();
+                  		  $('#submitBtn').show();
                 	}
                 });
             });
@@ -186,6 +237,18 @@ body {
 		class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"></div>
 	<br>
 	<button id="submitBtn"  type="button" class="btn btn-primary">저장하기</button>
+	
+	
+	 <div style="position:fixed; top:500px;">
+  	<button id="submitBtn" type="button" class="btn btn-primary" style="width:200px; height:200px">제출하기</button>
+  	
+  	<span id="loading_indicator" style="display:none;">
+	 <p style="text-align: center; top:0;  position: absolute;">
+	 	<img src="/img/signup/loading.gif" />
+	 </p>
+	</span>
+  </div>
+  
 	<div id="result" style="display:none;height:500px; background-color:black;"></div>
 </body>
 </html>

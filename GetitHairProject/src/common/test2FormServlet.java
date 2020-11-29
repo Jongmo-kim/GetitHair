@@ -42,6 +42,7 @@ public class test2FormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		int result = 0;
 		String Title = request.getParameter("JsonTitles");
 		String Start = request.getParameter("JsonStartDate");
