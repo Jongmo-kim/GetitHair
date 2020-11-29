@@ -56,8 +56,6 @@ public class DesignerDao {
 			pstmt.setString(2, designerPw);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				System.out.println(designerId);
-				System.out.println(designerPw);
 				loginDesigner = new Designer();
 				loginDesigner.setDesignerNo(rset.getInt("designer_no"));
 				loginDesigner.setDesignerId(rset.getString("designer_id"));

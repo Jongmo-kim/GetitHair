@@ -174,7 +174,6 @@ public class CustomerDao {
 			pstmt.setString(1, customerId);
 			pstmt.setString(2, customerPw);
 			rset = pstmt.executeQuery();
-			System.out.println(customerId);
 			if(rset.next()) {
 				customer = getCustomerFromRset(rset);				
 			}

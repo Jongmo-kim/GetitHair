@@ -52,26 +52,35 @@ public class IntegratedLoginServlet extends HttpServlet {
 				Customer loginCust = new CustomerService().selectOneCustomer(inputId,inputPw);
 				
 				isLogined = loginCust != null;
-				session.setAttribute("loginCustomer", loginCust);
-				session.setAttribute("loginType", loginType);
+				if(isLogined) {
+					session.setAttribute("loginCustomer", loginCust);
+					session.setAttribute("loginType", loginType);
+				}
 				break;
 			case "designer":
 				Designer loginDesigner = new DesignerService().selectOneDesigner(inputId, inputPw);
 				isLogined = loginDesigner != null;
-				System.out.println(inputId);
-				System.out.println(inputPw);
-				session.setAttribute("loginDesigner", loginDesigner);
-				session.setAttribute("loginType", loginType);
+				if(isLogined) {
+					session.setAttribute("loginDesigner", loginDesigner);
+					session.setAttribute("loginType", loginType);
+				}
 				break;
 			case "hairshop":
 //				Hairshop loginHairshop = new HairshopService().selectOneHairshop(inputId,inputPw);
 //				session.setAttribute("loginHairshop", loginHairshop);
-//				isLogined = loginCust == null; 
+//				isLogined = loginHairshop != null;
+				if(isLogined) {
+//					session.setAttribute("loginHairshop", loginHairshop);
+					session.setAttribute("loginType", loginType);
+				}
 				break;
 			case "admin":
 //				Admin loginAdmin = new AdminService().selectOneAdmin(inputId,inputPw);
-//				session.setAttribute("loginAdmin", loginAdmin);
-//				isLogined = loginCust == null; 
+//				isLogined = loginAdmin != null;
+				if(isLogined) {
+//					session.setAttribute("loginAdmin", loginAdmin);
+					session.setAttribute("loginType", loginType);
+				}
 				break;
 		}
 		if(isLogined) {

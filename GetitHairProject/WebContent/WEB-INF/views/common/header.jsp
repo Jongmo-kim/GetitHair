@@ -10,19 +10,24 @@
 		Designer loginDesigner = null;
 		Hairshop loginHairshop = null;
 		//Admin loginAdmin = null;
+		boolean isLogined = false;
 		
 		switch(loginType) {
 		case "customer":
-			loginCustomer = (Customer)sessions.getAttribute("loginCustomer");	
+			loginCustomer = (Customer)sessions.getAttribute("loginCustomer");
+			isLogined = true;
 			break;
 		case "designer":
 			loginDesigner = (Designer)session.getAttribute("loginDesigner");
+			isLogined = true;
 			break;
 		case "hairshop":
 			loginHairshop = (Hairshop)session.getAttribute("loginHairshop");
+			isLogined = true;
 			break;
 		case "admin":
 			//Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+			isLogined = true;
 			break;
 	}
 
@@ -51,11 +56,41 @@
 <link rel="stylesheet" href="/css/header/header.css?v=<%=System.currentTimeMillis()%>">
 
 <header>
-	<h1>header입니다</h1>
 	
 <div class="container">	
-<%if(loginCustomer==null){ %>
+<%if(isLogined){ %>
 	<div class="modal fade" id="loginModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+        		<div class="modal-header">
+          			<button type="button" class="close" data-dismiss="modal">&times;</button>
+          			<h4 class="modal-title">로그인정보</h4>
+        		</div>
+			<div class="modal-body">
+			
+				<div class="btn btn-default"><a style="display:block; height:100%;"href="/custLogout">로그아웃</a></div>
+			<%switch(loginType) {
+				case "customer": %>
+          			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/updateCustomerFrm">마이페이지</a></div>
+          			<%break;
+			case "designer": %>
+          			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/updateCustomerFrm">디자이너마이페이지</a></div>
+          			<%break;
+			case "hairshop": %>
+          			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/updateCustomerFrm">헤어샵페이지</a></div>
+          			<%break;
+			case "admin": %>
+          			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/updateCustomerFrm">어드민페이지</a></div>
+          			<%break;
+          		} %>
+			</div>
+		</div>
+	</div>
+</div>
+  <%} else{ %>
+  
+	
+<div class="modal fade" id="loginModal" role="dialog">
 		<div class="modal-dialog">
 		<form action="/integratedLogin" method="post">
 			<div class="modal-content">
@@ -100,34 +135,14 @@
 		</form>
 	</div>
 </div>
-  <%} else{ %>
-  
-	<div class="modal fade" id="loginModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-        		<div class="modal-header">
-          			<button type="button" class="close" data-dismiss="modal">&times;</button>
-          			<h4 class="modal-title">손님 마이페이지</h4>
-        		</div>
-        	<form action="/custLogin" method="post">
-        		<div class="modal-body">
-          			<div class="btn btn-default"><a style="display:block; height:100%" href="/custLogout">로그아웃</a></div>
-				</div>
-			</form>
-			<div class="modal-body">
-          			<div class="btn btn-default"><a style="display:block; height:100%" href="/updateCustomerFrm">마이페이지</a></div>
-				</div>
-		</div>
-	</div>
-</div>
   <%} %>
 </div>
 	<div class="container">
 		<ul class="nav nav-pills" role="tablist">
-		<%if(loginCustomer==null){ %>
-			<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">로그인하기</a></li>
+		<%if(isLogined){ %>
+			<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">마이페이지</a></li>
 		<%}else{  %>
-				<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">마이페이지</a></li>
+			<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">로그인하기</a></li>
 		<%} %>
 			<li class="active"><a href="/">Home</a></li>
 			

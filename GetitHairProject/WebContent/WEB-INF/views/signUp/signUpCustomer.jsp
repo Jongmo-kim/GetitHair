@@ -16,7 +16,7 @@
 	<form action="/signUpCustomer" method="post">
 	    <div class="container">
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerName">
+	            <input type="text" class="form-textbox" value="test" name="customerName">
 	            <span class="form-label">이름</span>
 	        </div>
 	        <div class="date inputBox">
