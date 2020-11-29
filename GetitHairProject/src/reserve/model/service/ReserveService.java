@@ -91,7 +91,7 @@ public class ReserveService {
 		int pageNaviSize = 5;
 		String pageNavi = "";
 		//String link = "<a href='/updateReserveFrm?customerNo="+customer.getCustomerNo()+"&selStatus="+selStatus+"&reqPage=";
-		String link = "<a class='btn' href='/mypageCust?selStatus="+selStatus+"&reqPage=";
+		String link = "<a class='btn btn-primary' href='/mypageCust?selStatus="+selStatus+"&reqPage=";
 		// 페이지네비 시작번호 구하기
 		// reqPage : 1~5 -> 1
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
@@ -103,7 +103,7 @@ public class ReserveService {
 		for (int i = 0; i < pageNaviSize; ++i) {
 			if (reqPage == pageNo) {
 				// 현재페이지
-				pageNavi += "<span class='selectPage'>" + pageNo + "</span>";
+				pageNavi += "<span class='btn btn-primary'>" + pageNo + "</span>";
 			} else {
 				pageNavi += link + pageNo +"'>" + pageNo + "</a>";
 			}
@@ -172,4 +172,13 @@ public class ReserveService {
 		return count;
 
 	}
+	//태민추가 메서드 손님 다시예약하기 예약상태 디자이너메모 및 요청사항 고정
+	public int insertReReserve(Reserve reserve) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = 0;
+		result = new ReserveDao().insertReReserve(conn, reserve);
+		commitOrRollback(conn,result);
+		JDBCTemplate.close(conn);
+		return result;
+	}	
 }

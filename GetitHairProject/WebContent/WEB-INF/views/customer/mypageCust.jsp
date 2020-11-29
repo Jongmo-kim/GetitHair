@@ -8,23 +8,90 @@
 	ArrayList<Reserve> reserveList = (ArrayList<Reserve>) request.getAttribute("reserveList");
 	String pageNavi = (String) request.getAttribute("pageNavi");
 	String selStatus = (String) request.getAttribute("selStatus");
-	int reqPage= (Integer) request.getAttribute("reqPage");
-	
+	int reqPage = (Integer) request.getAttribute("reqPage");
+	int index = 0;
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- 글꼴 호출 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
+<!-- //글꼴 호출 -->
 
+<!-- 부트스트랩 호출 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+<!-- //부트스트랩 호출 -->
+
+<!-- jQuery 호출 -->
+<script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+<!-- //jQuery 호출 -->
+<link rel="stylesheet" href="/css/header/header.css">
+<link rel="stylesheet" href="/css/signUp/inputBox.css">
+<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+
+	<div class="modal fade" id="reReserveModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="/insertReReserve?selStatus=<%=selStatus %>&reqPage=<%=reqPage %>" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">다시 예약하기</h4>
+					</div>
+					<div class="modal-body">
+						<div class="reserve inputBox">
+							<!-- 구현하면 예약번호 hiddn으로 숨겨야함 -->
+							<span>예약번호  </span>
+							<input type="text" class="form-textbox" name="reserveNo" value="<%=reserveList.get(index).getReserveNo()%>" readonly>
+						</div>
+						<div class="reserve inputBox">
+
+							<input type="date" id="reserveDate" class="form-textbox" name="reserveDate">
+							<span class="form-label">예약날짜 </span>							
+						</div>											
+						<div class="reserve inputBox">
+							<input type="text" class="form-textbox" name="reserveCustReq" >
+							<span class="form-label">손님요청사항</span>
+						</div>						
+						<input type ="hidden" class= "form-textbox" name="reserveStatus" value="<%=reserveList.get(index).getReserveStatus() %>">
+						<input type="hidden" class="form-textbox" name="customerNo"  value="<%=reserveList.get(index).getCustomer().getCustomerNo()%>" >
+						<input type="hidden" class="form-textbox" name="designerNo"  value="<%=reserveList.get(index).getDesigner().getDesignerNo()%>">
+						<input type="hidden" class="form-textbox" name="shopNo"  value="<%=reserveList.get(index).getShop().getShopNo()%>">
+						<input type="hidden" class="form-textbox" name="reserveDesignerReq"  value="<%=reserveList.get(index).getReserveDesignerReq()%>">
+						<input type="hidden" class="form-textbox" name="reserveDesignerMemo"  value="<%=reserveList.get(index).getReserveDesignerMemo()%>">
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-default">예약하기</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+						<div class="reserve inputBox">	
+							<input type="time" id="reserveTime" class="form-textbox" name="reserveTime">
+							<span class="form-label">예약시간 </span>							
+						</div>
 	<ul>
 		<li><a href="/mypageCust?selStatus=전체&reqPage=1">회원관리 및 예약관리</a></li>
-		<li><a href="/mypageCustReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">리뷰관리</a></li>
-		<li><a href="/mypageCustLikesList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">찜(좋아요)관리</a></li>
+		<li><a
+			href="/mypageCustReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">리뷰관리</a></li>
+		<li><a
+			href="/mypageCustLikesList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">찜(좋아요)관리</a></li>
 	</ul>
 	<div id="reserveList" style="widtn: 80%;">
 		<h1>회원관리 및 예약관리</h1>
@@ -49,36 +116,53 @@
 						class="btn btn-danger btn-lg"
 						href="/mypageCust?selStatus=취소&reqPage=1">취소</a>
 				</div>
+
 				<div class="tab_container">
-					<h1><%=selStatus%> List
+					<h1><%=selStatus%>
+						List
 					</h1>
 					<input type="checkBox" id="allCheck"><label for="allCheck">전체선택</label>
 					<button type="button" class="btn btn-primary" id="allDelBtn">삭제</button>
 					<table class="table" border="1">
-						<tr>							
+						<tr>
 							<th>선택</th>
 							<th>예약번호</th>
 							<th>예약일시</th>
 							<th>미용실이름</th>
 							<th>디자이너 이름</th>
-							<th>디자이너 요청사항</th>
+							<th>손님요청사항 요청사항</th>
+							<th>디자이너 요청사항</th>							
 							<th>상태코드</th>
 							<th>기능버튼1</th>
-							<th>기능버튼2</th>							
+							<th>기능버튼2</th>
 						</tr>
-						<%	for (Reserve r : reserveList) {	%>
+						<%
+							index = 0;
+							for (Reserve r : reserveList) {
+						%>
 						<tr>
-							<td><input type="checkBox" class="subChk" value="<%=r.getReserveNo()%>"></td>
+							<td><input type="checkBox" class="subChk"
+								value="<%=r.getReserveNo()%>"></td>
 							<td><%=r.getReserveNo()%></td>
 							<td><%=r.getReserveDate()%></td>
 							<td><%=r.getShop().getShopName()%></td>
 							<td><%=r.getDesigner().getDesignerName()%></td>
-							<td><%=r.getReserveDesignerReq()%></td>
+							<td><%=r.getReserveCustReq()%></td>
+							<td><%=r.getReserveDesignerReq()%></td>							
 							<td><%=r.getReserveStatus()%></td>
-							<td><button type="button" class="btn btn-primary">다시 예약하기</button></td>
-							<td><button onclick = "location.href='/deleteReserve?reserveNo=<%=r.getReserveNo() %>&selStatus=<%=selStatus %>&reqPage=<%=reqPage %>'" type="button" class="btn btn-primary">예약 삭제하기</button></td>							
+							<td>
+								<button type="button" class="btn btn-primary reReserveBtn"
+									data-toggle="modal" data-target="#reReserveModal">
+									다시예약하기</button>
+							</td>
+							<td><button
+									onclick="location.href='/deleteReserve?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'"
+									type="button" class="btn btn-primary">예약 삭제하기</button></td>
 						</tr>
-						<%}	%>
+						<%
+							index++;
+							}
+						%>
 					</table>
 					<div id="pageNavi"><%=pageNavi%></div>
 				</div>
@@ -86,56 +170,62 @@
 		</ul>
 	</div>
 	<script>
+	document.getElementById('reserveDate').value = new Date().toISOString().substring(0, 10);;
 	$(function(){
 		$("#allDelBtn").click(function(){
 			var chkList = new Array();
 			var obj = $(".subChk");
-			var selStatus = '<%=selStatus %>' ;
-			var reqPage = <%=reqPage %>;
-			$("input:checkbox[class='subChk']:checked").each(function(){
-				chkList.push(this.value);				
-			});				
-			var JsonChkList = JSON.stringify(chkList);			
-			$.ajax({
-				url : "/deleteReserveList",
-				type : "get",
-				data : {JsonChkList:JsonChkList,
-					selStatus:selStatus,
-					reqPage:reqPage},				
-				dataType: "JSON",
-				success : function(data){
-					var result=data.result;
-					var reqPage2 =data.reqPage;
-					var selStatus2 = data.selStatus;
-					console.log("성공 호출");
-					alert("총  "+result+"개 삭제완료 되었습니다.");
-					console.log("result = "+result);
-					console.log("reqPage = "+reqPage2);
-					console.log("selStatus = "+selStatus2);
-					location.href="/mypageCust?selStatus="+selStatus2+"&reqPage="+reqPage2;
-				},
-				error : function(data){
-					var result=data.result;
-					var reqPage2 =data.reqPage;
-					var selStatus2 = data.selStatus;
-					console.log("실패 호출");
-					alert("선택된 항목이 삭제되지 않았습니다.");
-					console.log("result = "+result);
-					console.log("reqPage = "+reqPage2);
-					console.log("selStatus = "+selStatus2);
-					location.href="/mypageCust?selStatus="+selStatus2+"&reqPage="+reqPage2;
+			var selStatus = '<%=selStatus%>	';
+						var reqPage = <%=reqPage%> ;
+						$("input:checkbox[class='subChk']:checked").each(
+								function() {
+									chkList.push(this.value);
+								});
+						var JsonChkList = JSON.stringify(chkList);
+						$.ajax({
+							url : "/deleteReserveList",
+							type : "get",
+							data : {
+								JsonChkList : JsonChkList,
+								selStatus : selStatus,
+								reqPage : reqPage
+							},
+							dataType : "JSON",
+							success : function(data) {
+								var result = data.result;
+								var reqPage2 = data.reqPage;
+								var selStatus2 = data.selStatus;
+								console.log("성공 호출");
+								alert("총  " + result + "개 삭제완료 되었습니다.");
+								console.log("result = " + result);
+								console.log("reqPage = " + reqPage2);
+								console.log("selStatus = " + selStatus2);
+								location.href = "/mypageCust?selStatus="
+										+ selStatus2 + "&reqPage=" + reqPage2;
+							},
+							error : function(data) {
+								var result = data.result;
+								var reqPage2 = data.reqPage;
+								var selStatus2 = data.selStatus;
+								console.log("실패 호출");
+								alert("선택된 항목이 삭제되지 않았습니다.");
+								console.log("result = " + result);
+								console.log("reqPage = " + reqPage2);
+								console.log("selStatus = " + selStatus2);
+								location.href = "/mypageCust?selStatus="
+										+ selStatus2 + "&reqPage=" + reqPage2;
+							}
+						});
+
+					});
+			$("#allCheck").click(function() {
+				if ($("#allCheck").prop("checked")) {
+					$(".subChk").prop("checked", true);
+				} else {
+					$(".subChk").prop("checked", false);
 				}
 			});
-			
-		});		
-		$("#allCheck").click(function(){			
-			if($("#allCheck").prop("checked")){
-				$(".subChk").prop("checked",true);
-			}else{
-				$(".subChk").prop("checked",false);
-			}
-		});			
-	});
+		});
 	</script>
 </body>
 </html>
