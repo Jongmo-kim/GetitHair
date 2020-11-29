@@ -55,7 +55,7 @@
 <script type="text/javascript" src="/js/signUp/inputBox.js?v=<%=System.currentTimeMillis()%>"></script>
 <link rel="stylesheet" href="/css/header/header.css?v=<%=System.currentTimeMillis()%>">
 
-<header>
+<header style="display:fixed">
 	
 <div class="container">	
 <%if(isLogined){ %>

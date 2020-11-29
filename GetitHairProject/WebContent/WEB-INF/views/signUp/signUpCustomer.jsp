@@ -12,11 +12,10 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
 	<script type="text/javascript" src="/js/signUp/signUpCustomer.js?v=<%=System.currentTimeMillis()%>"></script>
-	
 	<form action="/signUpCustomer" method="post">
 	    <div class="container">
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" value="test" name="customerName">
+	            <input type="text" class="form-textbox" name="customerName">
 	            <span class="form-label">이름</span>
 	        </div>
 	        <div class="date inputBox">
@@ -162,7 +161,7 @@
 			</tr>
 		</table>
         <button class="btn">제출</button>
-        <button class="btn" type="reset">초기화</button>
+        <button class="btn resetBtn" type="reset">초기화</button>
     </div>
 	</form>
 </body>
