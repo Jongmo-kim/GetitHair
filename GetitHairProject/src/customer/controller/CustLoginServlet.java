@@ -28,15 +28,13 @@ public class CustLoginServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String inputId = request.getParameter("customerId");
-		String inputPw = request.getParameter("customerPw");
+		String inputId = request.getParameter("inputId");
+		String inputPw = request.getParameter("inputPw");
 		Customer loginCust = new CustomerService().selectOneCustomer(inputId,inputPw);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-		
+		System.out.println(inputId);
+		System.out.println(inputPw);
 		if(loginCust == null) {
 			request.setAttribute("loc", "/");
 			request.setAttribute("msg", "로그인 실패");		
@@ -48,9 +46,6 @@ public class CustLoginServlet extends HttpServlet {
 		}
 		rd.forward(request, response);
 	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

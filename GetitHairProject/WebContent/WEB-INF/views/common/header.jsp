@@ -1,9 +1,31 @@
+<%@page import="hairshop.model.vo.Hairshop"%>
+<%@page import="designer.model.vo.Designer"%>
 <%@page import="customer.model.vo.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%
 		HttpSession sessions = request.getSession();
-		Customer loginCustomer = (Customer)sessions.getAttribute("loginCustomer");
+		String loginType = (String)session.getAttribute("loginType")==null?"" : (String)session.getAttribute("loginType");
+		Customer loginCustomer = null;
+		Designer loginDesigner = null;
+		Hairshop loginHairshop = null;
+		//Admin loginAdmin = null;
+		
+		switch(loginType) {
+		case "customer":
+			loginCustomer = (Customer)sessions.getAttribute("loginCustomer");	
+			break;
+		case "designer":
+			loginDesigner = (Designer)session.getAttribute("loginDesigner");
+			break;
+		case "hairshop":
+			loginHairshop = (Hairshop)session.getAttribute("loginHairshop");
+			break;
+		case "admin":
+			//Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+			break;
+	}
+
 	%>
 <!-- 글꼴 호출 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -24,22 +46,15 @@
 <!-- jQuery 호출 -->
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
 <!-- //jQuery 호출 -->
-<link rel="stylesheet" href="/css/header/header.css">
-<link rel="stylesheet" href="/css/signUp/inputBox.css">
-<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
+<link rel="stylesheet" href="/css/signUp/inputBox.css?v=<%=System.currentTimeMillis()%>">
+<script type="text/javascript" src="/js/signUp/inputBox.js?v=<%=System.currentTimeMillis()%>"></script>
+<link rel="stylesheet" href="/css/header/header.css?v=<%=System.currentTimeMillis()%>">
+
 <header>
 	<h1>header입니다</h1>
-	<style>
-		.myLabel:hover{
-			color:var(--wine);
-		}
-		input[name='loginType']:checked label {
-			display:none;
-		}
-	</style>
+	
 <div class="container">	
 <%if(loginCustomer==null){ %>
-
 	<div class="modal fade" id="loginModal" role="dialog">
 		<div class="modal-dialog">
 		<form action="/integratedLogin" method="post">
@@ -47,22 +62,33 @@
         		<div class="modal-header">
         		<h4 class="modal-title">
           			<button type="button" class="close" data-dismiss="modal">&times;</button>
-          			<span><label class="myLabel" for="loginCustomer">손님</label><input style="" id="loginCustomer" type="radio" name="loginType" checked value="customer"></span>
-          			<span><label class="myLabel" for="loginDesigner">디자이너</label><input style="display:block;" id="loginDesigner" type="radio" name="loginType" value="designer"></span>
-          			<span><label class="myLabel" for="loginHairshop">헤어샵</label><input style="display:block;" id="loginHairshop" type="radio" name="loginType" value="hairshop"></span>
-          			<span><label class="myLabel" for="loginAdmin">관리자</label><input style="display:block;" id="loginAdmin" type="radio" name="loginType" value="admin"></span>
-          			으로 로그인하기
+          			<span>
+          				<input style="display:none;" id="loginCustomer" type="radio" name="loginType" checked value="customer">
+          				<label class="myLabel" for="loginCustomer">손님</label>
+          			</span>
+          			<span>
+          				<input style="display:none;" id="loginDesigner" type="radio" name="loginType" value="designer">
+          				<label class="myLabel" for="loginDesigner">디자이너</label>
+          			</span>
+          			<span>
+	          			<input style="display:none;" id="loginHairshop" type="radio" name="loginType" value="hairshop">
+	          			<label class="myLabel" for="loginHairshop">헤어샵</label>
+          			</span>
+          			<span>
+	          			<input style="display:none;" id="loginAdmin" type="radio" name="loginType" value="admin">
+	          			<label class="myLabel" for="loginAdmin">관리자</label>
+          			</span>
+          			(으)로 로그인하기
           			</h4>
         		</div>
         	
         		<div class="modal-body">
-          			<p>로그인</p>
 	          			<div class="name inputBox">
-		            		<input type="text" class="form-textbox" name="customerId">
+		            		<input type="text" class="form-textbox" name="inputId">
 	    	        		<span class="form-label">아이디</span>
 		    	   		</div>
 		       			<div class="name inputBox">
-		            		<input type="text" class="form-textbox" name="customerPw">
+		            		<input type="text" class="form-textbox" name="inputPw">
 		            		<span class="form-label">비밀번호</span>
 		       			</div>
 				</div>
