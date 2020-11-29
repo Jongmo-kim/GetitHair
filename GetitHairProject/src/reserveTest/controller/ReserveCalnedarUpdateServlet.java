@@ -14,7 +14,6 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.sun.javafx.collections.MappingChange.Map;
 
 import reserveTest.model.service.ReserveTestService;
 import reserveTest.model.vo.ReserveTest;
@@ -50,15 +49,16 @@ public class ReserveCalnedarUpdateServlet extends HttpServlet {
 		jsonRt.put("reserveNo", rt.getReserveNo());
 		jsonRt.put("reserveStartDate", rt.getReserveStartDate().getTime());
 		jsonRt.put("reserveEndDate", rt.getReserveEndDate().getTime());
-		jsonRt.put("reserveTitle", URLEncoder.encode(rt.getReserveTitle(),"UTF-8"));
-		jsonRt.put("reserveStatus", URLEncoder.encode(rt.getReserveStatus(),"UTF-8"));
-		jsonRt.put("reserveCustReq", URLEncoder.encode(rt.getReserveCustReq(),"UTF-8"));
-		jsonRt.put("reserveDesignerReq", URLEncoder.encode(rt.getReserveDesignerReq(),"UTF-8"));
-		jsonRt.put("reserveDisignerMemo", URLEncoder.encode(rt.getReserveDesignerMemo(),"UTF-8"));
-		jsonRt.put("customerName",  URLEncoder.encode(rt.getCustomer().getCustomerName(),"UTF-8"));		
-		//변환한 data를 다시 ajax로 보낸다
-		
-		response.setContentType("application/json");
+		jsonRt.put("reserveTitle", URLEncoder.encode(rt.getReserveTitle(),"utf-8"));
+		jsonRt.put("reserveStatus", URLEncoder.encode(rt.getReserveStatus(),"utf-8"));
+		jsonRt.put("reserveCustReq", URLEncoder.encode(rt.getReserveCustReq(),"utf-8"));
+		jsonRt.put("reserveDesignerReq", URLEncoder.encode(rt.getReserveDesignerReq(),"utf-8"));
+		jsonRt.put("reserveDisignerMemo", URLEncoder.encode(rt.getReserveDesignerMemo(),"utf-8"));
+		jsonRt.put("customerName",  rt.getCustomer().getCustomerName());
+		response.setContentType("text/html;charset=UTF-8"); 
+
+		System.out.println(URLEncoder.encode(rt.getCustomer().getCustomerName(),"utf-8"));
+		System.out.println(rt.getCustomer().getCustomerName());
 		PrintWriter out = response.getWriter();
 		out.print(jsonRt);
 		out.flush();

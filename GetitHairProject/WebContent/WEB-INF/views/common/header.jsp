@@ -29,17 +29,32 @@
 <script type="text/javascript" src="/js/signUp/inputBox.js"></script>
 <header>
 	<h1>header입니다</h1>
+	<style>
+		.myLabel:hover{
+			color:var(--wine);
+		}
+		input[name='loginType']:checked label {
+			display:none;
+		}
+	</style>
 <div class="container">	
 <%if(loginCustomer==null){ %>
 
 	<div class="modal fade" id="loginModal" role="dialog">
 		<div class="modal-dialog">
+		<form action="/integratedLogin" method="post">
 			<div class="modal-content">
         		<div class="modal-header">
+        		<h4 class="modal-title">
           			<button type="button" class="close" data-dismiss="modal">&times;</button>
-          			<h4 class="modal-title">손님으로 로그인하기</h4>
+          			<span><label class="myLabel" for="loginCustomer">손님</label><input style="" id="loginCustomer" type="radio" name="loginType" checked value="customer"></span>
+          			<span><label class="myLabel" for="loginDesigner">디자이너</label><input style="display:block;" id="loginDesigner" type="radio" name="loginType" value="designer"></span>
+          			<span><label class="myLabel" for="loginHairshop">헤어샵</label><input style="display:block;" id="loginHairshop" type="radio" name="loginType" value="hairshop"></span>
+          			<span><label class="myLabel" for="loginAdmin">관리자</label><input style="display:block;" id="loginAdmin" type="radio" name="loginType" value="admin"></span>
+          			으로 로그인하기
+          			</h4>
         		</div>
-        	<form action="/custLogin" method="post">
+        	
         		<div class="modal-body">
           			<p>로그인</p>
 	          			<div class="name inputBox">
@@ -55,8 +70,8 @@
 					<button type="submit" class="btn btn-default">제출</button>
 					<button type="reset" class="btn btn-default">초기화</button>
 				</div>
-			</form>
-		</div>
+			</div>
+		</form>
 	</div>
 </div>
   <%} else{ %>

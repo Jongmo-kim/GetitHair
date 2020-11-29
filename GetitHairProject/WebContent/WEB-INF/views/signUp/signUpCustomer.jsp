@@ -10,10 +10,8 @@
 
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
-	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css">
-	<script type="text/javascript" src="/js/signUp/signUpCustomer.js"></script>
-	<link rel="stylesheet" href="/css/signUp/inputBox.css">
-	<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
+	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
+	<script type="text/javascript" src="/js/signUp/signUpCustomer.js?v=<%=System.currentTimeMillis()%>"></script>
 	
 	<form action="/signUpCustomer" method="post">
 	    <div class="container">
