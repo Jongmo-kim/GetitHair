@@ -12,6 +12,12 @@
         $('.form-textbox').on('focus', formTextboxFocusEvent);
         $('.form-textbox').on('blur', formTextboxBlurEvent);
         $('.form-label').on('click', formLabelClickEvent);
+		
+		$('.resetBtn').on('click',function(){
+			var inputTag = $('.form-textbox');
+			$(inputTag).val('');
+			$(inputTag).trigger('blur');
+		});
     });
     function dateOfBirthFunc(e) {
         if (isDebugMode) {
