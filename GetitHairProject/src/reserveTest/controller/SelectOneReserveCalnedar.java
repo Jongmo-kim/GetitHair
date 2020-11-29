@@ -2,6 +2,7 @@ package reserveTest.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
@@ -21,14 +22,14 @@ import reserveTest.model.vo.ReserveTest;
 /**
  * Servlet implementation class ReserveCalnedaUpdateServlet
  */
-@WebServlet(name = "ReserveCalnedarUpdate", urlPatterns = { "/reserveCalnedarUpdate" })
-public class ReserveCalnedarUpdateServlet extends HttpServlet {
+@WebServlet(name = "SelectOneReserveCalnedar", urlPatterns = { "/selectOneReserveCalnedar" })
+public class SelectOneReserveCalnedar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReserveCalnedarUpdateServlet() {
+    public SelectOneReserveCalnedar() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,16 +50,18 @@ public class ReserveCalnedarUpdateServlet extends HttpServlet {
 		jsonRt.put("reserveNo", rt.getReserveNo());
 		jsonRt.put("reserveStartDate", rt.getReserveStartDate().getTime());
 		jsonRt.put("reserveEndDate", rt.getReserveEndDate().getTime());
-		jsonRt.put("reserveTitle", URLEncoder.encode(rt.getReserveTitle(),"utf-8"));
-		jsonRt.put("reserveStatus", URLEncoder.encode(rt.getReserveStatus(),"utf-8"));
-		jsonRt.put("reserveCustReq", URLEncoder.encode(rt.getReserveCustReq(),"utf-8"));
-		jsonRt.put("reserveDesignerReq", URLEncoder.encode(rt.getReserveDesignerReq(),"utf-8"));
-		jsonRt.put("reserveDisignerMemo", URLEncoder.encode(rt.getReserveDesignerMemo(),"utf-8"));
+		jsonRt.put("reserveDate", rt.getReserveDate().getTime());
+		jsonRt.put("reserveTitle", rt.getReserveTitle());
+		jsonRt.put("reserveStatus", rt.getReserveStatus());
+		jsonRt.put("reserveCustReq", rt.getReserveCustReq());
+		jsonRt.put("reserveDesignerReq",rt.getReserveDesignerReq());
+		jsonRt.put("reserveDesignerMemo", rt.getReserveDesignerMemo());
 		jsonRt.put("customerName",  rt.getCustomer().getCustomerName());
 		response.setContentType("text/html;charset=UTF-8"); 
 
-		System.out.println(URLEncoder.encode(rt.getCustomer().getCustomerName(),"utf-8"));
-		System.out.println(rt.getCustomer().getCustomerName());
+//		System.out.println(URLEncoder.encode(rt.getCustomer().getCustomerName(),"utf-8"));
+//		System.out.println(URLDecoder.decode(rt.getCustomer().getCustomerName(),"utf-8"));
+//		System.out.println(rt.getCustomer().getCustomerName()); decode 참조코드
 		PrintWriter out = response.getWriter();
 		out.print(jsonRt);
 		out.flush();

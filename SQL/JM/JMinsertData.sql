@@ -28,7 +28,7 @@
 DECLARE
 NUM1 NUMBER :=1;
 BEGIN
-    WHILE(NUM1<31)
+    WHILE(NUM1<10)
     LOOP
         INSERT INTO CUSTOMER VALUES(CUSTOMER_SEQ.NEXTVAL,'user0'||CUSTOMER_SEQ.CURRVAL,'1234','1990-08-08','남성','홍길동','asd@naver.com','경기도 고양시 덕양구','010-1234-5678','상세주소','10001',sysdate);
         INSERT INTO HAIR_INFO VALUES(hair_info_seq.nextval,'지성','곱슬','많음','가는모발','볼륨부족','푸석한모발','새치조금');
@@ -50,7 +50,7 @@ END;
 DECLARE
 NUM1 NUMBER :=1;
 BEGIN
-    WHILE(NUM1<31)
+    WHILE(NUM1<10)
     LOOP
       INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,SYSDATE,'예약','예쁘게 커트 해주세요','디자이너 요청사항?','디자이너 메모',sysdate-NUM1*20-1, sysdate-NUM1*20,'reservetitle');
        NUM1 := NUM1+1; 
