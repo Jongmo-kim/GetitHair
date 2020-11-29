@@ -202,7 +202,8 @@ public class CustomerService {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = 0;
 		int custResult2 = new CustomerDao().insertCustomer(conn, customer);
-		int hairinfoResult2 = new HairinfoDao().insertHairinfo(conn,hairinfo,customer.getCustomerNo());
+		int custNo = new CustomerDao().selectOneCustomer(conn,customer.getCustomerId()).getCustomerNo();
+		int hairinfoResult2 = new HairinfoDao().insertHairinfo(conn,hairinfo,custNo);
 		//result = (new CustomerDao().insertCustomer(conn, customer))*(new HairinfoDao().insertHairinfo(conn,hairinfo,customer.getCustomerNo()));
 		result = custResult2*hairinfoResult2;
 		System.out.println("custResult2 = "+custResult2);

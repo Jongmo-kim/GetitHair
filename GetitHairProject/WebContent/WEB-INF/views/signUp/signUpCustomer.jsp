@@ -7,26 +7,50 @@
 	<title>Insert title here</title>
 </head>
 		 
-
+<style>
+	input[type="radio"] {
+		display:none;
+	}
+	input[type="radio"] + label{
+		width: 90px;
+		text-align: center;
+		border-radius: 5px;
+		font-size:17px;
+	}
+	input[type="radio"]:checked + label {
+		background-color: var(--black);
+		color: white;
+	}
+</style>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
 	<script type="text/javascript" src="/js/signUp/signUpCustomer.js?v=<%=System.currentTimeMillis()%>"></script>
 	<form action="/signUpCustomer" method="post">
 	    <div class="container">
+	    <h2>Get it hair</h2>
+	    <h3>회원가입</h3>
+	    <p>이미 Get it hair의 회원이신가요? <a href="/searchCustomeIdForm">ID</a> / <a href="/searchCustomerPwForm">PW</a>찾기</p>
+	    <br>
+	    <hr>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerName">
-	            <span class="form-label">이름</span>
+	            <input autofocus type="text" class="form-textbox" name="customerName">
+	            <span class="form-label label-focused">이름</span>
 	        </div>
+	        <hr>
+	        <br>
 	        <div class="date inputBox">
 	            <input type="text" class="form-textbox dateOfBirth" name="customerBirthDate">
 	            <span class="form-label">생년월일</span>
 	        </div>
+	        <hr>
+	        <br>
 	        <div class="inputBox">
 	            <input type="text" class="form-textbox phoneInput" name="customerPhone">
 	            <span class="form-label">전화번호</span>
 	        </div>
-			
+			<hr>
+	        <br>
 			<div class="name inputBox">
 	            <input type="text" class="form-textbox" name="customerId">
 	            <span class="form-label">아이디</span>
@@ -36,18 +60,29 @@
 	            <input type="text" class="form-textbox" name="customerPw">
 	            <span class="form-label">비밀번호</span>
 	        </div>
+	        <hr>
+	        <br>
+	        
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerGen">
-	            <span class="form-label">성별</span>
+				<input type="radio" id="signupMale" name="customerGen" value="남" >
+				<label for="signupMale">남자</label>
+				<input type="radio" id="signupFemale" name="customerGen" value="여" >
+				<label for="signupFemale">여자</label>
 	        </div>
+	        <hr>
+	        <br>
 	        <div class="name inputBox">
 	            <input type="text" class="form-textbox" name="customerName">
 	            <span class="form-label">이름</span>
 	        </div>
+	        <hr>
+	        <br>
 	        <div class="name inputBox">
 	            <input type="text" class="form-textbox" name="customerEmail">
 	            <span class="form-label">이메일</span>
 	        </div>
+	        <hr>
+	        <br>
 	        <div class="name inputBox">
 	            <input type="text" class="form-textbox" name="customerAddr">
 	            <span class="form-label">주소</span>
@@ -61,9 +96,13 @@
 	            <input type="text" class="form-textbox" name="addrDetail">
 	            <span class="form-label">상세표기</span>
 	        </div>
+	        <hr>
+	        <br>
+	        <h2>추가 모발 정보</h2>
+	        <br>
 	        <table class="table table-dark table-hover">
 			<tr class="table-primary">
-				<th>1.두피상태</th>
+				<th>두피상태</th>
 				<td>
 						<input type="radio" id="oilySkinScalp" name="myhairScalp" value="지성">
 						<label for="oilySkinScalp">지성</label> 
@@ -80,7 +119,7 @@
 				</td>
 			</tr>
 			<tr class="table-primary">
-				<th>2.곱슬정도</th>
+				<th>곱슬정도</th>
 				<td>
 						<input type="radio" id="nomalCurly" name="myhairCurly" value="곱슬">
 						<label for="nomalCurly">곱슬</label>
@@ -93,7 +132,7 @@
 				</td>
 			</tr>
 			<tr class="table-primary">
-				<th>3.머리숱</th>
+				<th>머리숱</th>
 				<td>
 						<input type="radio" id="heavyRich" name="myhairRich" value="많음" >
 						<label for="heavyRich">많음</label>
@@ -108,7 +147,7 @@
 				</td>
 			</tr>
 			<tr class="table-primary">
-				<th>4.모발굵기</th>
+				<th>모발굵기</th>
 				<td>
 						<input type="radio" id="thinHairBold" name="myhairBold" value="가는모발">
 						<label for="thinHairBold">가는모발</label>
@@ -121,7 +160,7 @@
 				</td>
 			</tr>
 			<tr class="table-primary">
-				<th>5.모발볼륨상태</th>
+				<th>모발볼륨상태</th>
 				<td>
 						<input type="radio" id="lackVol" name="myhairVol" value="볼륨부족">
 						<label for="lackVol">볼륨부족</label>
@@ -134,7 +173,7 @@
 				</td>
 			</tr>
 			<tr class="table-primary">
-				<th>6.모발상태</th>
+				<th>모발상태</th>
 				<td>
 						<input type="radio" id="cuttingHairStatus" name="myhairStatus" value="끊기는모발">
 						<label for="cuttingHairStatus">끊기는모발</label>
@@ -147,7 +186,7 @@
 				</td>
 			</tr>
 			<tr class="table-primary">
-				<th>7.모발노화상태</th>
+				<th>모발노화상태</th>
 				<td>
 						<input type="radio" id="littleOld" name="myhairOld" value="새치조금">
 						<label for="littleOld">새치조금</label>
@@ -164,5 +203,6 @@
         <button class="btn resetBtn" type="reset">초기화</button>
     </div>
 	</form>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>
