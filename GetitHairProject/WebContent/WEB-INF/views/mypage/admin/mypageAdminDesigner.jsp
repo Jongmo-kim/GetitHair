@@ -111,6 +111,7 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="8">
+                                        <button class="btn-allcheck" type="button">전체선택</button>
                                         <button>선택회원 탈퇴</button>
                                         <button type="reset">전체 선택해제</button>
                                     </th>
@@ -170,7 +171,12 @@
                 }
             });
         }
-
+        function toggleCheckbox(checkbox) {
+            if ($(checkbox).prop("checked") == true)
+                $(checkbox).prop("checked", false);
+            else if ($(checkbox).prop("checked") == false)
+                $(checkbox).prop("checked", true);
+        }
         function setClickToRemoveReviewBtn() {
             $(document).off("click", ".delete-review");
             $(document).on("click", ".delete-review", function (e) {
@@ -207,6 +213,13 @@
             $("#close-modal").click(function (e) {
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
+            })
+
+            // 전체 선택 버튼 클릭 이벤트
+            $(".btn-allcheck").on("click", function (e) {
+                console.log($(".designer-list tbody th>input:checkbox"));
+                toggleCheckbox($(".designer-list tbody th>input:checkbox"));
+
             })
         });
     </script>
