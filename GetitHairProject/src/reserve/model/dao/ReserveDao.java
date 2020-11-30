@@ -15,24 +15,28 @@ import designer.model.service.DesignerService;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 import reserve.model.vo.Reserve;
+import stylelist.model.service.StylelistService;
+import stylelist.model.vo.Stylelist;
 
 public class ReserveDao {
 
    public int insertReserve(Connection conn, Reserve reserve) {
       PreparedStatement pstmt = null;
-      String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,?,default,?,?,?,sysdate,?,?)";
-      "INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,'예약제목',default,'손님요청','디자이너요청','디자이너메모',sysdate,sysdate + (1/1440*15)*reserve_seq.currval*8, sysdate + (1/1440*15)*reserve_seq.currval*9);"
+      String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,?,?,default,?,?,?,sysdate,?,?)";
       int result = 0 ;
       try {
          pstmt = conn.prepareStatement(sql);
          pstmt.setInt(1, reserve.getCustomer().getCustomerNo());
          pstmt.setInt(2, reserve.getDesigner().getDesignerNo());
          pstmt.setInt(3, reserve.getShop().getShopNo());
-         pstmt.setDate(4, reserve.getReserveDate());
-         pstmt.setString(5, reserve.getReserveStatus());
-         pstmt.setString(6,reserve.getReserveCustReq());
+         pstmt.setInt(4, reserve.getStylelist().getStylelistNo());
+         pstmt.setString(5, reserve.getReserveTitle());
+         pstmt.setString(6, reserve.getReserveCustReq());
          pstmt.setString(7, reserve.getReserveDesignerReq());
          pstmt.setString(8, reserve.getReserveDesignerMemo());
+         pstmt.setDate(9, reserve.getReserveDate());
+         pstmt.setDate(10, reserve.getReserveStartdate());
+         pstmt.setDate(11, reserve.getReserveEndDate());
          result = pstmt.executeUpdate();
       } catch (SQLException e) {
          e.printStackTrace();
@@ -73,6 +77,7 @@ public class ReserveDao {
          reserve.setCustomer(getCustomerByNo(rset.getInt("customer_no")));
          reserve.setDesigner(getDesignerByNo(rset.getInt("designer_no")));
          reserve.setShop(getHairshopByNo(rset.getInt("shop_no")));
+         reserve.setStylelist(stylelist);
          reserve.setReserveDate(rset.getDate("reserve_date"));
          reserve.setReserveStatus(rset.getString("reserve_status"));
          reserve.setReserveCustReq(rset.getString("reserve_cust_req"));
@@ -106,6 +111,14 @@ public class ReserveDao {
          hairshop.setShopNo(-1);
       }
       return hairshop;
+   }
+   private Stylelist getStyleListByNo(int no) {
+	   Stylelist stylelist = new StylelistService().selectOneStylelist(no);
+	   if(stylelist == null) {
+		   stylelist = new Hairshop();
+		   stylelist.setShopNo(-1);
+	      }
+	   return stylelist;
    }
    public int deleteReserve(Connection conn, int reserveNo) {
       int result = 0 ;

@@ -1,23 +1,29 @@
-package customer.controller;
+package stylelist.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import style.model.service.StyleService;
+import style.model.vo.Style;
+
 /**
- * Servlet implementation class CustLoginFormServlet
+ * Servlet implementation class StyleServlet
  */
-@WebServlet(name = "CustLoginForm", urlPatterns = { "/custLoginForm" })
-public class CustLoginFormServlet extends HttpServlet {
+@WebServlet(name = "Style", urlPatterns = { "/style" })
+public class StyleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustLoginFormServlet() {
+    public StyleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +32,11 @@ public class CustLoginFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("utf-8");
+		ArrayList<Style> list = new StyleService().selectAllStyle();
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/style/style.jsp");
+		request.setAttribute("list", list);
+		rd.forward(request, response);
 	}
 
 	/**
