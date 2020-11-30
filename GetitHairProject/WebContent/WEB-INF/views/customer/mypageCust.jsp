@@ -99,7 +99,8 @@
                      >
                   <input type="hidden" class="form-textbox" name="shopNo" id="shopNo"
                      >
-                  <input type="hidden" class="form-textbox" name="styleNo" id="styleNo" value="1">
+                  <input type="hidden" class="form-textbox" name="styleNo" id="styleNo"
+                  	 >
                   <input type="hidden" class="form-textbox"
                      name="reserveDesignerMemo" id="reserveDesignerMemo"
                      >
@@ -140,7 +141,7 @@
          <li>
             <button type="button" class="btn btn-primary"
                onclick="location.href='/updateAllCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>'">정보수정</button>
-            <button type="button" class="btn btn-danger"
+           <button type="button" class="btn btn-primary"
                onclick="location.href='/deleteAllCustomer?customerNo=<%=loginCustomer.getCustomerNo()%>'">회원탈퇴</button>
          </li>
          <li>

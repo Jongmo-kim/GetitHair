@@ -548,7 +548,7 @@
 				</td>
 			</tr>
 		</table>
-		<input type="submit" value="회원수정">		
+		<input type="submit" value="회원수정">	 <input type="button" value="이전화면으로" onClick="history.go(-1)"> 	
 	</form>
 </body>
 </html>

@@ -129,6 +129,7 @@ public class CustomerDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, customerNo);
 			result = pstmt.executeUpdate();
+			//System.out.println("dao deleteCustomer result = "+result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -33,7 +33,7 @@ public class ReviewDao {
 			rv.setReviewContent(rs.getString("review_content"));
 			rv.setReviewRate(rs.getInt("review_rate"));
 			rv.setReviewLikes(rs.getInt("review_likes"));
-			rv.setReviewDate(rs.getString("review_date"));
+			rv.setReviewDate(rs.getDate("review_date"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -275,7 +275,7 @@ public class ReviewDao {
 	}
 	public int insertReview(Connection conn, Review rv) {
 		PreparedStatement pstmt = null;
-		String qryInsert = "insert into review values(default,?,?,?,?,?,?,?,sysdate)";//태민쿼리수정
+		String qryInsert = "insert into review values(review_seq.nextval,?,?,?,?,?,?,?,sysdate)";//태민쿼리수정
 		int result = 0;
 		try {
 			pstmt=conn.prepareStatement(qryInsert);
@@ -289,6 +289,7 @@ public class ReviewDao {
 			//pstmt.setString(8, rv.getReviewDate()); //태민쿼리수정
 			
 			result = pstmt.executeUpdate();
+			System.out.println("dao result = "+result);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

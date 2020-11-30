@@ -2,8 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <% 
-    	Reserve reserve = (Reserve)request.getAttribute("reserve");    
-    	String temp;
+    	Reserve reserve = (Reserve)request.getAttribute("reserve");   
+    	//int reserve.get
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,9 +17,9 @@
 			<form action="/insertReviewByCustomer" method="post" enctype="multipart/form-data">
 				<!-- hidden영역 -->
 				<input type="hidden" name="shopNo" value="<%=reserve.getShop().getShopNo() %>">
-				<input type="hidden" name="designerNo" value="<%=reserve.getDesigner().getDesignerNo() %>">
-				<input type="hidden" name="customerNo" value="<%=reserve.getCustomer().getCustomerNo() %>">
-				<input type="hidden" name="styleNo" value="<%=temp="reserve.getStyle().getStyleNo()" %>">
+				<input type="hidden" name="designerNo" value="<%=reserve.getDesigner() == null ? "탈퇴한 디자이너" : reserve.getDesigner().getDesignerNo() %>">
+				<input type="hidden" name="customerNo" value="<%=reserve.getCustomer() == null ? "탈퇴한 회원" : reserve.getCustomer().getCustomerNo() %>">
+				<input type="hidden" name="styleNo" value="<%=reserve.getStylelist() == null ? "없는스타일 ": reserve.getStylelist()  %>">
 				<table class="table table-bordered">
 					<tr>
 						<th colspan="2">리뷰 작성</th>
@@ -37,12 +37,8 @@
 					<tr>
 					</tr>
 						<th>스타일이름</th>
-						<td><input type="text" class="form-control" name="styleName" value="<%=temp="reserve.getStyle().getStyleName()"%>" readonly></td>
-					<tr>
-					</tr>
-						<th>가격</th>
-						<td><input type="text" class="form-control" name="price" value ="20000원" readonly></td>
-					<tr>
+						<td><input type="text" class="form-control" name="styleName" value="<%=reserve.getStylelist().getStyle().getStyleName()%>" readonly></td>
+					<tr>				
 					</tr>
 						<th>평점</th>
 						<td><input type="text" class="form-control" name="reviewRate"></td>

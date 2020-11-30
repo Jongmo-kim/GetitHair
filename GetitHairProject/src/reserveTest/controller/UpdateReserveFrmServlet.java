@@ -44,7 +44,7 @@ public class UpdateReserveFrmServlet extends HttpServlet {
 		}else if(selStatus.equals("취소")) {
 			sqlAdd = " and reserve_status='취소' ";
 		}
-		ReservePageData rpd = new ReserveService().reserveSelectListCustomerSelStatus(reqPage, customer,selStatus,sqlAdd);
+		ReservePageData rpd = new ReserveService().reserveSelectListCustomerSelStatus(reqPage, customer.getCustomerNo(),selStatus,sqlAdd);
 		
 		RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/updateReserveFrm.jsp");
 		request.setAttribute("customer", customer);

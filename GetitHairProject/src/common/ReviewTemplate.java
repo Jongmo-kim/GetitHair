@@ -1,5 +1,8 @@
 package common;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 
 import customer.model.service.CustomerService;
@@ -47,20 +50,20 @@ public class ReviewTemplate {
 		r.setDesigner(d);
 		r.setCustomer(c);
 		r.setStyle(style);		
-		/*
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			java.util.Date to = sdf.parse(reviewDate);
-			java.sql.Date sqlDate = new java.sql.Date(to.getTime());
+			java.util.Date to = sdf.parse(reviewDate);			
+			java.sql.Date sqlDate = new java.sql.Date(to.getTime());			
 			r.setReviewDate(sqlDate);	
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}		
+		
 		r.setReviewContent(reviewContent);
 		r.setReviewRate(reviewRate);
 		r.setReviewLikes(reviewLikes);
-		r.setReviewDate(reviewDate);		
+		//r.setReviewDate(reviewDate);		
 		return r;
 		
 	}

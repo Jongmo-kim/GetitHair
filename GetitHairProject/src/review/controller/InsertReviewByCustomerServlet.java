@@ -33,9 +33,24 @@ public class InsertReviewByCustomerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("insertReviewByCustomer 서블릿 호출!");
 		Review review = ReviewTemplate.setReview(request);
 		DebugTemplate.setCurrObjAtSession(request.getSession(), review, "review");
+		//System.out.println("Servlet review = "+review);
+		System.out.println("Servlet  reviewNo = "+review.getReviewNo());
+		System.out.println("Servlet  shopNo = "+review.getShop().getShopNo());
+		System.out.println("Servlet  designerNo = "+review.getDesigner().getDesignerNo());
+		System.out.println("Servlet  cutomerNo= "+review.getCustomer().getCustomerNo());
+		System.out.println("Servlet  styleNo= "+review.getStyle().getStyleNo());
+		System.out.println("Servlet  reviewContent= "+review.getReviewContent());
+		System.out.println("Servlet  reviewRate= "+review.getReviewRate());
+		System.out.println("Servlet  reveiwLikes = "+review.getReviewLikes());
+		System.out.println("Servlet  reviewDate= "+review.getReviewDate());
+	
+		
+		
 		int result = new ReviewService().insertReview(review);
+		System.out.println("Servlet result = "+result);
 		if(result>0) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 			request.setAttribute("msg", "리뷰작성에 성공하셨습니다!!");
