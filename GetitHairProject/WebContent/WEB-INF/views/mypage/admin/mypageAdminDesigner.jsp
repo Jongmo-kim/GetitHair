@@ -22,19 +22,6 @@
             opacity: 0.5;
         }
 
-        .review-container {
-            display: none;
-            position: fixed;
-            width: 1000px;
-            height: 800px;
-            top: 50%;
-            left: 50%;
-            margin-top: -400px;
-            margin-left: -500px;
-            background-color: white;
-            box-shadow: 0px 0px 5px 0px gray;
-            border-radius: 3px;
-        }
 
         .designer-list,
         .review-list {
@@ -72,7 +59,6 @@
                                     <th></th>
                                     <th>번호</th>
                                     <th>아이디</th>
-                                    <th>성별</th>
                                     <th>이름</th>
                                     <th>경력</th>
                                     <th>직급</th>
@@ -87,12 +73,11 @@
                                             </th>
                                             <th>${de.designerNo}</th>
                                             <th>${de.designerId}</th>
-                                            <th>${de.designerGen}</th>
                                             <th>${de.designerName}</th>
                                             <th>${de.designerYear}</th>
                                             <th>${de.designerRank}</th>
                                             <th>
-                                                <button>탈퇴</button>
+                                                <button class="btn">탈퇴</button>
                                             </th>
                                         </tr>
                                     </c:forEach>
@@ -101,9 +86,9 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="8">
-                                        <button class="btn-allcheck" type="button">전체선택</button>
-                                        <button>선택회원 탈퇴</button>
-                                        <button type="reset">전체 선택해제</button>
+                                        <button class="btn btn-allcheck" type="button">전체선택</button>
+                                        <button class="btn">선택회원 탈퇴</button>
+                                        <button class="btn" type="reset">전체 선택해제</button>
                                     </th>
                                 </tr>
                             </tfoot>
@@ -193,7 +178,7 @@
             });
         }
         $(function () {
-            $(".admin-nav a:eq(3)").css("background-color", "whitesmoke");
+            $(".admin-nav a:eq(3)").css("background-color", "#F2C335");
             setClickToTr();
             setClickToChk()
             $(".modal-overlay").click(function (e) {

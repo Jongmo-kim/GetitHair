@@ -1,11 +1,14 @@
 package hairshop.model.vo;
 
+import java.util.Date;
 
 //장소, 가격, 소속디자이너들, 미용실 이름, 미용실 사진, 리뷰 , 시설정보
 
 
 public class Hairshop {
 	private int shopNo;				//헤어샵 번호
+	private String shopId;
+	private String shopPw;
 	private String shopCompNo;		//사업자 등록번호
 	private String shopName;		//헤어샵명
 	private String shopAddr;		//샵 장소
@@ -14,19 +17,21 @@ public class Hairshop {
 	private String shopClose;		//샵 닫는 시간
 	private String shopHoliday;		//정기 휴무일
 	private int shopRate;			//평점
-	private String shopImg;			//매장 이미지
 	private int shopLikes;			//샵 좋아요수
 	private String addrDetail;		//상세주소
 	private String addrPostcode;	//우편번호
+	private Date enrollDate;		//시간
 	public Hairshop() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Hairshop(int shopNo, String shopCompNo, String shopName, String shopAddr, String shopPhone, String shopOpen,
-			String shopClose, String shopHoliday, int shopRate, String shopImg, int shopLikes, String addrDetail,
-			String addrPostcode) {
+	public Hairshop(int shopNo, String shopId, String shopPw, String shopCompNo, String shopName, String shopAddr,
+			String shopPhone, String shopOpen, String shopClose, String shopHoliday, int shopRate, int shopLikes,
+			String addrDetail, String addrPostcode, Date enrollDate) {
 		super();
 		this.shopNo = shopNo;
+		this.shopId = shopId;
+		this.shopPw = shopPw;
 		this.shopCompNo = shopCompNo;
 		this.shopName = shopName;
 		this.shopAddr = shopAddr;
@@ -35,16 +40,28 @@ public class Hairshop {
 		this.shopClose = shopClose;
 		this.shopHoliday = shopHoliday;
 		this.shopRate = shopRate;
-		this.shopImg = shopImg;
 		this.shopLikes = shopLikes;
 		this.addrDetail = addrDetail;
 		this.addrPostcode = addrPostcode;
+		this.enrollDate = enrollDate;
 	}
 	public int getShopNo() {
 		return shopNo;
 	}
 	public void setShopNo(int shopNo) {
 		this.shopNo = shopNo;
+	}
+	public String getShopId() {
+		return shopId;
+	}
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
+	}
+	public String getShopPw() {
+		return shopPw;
+	}
+	public void setShopPw(String shopPw) {
+		this.shopPw = shopPw;
 	}
 	public String getShopCompNo() {
 		return shopCompNo;
@@ -94,12 +111,6 @@ public class Hairshop {
 	public void setShopRate(int shopRate) {
 		this.shopRate = shopRate;
 	}
-	public String getShopImg() {
-		return shopImg;
-	}
-	public void setShopImg(String shopImg) {
-		this.shopImg = shopImg;
-	}
 	public int getShopLikes() {
 		return shopLikes;
 	}
@@ -117,5 +128,11 @@ public class Hairshop {
 	}
 	public void setAddrPostcode(String addrPostcode) {
 		this.addrPostcode = addrPostcode;
+	}
+	public Date getEnrollDate() {
+		return enrollDate;
+	}
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
 	}
 }

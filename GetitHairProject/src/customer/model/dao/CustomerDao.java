@@ -94,6 +94,7 @@ public class CustomerDao {
 			pstmt.setString(5, customer.getCustomerPhone());
 			pstmt.setInt(6, customer.getCustomerNo());
 			result = pstmt.executeUpdate();
+			System.out.println("updateCustomer result = "+result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

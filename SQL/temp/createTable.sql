@@ -443,7 +443,8 @@ INCREMENT BY 1;
 --외래키 추가
 ALTER TABLE shop_price
     ADD CONSTRAINT shop_price_shop_noFK FOREIGN KEY (shop_no)
-        REFERENCES hairshop (shop_no) 
+        REFERENCES hairshop (shop_no) ON DELETE CASCADE
+
 /
 -- hairshop Table Create SQL
 CREATE TABLE style_list

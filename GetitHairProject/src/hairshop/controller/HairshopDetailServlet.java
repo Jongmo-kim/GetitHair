@@ -49,11 +49,13 @@ public class HairshopDetailServlet extends HttpServlet {
 		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);//hs == null.getNo()
 		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(hs.getShopNo());
 		Likes like = new LikesService().selectOneLikes(shopNo);
+		ArrayList<DesignerList> designerList = new DesignerListService().selectDesignerListByShopNo(shopNo);
 			if(hs != null){
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");
 				request.setAttribute("hs", hs);
 				request.setAttribute("review", review);
 				request.setAttribute("like", like);
+				request.setAttribute("designerList", designerList);
 				rd.forward(request, response);
 			}else{
 				response.sendRedirect("/hairshop");	
