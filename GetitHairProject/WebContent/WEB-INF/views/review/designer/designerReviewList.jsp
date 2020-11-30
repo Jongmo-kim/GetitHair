@@ -26,15 +26,16 @@
 				<th>작성자</th>
 				<th>작성일</th>
 			</tr>
+			<%if(list!= null){ %>
 		<%for(Review r : list) {%>
 			<tr>
 				<td style="font-size: 15px;"><%=r.getReviewNo() %></td>
 				<td style="font-size: 15px;"><a href="/designerReviewView?reviewNo=<%=r.getReviewNo()%>"><%=r.getReviewContent() %></a></td>
-				<td style="font-size: 15px;"><%=r.getCustomer().getCustomerName() %></td>
+				<td style="font-size: 15px;"><%=r.getCustomer() == null ? "탈퇴한 회원" : r.getCustomer().getCustomerName() %></td>
 				<td style="font-size: 15px;"><%=r.getReviewDate() %></td>
 			</tr>
 			<%} %> 
-		
+		<%} %>
 		</table>
 	</div>
 	</section>

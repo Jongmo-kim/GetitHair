@@ -22,7 +22,7 @@
 			<table class="table table-bordered">
 				<tr>
 					<th>작성자</th>
-					<td><%=r.getCustomer().getCustomerName() %></td>
+					<td><%=r.getCustomer() == null ? "탈퇴한 회원" : r.getCustomer().getCustomerName() %></td>
 				</tr>
 				<!-- 시술 이미지 수정중 -->
 				<%-- <tr>
@@ -90,16 +90,6 @@
 	</section>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script>
-	/*$(".recShow").click(function(){
-		$(this).hide();
-		var idx = $(".recShow").index(this);
-		$(".recCancel").eq(idx).parents("div").css("display","block");
-	});
-	$(".recCancel").click(function(){
-		var idx = $(".recCancel").index(this);
-		$(this).parents(".re").css("display","none");
-		$(".recShow").eq(idx).show();
-	});*/
 	
 	function modifyComment(obj,commentNo,reviewNo){
 		$(obj).parent().prev().show();		// textarea를 보여주는 코드

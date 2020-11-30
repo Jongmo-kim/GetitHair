@@ -34,19 +34,21 @@ public class DesignerReviewListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 인코딩
 		// 2. view에서 넘어온 데이터 저장
-		int designerNo = 1;//Integer.parseInt(request.getParameter("designerNo"));
+		int designerNo = Integer.parseInt(request.getParameter("designerNo"));
+		System.out.println("designerNo : "+designerNo);
 		// 3. 비지니스로직
 		ArrayList<Review> list = new ReviewService().selectAllReviewByDesignerNo(designerNo);
+		System.out.println("list : "+list.size());
 		// 4. 결과처리
 		if(list !=null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/review/designer/designerReviewList.jsp");
 			request.setAttribute("list", list);	// 이걸 왜 빼먹냐 진심 개 빡대갈 ^^
-			rd.forward(request, response);	
+			rd.forward(request, response);
 		}else {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 			request.setAttribute("msg", "리뷰가 존재하지 않습니다.");
-			request.setAttribute("loc", "/");
-			rd.forward(request, response);	
+			request.setAttribute("loc", "/WEB-INF/views/mypage/designer/mypageDesigner.jsp");
+			rd.forward(request, response);
 		}
 	}
 
