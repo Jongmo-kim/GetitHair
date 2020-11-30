@@ -1,6 +1,7 @@
 package reserve.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,24 +16,28 @@ import designer.model.service.DesignerService;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 import reserve.model.vo.Reserve;
+import stylelist.model.service.StylelistService;
+import stylelist.model.vo.Stylelist;
 
 public class ReserveDao {
 
    public int insertReserve(Connection conn, Reserve reserve) {
       PreparedStatement pstmt = null;
-      String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,?,default,?,?,?,sysdate,?,?)";
-      "INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,'예약제목',default,'손님요청','디자이너요청','디자이너메모',sysdate,sysdate + (1/1440*15)*reserve_seq.currval*8, sysdate + (1/1440*15)*reserve_seq.currval*9);"
+      String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,?,?,default,?,?,?,sysdate,?,?)";
       int result = 0 ;
       try {
          pstmt = conn.prepareStatement(sql);
          pstmt.setInt(1, reserve.getCustomer().getCustomerNo());
          pstmt.setInt(2, reserve.getDesigner().getDesignerNo());
          pstmt.setInt(3, reserve.getShop().getShopNo());
-         pstmt.setDate(4, reserve.getReserveDate());
-         pstmt.setString(5, reserve.getReserveStatus());
-         pstmt.setString(6,reserve.getReserveCustReq());
+         pstmt.setInt(4, reserve.getStylelist().getStylelistNo());
+         pstmt.setString(5, reserve.getReserveTitle());
+         pstmt.setString(6, reserve.getReserveCustReq());
          pstmt.setString(7, reserve.getReserveDesignerReq());
          pstmt.setString(8, reserve.getReserveDesignerMemo());
+         pstmt.setDate(9, reserve.getReserveDate());
+         pstmt.setDate(10, reserve.getReserveStartdate());
+         pstmt.setDate(11, reserve.getReserveEndDate());
          result = pstmt.executeUpdate();
       } catch (SQLException e) {
          e.printStackTrace();
@@ -73,11 +78,15 @@ public class ReserveDao {
          reserve.setCustomer(getCustomerByNo(rset.getInt("customer_no")));
          reserve.setDesigner(getDesignerByNo(rset.getInt("designer_no")));
          reserve.setShop(getHairshopByNo(rset.getInt("shop_no")));
-         reserve.setReserveDate(rset.getDate("reserve_date"));
+         reserve.setStylelist(getStyleListByNo(rset.getInt("stylelist_no")));
+         reserve.setReserveTitle(rset.getString("reserve_title"));
          reserve.setReserveStatus(rset.getString("reserve_status"));
          reserve.setReserveCustReq(rset.getString("reserve_cust_req"));
          reserve.setReserveDesignerReq(rset.getString("reserve_designer_req"));
          reserve.setReserveDesignerMemo(rset.getString("reserve_designer_memo"));
+         reserve.setReserveDate(rset.getDate("reserve_date"));
+         reserve.setReserveStartdate(rset.getDate("reserve_startdate"));
+         reserve.setReserveEndDate(rset.getDate("reserve_enddate"));
       } catch (SQLException e) {
          e.printStackTrace();
       }
@@ -106,6 +115,14 @@ public class ReserveDao {
          hairshop.setShopNo(-1);
       }
       return hairshop;
+   }
+   private Stylelist getStyleListByNo(int no) {
+	   Stylelist stylelist = new StylelistService().selectOneStylelist(no);
+	   if(stylelist == null) {
+		   stylelist = new Stylelist();
+		   stylelist.setStylelistNo(-1);
+	      }
+	   return stylelist;
    }
    public int deleteReserve(Connection conn, int reserveNo) {
       int result = 0 ;
@@ -344,7 +361,6 @@ public class ReserveDao {
   		ArrayList<Reserve> list = new ArrayList<Reserve>();
   		PreparedStatement pstmt = null;
   		ResultSet rset = null;
-  		//String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where customer_no=? "+sqlAdd+" order by 1 desc)N) where rnum between ? and ?";
   		String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where customer_no = ? "+sqlAdd+"  order by 1 desc)N) where rnum between ? and ?";	
   		try {
   			pstmt = conn.prepareStatement(sql);			
@@ -356,7 +372,6 @@ public class ReserveDao {
   				Reserve r  = getReserveFromRset(rset);
   				list.add(r);
   			}
-  			//System.out.println("dao List.size = "+list.size());
   		} catch (SQLException e) {
   			e.printStackTrace();
   		} finally {
@@ -445,4 +460,28 @@ public int cancelReserve(Connection conn, int reserveNo) {
     }
     return result;
 }
+
+public int selectAllByDate(Connection conn, Date startSqlDate, Date endSqlDate) {
+	int result = 0;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	String sql = "select count(*) from reserve where reserve_enddate between ? and ?";
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setDate(1, startSqlDate);
+		pstmt.setDate(2, endSqlDate);
+		rs = pstmt.executeQuery();
+		if(rs.next()) {
+			result = rs.getInt(1);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+	}
+	
+	return result;
+}
+
 }

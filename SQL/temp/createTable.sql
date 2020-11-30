@@ -133,7 +133,7 @@ COMMENT ON COLUMN hairshop.addr_postcode IS '우편번호'
 -- hairshop Table Create SQL
 CREATE TABLE designer
 (
-    designer_no         NUMBER            NOT NULL, 
+    designer_no         NUMBER            NOT NULL,
     designer_id         VARCHAR2(20)      NOT NULL UNIQUE, 
     designer_pw         VARCHAR2(20)      NOT NULL,  
     designer_name       VARCHAR2(20)      NOT NULL,
@@ -444,6 +444,7 @@ INCREMENT BY 1;
 ALTER TABLE shop_price
     ADD CONSTRAINT shop_price_shop_noFK FOREIGN KEY (shop_no)
         REFERENCES hairshop (shop_no) ON DELETE CASCADE
+
 /
 -- hairshop Table Create SQL
 CREATE TABLE style_list

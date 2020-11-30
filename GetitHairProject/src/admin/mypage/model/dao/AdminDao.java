@@ -23,7 +23,6 @@ public class AdminDao {
 			pstmt.setString(1, id);
 			pstmt.setString(2, pw);
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
 				admin = new Admin();
 				admin.setAdminNo(rs.getInt("admin_no"));
@@ -43,12 +42,12 @@ public class AdminDao {
 	public ArrayList<Customer> getCustomerListById(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String qrySelect = "select * from customer where customer_id = ?";
+		String qrySelect = "select * from customer where customer_id like ?";
 		ArrayList<Customer> list = null;
 		
 		try {
 			pstmt = conn.prepareStatement(qrySelect);
-			pstmt.setString(1, id);
+			pstmt.setString(1, id+"%");
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -83,12 +82,12 @@ public class AdminDao {
 	public ArrayList<Customer> getCustomerListByName(Connection conn, String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String qrySelect = "select * from customer where customer_name = ?";
+		String qrySelect = "select * from customer where customer_name like ?";
 		ArrayList<Customer> list = null;
 		
 		try {
 			pstmt = conn.prepareStatement(qrySelect);
-			pstmt.setString(1, keyword);
+			pstmt.setString(1, keyword+"%");
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
