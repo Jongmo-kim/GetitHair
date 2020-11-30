@@ -66,11 +66,11 @@ public class IntegratedLoginServlet extends HttpServlet {
 				}
 				break;
 			case "hairshop":
-//				Hairshop loginHairshop = new HairshopService().selectOneHairshop(inputId,inputPw);
-//				session.setAttribute("loginHairshop", loginHairshop);
-//				isLogined = loginHairshop != null;
+				Hairshop loginHairshop = new HairshopService().selectOneHairshop(inputId,inputPw);
+				session.setAttribute("loginHairshop", loginHairshop);
+				isLogined = loginHairshop != null;
 				if(isLogined) {
-//					session.setAttribute("loginHairshop", loginHairshop);
+					session.setAttribute("loginHairshop", loginHairshop);
 					session.setAttribute("loginType", loginType);
 				}
 				break;

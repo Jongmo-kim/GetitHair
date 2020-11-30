@@ -52,4 +52,11 @@ public class HairshopService {
 		return totalCount;
 	}
 
+	public Hairshop selectOneHairshop(String inputId, String inputPw) {
+		Connection conn = JDBCTemplate.getConnection();
+		Hairshop result = new HairshopDao().selectOneHairshop(conn, inputId,inputPw);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
 }
