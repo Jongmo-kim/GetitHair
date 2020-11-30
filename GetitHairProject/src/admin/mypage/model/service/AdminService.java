@@ -3,6 +3,7 @@ package admin.mypage.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import admin.model.vo.Admin;
 import admin.mypage.model.dao.AdminDao;
 import common.JDBCTemplate;
 import customer.model.vo.Customer;
@@ -19,5 +20,13 @@ public class AdminService {
 		ArrayList<Customer> list = new AdminDao().getCustomerListByName(conn, keyword);
 		JDBCTemplate.close(conn);
 		return list;
+	}
+	
+	public Admin selectOneAdmin(String id,String pw) {
+		Connection conn = JDBCTemplate.getConnection();
+		Admin admin = new AdminDao().selecOneAdmin(conn, id, pw);
+		JDBCTemplate.close(conn);
+		
+		return admin;
 	}
 }
