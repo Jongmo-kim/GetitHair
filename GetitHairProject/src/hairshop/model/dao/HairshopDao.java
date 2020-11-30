@@ -77,11 +77,6 @@ public class HairshopDao {
 		return hs;
 	}
 
-	public Hairshop selectShop(Connection conn, int result) {//진현
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public ArrayList<Hairshop> searchHairshop(Connection conn, String searchShop) {
 		PreparedStatement ps = null;
 		ResultSet rset = null;

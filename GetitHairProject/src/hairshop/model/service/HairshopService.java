@@ -9,12 +9,6 @@ import hairshop.model.vo.Hairshop;
 
 public class HairshopService {
 
-	public Hairshop selectShop(int result) {
-		Connection conn = JDBCTemplate.getConnection();
-		Hairshop hs = new HairshopDao().selectShop(conn, result);
-		return null;
-	}
-
 	public Hairshop selectOneHairshop(int shopNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		Hairshop hs = new HairshopDao().selectOneHairshop(conn, shopNo);

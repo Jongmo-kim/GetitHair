@@ -99,10 +99,10 @@
 						<div class="reserve inputBox">
 							<!-- 구현하면 예약번호 hiddn으로 숨겨야함 -->
 							<span>예약번호  </span>
-							<input type="text" class="form-textbox" name="reserveNo" value="ddddd" readonly>
+							<input type="hidden" class="form-textbox" name="reserveNo" value="<%=reserveList.get(index).getReserveNo() %>" readonly>
 						</div>
 						<div class="reserve inputBox">
-							<input type="text" id="reserveDate" class="form-textbox label-focused" name="reserveDate">
+							<input type="text" id="reserveDate" class="form-textbox" name="reserveDate">
 							<span class="form-label">예약날짜 </span>							
 						</div>											
 						<div class="reserve inputBox">
@@ -160,7 +160,7 @@
 		 <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
 		 <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
-		 <a href="/modify" lass="btn btn-primary btn-sm" >예약하기</a>
+		 <a href="/modify" lass="btn btn-primary btn-sm">헤어샵 수정하기</a>
 	</div>
 	<div class="col-md-2"></div>
 	
@@ -174,7 +174,7 @@
     		<img src="/img/hairshop/designerPhoto.png" style="width: 100px; height :100px; border-radius: 200px; overflow: hidden;">	
     	</div>
     	<div class="designerPt col-md-8" style="height: 100px; display:block;" >
-    		<p style="margin: 0;"><%=deli.get(i).getDesigner().getDesignerName() %><span style="font-size: 13px;"><%=deli.get(i).getDesigner().getDesignerRank() %></span></p>
+    		<p style="margin: 0; margin-bottom: 10px"><%=deli.get(i).getDesigner().getDesignerName() %><span style="font-size: 13px;"><%=deli.get(i).getDesigner().getDesignerRank() %></span></p>
     		<span style="font-size: 13px; color: #737270;"><%=deli.get(i).getDesigner().getDesignerIntro() %> <span>(경력 : <%=deli.get(i).getDesigner().getDesignerYear() %>년)</span></span>
     	</div>
     	<form action="/reserVation" method="get">
