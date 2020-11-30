@@ -14,7 +14,7 @@ public class HairshopDao {
 	public ArrayList<Hairshop> selectHairshop(Connection conn) {
 		PreparedStatement ps = null;
 		ResultSet rset = null;
-		String query = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_img,shop_likes from hairshop";
+		String query = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_likes from hairshop";
 		ArrayList<Hairshop> list = new ArrayList<Hairshop>();
 		try {
 			ps = conn.prepareStatement(query);
@@ -27,7 +27,6 @@ public class HairshopDao {
 				h.setShopOpen(rset.getString("shop_open"));
 				h.setShopClose(rset.getString("shop_close"));
 				h.setShopRate(rset.getInt("shop_rate"));
-				h.setShopImg(rset.getString("shop_img"));
 				h.setShopLikes(rset.getInt("shop_likes"));
 				list.add(h);
 			}
@@ -53,6 +52,8 @@ public class HairshopDao {
 			if(rset.next()) {
 				hs = new Hairshop();
 				hs.setShopNo(rset.getInt("shop_no"));
+				hs.setShopId(rset.getString("shop_id"));
+				hs.setShopPw(rset.getString("shop_pw"));
 				hs.setShopCompNo(rset.getString("shop_comp_no"));
 				hs.setShopName(rset.getString("shop_name"));
 				hs.setShopAddr(rset.getString("shop_addr"));
@@ -61,10 +62,10 @@ public class HairshopDao {
 				hs.setShopClose(rset.getString("shop_close"));
 				hs.setShopHoliday(rset.getString("shop_holiday"));
 				hs.setShopRate(rset.getInt("shop_rate"));
-				hs.setShopImg(rset.getString("shop_img"));
 				hs.setShopLikes(rset.getInt("shop_likes"));
 				hs.setAddrDetail(rset.getString("addr_detail"));
 				hs.setAddrPostcode(rset.getString("addr_postcode"));
+				hs.setEnrollDate(rset.getDate("shop_enrolldate"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -84,7 +85,7 @@ public class HairshopDao {
 	public ArrayList<Hairshop> searchHairshop(Connection conn, String searchShop) {
 		PreparedStatement ps = null;
 		ResultSet rset = null;
-		String query = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_img,shop_likes from hairshop where shop_name like (?)";
+		String query = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_likes from hairshop where shop_name like (?)";
 		ArrayList<Hairshop> list = new ArrayList<Hairshop>();
 		try {
 			ps = conn.prepareStatement(query);
@@ -93,12 +94,12 @@ public class HairshopDao {
 			while(rset.next()) {
 				Hairshop h = new Hairshop();
 				h.setShopNo(rset.getInt("shop_no"));
+				h.setShopCompNo(rset.getString("shop_comp_no"));
 				h.setShopName(rset.getString("shop_name"));
 				h.setShopAddr(rset.getString("shop_addr"));
 				h.setShopOpen(rset.getString("shop_open"));
 				h.setShopClose(rset.getString("shop_close"));
 				h.setShopRate(rset.getInt("shop_rate"));
-				h.setShopImg(rset.getString("shop_img"));
 				h.setShopLikes(rset.getInt("shop_likes"));
 				list.add(h);
 			}
@@ -114,7 +115,7 @@ public class HairshopDao {
 	public ArrayList<Hairshop> searchPlace(Connection conn, String searchShop) {
 		PreparedStatement ps = null;
 		ResultSet rset = null;
-		String query = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_img,shop_likes from hairshop where shop_addr like (?)";
+		String query = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_likes from hairshop where shop_addr like (?)";
 		ArrayList<Hairshop> list = new ArrayList<Hairshop>();
 		try {
 			ps = conn.prepareStatement(query);
@@ -128,7 +129,6 @@ public class HairshopDao {
 				h.setShopOpen(rset.getString("shop_open"));
 				h.setShopClose(rset.getString("shop_close"));
 				h.setShopRate(rset.getInt("shop_rate"));
-				h.setShopImg(rset.getString("shop_img"));
 				h.setShopLikes(rset.getInt("shop_likes"));
 				list.add(h);
 			}
@@ -146,7 +146,7 @@ public class HairshopDao {
 		PreparedStatement ps = null;
 		ResultSet rset = null;
 		ArrayList<Hairshop> list = new ArrayList<Hairshop>();
-		String query = "select * from (select rownum as rnum,h.* from (select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_img,shop_likes from hairshop order by 1)h) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum,h.* from (select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_likes from hairshop order by 1)h) where rnum between ? and ?";
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, start);
@@ -160,7 +160,6 @@ public class HairshopDao {
 				h.setShopOpen(rset.getString("shop_open"));
 				h.setShopClose(rset.getString("shop_close"));
 				h.setShopRate(rset.getInt("shop_rate"));
-				h.setShopImg(rset.getString("shop_img"));
 				h.setShopLikes(rset.getInt("shop_likes"));
 				list.add(h);
 			}
@@ -197,7 +196,7 @@ public class HairshopDao {
 
 	public Hairshop selectOneHairshop(Connection conn, String inputId, String inputPw) {
 		PreparedStatement pstmt = null;
-		String sql = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_img,shop_likes from hairshop where inputId = ? and inputPw = ?";
+		String sql = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_likes from hairshop where inputId = ? and inputPw = ?";
 		Hairshop h = new Hairshop();
 		ResultSet rset = null;
 		try {
@@ -212,7 +211,6 @@ public class HairshopDao {
 				h.setShopOpen(rset.getString("shop_open"));
 				h.setShopClose(rset.getString("shop_close"));
 				h.setShopRate(rset.getInt("shop_rate"));
-				h.setShopImg(rset.getString("shop_img"));
 				h.setShopLikes(rset.getInt("shop_likes"));
 			}
 		} catch (SQLException e) {
