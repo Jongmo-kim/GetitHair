@@ -34,7 +34,6 @@ public class ReviewDao {
 			rv.setReviewRate(rs.getInt("review_rate"));
 			rv.setReviewLikes(rs.getInt("review_likes"));
 			rv.setReviewDate(rs.getString("review_date"));
-			rv.setReviewImg(rs.getString("review_img"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -288,7 +287,6 @@ public class ReviewDao {
 			pstmt.setInt(6, rv.getReviewRate());
 			pstmt.setInt(7, rv.getReviewLikes());
 			pstmt.setString(8, rv.getReviewDate());
-			pstmt.setString(9, rv.getReviewImg());
 			
 			result = pstmt.executeUpdate();
 			
@@ -420,21 +418,8 @@ public class ReviewDao {
 			pstmt.setInt(1, reviewNo);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				r = new Review();
-				r.setReviewImg(rset.getString("review_img"));
-				r.setReviewNo(rset.getInt("review_no"));
-				r.setReviewContent(rset.getString("review_content"));
-				r.setReviewDate(rset.getString("review_date"));
-				//hairshp
-				Hairshop hairshop = new HairshopDao().selectOneHairshop(conn, rset.getInt("shop_no"));
-				r.setShop(hairshop);
-				//Designer
-				Designer designer = new DesignerDao().selectOneDesigner(conn, rset.getInt("designer_no"));
-				r.setDesigner(designer);
-				//Customer
-				Customer customer = new CustomerDao().selectOneCustomer(conn, rset.getInt("customer_no"));
-				r.setCustomer(customer);
-				r.setReviewLikes(rset.getInt("review_Likes"));
+				r = getSettedReviewProperties(rset);
+//				r.setReviewImg(rset.getString("review_img"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

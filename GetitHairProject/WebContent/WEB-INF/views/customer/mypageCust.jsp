@@ -1,3 +1,4 @@
+<%@page import="reserve.model.service.ReserveService"%>
 <%@page import="java.util.List"%>
 <%@page import="reserve.model.vo.Reserve"%>
 <%@page import="java.util.ArrayList"%>
@@ -10,7 +11,7 @@
 	String selStatus = (String) request.getAttribute("selStatus");
 	int reqPage = (Integer) request.getAttribute("reqPage");
 	int index = 0;
-	int selIndex = (Integer) request.getAttribute("selIndex");
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -56,59 +57,55 @@
 					</div>
 					<div class="modal-body">
 						<div class="reserve inputBox">
-							<input type="text" class="form-textbox" name="reserveNo"
-								value="<%=reserveList.get(selIndex).getReserveNo()%>" readonly>
+							<input id="reserveNo" type="text" class="form-textbox" name="reserveNo"
+								 readonly>
 							<span class="form-label label-focused">예약번호 </span>
-						</div>
+						</div>					
 						<div class="reserve inputBox">
-							<input type="text" class="form-textbox" name="reserveShopName"
-								value="<%=reserveList.get(selIndex).getShop().getShopName()%>"
+							<input type="text" id="reserveShopName" class="form-textbox" name="reserveShopName"
 								readonly> <span class="form-label label-focused">미용실이름
 							</span>
 						</div>
 						<div class="reserve inputBox">
-							<input type="text" class="form-textbox" name="reserveStatus"
-								value="<%=reserveList.get(selIndex).getReserveStatus()%>"
+							<input type="text" id="reserveStatus" class="form-textbox" name="reserveStatus"
 								readonly> <span class="form-label label-focused">예약상태
 							</span>
 						</div>
 						<div class="reserve inputBox">
-							<input type="text" class="form-textbox" name="reserveDesignerReq"
-								value="<%=reserveList.get(selIndex).getReserveDesignerReq()%>"
+							<input type="text" id="reserveDesignerReq" class="form-textbox" name="reserveDesignerReq"
 								readonly> <span class="form-label label-focused">디자이너
 								요청사항 </span>
 						</div>
 						<div class="reserve inputBox">
-							<input type="text" class="form-textbox reserveInput updateAction"
-								name="reserveDate"
-								value="<%=reserveList.get(selIndex).getReserveDate()%>">
+							<input type="text" id="reserveDate" class="form-textbox reserveInput updateAction"
+								name="reserveDate">
 							<span class="form-label label-focused updateActionSpan">예약일정
 							</span>
 						</div>
 						<div class="reserve inputBox">
 							<input type="text" class="form-textbox reserveInput updateAction"
-								name="reserveCustReq"
-								value="<%=reserveList.get(selIndex).getReserveCustReq()%>">
+								name="reserveCustReq" id="reserveCustReq">
 							<span class="form-label label-focused updateActionSpan">손님요청사항
 							</span>
 						</div>
-
-						<input type="hidden" class="form-textbox" name="customerNo"
-							value="<%=reserveList.get(selIndex).getCustomer().getCustomerNo()%>">
-						<input type="hidden" class="form-textbox" name="designerNo"
-							value="<%=reserveList.get(selIndex).getDesigner().getDesignerNo()%>">
-						<input type="hidden" class="form-textbox" name="shopNo"
-							value="<%=reserveList.get(selIndex).getShop().getShopNo()%>">
-						<input type="hidden" class="form-textbox" name="styleNo" value="1">
+						<!-- hidden영역 -->
+						<input type="hidden" class="form-textbox" name="customerNo" id="customerNo"
+							>
+						<input type="hidden" class="form-textbox" name="designerNo" id="designerNo"
+							>
+						<input type="hidden" class="form-textbox" name="shopNo" id="shopNo"
+							>
+						<input type="hidden" class="form-textbox" name="styleNo" id="styleNo" value="1">
 						<input type="hidden" class="form-textbox"
-							name="reserveDesignerMemo"
-							value="<%=reserveList.get(selIndex).getReserveDesignerMemo()%>">
+							name="reserveDesignerMemo" id="reserveDesignerMemo"
+							>
+						<!-- hidden영역 -->
 
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-default">다시예약 하기</button>
 						<button type="button" class="btn btn-default"
-							onclick="location.href='/cancelReserveByCust?reserveNo=<%=reserveList.get(selIndex).getReserveNo()%>&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'">
+							onclick="location.href='/cancelReserveByCust?reserveNo=1&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'">
 							예약 취소 하기</button>
 						<button type="reset" class="btn btn-default resetBtn">초기화</button>
 						<button type="button" class="btn btn-default reserveCustUpdateOn">예약
@@ -135,9 +132,6 @@
 		<ul>
 			<p>
 				[<%=loginCustomer.getCustomerName()%>]님 환영합니다.
-			</p>
-			<p>
-				selIndex = <%=selIndex %>
 			</p>
 			<li>
 				<button type="button" class="btn btn-primary"
@@ -175,6 +169,7 @@
 							<th>상태코드</th>
 							<th>기능버튼1</th>
 							<th>기능버튼2</th>
+							<th>기능버튼3</th>
 						</tr>
 						<%
 							index = 0;
@@ -193,11 +188,13 @@
 							<td>
 								<button type="button" class="btn btn-primary reReserveBtn"
 									data-toggle="modal" data-target="#reReserveModal"
-									value="<%=index%>">예약보기</button>
+									value="<%=r.getReserveNo()%>">예약보기</button>
 							</td>
 							<td><button
 									onclick="location.href='/deleteReserveByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'"
 									type="button" class="btn btn-primary">예약 삭제하기</button></td>
+									
+							<td><button	type="button" class="btn btn-primary">리뷰작성하기</button></td>
 						</tr>
 						<%
 							index++;
@@ -211,25 +208,49 @@
 	</div>
 	<script>
 	//document.getElementById('reserveDate').value = new Date().toISOString().substring(0, 10);;
-	$(function(){	
-	
-		$(".reReserveBtn").click(function(){
-		 	var index = $(".reReserveBtn").index(this);
-		 	var selStatus = '<%=selStatus%>';
-			console.log(index);			
+	$(function(){		
+		$(".reReserveBtn").click(function(){	
+			var reserveNo = $(this).val();		
+			console.log("reserveNo = "+reserveNo);			
 			$.ajax({
-				url: "/mypageCust",
-				type: "post",
-				data : {selIndex:index,
-						reqPage:<%=reqPage %>,
-						selStatus:selStatus
-					},
-				succes : function(data){
-					console.log("성공");		
-					},
-				error : function(data){
-					console.log("실패");				
-				}
+				url: "/mypageCustAjax",
+				type: "get",				
+				data : {reserveNo:reserveNo},
+				dataType : "JSON",
+					success : function(data){
+						console.log("성공");
+						//여기서 servlet에서 보낸 값을 받는다.
+						//그후 그값을 형식에 맞춰 변환후 각각의 input에 value를 세팅한다.
+						//var rRserveNo = data;
+						//show영역
+						var rRserveNo = data.reserveNo;
+						var rReserveShopName = decodeURIComponent(data.reserveShopName);
+						var rReserveStatus = decodeURIComponent(data.reserveStatus);
+						var rReserveDesignerReq = decodeURIComponent(data.reserveDesignerReq);
+						var rReserveDate = decodeURIComponent(data.reserveDate);
+						var rReserveCustReq = decodeURIComponent(data.reserveCustReq);	
+						//hidden영역
+						var rCustomerNo = data.customerNo;
+						var rDesignerNo = decodeURIComponent(data.designerNo);
+						var rShopNo = decodeURIComponent(data.shopNo);
+						//var rStyleNo = decodeURIComponent(data.styleNo); //스타일객체수정시 보여주기
+						var rReserveDesignerMemo = decodeURIComponent(data.reserveDesignerMemo);						
+						//show영역
+						$("#reserveNo").attr('value',rRserveNo);
+						$("#reserveShopName").attr('value',rReserveShopName);
+						$("#reserveStatus").attr('value',rReserveStatus);
+						$("#reserveDesignerReq").attr('value',rReserveDesignerReq);
+						$("#reserveDate").attr('value',rReserveDate);
+						$("#reserveCustReq").attr('value',rReserveCustReq);						
+						//hidden영역						
+						$("#customerNo").attr('value',rCustomerNo);
+						$("#designerNo").attr('value',rDesignerNo);
+						$("#shopNo").attr('value',rShopNo);
+						//$("#styleNo").attr('value',rStyleNo); //스타일객체수정시 보여주기
+						$("#reserveDesignerMemo").attr('value',rReserveDesignerMemo);
+					
+					}
+					
 			});
 		}); 
 	

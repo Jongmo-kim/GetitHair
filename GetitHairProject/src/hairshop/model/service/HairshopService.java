@@ -33,9 +33,13 @@ public class HairshopService {
 	   }
 	public ArrayList<Hairshop> searchHairshop(String searchShop) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Hairshop> list = new HairshopDao().searchHairshop(conn,searchShop);
+		ArrayList<Hairshop> list1 = new HairshopDao().searchHairshop(conn,searchShop);
+		ArrayList<Hairshop> list2 = new HairshopDao().searchPlace(conn,searchShop);
 		JDBCTemplate.close(conn);
-		return list;
+		if(list1.size() < list2.size()) {
+			return list2;
+		}
+		return list1;
 	}
 	public ArrayList<Hairshop> hairshopMore(int start) {
 		Connection conn =JDBCTemplate.getConnection();
