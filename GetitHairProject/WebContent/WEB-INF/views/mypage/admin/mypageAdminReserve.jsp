@@ -68,8 +68,8 @@
                                             <th>${rsv.reserveStatus}</th>
                                             <th>${rsv.reserveDate}</th>
                                             <th>
-                                                <button class="rvbtn" type="button">작성한 리뷰보기</button>
-                                                <button class="del-one-btn">삭제</button>
+                                                <button class="btn rvbtn" type="button">작성한 리뷰보기</button>
+                                                <button class="btn del-one-btn">삭제</button>
                                             </th>
                                         </tr>
                                     </c:forEach>
@@ -78,9 +78,9 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="8">
-                                        <button class="btn-allcheck" type="button">전체선택</button>
-                                        <button class="del-btn">선택예약 삭제</button>
-                                        <button type="reset">전체 선택해제</button>
+                                        <button class="btn btn-allcheck" type="button">전체선택</button>
+                                        <button class="btn del-btn">선택예약 삭제</button>
+                                        <button class="btn"type="reset">전체 선택해제</button>
                                     </th>
                                 </tr>
                             </tfoot>

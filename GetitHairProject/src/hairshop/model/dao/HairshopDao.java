@@ -213,5 +213,20 @@ public class HairshopDao {
 		}
 		return h;
 	}
-
+	public int deleteShop(Connection conn, int shopNo) {
+		PreparedStatement ps = null;
+		int result = 0;
+		String query = "DELETE from hairshop where shop_no = ?";
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, shopNo);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(ps);
+		}
+		return result;
+	}
 }
