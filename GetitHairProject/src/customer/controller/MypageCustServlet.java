@@ -48,14 +48,7 @@ public class MypageCustServlet extends HttpServlet {
 			request.setAttribute("loc", "/");
 			rd.forward(request, response);
 		}
-		//예약 리스트 view에서 저장
-		int selIndex = -1 ;
-		if(request.getParameter("selIndex")==null) {
-			selIndex = 0 ;
-		}else {
-			selIndex = Integer.parseInt(request.getParameter("selIndex"));
-		}
-		System.out.println("selIndex = "+ selIndex);
+		//예약 리스트 view에서 저장	
 		
 		int reqPage = Integer.parseInt(request.getParameter("reqPage"));		
 		String selStatus = request.getParameter("selStatus");
@@ -69,7 +62,7 @@ public class MypageCustServlet extends HttpServlet {
 		}	
 		
 		//예약리스트 비지니스로직
-		ReservePageData rpd = new ReserveService().reserveSelectListCustomerSelStatus(reqPage, loginCustomer,selStatus,sqlAdd);
+		ReservePageData rpd = new ReserveService().reserveSelectListCustomerSelStatus(reqPage, loginCustomer.getCustomerNo(),selStatus,sqlAdd);
 		if(rpd == null) {
 			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 			request.setAttribute("msg", "리스트를 조회할 수 없습니다.");
@@ -81,13 +74,13 @@ public class MypageCustServlet extends HttpServlet {
 			if(reqPage <=0) {
 				reqPage =1;
 			}
-		}			
+		}
+		
 		RequestDispatcher rd1 =request.getRequestDispatcher("/WEB-INF/views/customer/mypageCust.jsp");		
 		request.setAttribute("reserveList", rpd.getList()); 
 		request.setAttribute("pageNavi", rpd.getPageNavi()); 
 		request.setAttribute("selStatus", selStatus);
 		request.setAttribute("reqPage", reqPage);
-		request.setAttribute("selIndex", selIndex);		
 		rd1.forward(request, response);	
 
 	}

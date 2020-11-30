@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import admin.model.vo.Admin;
 import admin.mypage.model.service.AdminService;
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
@@ -75,10 +76,10 @@ public class IntegratedLoginServlet extends HttpServlet {
 				}
 				break;
 			case "admin":
-//				Admin loginAdmin = new AdminService().selectOneAdmin(inputId,inputPw);
-//				isLogined = loginAdmin != null;
+				Admin loginAdmin = new AdminService().selectOneAdmin(inputId,inputPw);
+				isLogined = loginAdmin != null;
 				if(isLogined) {
-//					session.setAttribute("loginAdmin", loginAdmin);
+					session.setAttribute("loginAdmin", loginAdmin);
 					session.setAttribute("loginType", loginType);
 				}
 				break;

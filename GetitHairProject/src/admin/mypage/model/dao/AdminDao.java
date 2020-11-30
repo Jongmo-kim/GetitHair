@@ -5,11 +5,41 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import admin.model.vo.Admin;
 import common.JDBCTemplate;
 import customer.model.vo.Customer;
 
 public class AdminDao {
 
+	public Admin selecOneAdmin(Connection conn,String id,String pw) {
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		String qrySelect = "select * from admin where admin_id = ? and admin_pw = ?";
+		Admin admin = null;
+		
+		try {
+			pstmt = conn.prepareStatement(qrySelect);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				admin = new Admin();
+				admin.setAdminNo(rs.getInt("admin_no"));
+				admin.setAdminId(rs.getString("admin_id"));
+				admin.setAdminPw(rs.getString("admin_pw"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return admin;
+	}
 	public ArrayList<Customer> getCustomerListById(Connection conn, String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

@@ -294,18 +294,17 @@ public class ReserveDao {
       return result;
    }
 
-   public ArrayList<Reserve> selectListCustomerSelStatus(Connection conn, int start, int end, String selStatus,int customerNo) {
+   public ArrayList<Reserve> selectListCustomerSelStatus(Connection conn, int start, int end, String sqlAdd,int customerNo) {
       ArrayList<Reserve> list = new ArrayList<Reserve>();
       PreparedStatement pstmt = null;
       ResultSet rset = null;
-      String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where reserve_status=? and customer_no=? order by 1 desc)N) where rnum between ? and ?";
+      String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where customer_no=? "+sqlAdd+" order by 1 desc)N) where rnum between ? and ?";
             
       try {
          pstmt = conn.prepareStatement(sql);
-         pstmt.setString(1, selStatus);
-         pstmt.setInt(2, customerNo);
-         pstmt.setInt(3, start);
-         pstmt.setInt(4, end);               
+         pstmt.setInt(1, customerNo);
+         pstmt.setInt(2, start);
+         pstmt.setInt(3, end);               
          rset = pstmt.executeQuery();
          while(rset.next()) {
             Reserve r  = getReserveFromRset(rset);
