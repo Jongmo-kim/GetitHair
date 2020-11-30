@@ -105,7 +105,7 @@
 			  <div class="swiper-slide"><img src="/img/style/color/솜브레.jpg"></div>
 			  <div class="swiper-slide"><img src="/img/style/color/애쉬블루.jpg"></div>
 			  <!-- <%for(Style s : list) {%>
-				<div class="swiper-slide"><img src="<%=s.getStyleImg()%>"></div>
+				<div class="swiper-slide"></div>
 			  <%} %> -->
 		    </div>
 		    <!-- Add Arrows -->
@@ -146,7 +146,6 @@
 					<h1>perm</h1>
 					<%for(Style s : list) {%>
 						<%if(s.getStyleType().equals("perm")){ %>
-							<img src="<%=s.getStyleImg()%>">
 						<%} %>
 					<%} %>
 				</div>
@@ -158,7 +157,6 @@
 					<h1>color</h1>
 					<%for(Style s : list) {%>
 						<%if(s.getStyleType().equals("color")){ %>
-							<img src="<%=s.getStyleImg()%>">
 						<%} %>
 					<%} %>
 				</div>
@@ -168,7 +166,6 @@
 					<h1>etc</h1>
 					<%for(Style s : list) {%>
 						<%if(s.getStyleType().equals("etc")){ %>
-							<img src="<%=s.getStyleImg()%>">
 						<%} %>
 					<%} %>
 				</div>

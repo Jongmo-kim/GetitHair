@@ -11,11 +11,22 @@ public class Reserve {
 	private Customer customer;
 	private Designer designer;
 	private Hairshop shop;
-	private Date reserveDate;
+	private String reserveTitle;
 	private String reserveStatus;
 	private String reserveCustReq;
 	private String reserveDesignerReq;
 	private String reserveDesignerMemo;
+	private Date reserveDate;
+	private Date reserveStartdate;
+	private Date reserveEndDate;
+	@Override
+	public String toString() {
+		return "Reserve [reserveNo=" + reserveNo + ", customer=" + customer + ", designer=" + designer + ", shop="
+				+ shop + ", reserveTitle=" + reserveTitle + ", reserveStatus=" + reserveStatus + ", reserveCustReq="
+				+ reserveCustReq + ", reserveDesignerReq=" + reserveDesignerReq + ", reserveDesignerMemo="
+				+ reserveDesignerMemo + ", reserveDate=" + reserveDate + ", reserveStartdate=" + reserveStartdate
+				+ ", reserveEndDate=" + reserveEndDate + "]";
+	}
 	public int getReserveNo() {
 		return reserveNo;
 	}
@@ -40,11 +51,11 @@ public class Reserve {
 	public void setShop(Hairshop shop) {
 		this.shop = shop;
 	}
-	public Date getReserveDate() {
-		return reserveDate;
+	public String getReserveTitle() {
+		return reserveTitle;
 	}
-	public void setReserveDate(Date reserveDate) {
-		this.reserveDate = reserveDate;
+	public void setReserveTitle(String reserveTitle) {
+		this.reserveTitle = reserveTitle;
 	}
 	public String getReserveStatus() {
 		return reserveStatus;
@@ -70,35 +81,43 @@ public class Reserve {
 	public void setReserveDesignerMemo(String reserveDesignerMemo) {
 		this.reserveDesignerMemo = reserveDesignerMemo;
 	}
-	public Reserve(int reserveNo, Customer customer, Designer designer, Hairshop shop, Date reserveDate,
-			String reserveStatus, String reserveCustReq, String reserveDesignerReq, String reserveDesignerMemo) {
+	public Date getReserveDate() {
+		return reserveDate;
+	}
+	public void setReserveDate(Date reserveDate) {
+		this.reserveDate = reserveDate;
+	}
+	public Date getReserveStartdate() {
+		return reserveStartdate;
+	}
+	public void setReserveStartdate(Date reserveStartdate) {
+		this.reserveStartdate = reserveStartdate;
+	}
+	public Date getReserveEndDate() {
+		return reserveEndDate;
+	}
+	public void setReserveEndDate(Date reserveEndDate) {
+		this.reserveEndDate = reserveEndDate;
+	}
+	public Reserve(int reserveNo, Customer customer, Designer designer, Hairshop shop, String reserveTitle,
+			String reserveStatus, String reserveCustReq, String reserveDesignerReq, String reserveDesignerMemo,
+			Date reserveDate, Date reserveStartdate, Date reserveEndDate) {
 		super();
 		this.reserveNo = reserveNo;
 		this.customer = customer;
 		this.designer = designer;
 		this.shop = shop;
-		this.reserveDate = reserveDate;
+		this.reserveTitle = reserveTitle;
 		this.reserveStatus = reserveStatus;
 		this.reserveCustReq = reserveCustReq;
 		this.reserveDesignerReq = reserveDesignerReq;
 		this.reserveDesignerMemo = reserveDesignerMemo;
+		this.reserveDate = reserveDate;
+		this.reserveStartdate = reserveStartdate;
+		this.reserveEndDate = reserveEndDate;
 	}
 	public Reserve() {
 		super();
-	}
-	
-	@Override
-	public String toString() {
-		String str = "";
-		str += "reserveNo :"+Integer.toString(reserveNo) +"\n";
-		str += "Customer :"+customer.toString() +"\n";
-		str += "designer :"+designer.toString() +"\n";
-		str += "shop :"+shop.toString() +"\n";
-		str += "reserveDate :"+reserveDate.toString() +"\n";
-		str += "reserveStatus :"+reserveStatus+"\n";
-		str += "reserveCustReq :"+reserveDesignerReq+"\n";
-		str += "reserveDesignerReq :"+reserveDesignerMemo+"\n";
-		return str;
 	}
 	
 }
