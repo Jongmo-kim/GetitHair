@@ -11,14 +11,14 @@ import designer.model.vo.Designer;
 
 public class DesignerDao {
 
-	public Designer selectOneDesigner(Connection conn, int designerNo) {
+	public Designer selectOneDesigner(Connection conn, String designerId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Designer loginDesigner = null;
-		String query = "select * from designer where designer_no=?";
+		String query = "select * from designer where designer_Id=?";
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, designerNo);
+			pstmt.setString(1, designerId);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				loginDesigner = new Designer();
@@ -122,10 +122,11 @@ public class DesignerDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, designer.getDesignerPw());
-			pstmt.setString(3, designer.getDesignerPhone());
-			pstmt.setInt(4, designer.getDesignerYear());
-			pstmt.setString(5, designer.getDesignerRank());
-			pstmt.setString(6, designer.getDesignerIntro());
+			pstmt.setString(2, designer.getDesignerPhone());
+			pstmt.setInt(3, designer.getDesignerYear());
+			pstmt.setString(4, designer.getDesignerRank());
+			pstmt.setString(5, designer.getDesignerIntro());
+			pstmt.setInt(6, designer.getDesignerNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
