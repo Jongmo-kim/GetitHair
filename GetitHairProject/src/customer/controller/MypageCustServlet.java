@@ -49,6 +49,14 @@ public class MypageCustServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 		//예약 리스트 view에서 저장
+		int selIndex = -1 ;
+		if(request.getParameter("selIndex")==null) {
+			selIndex = 0 ;
+		}else {
+			selIndex = Integer.parseInt(request.getParameter("selIndex"));
+		}
+		System.out.println("selIndex = "+ selIndex);
+		
 		int reqPage = Integer.parseInt(request.getParameter("reqPage"));		
 		String selStatus = request.getParameter("selStatus");
 		String sqlAdd ="";
@@ -79,6 +87,7 @@ public class MypageCustServlet extends HttpServlet {
 		request.setAttribute("pageNavi", rpd.getPageNavi()); 
 		request.setAttribute("selStatus", selStatus);
 		request.setAttribute("reqPage", reqPage);
+		request.setAttribute("selIndex", selIndex);		
 		rd1.forward(request, response);	
 
 	}

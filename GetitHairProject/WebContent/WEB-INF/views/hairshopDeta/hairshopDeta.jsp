@@ -1,3 +1,4 @@
+<%@page import="reserve.model.vo.Reserve"%>
 <%@page import="likes.model.service.LikesService"%>
 <%@page import="likes.model.vo.Likes"%>
 <%@page import="designer.model.vo.Designer"%>
@@ -14,7 +15,8 @@
    		ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
    		Likes like = (Likes)request.getAttribute("like");
     	ArrayList<Designer> designerList = new DesignerService().selectAllDesigner();
-    	
+    	ArrayList<Reserve> reserveList = (ArrayList<Reserve>) request.getAttribute("reserveList");
+    	int index = 0;
     %>
 <!DOCTYPE html>
 <html>
@@ -71,7 +73,6 @@
 	.detail{
 		display: none;
 	}
-    
 </style>
 
 
@@ -80,6 +81,45 @@
 	<!-- 헤더 -->
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<br>
+	
+	<div class="modal fade" id="ReserveModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="/reserVation" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">예약하기</h4>
+					</div>
+					<div class="modal-body">
+						<div class="reserve inputBox">
+							<!-- 구현하면 예약번호 hiddn으로 숨겨야함 -->
+							<span>예약번호  </span>
+							<input type="text" class="form-textbox" name="reserveNo" value="ddddd" readonly>
+						</div>
+						<div class="reserve inputBox">
+							<input type="date" id="reserveDate" class="form-textbox" name="reserveDate">
+							<span class="form-label">예약날짜 </span>							
+						</div>											
+						<div class="reserve inputBox">
+							<input type="text" class="form-textbox" name="reserveCustReq" >
+							<span class="form-label">손님요청사항</span>
+						</div>						
+						<%-- <input type ="hidden" class= "form-textbox" name="reserveStatus" value="<%=reserveList.get(index).getReserveStatus() %>">
+						<input type="hidden" class="form-textbox" name="customerNo"  value="<%=reserveList.get(index).getCustomer().getCustomerNo()%>" >
+						<input type="hidden" class="form-textbox" name="designerNo"  value="<%=reserveList.get(index).getDesigner().getDesignerNo()%>">
+						<input type="hidden" class="form-textbox" name="shopNo"  value="<%=reserveList.get(index).getShop().getShopNo()%>">
+						<input type="hidden" class="form-textbox" name="reserveDesignerReq"  value="<%=reserveList.get(index).getReserveDesignerReq()%>">
+						<input type="hidden" class="form-textbox" name="reserveDesignerMemo"  value="<%=reserveList.get(index).getReserveDesignerMemo()%>"> --%>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-default">예약하기</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
 	<div class="slideImg">
         <!-- Swiper -->
         <div class="swiper-container" style="width: 800px; height: 500px;">
@@ -134,8 +174,7 @@
     	</div>
     	<form action="/reserVation" method="get">
     	<div class="designerPt col-md-2" style="height: 100px; display:block;">
-    		<a href="/reserVation?shopNo=<%=hs.getShopNo()%>" class="btn btn-primary btn-sm" style="margin-top: 30px;" >예약하기</a>
-    		<button class="btn btn-priamry">reserve</button>
+    		<a class="btn btn-primary btn-sm" style="margin-top: 30px;" data-toggle="modal" data-target="#ReserveModal">예약하기</a>
     	</div>
     	</form>
     </div>

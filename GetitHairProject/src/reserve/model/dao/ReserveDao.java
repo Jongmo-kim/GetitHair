@@ -409,7 +409,9 @@ public int getTotalCount(Connection conn, String sqlAdd) {
 
 public int insertReReserve(Connection conn, Reserve reserve) {
 	PreparedStatement pstmt = null;
-    String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,?,'1004','예약',?,'','')";
+    //String sql = "insert into reserve values(DEFAULT,?,?,?,?,sysdate,'예약',?,'','')";
+	//태민local sql insert into reserve values(DEFAULT,1,1,1,1,'2020-12-01','예약','테스트123','','');
+    String sql = "insert into reserve values(DEFAULT,?,?,?,1,?,'예약',?,'','')";
     int result = 0 ;
     try {
        pstmt = conn.prepareStatement(sql);
@@ -418,6 +420,23 @@ public int insertReReserve(Connection conn, Reserve reserve) {
        pstmt.setInt(3, reserve.getShop().getShopNo());
        pstmt.setDate(4, reserve.getReserveDate());
        pstmt.setString(5,reserve.getReserveCustReq());
+       result = pstmt.executeUpdate();
+    } catch (SQLException e) {
+       e.printStackTrace();
+    } finally {
+       JDBCTemplate.close(pstmt);
+    }
+    return result;
+}
+
+
+public int cancelReserve(Connection conn, int reserveNo) {
+	int result = 0;
+    String sql = "update reserve set reserve_status = '취소' where reserve_no=?";
+    PreparedStatement pstmt = null;
+    try {
+       pstmt = conn.prepareStatement(sql);
+       pstmt.setInt(1, reserveNo);
        result = pstmt.executeUpdate();
     } catch (SQLException e) {
        e.printStackTrace();

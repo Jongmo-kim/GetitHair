@@ -180,5 +180,13 @@ public class ReserveService {
 		commitOrRollback(conn,result);
 		JDBCTemplate.close(conn);
 		return result;
+	}
+	//태민추가 메서드 손님 예약하기 상태 취소로 바꾸기
+	public int cancelReserveByCust(int reserveNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReserveDao().cancelReserve(conn,reserveNo);
+		commitOrRollback(conn,result);
+		JDBCTemplate.close(conn);
+		return result;
 	}	
 }
