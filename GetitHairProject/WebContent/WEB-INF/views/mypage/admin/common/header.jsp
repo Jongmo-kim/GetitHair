@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
     <link rel="stylesheet" href="/css/mypage/admin/layout.css">
     <style>
+        body{
+            background-color: #3E5902;
+        }
         .admin-nav-wrap {
             width: 100%;
             overflow: hidden;

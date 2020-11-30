@@ -14,7 +14,7 @@
     	Hairshop hs = (Hairshop)request.getAttribute("hs");
    		ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
    		Likes like = (Likes)request.getAttribute("like");
-    	ArrayList<Designer> designerList = new DesignerService().selectAllDesigner();
+    	ArrayList<DesignerList> deli = (ArrayList<DesignerList>)request.getAttribute("designerList");
     	ArrayList<Reserve> reserveList = (ArrayList<Reserve>) request.getAttribute("reserveList");
     	int index = 0;
     %>
@@ -31,6 +31,9 @@
 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- 스타일 부분 -->
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ 	<!-- 스켈레 -->
+  	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=yehjayrzn1&submodules=geocoder"></script>
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -73,6 +76,8 @@
 	.detail{
 		display: none;
 	}
+	
+	
 </style>
 
 
@@ -97,7 +102,7 @@
 							<input type="text" class="form-textbox" name="reserveNo" value="ddddd" readonly>
 						</div>
 						<div class="reserve inputBox">
-							<input type="date" id="reserveDate" class="form-textbox" name="reserveDate">
+							<input type="text" id="reserveDate" class="form-textbox label-focused" name="reserveDate">
 							<span class="form-label">예약날짜 </span>							
 						</div>											
 						<div class="reserve inputBox">
@@ -148,7 +153,6 @@
       	 <input type="hidden" value ="<%=hs.getShopNo() %>">
       	 <input type="hidden" name="likeShopNo" id="likeShopNo" value ="<%=like.getLikesType() %>">
 		 <h3 style="font-weight: bold; margin-bottom: 0;"><%=hs.getShopName() %> <label style="font-size: 15px;" id="shopLike"><%=hs.getShopLikes() %><span class="material-icons" style="font-size: 14px;">favorite</span></label></h3>
-		 <p style="font-size: 15px; font-weight: 100;">평점 : <%=hs.getShopRate() %>점</p>
 		 <br>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 16px;">place</span>장소</h4>
 		 <p style="font-size: 14px"><%=hs.getShopAddr() %></p>
@@ -156,6 +160,7 @@
 		 <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
 		 <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
+		 <a href="/modify" lass="btn btn-primary btn-sm" >예약하기</a>
 	</div>
 	<div class="col-md-2"></div>
 	
@@ -163,14 +168,14 @@
     </div>
     <div id="menu1" class="tab-pane fade">
     	<br>
-    	<%for(Designer de : designerList) {%>
+    	<%for(int i=0; i<deli.size(); i++) {%>
     	 <div class="dt row"  style="padding: 0;">
     	<div class="designerPt col-md-2">
     		<img src="/img/hairshop/designerPhoto.png" style="width: 100px; height :100px; border-radius: 200px; overflow: hidden;">	
     	</div>
     	<div class="designerPt col-md-8" style="height: 100px; display:block;" >
-    		<p style="margin: 0;"><%=de.getDesignerName() %><span style="font-size: 13px;"><%=de.getDesignerRank() %></span></p>
-    		<span style="font-size: 13px; color: #737270;"><%=de.getDesignerIntro() %> <span>(경력 : <%=de.getDesignerYear() %>년)</span></span>
+    		<p style="margin: 0;"><%=deli.get(i).getDesigner().getDesignerName() %><span style="font-size: 13px;"><%=deli.get(i).getDesigner().getDesignerRank() %></span></p>
+    		<span style="font-size: 13px; color: #737270;"><%=deli.get(i).getDesigner().getDesignerIntro() %> <span>(경력 : <%=deli.get(i).getDesigner().getDesignerYear() %>년)</span></span>
     	</div>
     	<form action="/reserVation" method="get">
     	<div class="designerPt col-md-2" style="height: 100px; display:block;">
@@ -196,9 +201,8 @@
     <div id="menu3" class="tab-pane fade">
 	     <% for(int i=0; i<review.size(); i++){%>
 	   		<% Review currReview = review.get(i); %>
-	    	<h4><span style="font-size:12px"><%=review.get(i).getDesigner().getDesignerName()%> 디자이너</span></h4>
+	    	<h4><span style="font-size:16px; font-weight: bold;"><%=review.get(i).getDesigner().getDesignerName()%> 디자이너</span></h4>
 	    	<br>
-	    	<p></p>
 	    	<p style="font-size: 14px"><%=review.get(i).getCustomer().getCustomerName() %>님 - <%=review.get(i).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(0).getReviewDate() %></span></p>
 	    	<hr>
 	    	<%} %>

@@ -54,6 +54,7 @@ public class MypageCustAjaxServlet extends HttpServlet {
 		System.out.println("reserve ="+r);
 		//show영역
 		String reserveShopName =  r.getShop().getShopName();
+		String reserveDesignerName =  r.getDesigner().getDesignerName();
 		String reserveStatus =r.getReserveStatus();
 		String reserveDesignerReq = r.getReserveDesignerReq();
 		java.util.Date reserveDate = r.getReserveDate();
@@ -78,6 +79,7 @@ public class MypageCustAjaxServlet extends HttpServlet {
 		//show영역		
 		result.put("reserveNo", reserveNo);		
 		result.put("reserveShopName", URLEncoder.encode(reserveShopName.toString(),"UTF-8"));
+		result.put("reserveDesignerName", URLEncoder.encode(reserveDesignerName.toString(),"UTF-8"));
 		result.put("reserveStatus", URLEncoder.encode(reserveStatus.toString(),"UTF-8"));		
 		result.put("reserveDesignerReq", URLEncoder.encode(reserveDesignerReq.toString(),"UTF-8"));
 		result.put("reserveDate", URLEncoder.encode(reserveDate.toString(),"UTF-8"));

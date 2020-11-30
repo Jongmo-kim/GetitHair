@@ -24,6 +24,7 @@
 
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<h1>회원정보수정</h1>
 	<form action="/updateAllCustomer" method="post">
 		<table>
@@ -41,6 +42,11 @@
 				<th>회원암호</th>
 				<td><input type="password" name="customerPw"
 					value="<%=customer.getCustomerPw()%>"></td>
+			</tr>
+			<tr>
+				<th>회원생년월일</th>
+				<td><input type="text" name="customerBirthdate"
+					value="<%=customer.getCustomerBirthdate()%>" readonly></td>
 			</tr>
 			<tr>
 				<th>회원성별</th>
@@ -63,28 +69,23 @@
 					value="<%=customer.getCustomerAddr()%>"></td>
 			</tr>
 			<tr>
-				<th>우편번호</th>
-				<td><input type="text" name="addrDetail"
-					value="<%=customer.getAddrPostcode()%>" readonly></td>
-			</tr>
+				<th>회원휴대전화번호</th>
+				<td><input type="text" name="customerPhone"
+					value="<%=customer.getCustomerPhone()%>"></td>
+			</tr>			
 			<tr>
 				<th>상세주소</th>
 				<td><input type="text" name="addrPostcode"
 					value="<%=customer.getAddrDetail()%>"></td>
 			</tr>
 			<tr>
-				<th>회원휴대전화번호</th>
-				<td><input type="text" name="customerPhone"
-					value="<%=customer.getCustomerPhone()%>"></td>
-			</tr>
-			<tr>
-				<th>회원생년월일</th>
-				<td><input type="text" name="customerBirthdate"
-					value="<%=customer.getCustomerBirthdate()%>" readonly></td>
+				<th>우편번호</th>
+				<td><input type="text" name="addrDetail"
+					value="<%=customer.getAddrPostcode()%>" readonly></td>
 			</tr>
 			<tr>
 				<th>회원가입일</th>
-				<td><input type="text" name=customerEnrolldate
+				<td><input type="text" name="customerEnrolldate"
 					value="<%=customer.getCustomerEnrolldate()%>" readonly></td>
 			</tr>
 			<tr>
