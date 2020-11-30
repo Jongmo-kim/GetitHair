@@ -10,7 +10,6 @@
 	String pageNavi = (String) request.getAttribute("pageNavi");
 	String selStatus = (String) request.getAttribute("selStatus");
 	int reqPage = (Integer) request.getAttribute("reqPage");
-	int index = 0;
 	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -172,7 +171,6 @@
 							<th>기능버튼3</th>
 						</tr>
 						<%
-							index = 0;
 							for (Reserve r : reserveList) {
 						%>
 						<tr>
@@ -194,10 +192,9 @@
 									onclick="location.href='/deleteReserveByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'"
 									type="button" class="btn btn-primary">예약 삭제하기</button></td>
 									
-							<td><button	type="button" class="btn btn-primary">리뷰작성하기</button></td>
+							<td><button	type="button" onclick="location.href='/writeReviewByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus %>&reqPage=<%=reqPage %>'" class="btn btn-primary">리뷰작성하기</button></td>
 						</tr>
 						<%
-							index++;
 							}
 						%>
 					</table>

@@ -7,37 +7,15 @@ public class Customer implements Serializable{
 	private int customerNo;
 	private String customerId;
 	private String customerPw;
+	private Date customerBirthdate;
 	private String customerGen;
 	private String customerName;
 	private String customerEmail;
 	private String customerAddr;
 	private String customerPhone;
 	private String addrDetail;
-	private String addrPostcode;
-	private String customerBirthdate;
+	private String addrPostcode;	
 	private Date customerEnrolldate;
-	
-	public Customer() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Customer(int customerNo, String customerId, String customerPw, String customerGen, String customerName,
-			String customerEmail, String customerAddr, String customerPhone, String addrDetail, String addrPostcode,
-			String customerBirthdate, Date customerEnrolldate) {
-		super();
-		this.customerNo = customerNo;
-		this.customerId = customerId;
-		this.customerPw = customerPw;
-		this.customerGen = customerGen;
-		this.customerName = customerName;
-		this.customerEmail = customerEmail;
-		this.customerAddr = customerAddr;
-		this.customerPhone = customerPhone;
-		this.addrDetail = addrDetail;
-		this.addrPostcode = addrPostcode;
-		this.customerBirthdate = customerBirthdate;
-		this.customerEnrolldate = customerEnrolldate;
-	}
 	public int getCustomerNo() {
 		return customerNo;
 	}
@@ -55,6 +33,12 @@ public class Customer implements Serializable{
 	}
 	public void setCustomerPw(String customerPw) {
 		this.customerPw = customerPw;
+	}
+	public Date getCustomerBirthdate() {
+		return customerBirthdate;
+	}
+	public void setCustomerBirthdate(Date customerBirthdate) {
+		this.customerBirthdate = customerBirthdate;
 	}
 	public String getCustomerGen() {
 		return customerGen;
@@ -98,19 +82,37 @@ public class Customer implements Serializable{
 	public void setAddrPostcode(String addrPostcode) {
 		this.addrPostcode = addrPostcode;
 	}
-	public String getCustomerBirthdate() {
-		return customerBirthdate;
-	}
-	public void setCustomerBirthdate(String customerBirthdate) {
-		this.customerBirthdate = customerBirthdate;
-	}
-	
 	public Date getCustomerEnrolldate() {
 		return customerEnrolldate;
 	}
 	public void setCustomerEnrolldate(Date customerEnrolldate) {
 		this.customerEnrolldate = customerEnrolldate;
 	}
+	public Customer(int customerNo, String customerId, String customerPw, Date customerBirthdate, String customerGen,
+			String customerName, String customerEmail, String customerAddr, String customerPhone, String addrDetail,
+			String addrPostcode, Date customerEnrolldate) {
+		super();
+		this.customerNo = customerNo;
+		this.customerId = customerId;
+		this.customerPw = customerPw;
+		this.customerBirthdate = customerBirthdate;
+		this.customerGen = customerGen;
+		this.customerName = customerName;
+		this.customerEmail = customerEmail;
+		this.customerAddr = customerAddr;
+		this.customerPhone = customerPhone;
+		this.addrDetail = addrDetail;
+		this.addrPostcode = addrPostcode;
+		this.customerEnrolldate = customerEnrolldate;
+	}
+
+
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	@Override
 	public String toString() {
 		String str = "";

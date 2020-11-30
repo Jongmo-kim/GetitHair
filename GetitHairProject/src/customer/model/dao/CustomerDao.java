@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import common.JDBCTemplate;
 import customer.model.vo.Customer;
-import hairinfo.model.vo.Hairinfo;
+
 
 
 public class CustomerDao {	
@@ -146,7 +146,7 @@ public class CustomerDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, customer.getCustomerId());
 			pstmt.setString(2, customer.getCustomerPw());
-			pstmt.setString(3, customer.getCustomerBirthdate());
+			pstmt.setDate(3, customer.getCustomerBirthdate());
 			pstmt.setString(4, customer.getCustomerGen());
 			pstmt.setString(5, customer.getCustomerName());
 			pstmt.setString(6, customer.getCustomerEmail());
@@ -220,7 +220,7 @@ public class CustomerDao {
 			customer.setCustomerName(rset.getString("customer_name"));
 			customer.setCustomerPhone(rset.getString("customer_phone"));
 			customer.setCustomerPw(rset.getString("customer_pw"));
-			customer.setCustomerBirthdate(rset.getString("customer_birthdate"));
+			customer.setCustomerBirthdate(rset.getDate("customer_birthdate"));
 			customer.setCustomerEnrolldate(rset.getDate("customer_enrolldate"));			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

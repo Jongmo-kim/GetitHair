@@ -25,5 +25,9 @@ public class ReservePageData {
 	public void getPageNavi(String pageNavi) {
 		this.pageNavi = pageNavi;
 	}
+	@Override
+	public String toString() {
+		return "ReservePageData [list=" + list + ", pageNavi=" + pageNavi + "]";
+	}
 	
 }
