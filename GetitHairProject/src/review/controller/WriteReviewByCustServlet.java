@@ -31,11 +31,16 @@ public class WriteReviewByCustServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("writeReviewByCust 서블릿 호출!!~~!!");
 		String selStatus = request.getParameter("selStatus");
+		System.out.println("writeReviewByCust selStatus = "+selStatus);
 		int reqPage = Integer.parseInt(request.getParameter("reqPage"));
-		String reserveNumber = request.getParameter("reserveNo");
+		System.out.println("writeReviewByCust reqPage = "+reqPage);
+		String reserveNumber = request.getParameter("reserveNo");			
 		System.out.println("reserveNumber = " +reserveNumber);		
 		int reserveNo =  Integer.parseInt(reserveNumber);
+		//int reserveNo = Integer.parseInt(request.getParameter("reserveNo"));
+		//int reserveNo = 100;
 		System.out.println("reserveNo = " +reserveNo);
 		Reserve reserve = new ReserveService().selectOneReserve(reserveNo);
 		System.out.println("reserve = " +reserve);

@@ -7,6 +7,7 @@ import customer.model.dao.CustomerDao;
 import customer.model.vo.Customer;
 import customer.model.vo.CustomerPageData;
 import hairinfo.model.dao.HairinfoDao;
+import hairinfo.model.service.HairinfoService;
 import hairinfo.model.vo.Hairinfo;
 
 
@@ -188,7 +189,7 @@ public class CustomerService {
 		//int custResult = new CustomerDao().deleteCustomer(conn, customerNo);
 		//int hairinfoResult = new HairinfoDao().deleteHairinfo(conn, customerNo);
 		result = new CustomerDao().deleteCustomer(conn, customerNo);
-		//System.out.println("custResult = "+custResult);
+		//System.out.println("result = "+result);
 		//System.out.println("hairinfoResult = "+hairinfoResult);
 		if(result>0) {
 			JDBCTemplate.commit(conn);
