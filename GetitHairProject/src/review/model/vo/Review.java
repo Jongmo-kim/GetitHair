@@ -15,14 +15,13 @@ public class Review {
 	private int reviewRate;
 	private int reviewLikes;
 	private String reviewDate;
-	private String reviewImg;
 	
 	public Review() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Review(int reviewNo, Hairshop shop, Designer designer, Customer customer, Style style,
-			String reviewContent, int reviewRate, int reviewLikes, String reviewDate, String reviewImg) {
+			String reviewContent, int reviewRate, int reviewLikes, String reviewDate) {
 		super();
 		this.reviewNo = reviewNo;
 		this.shop = shop;
@@ -33,7 +32,6 @@ public class Review {
 		this.reviewRate = reviewRate;
 		this.reviewLikes = reviewLikes;
 		this.reviewDate = reviewDate;
-		this.reviewImg = reviewImg;
 	}
 
 	public int getReviewNo() {
@@ -110,14 +108,6 @@ public class Review {
 
 	public void setReviewDate(String reviewDate) {
 		this.reviewDate = reviewDate;
-	}
-
-	public String getReviewImg() {
-		return reviewImg;
-	}
-
-	public void setReviewImg(String reviewImg) {
-		this.reviewImg = reviewImg;
 	}
 
 	
