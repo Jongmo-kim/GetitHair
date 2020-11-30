@@ -197,7 +197,7 @@ public class HairshopDao {
 
 	public Hairshop selectOneHairshop(Connection conn, String inputId, String inputPw) {
 		PreparedStatement pstmt = null;
-		String sql = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_img,shop_likes from hairshop where inputId = ? and inputPw = ?";
+		String sql = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_likes from hairshop where shop_id = ? and shop_pw = ?";
 		Hairshop h = new Hairshop();
 		ResultSet rset = null;
 		try {
@@ -212,7 +212,6 @@ public class HairshopDao {
 				h.setShopOpen(rset.getString("shop_open"));
 				h.setShopClose(rset.getString("shop_close"));
 				h.setShopRate(rset.getInt("shop_rate"));
-				h.setShopImg(rset.getString("shop_img"));
 				h.setShopLikes(rset.getInt("shop_likes"));
 			}
 		} catch (SQLException e) {

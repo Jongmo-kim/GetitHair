@@ -1,3 +1,4 @@
+<%@page import="admin.model.vo.Admin"%>
 <%@page import="hairshop.model.vo.Hairshop"%>
 <%@page import="designer.model.vo.Designer"%>
 <%@page import="customer.model.vo.Customer"%>
@@ -26,7 +27,7 @@
 			isLogined = true;
 			break;
 		case "admin":
-			//Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+			Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
 			isLogined = true;
 			break;
 	}
