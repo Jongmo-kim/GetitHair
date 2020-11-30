@@ -6,11 +6,6 @@ import java.util.ArrayList;
 import common.JDBCTemplate;
 import designer.model.dao.DesignerDao;
 import designer.model.vo.Designer;
-import designer.model.vo.DesignerList;
-import review.model.dao.ReviewDao;
-import review.model.vo.Review;
-import review.model.vo.ReviewComment;
-import review.model.vo.ReviewViewData;
 
 public class DesignerService {
 	public Designer selectOneDesigner(int designerNo) {

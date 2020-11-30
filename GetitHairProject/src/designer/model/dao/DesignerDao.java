@@ -25,15 +25,12 @@ public class DesignerDao {
 				loginDesigner.setDesignerNo(rset.getInt("designer_no"));
 				loginDesigner.setDesignerId(rset.getString("designer_id"));
 				loginDesigner.setDesignerPw(rset.getString("designer_pw"));
-				loginDesigner.setDesignerGen(rset.getString("designer_gen"));
 				loginDesigner.setDesignerName(rset.getString("designer_name"));
-				loginDesigner.setDesignerEmail(rset.getString("designer_email"));
 				loginDesigner.setDesignerPhone(rset.getString("designer_phone"));
 				loginDesigner.setDesignerYear(rset.getInt("designer_year"));
 				loginDesigner.setDesignerRank(rset.getString("designer_rank"));
 				loginDesigner.setDesignerIntro(rset.getString("designer_intro"));
-				loginDesigner.setDesignerKeyword(rset.getString("designer_keyword"));
-				loginDesigner.setDesignerImg(rset.getString("designer_img"));
+				loginDesigner.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -60,15 +57,12 @@ public class DesignerDao {
 				loginDesigner.setDesignerNo(rset.getInt("designer_no"));
 				loginDesigner.setDesignerId(rset.getString("designer_id"));
 				loginDesigner.setDesignerPw(rset.getString("designer_pw"));
-				loginDesigner.setDesignerGen(rset.getString("designer_gen"));
 				loginDesigner.setDesignerName(rset.getString("designer_name"));
-				loginDesigner.setDesignerEmail(rset.getString("designer_email"));
 				loginDesigner.setDesignerPhone(rset.getString("designer_phone"));
 				loginDesigner.setDesignerYear(rset.getInt("designer_year"));
 				loginDesigner.setDesignerRank(rset.getString("designer_rank"));
 				loginDesigner.setDesignerIntro(rset.getString("designer_intro"));
-				loginDesigner.setDesignerKeyword(rset.getString("designer_keyword"));
-				loginDesigner.setDesignerImg(rset.getString("designer_img"));
+				loginDesigner.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -83,20 +77,17 @@ public class DesignerDao {
 	public int insertDesigner(Connection conn, Designer designer) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String quert = "insert into designer values(designer_seq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
+		String quert = "insert into designer values(designer_seq.nextval,?,?,?,?,?,?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(quert);
 			pstmt.setString(1, designer.getDesignerId());
 			pstmt.setString(2, designer.getDesignerPw());
-			pstmt.setString(3, designer.getDesignerGen());
-			pstmt.setString(4, designer.getDesignerName());
-			pstmt.setString(5, designer.getDesignerEmail());
-			pstmt.setString(6, designer.getDesignerPhone());
-			pstmt.setInt(7, designer.getDesignerYear());
-			pstmt.setString(8, designer.getDesignerRank());
-			pstmt.setString(9, designer.getDesignerIntro());
-			pstmt.setString(10, designer.getDesignerKeyword());
-			pstmt.setString(11, designer.getDesignerImg());
+			pstmt.setString(3, designer.getDesignerName());
+			pstmt.setString(4, designer.getDesignerPhone());
+			pstmt.setInt(5, designer.getDesignerYear());
+			pstmt.setString(6, designer.getDesignerRank());
+			pstmt.setString(7, designer.getDesignerIntro());
+			pstmt.setString(8, designer.getDesignerEnrolldate());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -127,17 +118,14 @@ public class DesignerDao {
 	public int updateDesigner(Connection conn, Designer designer) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "update designer set designer_pw=?, designer_email=?, designer_phone=?, designer_year=?, designer_rank=?, designer_intro=?, designer_keyword=?, designer_img=? where designer_no=?";
+		String query = "update designer set designer_pw=?, designer_phone=?, designer_year=?, designer_rank=?, designer_intro=? where designer_no=?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, designer.getDesignerPw());
-			pstmt.setString(2, designer.getDesignerEmail());
 			pstmt.setString(3, designer.getDesignerPhone());
 			pstmt.setInt(4, designer.getDesignerYear());
 			pstmt.setString(5, designer.getDesignerRank());
 			pstmt.setString(6, designer.getDesignerIntro());
-			pstmt.setString(7, designer.getDesignerKeyword());
-			pstmt.setString(8, designer.getDesignerImg());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -161,15 +149,12 @@ public class DesignerDao {
 				d.setDesignerNo(rset.getInt("designer_no"));
 				d.setDesignerId(rset.getString("designer_id"));
 				d.setDesignerPw(rset.getString("designer_pw"));
-				d.setDesignerGen(rset.getString("designer_gen"));
 				d.setDesignerName(rset.getString("designer_name"));
-				d.setDesignerEmail(rset.getString("designer_email"));
 				d.setDesignerPhone(rset.getString("designer_phone"));
 				d.setDesignerYear(rset.getInt("designer_year"));
 				d.setDesignerRank(rset.getString("designer_rank"));
 				d.setDesignerIntro(rset.getString("designer_intro"));
-				d.setDesignerKeyword(rset.getString("designer_keyword"));
-				d.setDesignerImg(rset.getString("designer_img"));
+				d.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
 				list.add(d);
 			}
 		} catch (SQLException e) {
@@ -181,7 +166,8 @@ public class DesignerDao {
 		}
 		return list;
 	}
-
+	
+	// 도현씨 제가 고치긴 했는데 혹시 오류 날수도 있어요...!
 	public ArrayList<Designer> selectAllDesigner(Connection conn, int reqPage, int maxPrintSize) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -199,15 +185,12 @@ public class DesignerDao {
 				d.setDesignerNo(rset.getInt("designer_no"));
 				d.setDesignerId(rset.getString("designer_id"));
 				d.setDesignerPw(rset.getString("designer_pw"));
-				d.setDesignerGen(rset.getString("designer_gen"));
 				d.setDesignerName(rset.getString("designer_name"));
-				d.setDesignerEmail(rset.getString("designer_email"));
 				d.setDesignerPhone(rset.getString("designer_phone"));
 				d.setDesignerYear(rset.getInt("designer_year"));
 				d.setDesignerRank(rset.getString("designer_rank"));
 				d.setDesignerIntro(rset.getString("designer_intro"));
-				d.setDesignerKeyword(rset.getString("designer_keyword"));
-				d.setDesignerImg(rset.getString("designer_img"));
+				d.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
 				list.add(d);
 			}
 		} catch (SQLException e) {

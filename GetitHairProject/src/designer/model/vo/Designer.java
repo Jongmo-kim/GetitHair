@@ -1,38 +1,35 @@
 package designer.model.vo;
 
+import hairshop.model.vo.Hairshop;
+
 public class Designer {
 	private int designerNo;
 	private String designerId;
 	private String designerPw;
-	private String designerGen;
 	private String designerName;
-	private String designerEmail;
 	private String designerPhone;
 	private int designerYear;
 	private String designerRank;
 	private String designerIntro;
-	private String designerKeyword;
-	private String designerImg;
+	private String designerEnrolldate;
+	private Hairshop shop;
 	public Designer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Designer(int designerNo, String designerId, String designerPw, String designerGen,
-			String designerName, String designerEmail, String designerPhone, int designerYear, String designerRank,
-			String designerIntro, String designerKeyword, String designerImg) {
+	public Designer(int designerNo, String designerId, String designerPw, String designerName, String designerPhone,
+			int designerYear, String designerRank, String designerIntro, String designerEnrolldate, Hairshop shop) {
 		super();
 		this.designerNo = designerNo;
 		this.designerId = designerId;
 		this.designerPw = designerPw;
-		this.designerGen = designerGen;
 		this.designerName = designerName;
-		this.designerEmail = designerEmail;
 		this.designerPhone = designerPhone;
 		this.designerYear = designerYear;
 		this.designerRank = designerRank;
 		this.designerIntro = designerIntro;
-		this.designerKeyword = designerKeyword;
-		this.designerImg = designerImg;
+		this.designerEnrolldate = designerEnrolldate;
+		this.shop = shop;
 	}
 	public int getDesignerNo() {
 		return designerNo;
@@ -52,23 +49,11 @@ public class Designer {
 	public void setDesignerPw(String designerPw) {
 		this.designerPw = designerPw;
 	}
-	public String getDesignerGen() {
-		return designerGen;
-	}
-	public void setDesignerGen(String designerGen) {
-		this.designerGen = designerGen;
-	}
 	public String getDesignerName() {
 		return designerName;
 	}
 	public void setDesignerName(String designerName) {
 		this.designerName = designerName;
-	}
-	public String getDesignerEmail() {
-		return designerEmail;
-	}
-	public void setDesignerEmail(String designerEmail) {
-		this.designerEmail = designerEmail;
 	}
 	public String getDesignerPhone() {
 		return designerPhone;
@@ -94,16 +79,16 @@ public class Designer {
 	public void setDesignerIntro(String designerIntro) {
 		this.designerIntro = designerIntro;
 	}
-	public String getDesignerKeyword() {
-		return designerKeyword;
+	public String getDesignerEnrolldate() {
+		return designerEnrolldate;
 	}
-	public void setDesignerKeyword(String designerKeyword) {
-		this.designerKeyword = designerKeyword;
+	public void setDesignerEnrolldate(String designerEnrolldate) {
+		this.designerEnrolldate = designerEnrolldate;
 	}
-	public String getDesignerImg() {
-		return designerImg;
+	public Hairshop getShop() {
+		return shop;
 	}
-	public void setDesignerImg(String designerImg) {
-		this.designerImg = designerImg;
+	public void setShop(Hairshop shop) {
+		this.shop = shop;
 	}
 }
