@@ -57,7 +57,7 @@
 	        </div>
 	        
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerPw">
+	            <input type="password" class="form-textbox" name="customerPw">
 	            <span class="form-label">비밀번호</span>
 	        </div>
 	        <hr>
