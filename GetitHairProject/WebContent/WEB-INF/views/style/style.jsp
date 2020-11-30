@@ -29,7 +29,7 @@
     }
 
     .swiper-container {
-      width: 100%;
+      width: 80%;
       height: 100%;
     }
 
@@ -187,7 +187,7 @@
 	  <script>
 	  	var swiper = new Swiper('.swiper-container', {
 	      slidesPerView: 4,
-	      spaceBetween: 30,
+	      spaceBetween: 0,
 	      slidesPerGroup: 4,
 	      loop: true,
 	      loopFillGroupWithBlank: true,

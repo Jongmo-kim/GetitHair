@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <style>
+	.swiper-pagination-bullets{
+		top:470px;
+	}
     html,
     body {
       position: relative;
@@ -29,8 +32,14 @@
     }
 
     .swiper-container {
-      width: 80%;
-      height: 300px;
+      width: 100%;
+      height: 400px;
+
+    }
+    .swiper-container1 {
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
 
     }
 
@@ -61,14 +70,13 @@
     }
     .content{
     	float: left;
-    	overflow: hidden;
-    	width: 80%;
+    	width: 90%;
     }
     .tab{
     	float: left;
     	display: flex;
     	flex-direction : column;
-    	width: 20%;
+    	width: 10%;
     	height: 100%;
     	margin-top: 20px;
     }
@@ -77,10 +85,10 @@
     	width : 80%;
     	margin : 0 auto;
     }
-    .swiper-slide>img{
+    .swiper-slide img{
     	width: 100%;
     }
-    .swiper-slide>h1{
+    .swiper-slide h1{
     	position: absolute;
     	top: 40px;
     	left: 100px;
@@ -88,16 +96,16 @@
     	font-size: 50px;
     	text-shadow: 5px 5px 10px black;
     }
-    .shop, .style{
-    	float: left;
-    	width: 50%;
+    .shop{
+    	display: flex;
+    	flex-direction: row;
     }
     .mid>form{
     	text-align: center;
     	margin-top: 20px;
     	margin-bottom: 20px;
     }
-    .style>img{
+    .style img{
     	width: 250px;
     	height: 250px;
     }
@@ -105,6 +113,9 @@
     	display : inline-block;
     	width: 100%;
     	text-decoration : none;
+    	height: 50px;
+    	color: black;
+    	font-size: 20px;
     }
     .tab li{
     	list-style-type: none;
@@ -123,6 +134,7 @@
     #hairshopList>table{
     	margin: 50px;
     	height: 120px;
+    	width: 300px;
     }
     body button{
     	height: 50px;
@@ -138,12 +150,21 @@
     }
     .short{
     	text-align: center;
-    	width: 100px;
     }
     .long>a{
     	position: absolute;
     	left: 200px;
     	top: 0px;
+    }
+    .style>h2, .shop>h2{
+    	flex: none;
+    }
+    #hairshopList{
+    	display: flex;
+    	flex-direction: row;
+    }
+    .shop{
+    	overflow: scroll;
     }
 </style>
 <title>헤어샵 메인페이지</title>
@@ -151,7 +172,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
-		<div class="swiper-container">
+		<div class="swiper-container1">
 		    <div class="swiper-wrapper">
 		      <div class="swiper-slide"><img src="/img/main/3.jpg"><h1>11월 신규 매장 이벤트</h1></div>
 		      <div class="swiper-slide"><img src="/img/main/1.jpeg"><h1>커트만 예약해도 50% 할인 쿠폰 증정!</h1></div>
@@ -167,7 +188,7 @@
 			</form>
 			<div class="tab short">
 				<ul>
-					<li><a href="#"><img src="/img/main/menu.png"></a></li>
+					<li><a style="cursor:pointer;"><img src="/img/main/menu.png"></a></li>
 				</ul>
 			</div>
 			<div class="tab long">
@@ -175,22 +196,31 @@
 					<li><a href="#">지역 별</a></li>
 					<li><a href="/style">스타일</a></li>
 				</ul>
-				<a href="#"><img src="/img/main/x.png"></a>
+				<a style="cursor:pointer;"><img src="/img/main/x.png"></a>
 			</div>
 			<div class="content">
+				<div class="style">
+					<h2>인기있는 스타일</h2>
+					<div class="swiper-container">
+					    <div class="swiper-wrapper">
+					      <div class="swiper-slide"><img src="/img/style/cut/레이어드컷.jpg"></div>
+					      <div class="swiper-slide"><img src="/img/style/cut/리프컷.jpg"></div>
+					      <div class="swiper-slide"><img src="/img/style/cut/샌드컷.jpg"></div>
+					      <div class="swiper-slide"><img src="/img/style/cut/허쉬컷.jpeg"></div>
+					      <div class="swiper-slide"><img src="/img/style/perm/빌드펌.jpg"></div>
+						  <div class="swiper-slide"><img src="/img/style/perm/레인펌.jpg"></div>
+					    </div>
+					    <!-- Add Arrows -->
+					    <div class="swiper-button-next"></div>
+					    <div class="swiper-button-prev"></div>
+					</div>
+				</div>
 				<div class="shop">
 					<h2>헤어샵</h2>
 					<div id="hairshopList"></div>
 					<div style="text-align:center;">
 						<button currentCount="0" value="" totalCount="<%=totalCount %>" id="more-btn">더보기</button>
 					</div>
-				</div>
-				<div class="style">
-					<h2>인기있는 스타일</h2>
-					<img src="/img/style/perm/빌드펌.jpg">
-					<p class="caption">빌드펌</p>
-					<img src="/img/style/perm/레이어드 펌.jpg">
-					<p class="caption">레이어드펌</p>
 				</div>
 			</div>
 		</div>
@@ -201,7 +231,7 @@
 
 	  <!-- Initialize Swiper -->
 	  <script>
-	    var swiper = new Swiper('.swiper-container', {
+	    var swiper = new Swiper('.swiper-container1', {
 	   	  slidesPerView: 1,
 	      spaceBetween: 30,
 	      centeredSlides: true,
@@ -214,6 +244,17 @@
 	        el: '.swiper-pagination',
 	        clickable: true,
 	      }
+	    });
+	    var swiper = new Swiper('.swiper-container', {
+	      slidesPerView: 4,
+	      spaceBetween: 0,
+	      slidesPerGroup: 4,
+	      loop: true,
+	      loopFillGroupWithBlank: true,
+	      navigation: {
+	        nextEl: '.swiper-button-next',
+	        prevEl: '.swiper-button-prev',
+	      },
 	    });
 	    $(function(){
 			hairshopMore(1);
