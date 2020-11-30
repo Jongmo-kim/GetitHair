@@ -294,18 +294,17 @@ public class ReserveDao {
       return result;
    }
 
-   public ArrayList<Reserve> selectListCustomerSelStatus(Connection conn, int start, int end, String selStatus,int customerNo) {
+   public ArrayList<Reserve> selectListCustomerSelStatus(Connection conn, int start, int end, String sqlAdd,int customerNo) {
       ArrayList<Reserve> list = new ArrayList<Reserve>();
       PreparedStatement pstmt = null;
       ResultSet rset = null;
-      String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where reserve_status=? and customer_no=? order by 1 desc)N) where rnum between ? and ?";
+      String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where customer_no=? "+sqlAdd+" order by 1 desc)N) where rnum between ? and ?";
             
       try {
          pstmt = conn.prepareStatement(sql);
-         pstmt.setString(1, selStatus);
-         pstmt.setInt(2, customerNo);
-         pstmt.setInt(3, start);
-         pstmt.setInt(4, end);               
+         pstmt.setInt(1, customerNo);
+         pstmt.setInt(2, start);
+         pstmt.setInt(3, end);               
          rset = pstmt.executeQuery();
          while(rset.next()) {
             Reserve r  = getReserveFromRset(rset);
@@ -404,6 +403,45 @@ public int getTotalCount(Connection conn, String sqlAdd) {
        JDBCTemplate.close(rset);
        JDBCTemplate.close(pstmt);
     }      
+    return result;
+}
+
+public int insertReReserve(Connection conn, Reserve reserve) {
+	PreparedStatement pstmt = null;
+    //String sql = "insert into reserve values(DEFAULT,?,?,?,?,sysdate,'예약',?,'','')";
+	//태민local sql insert into reserve values(DEFAULT,1,1,1,1,'2020-12-01','예약','테스트123','','');
+    String sql = "insert into reserve values(DEFAULT,?,?,?,1,?,'예약',?,'','')";
+    int result = 0 ;
+    try {
+       pstmt = conn.prepareStatement(sql);
+       pstmt.setInt(1, reserve.getCustomer().getCustomerNo());
+       pstmt.setInt(2, reserve.getDesigner().getDesignerNo());
+       pstmt.setInt(3, reserve.getShop().getShopNo());
+       pstmt.setDate(4, reserve.getReserveDate());
+       pstmt.setString(5,reserve.getReserveCustReq());
+       result = pstmt.executeUpdate();
+    } catch (SQLException e) {
+       e.printStackTrace();
+    } finally {
+       JDBCTemplate.close(pstmt);
+    }
+    return result;
+}
+
+
+public int cancelReserve(Connection conn, int reserveNo) {
+	int result = 0;
+    String sql = "update reserve set reserve_status = '취소' where reserve_no=?";
+    PreparedStatement pstmt = null;
+    try {
+       pstmt = conn.prepareStatement(sql);
+       pstmt.setInt(1, reserveNo);
+       result = pstmt.executeUpdate();
+    } catch (SQLException e) {
+       e.printStackTrace();
+    } finally {
+       JDBCTemplate.close(pstmt);
+    }
     return result;
 }
 }

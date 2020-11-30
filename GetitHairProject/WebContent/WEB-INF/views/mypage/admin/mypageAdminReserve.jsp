@@ -10,17 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <link rel="stylesheet" href="/css/mypage/admin/container.css">
-    <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
     <style>
-        .admin-content {
-            margin-top: 10px;
-            width: 100%;
-            height: 800px;
-            box-shadow: 0px 0px 5px 0px gray;
-            border-radius: 3px;
-        }
-
         .reserve-list,
         .review-list {
             width: 100%;
@@ -46,10 +36,10 @@
         </header>
         <section>
             <div class="admin-content">
-                <form action="/mypageAdminCustomer" method="GET">
+                <form action="/mypageAdminReserve" method="GET">
                     <%@ include file="/WEB-INF/views/mypage/admin/common/search-nav.jsp"%>
                 </form>
-                <form action="/adminDeleteCustomer" method="POST">
+                <form action="/adminDeleteReserve" method="POST">
                     <div class="reserve-list-wrap">
                         <table class="reserve-list">
                             <thead>
@@ -269,8 +259,8 @@
             })
             // 전체 선택 버튼 클릭 이벤트
             $(".btn-allcheck").on("click", function (e) {
-                console.log($(".customer-list tbody th>input:checkbox"));
-                toggleCheckbox($(".customer-list tbody th>input:checkbox"));
+                console.log($(".reserve-list tbody th>input:checkbox"));
+                toggleCheckbox($(".reserve-list tbody th>input:checkbox"));
 
             })
             //한명 탈퇴 버튼 클릭 이벤트

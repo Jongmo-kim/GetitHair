@@ -11,6 +11,7 @@
  	if(list==null){
  		list = new ArrayList<ReserveTest>();
  	}
+ 	ReserveTest rt = (ReserveTest)request.getAttribute("rt");
  %>
 <html lang="kr">
 
@@ -38,9 +39,35 @@
 	href="https://bootswatch.com/4/lux/bootstrap.min.css">
 
 <script>
-        function consolelog(log) {
-            console.log(log);
+Date.prototype.format = function(f) {
+    if (!this.valueOf()) return " ";
+ 
+    var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+    var d = this;
+     
+    return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
+        switch ($1) {
+            case "yyyy": return d.getFullYear();
+            case "yy": return (d.getFullYear() % 1000).zf(2);
+            case "MM": return (d.getMonth() + 1).zf(2);
+            case "dd": return d.getDate().zf(2);
+            case "E": return weekName[d.getDay()];
+            case "HH": return d.getHours().zf(2);
+            case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
+            case "mm": return d.getMinutes().zf(2);
+            case "ss": return d.getSeconds().zf(2);
+            case "a/p": return d.getHours() < 12 ? "오전" : "오후";
+            default: return $1;
         }
+    });
+};
+ 
+String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
+String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
+Number.prototype.zf = function(len){return this.toString().zf(len);};
+
+
+
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
 
@@ -56,7 +83,7 @@
                 selectable: true,
                 selectMirror: true,
                 select: function(arg) {
-                    var title = prompt('Event Title:');
+                    /*var title = prompt('Event Title:');
                     if (title) {
                         calendar.addEvent({
                             title: title,
@@ -64,7 +91,7 @@
                             end: arg.end,
                             allDay: arg.allDay
                         })
-                    }
+                    }*/
                     calendar.unselect();
                 },
                 eventClick: function(arg) {
@@ -72,9 +99,74 @@
                 	//data-toggle="modal" data-target="#myModal"
                     var selectEvent = arg.el;
                 	var event = arg.event;
+                	var reserveNo = arg.event.id;
                 	selectEvent.setAttribute('data-toggle', 'modal'); 
                 	selectEvent.setAttribute('data-target', '#myModal');
-                	
+                	//모달창을 띄웠으니 그안 inputvalue에 값을 채울거에요
+                	//어떻게 채울거냐면 reserveNo로 값을 가져와야하는데 지금 html에서는 가져올수없으니
+                	//ajax를 통해 sevlet을 호출하여 모든 rserve요소들을 가져올거에요
+                	//1. ajax 요청을 받을 적당한 servlet만들기
+                	//2. reserveNo를 ajax를 통해 servlet에 보내기
+                	//3. servlet에서 받은 data로 input tag에 값 채워넣기
+                	$.ajax({
+                		url : "/selectOneReserveCalnedar?reserveNo="+reserveNo,
+                		type : "post",
+                		success : function(date){
+                			var data = JSON.parse(date);
+                			var reserveNoInputTag = $('input[name="reserveNo"]');
+                			var reserveTitleInputTag = $('input[name="reserveTitle"]');
+                			var customerNameInputTag = $('input[name="customerName"]');
+                			var reserveStartDate = $('input[name="reserveStartDate"]');
+                			var reserveEndDate = $('input[name="reserveEndDate"]');
+                			var reserveDate = $('input[name="reserveDate"]');
+                			var reserveStatus = $('input[name="reserveStatus"]');
+                			var reserveCustReq = $('input[name="reserveCustReq"]');
+                			var reserveDesignerReq = $('input[name="reserveDesignerReq"]');
+                			var reserveDesignerMemo = $('input[name="reserveDesignerMemo"]');
+                			var reserveDesignerMemo = $('input[name="reserveDesignerMemo"]');
+                			var reserveNo = data.reserveNo;
+                			var reserveNo = data.reservTitle;
+                			
+                			console.log(data);
+                			console.log(data.reserveNo);
+                			console.log(data.reserveStartDate);
+                			console.log(data.reserveEndDate);
+                			console.log(data.reserveDate);
+                			console.log(data.reserveTitle);
+                			console.log(data.reserveStatus);
+                			console.log(data.reserveCustReq);
+                			console.log(data.reserveDesignerReq);
+                			console.log(data.reserveDesignerMemo);
+                			console.log(data.customerName);
+                			var endDate = new Date(data.reserveEndDate);
+                			$(reserveEndDate).val(endDate.format('yyyy-MM-dd hh시 mm분'));
+                			
+                			var currDate = new Date(data.reserveDate);
+                			$(reserveStartDate).val(currDate.format('yyyy-MM-dd hh시 mm분'));
+                			
+                			var startDate = new Date(data.reserveStartDate);
+                			$(reserveDate).val(startDate.format('yyyy-MM-dd hh시 mm분'));
+                			
+                			$(reserveNoInputTag).val(data.reserveNo);
+                			$(reserveTitleInputTag).val(data.reserveTitle);
+                			$(customerNameInputTag).val(data.customerName);
+                			$(reserveStatus).val(data.reserveStatus);
+                			$(reserveCustReq).val(data.reserveCustReq);
+                			$(reserveDesignerReq).val(data.reserveDesignerReq);
+                			$(reserveDesignerMemo).val(data.reserveDesignerMemo);
+                			
+                		},beforeSend: function() {
+                    		  $('#loading_indicator').show().fadeIn('fast');
+                      		  $('#submitBtn').hide();
+                      		 },
+                    	error : function(){
+                    		
+                    	},
+                    	complete : function(){
+                    		 $('#loading_indicator').fadeOut();
+                      		  $('#submitBtn').show();
+                    	}
+                	})
                 },
                 editable: true,
                 dayMaxEvents: true, // allow "more" link when too many events
@@ -116,11 +208,16 @@
                 	success : function(){
                 		$('#result').css('display','block');
                 	},
+                	 beforeSend: function() {
+                  		  $('#loading_indicator').show().fadeIn('fast');
+                  		  $('#submitBtn').hide();
+                  		 },
                 	error : function(){
                 		
                 	},
                 	complete : function(){
-                		
+                		 $('#loading_indicator').fadeOut();
+                  		  $('#submitBtn').show();
                 	}
                 });
             });
@@ -144,8 +241,6 @@ body {
 </head>
 
 <body>
-	<button type="button" class="btn btn-primary" data-toggle="modal"
-		data-target="#myModal">Open modal</button>
 
 	<!-- The Modal -->
 	<div class="modal" id="myModal">
@@ -154,30 +249,61 @@ body {
 
 				<!-- Modal Header -->
 				<div class="modal-header">
+					<h4 class="modal-title" style="text-align:center">예약 조회</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">선택한 일자 출력</h4>
 				</div>
 
 				<!-- Modal body -->
-				<div class="modal-body">
-					<input type="hidden" name="reservNo"><br> 
-					<input type="text" name="reservTitle"><br> 
-					<label>예약자명</label><input type="text" name="customerName"><br> 
-					<label>예약시작일</label><input type="text" name="reserveStartDate"><br> 
-					<label>예약종료일</label><input type="text" name="reserveEndDate"><br> 
-					<label>예약날짜</label><input type="text" name="reserveDate"><br> 
-					<label>손님코멘트</label><input type="text" name="reserveCustReq"><br> 
-					<label>디자이너코멘트</label><input type="text" name="reserveDesignerReq"><br> 
-					<label>메모</label><input type="text" name="reserveDesignerMemo"><br> 
-					<input type="submit" value="수정"> 
-					<input type="button" value="닫기">
-				</div>
+				<form action="/updateReserveCalnedar" method="post">
+					<div class="modal-body" style="text-align:center">
+						<table>
+							<tr>
+								<th colspan="2">
+									<input type="hidden" name="reserveNo" class="form-control">
+									<input type="text" name="reserveTitle" class="form-control">
+								</th>
+							</tr>
+							<tr>
+								<th><label>예약자명</label></th>
+								<td><input type="text" name="customerName" class="form-control" readonly></td>
+							</tr>
+							<tr>
+								<th><label>예약시작일</label></th>
+								<td><input type="text" name="reserveStartDate" class="form-control"></td>
+							</tr>
+							<tr>
+								<th><label>예약종료일</label></th>
+								<td><input type="text" name="reserveEndDate" class="form-control"></td>
+							</tr>
+							<tr>
+								<th><label>예약날짜</label></th>
+								<td><input type="text" name="reserveDate" class="form-control"></td>
+							</tr>
+							<tr>
+								<th><label>상태</label></th>
+								<td><input type="text" name="reserveStatus" class="form-control"></td>
+							</tr>
+							<tr>
+								<th><label>손님코멘트</label></th>
+								<td><input type="text" name="reserveCustReq" class="form-control" readonly></td>
+							</tr>
+							<tr>
+								<th><label>디자이너코멘트</label></th>
+								<td><input type="text" name="reserveDesignerReq" class="form-control"></td>
+							</tr>
+							<tr>
+								<th><label>메모</label></th>
+								<td><input type="text" name="reserveDesignerMemo" class="form-control"></td>
+							</tr>
+						</table>
+					</div>
 
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-default" data-dismiss="modal">수정</button>
+					<button type="submit" class="btn btn-default">수정</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				</div>
+				</form>
 
 			</div>
 		</div>
@@ -185,7 +311,20 @@ body {
 	<div id='calendar'
 		class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"></div>
 	<br>
-	<button id="submitBtn"  type="button" class="btn btn-primary">저장하기</button>
+	<button id="submitBtn"  type="button" class="btn btn-primary" style="display:none">저장하기</button>
+	
+	<!-- 
+	 <div style="position:fixed; top:500px;">
+  	<button id="submitBtn" type="button" class="btn btn-primary" style="width:200px; height:200px">제출하기</button>
+  	
+  	<span id="loading_indicator" style="display:none;">
+	 <p style="text-align: center; top:0;  position: absolute;">
+	 	<img src="/img/signup/loading.gif" />
+	 </p>
+	</span>
+  </div>
+  
 	<div id="result" style="display:none;height:500px; background-color:black;"></div>
+	 -->
 </body>
 </html>

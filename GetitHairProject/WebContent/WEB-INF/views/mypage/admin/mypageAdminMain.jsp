@@ -46,7 +46,7 @@
                         <span>회원 :${customerCnt} 명</span>
                     </div>
                     <div class="count-week">
-                        <span>일주일간 가입한 회원</span>
+                        <span>일주일간 가입한 회원 :${customerWeekCnt} 명</span>
                     </div>
                 </div>
                 <div class="designer-summary">

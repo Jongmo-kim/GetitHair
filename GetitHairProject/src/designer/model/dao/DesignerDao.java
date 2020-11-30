@@ -49,7 +49,7 @@ public class DesignerDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Designer loginDesigner = null;
-		String query = "select * from designer where designer_id=?, designer_pw=?";
+		String query = "select * from designer where designer_id=? and designer_pw=?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, designerId);

@@ -37,15 +37,6 @@
             box-shadow: 0px 0px 5px 0px gray;
             border-radius: 3px;
         }
-
-        .admin-content {
-            margin-top: 10px;
-            width: 100%;
-            height: 800px;
-            box-shadow: 0px 0px 5px 0px gray;
-            border-radius: 3px;
-        }
-
         .shop-list,
         .review-list {
             width: 100%;

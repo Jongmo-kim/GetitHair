@@ -8,6 +8,9 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/css/mypage/admin/container.css">
+    <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
+    <link rel="stylesheet" href="/css/mypage/admin/layout.css">
     <style>
         .admin-nav-wrap {
             width: 100%;
@@ -31,7 +34,7 @@
         .admin-nav>li>a {
             display: block;
             text-decoration: none;
-            color: gray;
+            color: #3E5902;
             font-weight: bold;
             font-size: large;
             text-align: center;
@@ -40,11 +43,10 @@
             height: 50px;
         }
         .admin-nav>li:last-child>a{
-            color: black;
-            background-color: brown;
+            background-color: #F28D77;
         }
         .admin-nav>li>a:hover {
-            background-color: whitesmoke;
+            background-color: #F2C335;
         }
     </style>
 </head>

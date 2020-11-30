@@ -4,7 +4,7 @@
         $('.dateOfBirth').on('focus click', dateOfBirthFunc);
         $('.dateOfBirth').on('blur', dateOfBirthBlurEvent);
         $('.dateOfBirth').on('keydown', dateOfBirthKeyFunc);
-
+		
         $('.phoneInput').on('focus click', phoneInputFunc);
         $('.phoneInput').on('blur', phoneInputBlurEvent);
         $('.phoneInput').on('keydown', phoneInputKeyFunc);
@@ -12,6 +12,12 @@
         $('.form-textbox').on('focus', formTextboxFocusEvent);
         $('.form-textbox').on('blur', formTextboxBlurEvent);
         $('.form-label').on('click', formLabelClickEvent);
+		
+		$('.resetBtn').on('click',function(){
+			var inputTag = $('.form-textbox');
+			$(inputTag).val('');
+			$(inputTag).trigger('blur');
+		});
     });
     function dateOfBirthFunc(e) {
         if (isDebugMode) {
@@ -98,7 +104,7 @@
     //구분선
     function phoneInputFunc(e) {
         if (isDebugMode) {
-            console.log('dateOfBirthFunc event');
+            console.log('phoneInputFunc event');
         }
         var inputVal = $(this).val();
         var inputTag = $(this);
@@ -176,6 +182,7 @@
         } else if (isSpecalChar(e.key)) {
             return false;
         }
+
     }
     //구부눈부눕눕누
     function adjustNumberPadKeyCode(keycode){

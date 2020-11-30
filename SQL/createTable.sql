@@ -343,8 +343,8 @@ CREATE TABLE review
 (
     review_no         NUMBER           NOT NULL, 
     shop_no           NUMBER           NOT NULL, 
-    designer_no       NUMBER           NOT NULL, 
-    customer_no       NUMBER           , 
+    designer_no       NUMBER           NULL, 
+    customer_no       NUMBER           NULL, 
     style_no          NUMBER           NOT NULL, 
     review_content    VARCHAR2(200)    NOT NULL, 
     review_rate       NUMBER           NOT NULL, 
@@ -442,7 +442,7 @@ CREATE TABLE style_list
 (
     stylelist_no    NUMBER    NOT NULL, 
     style_no        NUMBER    NOT NULL, 
-    designer_no     NUMBER    NOT NULL, 
+    designer_no     NUMBER    NULL, 
     shop_price_no           NUMBER    NOT NULL, 
     CONSTRAINT STYLE_LIST_PK PRIMARY KEY (stylelist_no)
 )
@@ -455,14 +455,41 @@ ALTER TABLE style_list
     ADD CONSTRAINT FK_style_list_shop_price_no FOREIGN KEY (shop_price_no)
         REFERENCES shop_price(shop_price_no)
 /
+--DROP TRIGGER style_list_AI_TRG;
+/
+
+--DROP SEQUENCE style_list_SEQ;
+/
+
+COMMENT ON TABLE style_list IS '헤어스타일리스트'
+/
+
+COMMENT ON COLUMN style_list.stylelist_no IS '헤어스타일리스트번호'
+/
+
+COMMENT ON COLUMN style_list.style_no IS '헤어스타일번호'
+/
+
+COMMENT ON COLUMN style_list.designer_no IS '디자이너번호'
+/
+
+ALTER TABLE style_list
+    ADD CONSTRAINT FK_style_list_designer_no_desi FOREIGN KEY (designer_no)
+        REFERENCES designer (designer_no)  ON DELETE CASCADE
+/
+
+ALTER TABLE style_list
+    ADD CONSTRAINT FK_style_list_style_no_style_s FOREIGN KEY (style_no)
+        REFERENCES style (style_no)
+/
 -- hairshop Table Create SQL
 CREATE TABLE reserve
 (
     reserve_no               NUMBER           NOT NULL, 
-    customer_no              NUMBER           , 
-    designer_no              NUMBER           NOT NULL, 
+    customer_no              NUMBER           NULL, 
+    designer_no              NUMBER           NULL, 
     shop_no                  NUMBER           NOT NULL, 
-    stylelist_no             NUMBER           NOT NULL,
+    stylelist_no             NUMBER           NULL,
     reserve_date             DATE             NOT NULL, 
     reserve_status           char(6)          NOT NULL, 
     reserve_cust_req         VARCHAR2(300)    NULL, 
@@ -532,7 +559,7 @@ ALTER TABLE reserve
 /
 ALTER TABLE reserve
     ADD CONSTRAINT FK_reserve_stylelist_no_styl  FOREIGN KEY (stylelist_no)
-        REFERENCES style_list (stylelist_no)
+        REFERENCES style_list (stylelist_no) ON DELETE SET NULL
 /
 
 
@@ -583,33 +610,7 @@ ALTER TABLE designer_list
 /
 
 
---DROP TRIGGER style_list_AI_TRG;
-/
 
---DROP SEQUENCE style_list_SEQ;
-/
-
-COMMENT ON TABLE style_list IS '헤어스타일리스트'
-/
-
-COMMENT ON COLUMN style_list.stylelist_no IS '헤어스타일리스트번호'
-/
-
-COMMENT ON COLUMN style_list.style_no IS '헤어스타일번호'
-/
-
-COMMENT ON COLUMN style_list.designer_no IS '디자이너번호'
-/
-
-ALTER TABLE style_list
-    ADD CONSTRAINT FK_style_list_designer_no_desi FOREIGN KEY (designer_no)
-        REFERENCES designer (designer_no)  ON DELETE CASCADE
-/
-
-ALTER TABLE style_list
-    ADD CONSTRAINT FK_style_list_style_no_style_s FOREIGN KEY (style_no)
-        REFERENCES style (style_no)
-/
 -- hairshop Table Create SQL
 CREATE TABLE likes
 (
@@ -709,7 +710,7 @@ CREATE TABLE DESIGNER_PORTFOLIO(
     DESIGNER_PORTFOLIO_CONTENT VARCHAR2(600),   -- 코멘트
     FILEPATH VARCHAR2(300),                     -- 시술사진
     DESIGNER_PORTFOLIO_DATE VARCHAR2(10),       -- 글작성날짜
-    FOREIGN KEY (DESIGNER_NO) REFERENCES DESIGNER (DESIGNER_NO)
+    FOREIGN KEY (DESIGNER_NO) REFERENCES DESIGNER (DESIGNER_NO) ON DELETE SET NULL
 );
 CREATE SEQUENCE DESIGNER_PORTFOLIO_SEQ;
 

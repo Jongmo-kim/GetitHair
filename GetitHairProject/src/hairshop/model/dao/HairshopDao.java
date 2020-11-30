@@ -195,4 +195,30 @@ public class HairshopDao {
 		return totalCount;
 	}
 
+	public Hairshop selectOneHairshop(Connection conn, String inputId, String inputPw) {
+		PreparedStatement pstmt = null;
+		String sql = "select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_img,shop_likes from hairshop where inputId = ? and inputPw = ?";
+		Hairshop h = new Hairshop();
+		ResultSet rset = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			pstmt.setString(2, inputPw);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				h.setShopNo(rset.getInt("shop_no"));
+				h.setShopName(rset.getString("shop_name"));
+				h.setShopAddr(rset.getString("shop_addr"));
+				h.setShopOpen(rset.getString("shop_open"));
+				h.setShopClose(rset.getString("shop_close"));
+				h.setShopRate(rset.getInt("shop_rate"));
+				h.setShopImg(rset.getString("shop_img"));
+				h.setShopLikes(rset.getInt("shop_likes"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return h;
+	}
+
 }

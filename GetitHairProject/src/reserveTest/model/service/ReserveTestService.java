@@ -127,4 +127,15 @@ public class ReserveTestService {
 		return result;
 	}
 		
+	public int updateReserveCalnedar(ReserveTest rt) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReserveTestDao().updateReserveCalnedar(conn, rt);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 }

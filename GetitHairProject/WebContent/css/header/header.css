@@ -49,4 +49,13 @@ body {
 }
 <!-- //Font apply -->
 
-
+	.myLabel{
+		cursor: pointer;
+	}
+	.myLabel:hover{
+			color:var(--wine);
+		}
+		input[name='loginType']:checked ~ label{
+			color:var(--wine);
+			font-size:18pt;
+		}
