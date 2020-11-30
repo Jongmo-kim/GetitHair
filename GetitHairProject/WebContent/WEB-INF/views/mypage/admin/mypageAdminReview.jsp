@@ -12,17 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <link rel="stylesheet" href="/css/mypage/admin/container.css">
-    <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
     <style>
-        .admin-content {
-            margin-top: 10px;
-            width: 100%;
-
-            box-shadow: 0px 0px 5px 0px gray;
-            border-radius: 3px;
-        }
-
         .review-list {
             width: 100%;
             border-collapse: collapse;

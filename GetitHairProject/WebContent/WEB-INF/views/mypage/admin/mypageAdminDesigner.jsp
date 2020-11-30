@@ -11,8 +11,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <link rel="stylesheet" href="/css/mypage/admin/container.css">
-    <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
     <style>
         .modal-overlay {
             display: none;
@@ -34,14 +32,6 @@
             margin-top: -400px;
             margin-left: -500px;
             background-color: white;
-            box-shadow: 0px 0px 5px 0px gray;
-            border-radius: 3px;
-        }
-
-        .admin-content {
-            margin-top: 10px;
-            width: 100%;
-            height: 800px;
             box-shadow: 0px 0px 5px 0px gray;
             border-radius: 3px;
         }

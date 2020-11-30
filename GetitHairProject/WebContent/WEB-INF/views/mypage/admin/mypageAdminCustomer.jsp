@@ -10,8 +10,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <link rel="stylesheet" href="/css/mypage/admin/container.css">
-    <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
     <style>
         .modal-overlay {
             display: none;
@@ -26,7 +24,7 @@
         .review-container {
             display: none;
             position: fixed;
-            width: 1000px;
+            width: 800px;
             height: 800px;
             top: 50%;
             left: 50%;
@@ -37,13 +35,7 @@
             border-radius: 3px;
         }
 
-        .admin-content {
-            margin-top: 10px;
-            width: 100%;
-            height: 800px;
-            box-shadow: 0px 0px 5px 0px gray;
-            border-radius: 3px;
-        }
+        
 
         .customer-list,
         .review-list {
@@ -53,12 +45,17 @@
 
         .customer-list>tbody>tr:hover,
         .review-list>tbody>tr:hover {
-            background-color: rgb(235, 232, 232);
+            background-color:#F29A2E;
         }
 
-        .customer-list th {
+        .customer-list th,
+        .review-list th {
             border-bottom: 1px solid gray;
             height: 30px;
+        }
+        .review-list th>div{
+            overflow: hidden;
+            height: 20px;
         }
     </style>
 </head>
@@ -79,7 +76,7 @@
                         <th>샵</th>
                         <th>디자이너</th>
                         <th>작성자</th>
-                        <th>내용</th>
+                        <th style="width:300px;">내용</th>
                         <th>기능</th>
                     </tr>
                 </thead>
@@ -89,8 +86,8 @@
                 <tfoot>
                     <tr>
                         <th colspan="7">
-                            <button>선택한 리뷰 삭제</button>
-                            <button type="reset">전체 선택해제</button>
+                            <button class="btn">선택한 리뷰 삭제</button>
+                            <button class="btn" type="reset">전체 선택해제</button>
                         </th>
                     </tr>
                 </tfoot>
@@ -136,8 +133,8 @@
                                             <th>${c.customerName}</th>
                                             <th>${c.customerEnrolldate}</th>
                                             <th>
-                                                <button class="rvbtn" type="button">작성한 리뷰보기</button>
-                                                <button class="del-one-btn">탈퇴</button>
+                                                <button class="btn rvbtn" type="button">작성한 리뷰보기</button>
+                                                <button class="btn del-one-btn">탈퇴</button>
                                             </th>
                                         </tr>
                                     </c:forEach>
@@ -146,9 +143,9 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="7">
-                                        <button class="btn-allcheck" type="button">전체선택</button>
-                                        <button class="del-btn">선택회원 탈퇴</button>
-                                        <button type="reset">전체 선택해제</button>
+                                        <button class="btn btn-allcheck" type="button">전체선택</button>
+                                        <button class="btn del-btn">선택회원 탈퇴</button>
+                                        <button class="btn"type="reset">전체 선택해제</button>
                                     </th>
                                 </tr>
                             </tfoot>
@@ -160,7 +157,7 @@
                         </c:if>
                         <c:forEach var="i" begin="${pageStart}" end="${pageEnd}">
                             <a href="mypageAdminCustomer?reqPage=${i}"
-                                style="${i==(not empty param.reqPage ? param.reqPage : 1) ? " color: black;" : ""
+                                style="${i==(not empty param.reqPage ? param.reqPage : 1) ? " color: #F29A2E;" : ""
                                 }">${i}</a>
                         </c:forEach>
                         <c:if test="${pageEnd<pageSize}">
@@ -265,7 +262,7 @@
                                 "<th>" + data[i].shop.shopName + "</th>",
                                 "<th>" + data[i].designer.designerName + "</th>",
                                 "<th>" + data[i].customer.customerId + "</th>",
-                                "<th>" + data[i].reviewContent + "</th>",
+                                "<th><div>" + data[i].reviewContent + "</div></th>",
                                 "<th><button class='delete-review' value='" + data[i].reviewNo +
                                 "'data-customerNo='"+data[i].customer.customerNo+"'>삭제</button></th>",
                                 "</tr>"
@@ -313,7 +310,7 @@
                 $(checkbox).prop("checked", true);
         }
         $(function () {
-            $(".admin-nav a:eq(1)").css("background-color", "whitesmoke");
+            $(".admin-nav a:eq(1)").css("background-color", "#F2C335");
 
             setClickToTr();
             setClickToChk()
@@ -347,7 +344,8 @@
             //리뷰 보기 버튼 클릭 이벤트
             $(".rvbtn").click(function (e) {
                 $(".modal-overlay").css("display", "block");
-                $(".review-container").css("display", "block");
+                // $(".review-container").css("display", "block");
+                $(".review-container").fadeToggle("1s");
                 $(".review-list").children('tbody').empty();
                 var customerNo = $(this).parent().siblings('th').eq(1).text();
                 var reqPage = 1;
