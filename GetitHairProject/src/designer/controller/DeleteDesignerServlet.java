@@ -10,19 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import designer.model.service.DesignerService;
-import designer.model.vo.Designer;
 
 /**
- * Servlet implementation class DesignerProfileServlet
+ * Servlet implementation class DeleteDesignerServlet
  */
-@WebServlet(name = "DesignerProfile", urlPatterns = { "/designerProfile" })
-public class DesignerProfileServlet extends HttpServlet {
+@WebServlet(name = "DeleteDesigner", urlPatterns = { "/deleteDesigner" })
+public class DeleteDesignerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DesignerProfileServlet() {
+    public DeleteDesignerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +30,20 @@ public class DesignerProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1. 인코딩
 		request.setCharacterEncoding("utf-8");
-		//2. view에서 넘어온 데이터 저장
-		int loginDesigner = Integer.parseInt(request.getParameter("loginDesigner"));
-		//3. 비지니스 로직 
-		Designer designer = new DesignerService().selectOneDesigner(loginDesigner);
-		//4. 결과처리
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/mypage/designer/designerProfile.jsp");
-		request.setAttribute("designer", designer);
+		String designerId = request.getParameter("designerId");
+		int result = new DesignerService().deleteDesigner(designerId);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+		request.setAttribute("loc", "/");
+		System.out.println(result);
+		if(result>0) {
+			request.setAttribute("msg", "회원탈퇴가 완료되었습니다.");
+		}else {
+			request.setAttribute("msg", "회원탈퇴가 실패되었습니다. 관리자에게 문의하세요.");
+		}
 		rd.forward(request, response);
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

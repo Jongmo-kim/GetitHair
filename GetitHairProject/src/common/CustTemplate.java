@@ -23,22 +23,22 @@ public class CustTemplate {
 		String addrDetail = request.getParameter("addrDetail");
 		String addrPostcode = request.getParameter("addrPostcode");
 		String customerBirthdate = request.getParameter("customerBirthdate");
-		String customerEnrolldate = request.getParameter("customerEnrolldate");		
+		//String customerEnrolldate = request.getParameter("customerEnrolldate");		
 
 		Customer customer = new Customer();
 		//"yyyy년 mm월 dd일" -> sql.date
 		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 mm월 dd일");
-//		try {
-//			java.util.Date to = sdf.parse(customerBirthdate);
-//			java.sql.Date sqlDate = new java.sql.Date(to.getTime());
-//			customer.setCustomerBirthdate(sqlDate);
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 mm월 dd일");
+		try {
+			java.util.Date to = sdf.parse(customerBirthdate);
+			java.sql.Date sqlDate = new java.sql.Date(to.getTime());
+			customer.setCustomerBirthdate(sqlDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		
-		customer.setCustomerBirthdate("Whoadd?");
+		//customer.setCustomerBirthdate(customerBirthdate);
 		customer.setAddrDetail(addrDetail);
 		customer.setAddrPostcode(addrPostcode);
 		customer.setCustomerAddr(customerAddr);

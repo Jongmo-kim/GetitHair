@@ -275,7 +275,7 @@ public class ReviewDao {
 	}
 	public int insertReview(Connection conn, Review rv) {
 		PreparedStatement pstmt = null;
-		String qryInsert = "insert into review values(default,?,?,?,?,?,?,?,?,?)";
+		String qryInsert = "insert into review values(default,?,?,?,?,?,?,?,sysdate)";//태민쿼리수정
 		int result = 0;
 		try {
 			pstmt=conn.prepareStatement(qryInsert);
@@ -286,7 +286,7 @@ public class ReviewDao {
 			pstmt.setString(5, rv.getReviewContent());
 			pstmt.setInt(6, rv.getReviewRate());
 			pstmt.setInt(7, rv.getReviewLikes());
-			pstmt.setString(8, rv.getReviewDate());
+			//pstmt.setString(8, rv.getReviewDate()); //태민쿼리수정
 			
 			result = pstmt.executeUpdate();
 			

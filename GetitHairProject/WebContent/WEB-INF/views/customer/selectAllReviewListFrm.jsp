@@ -27,8 +27,7 @@
 				<th>6.리뷰내용</th>
 				<th>7.리뷰평점</th>
 				<th>8.좋아요수</th>
-				<th>9.작성날짜</th>
-				<th>10.리뷰이미지</th>				
+				<th>9.작성날짜</th>				
 			</tr>
 				<%for(Review r : list) {%>
 				<tr>
@@ -40,8 +39,7 @@
 					<td><%=r.getReviewContent() %></td>
 					<td><%=r.getReviewRate() %></td>
 					<td><%=r.getReviewLikes() %></td>
-					<td><%=r.getReviewDate() %></td>
-					<td><%=r.getReviewImg()%></td>							
+					<td><%=r.getReviewDate() %></td>							
 				</tr>
 				<%} %>			
 		</table>

@@ -20,7 +20,8 @@ public class ReserveDao {
 
    public int insertReserve(Connection conn, Reserve reserve) {
       PreparedStatement pstmt = null;
-      String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,sysdate,?,?,?,?)";
+      String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,?,default,?,?,?,sysdate,?,?)";
+      "INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,'예약제목',default,'손님요청','디자이너요청','디자이너메모',sysdate,sysdate + (1/1440*15)*reserve_seq.currval*8, sysdate + (1/1440*15)*reserve_seq.currval*9);"
       int result = 0 ;
       try {
          pstmt = conn.prepareStatement(sql);

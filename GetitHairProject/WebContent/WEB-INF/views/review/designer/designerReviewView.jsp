@@ -25,14 +25,14 @@
 					<td><%=r.getCustomer().getCustomerName() %></td>
 				</tr>
 				<!-- 시술 이미지 수정중 -->
-				<tr>
+				<%-- <tr>
 					<th>시술이미지</th>
 					<td>
 						<%if(r.getReviewImg() != null) {%>
 						<img src='/upload/photo/"+<%=r.getReviewImg() %>+"' width='100%'>
 						<%} %>
 					</td>
-				</tr>
+				</tr> --%>
 				<tr>
 					<th>내용</th>
 					<td><%=r.getReviewContentBr() %></td>

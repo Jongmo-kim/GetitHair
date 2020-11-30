@@ -24,7 +24,7 @@ public class StyleDao {
 				s.setStyleNo(rset.getInt("style_no"));
 				s.setStyleType(rset.getString("style_type"));
 				s.setStyleName(rset.getString("style_name"));
-				s.setStyleImg(rset.getString("style_img"));
+				//s.setStyleImg(rset.getString("style_img"));
 				s.setStyleLikes(rset.getInt("style_likes"));
 			}
 		} catch (SQLException e) {
@@ -50,7 +50,6 @@ public class StyleDao {
 				s.setStyleNo(rset.getInt("style_no"));
 				s.setStyleType(rset.getString("style_type"));
 				s.setStyleName(rset.getString("style_name"));
-				s.setStyleImg(rset.getString("style_img"));
 				s.setStyleLikes(rset.getInt("style_likes"));
 				list.add(s);
 			}
@@ -66,13 +65,12 @@ public class StyleDao {
 
 	public int insertStyle(Connection conn, Style style) {
 		PreparedStatement pstmt = null;
-		String query = "insert into style values(style_req.nextval,?,?,?,0)";
+		String query = "insert into style values(style_req.nextval,?,?,0)";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, style.getStyleType());
 			pstmt.setString(2, style.getStyleName());
-			pstmt.setString(3, style.getStyleImg());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -102,15 +100,14 @@ public class StyleDao {
 
 	public int updateStyle(Connection conn, Style style) {
 		PreparedStatement pstmt = null;
-		String query = "update style set style_type=?, style_name=?, style_img=?, style_likes=? where style_no=?";
+		String query = "update style set style_type=?, style_name=?, style_likes=? where style_no=?";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, style.getStyleType());
 			pstmt.setString(2, style.getStyleName());
-			pstmt.setString(3, style.getStyleImg());
-			pstmt.setInt(4, style.getStyleLikes());
-			pstmt.setInt(5, style.getStyleNo());
+			pstmt.setInt(3, style.getStyleLikes());
+			pstmt.setInt(4, style.getStyleNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -135,7 +132,6 @@ public class StyleDao {
 				s.setStyleNo(rset.getInt("style_no"));
 				s.setStyleType(rset.getString("style_type"));
 				s.setStyleName(rset.getString("style_name"));
-				s.setStyleImg(rset.getString("style_img"));
 				s.setStyleLikes(rset.getInt("style_likes"));
 				list.add(s);
 			}
@@ -185,7 +181,6 @@ public class StyleDao {
 				s.setStyleNo(rset.getInt("style_no"));
 				s.setStyleType(rset.getString("style_type"));
 				s.setStyleName(rset.getString("style_name"));
-				s.setStyleImg(rset.getString("style_img"));
 				s.setStyleLikes(rset.getInt("style_likes"));
 				list.add(s);
 			}
