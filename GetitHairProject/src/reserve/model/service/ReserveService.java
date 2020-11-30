@@ -36,13 +36,13 @@ public class ReserveService {
 		JDBCTemplate.close(conn);
 		return list;		
 	}
-	public ArrayList<Reserve> selectAllByDate(String startDate,String endDate){
+	public int selectAllByDate(String startDate,String endDate){
 		Connection conn = JDBCTemplate.getConnection();
 		java.sql.Date startSqlDate = getSqlDateFromString(startDate);
 		java.sql.Date endSqlDate = getSqlDateFromString(endDate);
-		ArrayList<Reserve> list = new ReserveDao().selectAllByDate(conn, startSqlDate, endSqlDate);
+		int result = new ReserveDao().selectAllByDate(conn, startSqlDate, endSqlDate);
 		JDBCTemplate.close(conn);
-		return list;
+		return result;
 	}
 	private java.sql.Date getSqlDateFromString(String date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

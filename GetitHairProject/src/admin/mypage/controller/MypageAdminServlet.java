@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import customer.model.service.CustomerService;
 import designer.model.service.DesignerService;
 import hairshop.model.service.HairshopService;
+import reserve.model.service.ReserveService;
 import review.model.service.ReviewService;
 
 /**
@@ -58,12 +59,16 @@ public class MypageAdminServlet extends HttpServlet {
 
 		// 헤어샵 관련 summary 정보
 		int shopCnt = new HairshopService().selectHairshopList().size(); // 전체 헤어샵 수
+		
+		// 예약 관련 sumamry 정보
+		int reserveWeekCnt = new ReserveService().selectAllByDate(startDate,endDate).size(); // 1주내 진행될(된) 예약 수
 		// 값 설정 후 메인 관리페이지로 이동
 		request.setAttribute("customerCnt", customerCnt);
 		request.setAttribute("customerWeekCnt", customerWeekCnt);
 		request.setAttribute("designerCnt", designerCnt);
 		request.setAttribute("reviewCnt", reviewCnt);
 		request.setAttribute("shopCnt", shopCnt);
+		request.setAttribute("reserveWeekCnt", reserveWeekCnt);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminMain.jsp").forward(request, response);
 	}
 
