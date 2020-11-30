@@ -14,6 +14,13 @@ public class DesignerService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+
+	public Designer selectOneDesigner(int designerNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Designer result = new DesignerDao().selectOneDesigner(conn, designerNo);
+		JDBCTemplate.close(conn);
+		return result;
+	}
 	
 	public Designer selectOneDesigner(String designerId, String designerPw) {
 		Connection conn = JDBCTemplate.getConnection();
