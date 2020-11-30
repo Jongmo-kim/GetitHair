@@ -14,7 +14,7 @@ public class HairshopService {
 		Hairshop hs = new HairshopDao().selectShop(conn, result);
 		return null;
 	}
-
+	
 	public Hairshop selectOneHairshop(int shopNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		Hairshop hs = new HairshopDao().selectOneHairshop(conn, shopNo);
@@ -63,4 +63,10 @@ public class HairshopService {
 		return result;
 	}
 
+	public int deleteShop(int shopNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new HairshopDao().deleteShop(conn,shopNo);
+		return result;
+	}
+	
 }

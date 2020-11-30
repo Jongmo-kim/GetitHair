@@ -33,7 +33,6 @@ public class AdminDeleteShopServlet extends HttpServlet {
 
 		// 값 받기
 		String[] shopNo = request.getParameterValues("shopNo");
-
 		// 비즈니스 로직
 		int result = 0;
 		for (int i = 0; i < shopNo.length; i++) {

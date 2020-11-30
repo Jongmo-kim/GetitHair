@@ -66,7 +66,7 @@ public class AdminDao {
 				cust.setCustomerNo(rs.getInt("customer_no"));
 				cust.setCustomerPhone(rs.getString("customer_phone"));
 				cust.setCustomerPw(rs.getString("customer_pw"));
-				cust.setCustomerBirthdate(rs.getString("customer_birthdate"));
+				cust.setCustomerBirthdate(rs.getDate("customer_birthdate"));
 				cust.setCustomerEnrolldate(rs.getDate("customer_enrolldate"));
 				list.add(cust);
 			}
@@ -106,7 +106,7 @@ public class AdminDao {
 				cust.setCustomerNo(rs.getInt("customer_no"));
 				cust.setCustomerPhone(rs.getString("customer_phone"));
 				cust.setCustomerPw(rs.getString("customer_pw"));
-				cust.setCustomerBirthdate(rs.getString("customer_birthdate"));
+				cust.setCustomerBirthdate(rs.getDate("customer_birthdate"));
 				cust.setCustomerEnrolldate(rs.getDate("customer_enrolldate"));
 				list.add(cust);
 			}
