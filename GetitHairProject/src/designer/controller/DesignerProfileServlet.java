@@ -34,9 +34,9 @@ public class DesignerProfileServlet extends HttpServlet {
 		//1. 인코딩
 		request.setCharacterEncoding("utf-8");
 		//2. view에서 넘어온 데이터 저장
-		int designerNo = Integer.parseInt(request.getParameter("designerNo"));
+		int loginDesigner = Integer.parseInt(request.getParameter("loginDesigner"));
 		//3. 비지니스 로직 
-		Designer designer = new DesignerService().selectOneDesigner(designerNo);
+		Designer designer = new DesignerService().selectOneDesigner(loginDesigner);
 		//4. 결과처리
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/mypage/designer/designerProfile.jsp");
 		request.setAttribute("designer", designer);

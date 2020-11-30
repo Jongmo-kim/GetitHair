@@ -23,20 +23,6 @@
             background-color: gray;
             opacity: 0.5;
         }
-
-        .review-container {
-            display: none;
-            position: fixed;
-            width: 1000px;
-            height: 800px;
-            top: 50%;
-            left: 50%;
-            margin-top: -400px;
-            margin-left: -500px;
-            background-color: white;
-            box-shadow: 0px 0px 5px 0px gray;
-            border-radius: 3px;
-        }
         .shop-list,
         .review-list {
             width: 100%;
@@ -127,7 +113,7 @@
                                 <c:if test="${not empty list}">
                                     <c:forEach var="hs" items="${list}">
                                         <tr>
-                                            <th width="30"><input type="checkbox" name="chk" value="${hs.shopNo}">
+                                            <th width="30"><input type="checkbox" name="shopNo" value="${hs.shopNo}">
                                             </th>
                                             <th>${hs.shopNo}</th>
                                             <th>${hs.shopCompNo}</th>

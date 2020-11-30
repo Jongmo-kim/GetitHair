@@ -190,6 +190,9 @@
 	 	width: 400px;
 	 	margin: 50px;
 	 }
+	 .type h1{
+	 	font-size: 60px;
+	 }
 </style>
 <title>헤어샵 메인페이지</title>
 </head>
@@ -250,8 +253,8 @@
 				</div>
 				<div class="type">
 					<div>
-						<h1 style="font-size: 50px;">최근 인기를 끌고 있는</h1>
-						<h1 style="font-size: 50px;">'리프컷'</h1>
+						<h2 style="font-size: 50px;">최근 인기를 끌고 있는</h2>
+						<h1>리프컷</h1>
 						<br>
 						<p>겨울에 하면 시크, 도도한 분위기가 연출되는</p>
 						<p>턱 선 기장의 귀를 덮는 오버 가르마의 숏컷 스타일</p>
@@ -262,13 +265,24 @@
 				<div class="type">
 					<div><img src="/img/style/perm/엘리자벳펌.jpg"></div>
 					<div style="text-align:left;">
-						<h1 style="font-size: 50px;">우아한 감성 가득</h1>
-						<h1 style="font-size: 50px;">'엘리자벳펌'</h1>
+						<h2 style="font-size: 50px;">우아한 감성 가득</h2>
+						<h1>엘리자벳펌</h1>
 						<br>
 						<p>가을에 무드한 분위기를 위한</p>
 						<p>가슴 위 기장의 솔리드 한 롱헤어 퍼머로</p>
 						<p>선명한 실루엣이 특징이며 우아하고 고급스러운 이미지를 강조하는 스타일</p>
 					</div>
+				</div>
+				<div class="type">
+					<div>
+						<h2 style="font-size: 50px;">이제는 옴브레 아닌</h2>
+						<h1>솜브레</h1>
+						<br>
+						<p>원톤 컬러가 지겹다면,</p>
+						<p>부담스럽지 않은 컬러의 소프트-옴브레</p>
+						<p>은은하게 톤온톤으로 차이를 주어서 자유로워 보이면서도 절제감 있는 스타일</p>
+					</div>
+					<div><img src="/img/style/color/솜브레.jpg"></div>
 				</div>
 			</div>
 		</div>
