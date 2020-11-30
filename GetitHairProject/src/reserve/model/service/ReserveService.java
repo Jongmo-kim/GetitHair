@@ -72,10 +72,10 @@ public class ReserveService {
 			JDBCTemplate.rollback(conn);
 		}
 	}	
-	public ReservePageData reserveSelectListCustomerSelStatus(int reqPage,Customer customer, String selStatus,String sqlAdd) {
+	public ReservePageData reserveSelectListCustomerSelStatus(int reqPage,int customerNo, String selStatus,String sqlAdd) {
 		Connection conn = JDBCTemplate.getConnection();
 		ReserveDao dao = new ReserveDao();
-		int totalCount = dao.getTotalCountCustomerSelStatus(conn, customer.getCustomerNo(), sqlAdd);
+		int totalCount = dao.getTotalCountCustomerSelStatus(conn, customerNo, sqlAdd);
 		int numPerPage = 10;
 		int totalPage = totalCount % numPerPage == 0 ? totalCount / numPerPage : totalCount / numPerPage + 1;
 		//System.out.println("service totalCount = "+totalCount);
@@ -85,8 +85,8 @@ public class ReserveService {
 		int end = reqPage * numPerPage;
 		//System.out.println("service start = "+start);
 		//System.out.println("service end = "+end);
-		ArrayList<Reserve> list = dao.selectListCustomerSelStatus(conn,customer,start,end,sqlAdd);
-		//System.out.println("service List.size = "+list.size());
+		ArrayList<Reserve> list = dao.selectListCustomerSelStatus(conn,start,end,sqlAdd,customerNo);
+		//System.out.println("service List.size = "+list.size());  Connection conn, int start, int end, String selStatus,int customerNo
 		// 페이지 네비게이션 작성 시작
 		int pageNaviSize = 5;
 		String pageNavi = "";
