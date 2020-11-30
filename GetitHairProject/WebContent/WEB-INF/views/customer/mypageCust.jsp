@@ -66,6 +66,11 @@
 							</span>
 						</div>
 						<div class="reserve inputBox">
+							<input type="text" id="reserveDesignerName" class="form-textbox" name="reserveDesignerName"
+								readonly> <span class="form-label label-focused">디자이너이름
+							</span>
+						</div>
+						<div class="reserve inputBox">
 							<input type="text" id="reserveStatus" class="form-textbox" name="reserveStatus"
 								readonly> <span class="form-label label-focused">예약상태
 							</span>
@@ -222,6 +227,7 @@
 						//show영역
 						var rRserveNo = data.reserveNo;
 						var rReserveShopName = decodeURIComponent(data.reserveShopName);
+						var rReserveDesignerName = decodeURIComponent(data.reserveDesignerName);
 						var rReserveStatus = decodeURIComponent(data.reserveStatus);
 						var rReserveDesignerReq = decodeURIComponent(data.reserveDesignerReq);
 						var rReserveDate = decodeURIComponent(data.reserveDate);
@@ -235,6 +241,7 @@
 						//show영역
 						$("#reserveNo").attr('value',rRserveNo);
 						$("#reserveShopName").attr('value',rReserveShopName);
+						$("#reserveDesignerName").attr('value',rReserveDesignerName);
 						$("#reserveStatus").attr('value',rReserveStatus);
 						$("#reserveDesignerReq").attr('value',rReserveDesignerReq);
 						$("#reserveDate").attr('value',rReserveDate);

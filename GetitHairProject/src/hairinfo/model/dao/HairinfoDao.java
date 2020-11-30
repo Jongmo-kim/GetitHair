@@ -73,6 +73,7 @@ public class HairinfoDao {
 			pstmt.setString(7, hairinfo.getMyhairOld());
 			pstmt.setInt(8, hairinfo.getCustomer().getCustomerNo());
 			result = pstmt.executeUpdate();
+			System.out.println("updateHairinfo result = "+result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
