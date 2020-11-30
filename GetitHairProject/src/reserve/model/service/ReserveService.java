@@ -1,6 +1,7 @@
 package reserve.model.service;
 
 import java.sql.Connection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,16 +38,22 @@ public class ReserveService {
 	}
 	public ArrayList<Reserve> selectAllByDate(String startDate,String endDate){
 		Connection conn = JDBCTemplate.getConnection();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date startUtilDate = sdf.parse(startDate);
-		java.sql.Date startSqlDate = new java.sql.Date(startUtilDate.getTime());
-		Date endUtilDate = sdf.parse(endDate);
-		java.sql.Date endSqlDate = new java.sql.Date(endUtilDate.getTime());
-		
+		java.sql.Date startSqlDate = getSqlDateFromString(startDate);
+		java.sql.Date endSqlDate = getSqlDateFromString(endDate);
 		ArrayList<Reserve> list = new ReserveDao().selectAllByDate(conn, startSqlDate, endSqlDate);
 		JDBCTemplate.close(conn);
 		return list;
+	}
+	private java.sql.Date getSqlDateFromString(String date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		java.sql.Date sqlDate = null;
+		try {
+			Date utilDate= sdf.parse(date);
+			sqlDate = new java.sql.Date(utilDate.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return sqlDate;
 	}
 	public int insertReserve(Reserve reserve) {
 		Connection conn = JDBCTemplate.getConnection();

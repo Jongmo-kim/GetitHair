@@ -463,6 +463,26 @@ public int cancelReserve(Connection conn, int reserveNo) {
 
 public ArrayList<Reserve> selectAllByDate(Connection conn, Date startSqlDate, Date endSqlDate) {
 	ArrayList<Reserve> list = new ArrayList<Reserve>();
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String sql = "select * from reserve where between ? and ?";
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setDate(1, startSqlDate);
+		pstmt.setDate(2, endSqlDate);
+		rset = pstmt.executeQuery();
+		while(rset.next()) {
+			Reserve r = getReserveFromRset(rset);
+			list.add(r);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		JDBCTemplate.close(rset);
+		JDBCTemplate.close(pstmt);
+	}
+	
 	return list;
 }
+
 }
