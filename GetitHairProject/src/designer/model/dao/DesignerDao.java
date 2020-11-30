@@ -11,6 +11,37 @@ import designer.model.vo.Designer;
 
 public class DesignerDao {
 
+	public Designer selectOneDesigner(Connection conn, String designerId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Designer loginDesigner = null;
+		String query = "select * from designer where designer_Id=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, designerId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				loginDesigner = new Designer();
+				loginDesigner.setDesignerNo(rset.getInt("designer_no"));
+				loginDesigner.setDesignerId(rset.getString("designer_id"));
+				loginDesigner.setDesignerPw(rset.getString("designer_pw"));
+				loginDesigner.setDesignerName(rset.getString("designer_name"));
+				loginDesigner.setDesignerPhone(rset.getString("designer_phone"));
+				loginDesigner.setDesignerYear(rset.getInt("designer_year"));
+				loginDesigner.setDesignerRank(rset.getString("designer_rank"));
+				loginDesigner.setDesignerIntro(rset.getString("designer_intro"));
+				loginDesigner.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return loginDesigner;
+	}
+	
 	public Designer selectOneDesigner(Connection conn, int designerNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -122,10 +153,11 @@ public class DesignerDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, designer.getDesignerPw());
-			pstmt.setString(3, designer.getDesignerPhone());
-			pstmt.setInt(4, designer.getDesignerYear());
-			pstmt.setString(5, designer.getDesignerRank());
-			pstmt.setString(6, designer.getDesignerIntro());
+			pstmt.setString(2, designer.getDesignerPhone());
+			pstmt.setInt(3, designer.getDesignerYear());
+			pstmt.setString(4, designer.getDesignerRank());
+			pstmt.setString(5, designer.getDesignerIntro());
+			pstmt.setInt(6, designer.getDesignerNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

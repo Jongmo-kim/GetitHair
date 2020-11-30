@@ -32,11 +32,10 @@
 					<th>이름</th>
 					<td><input type="text" name="designerNeme" value="<%=designer.getDesignerName() %>" readonly></td>
 				</tr>
-				<tr>
-					<!-- 소속 헤어샵 처리 어떻게 하더라? -->
+				<!-- <tr>
 					<th>소속 헤어샵</th>
-					<td><input type="text" name="shopName" value=""></td>
-				</tr>
+					<td><input type="text" name="shopName" value="" readonly></td>
+				</tr>  -->
 				<tr>
 					<th>경력</th>
 					<td><input type="text" name="designerYear" value="<%=designer.getDesignerYear() %>"></td>
@@ -48,6 +47,10 @@
 				<tr>
 					<th>소개글</th>
 					<td><input type="text" name="designerIntro" value="<%=designer.getDesignerIntro() %>"></td>
+				</tr>
+				<tr>
+					<th>가입일자</th>
+					<td><input type="text" name="designerEnrolldate" value="<%=designer.getDesignerEnrolldate() %>" readonly></td>
 				</tr>
 				<tr>
 					<th colspan="2" style="text-align: center">

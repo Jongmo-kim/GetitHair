@@ -54,8 +54,8 @@ public class HairshopDetailServlet extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");
 				request.setAttribute("hs", hs);
 				request.setAttribute("review", review);
-				request.setAttribute("like", like);
 				request.setAttribute("designerList", designerList);
+				request.setAttribute("like", like);
 				rd.forward(request, response);
 			}else{
 				response.sendRedirect("/hairshop");	

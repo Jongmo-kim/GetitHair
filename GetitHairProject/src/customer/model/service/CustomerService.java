@@ -173,6 +173,7 @@ public class CustomerService {
 		Connection conn =JDBCTemplate.getConnection();
 		int result = 0;
 		result = (new CustomerDao().updateCustomer(conn, customer))*(new HairinfoDao().updateHairinfo(conn, hairinfo));
+		System.out.println("updateAllHairinfo result ="+result);
 		if(result>0) {
 			JDBCTemplate.commit(conn);
 		}else {

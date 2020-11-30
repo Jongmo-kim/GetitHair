@@ -33,7 +33,9 @@
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
  	<!-- 스켈레 -->
   	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=yehjayrzn1&submodules=geocoder"></script>
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -76,7 +78,10 @@
 	.detail{
 		display: none;
 	}
-	
+	.inputBox>input{
+		height: 2.1em;
+		width: 80%;
+	}
 	
 </style>
 
@@ -86,7 +91,19 @@
 	<!-- 헤더 -->
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<br>
-	
+	<script>
+	$(function() {
+		    $("#reserveBtn").on('click',function(){
+		    	<%=%>
+		    });
+		    function reverseBtn(designerNo){
+		    	//designerNo 
+		    	//ajax, json
+		    	
+				$("#designerNo").val(designerNo);
+		    }
+		});
+	</script>
 	<div class="modal fade" id="ReserveModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -96,18 +113,17 @@
 						<h4 class="modal-title">예약하기</h4>
 					</div>
 					<div class="modal-body">
-						<div class="reserve inputBox">
+						<%-- <div class="reserve inputBox">
 							<!-- 구현하면 예약번호 hiddn으로 숨겨야함 -->
 							<span>예약번호  </span>
 							<input type="hidden" class="form-textbox" name="reserveNo" value="<%=reserveList.get(index).getReserveNo() %>" readonly>
-						</div>
+						</div> --%>
 						<div class="reserve inputBox">
-							<input type="text" id="reserveDate" class="form-textbox" name="reserveDate">
-							<span class="form-label">예약날짜 </span>							
+							예약 일자<input type="date" id="testDatepicker" class="form-textbox" name="reserveDate" placeholder="">							
 						</div>											
 						<div class="reserve inputBox">
-							<input type="text" class="form-textbox" name="reserveCustReq" >
-							<span class="form-label">손님요청사항</span>
+							손님 요청 사항<input type="text" class="form-textbox" name="reserveCustReq" id="testid">
+							
 						</div>						
 						<%-- <input type ="hidden" class= "form-textbox" name="reserveStatus" value="<%=reserveList.get(index).getReserveStatus() %>">
 						<input type="hidden" class="form-textbox" name="customerNo"  value="<%=reserveList.get(index).getCustomer().getCustomerNo()%>" >
@@ -179,7 +195,7 @@
     	</div>
     	<form action="/reserVation" method="get">
     	<div class="designerPt col-md-2" style="height: 100px; display:block;">
-    		<a class="btn btn-primary btn-sm" style="margin-top: 30px;" data-toggle="modal" data-target="#ReserveModal">예약하기</a>
+    		<a class="btn btn-primary btn-sm" style="margin-top: 30px;" data-toggle="modal" data-target="#ReserveModal" onclick="reserveBtn(<%=deli.get(i).getDesigner().getDesignerNo()%>)">예약하기</a>
     	</div>
     	</form>
     </div>
@@ -276,6 +292,7 @@
    				});
    			});
    		}
+		
 	</script>
 </body>
 </html>

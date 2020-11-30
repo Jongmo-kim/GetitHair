@@ -8,6 +8,13 @@ import designer.model.dao.DesignerDao;
 import designer.model.vo.Designer;
 
 public class DesignerService {
+	public Designer selectOneDesigner(String designerId) {
+		Connection conn = JDBCTemplate.getConnection();
+		Designer result = new DesignerDao().selectOneDesigner(conn, designerId);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
 	public Designer selectOneDesigner(int designerNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		Designer result = new DesignerDao().selectOneDesigner(conn, designerNo);

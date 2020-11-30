@@ -1,28 +1,23 @@
-package designer.controller;
+package hairshop.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import designer.model.service.DesignerService;
-import designer.model.vo.Designer;
-
 /**
- * Servlet implementation class DesignerProfileServlet
+ * Servlet implementation class insertReserveServlet
  */
-@WebServlet(name = "DesignerProfile", urlPatterns = { "/designerProfile" })
-public class DesignerProfileServlet extends HttpServlet {
+@WebServlet(name = "InsertReserve", urlPatterns = { "/insertReserve" })
+public class insertReserveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DesignerProfileServlet() {
+    public insertReserveServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,17 +26,10 @@ public class DesignerProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1. 인코딩
-		//2. view에서 넘어온 데이터 저장
-		String designerId = request.getParameter("designerId");
-		//3. 비지니스 로직 
-		Designer designer = new DesignerService().selectOneDesigner(designerId);
-		//4. 결과처리
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/mypage/designer/designerProfile.jsp");
-		request.setAttribute("designer", designer);
-		rd.forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

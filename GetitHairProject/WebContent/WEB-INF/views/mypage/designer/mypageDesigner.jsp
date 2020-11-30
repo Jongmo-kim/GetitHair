@@ -47,7 +47,7 @@
 		<h2>My Page</h2>
 		<div class="mypage-btn-container">
 			<a class="mypage-btn" href="/designerReserve">예약관리</a> 
-			<a class="mypage-btn" href="/designerProfile">프로필</a> 
+			<a class="mypage-btn" href="/designerProfile?designerId=<%=loginDesigner.getDesignerId()%>">프로필</a> 
 			<a class="mypage-btn" href="/designerPortfolioList">포트폴리오</a>
 			<a class="mypage-btn" href="/designerReviewList">리뷰</a>
 		</div>
