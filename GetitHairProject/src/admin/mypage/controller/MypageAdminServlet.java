@@ -61,7 +61,7 @@ public class MypageAdminServlet extends HttpServlet {
 		int shopCnt = new HairshopService().selectHairshopList().size(); // 전체 헤어샵 수
 		
 		// 예약 관련 sumamry 정보
-		int reserveWeekCnt = new ReserveService().selectAllByDate(startDate,endDate).size(); // 1주내 진행될(된) 예약 수
+		int reserveWeekCnt = new ReserveService().selectAllByDate(startDate,endDate); // 1주내 진행될(된) 예약 수
 		// 값 설정 후 메인 관리페이지로 이동
 		request.setAttribute("customerCnt", customerCnt);
 		request.setAttribute("customerWeekCnt", customerWeekCnt);

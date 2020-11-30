@@ -464,15 +464,20 @@ public int cancelReserve(Connection conn, int reserveNo) {
 public int selectAllByDate(Connection conn, Date startSqlDate, Date endSqlDate) {
 	int result = 0;
 	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 	String sql = "select count(*) from reserve where reserve_enddate between ? and ?";
 	try {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setDate(1, startSqlDate);
 		pstmt.setDate(2, endSqlDate);
-		result = pstmt.executeUpdate();
+		rs = pstmt.executeQuery();
+		if(rs.next()) {
+			result = rs.getInt(1);
+		}
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}finally {
+		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
 	}
 	
