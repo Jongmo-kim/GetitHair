@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>손님 마이페이지</title>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -42,8 +42,7 @@
 					<td><%=r.getReviewContent() %></td>
 					<td><%=r.getReviewRate() %></td>
 					<td><%=r.getReviewLikes() %></td>
-					<td><%=r.getReviewDate() %></td>
-					<td><%=r.getReviewImg()%></td>							
+					<td><%=r.getReviewDate() %></td>						
 				</tr>
 				<%} %>
 	</table>

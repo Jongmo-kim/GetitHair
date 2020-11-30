@@ -24,7 +24,7 @@ public class StyleDao {
 				s.setStyleNo(rset.getInt("style_no"));
 				s.setStyleType(rset.getString("style_type"));
 				s.setStyleName(rset.getString("style_name"));
-				s.setStyleImg(rset.getString("style_img"));
+				//s.setStyleImg(rset.getString("style_img"));
 				s.setStyleLikes(rset.getInt("style_likes"));
 			}
 		} catch (SQLException e) {
