@@ -1,6 +1,7 @@
 package reserve.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -77,12 +78,15 @@ public class ReserveDao {
          reserve.setCustomer(getCustomerByNo(rset.getInt("customer_no")));
          reserve.setDesigner(getDesignerByNo(rset.getInt("designer_no")));
          reserve.setShop(getHairshopByNo(rset.getInt("shop_no")));
-         reserve.setStylelist(stylelist);
-         reserve.setReserveDate(rset.getDate("reserve_date"));
+         reserve.setStylelist(getStyleListByNo(rset.getInt("stylelist_no")));
+         reserve.setReserveTitle(rset.getString("reserve_title"));
          reserve.setReserveStatus(rset.getString("reserve_status"));
          reserve.setReserveCustReq(rset.getString("reserve_cust_req"));
          reserve.setReserveDesignerReq(rset.getString("reserve_designer_req"));
          reserve.setReserveDesignerMemo(rset.getString("reserve_designer_memo"));
+         reserve.setReserveDate(rset.getDate("reserve_date"));
+         reserve.setReserveStartdate(rset.getDate("reserve_startdate"));
+         reserve.setReserveEndDate(rset.getDate("reserve_enddate"));
       } catch (SQLException e) {
          e.printStackTrace();
       }
@@ -115,8 +119,8 @@ public class ReserveDao {
    private Stylelist getStyleListByNo(int no) {
 	   Stylelist stylelist = new StylelistService().selectOneStylelist(no);
 	   if(stylelist == null) {
-		   stylelist = new Hairshop();
-		   stylelist.setShopNo(-1);
+		   stylelist = new Stylelist();
+		   stylelist.setStylelistNo(-1);
 	      }
 	   return stylelist;
    }
@@ -357,7 +361,6 @@ public class ReserveDao {
   		ArrayList<Reserve> list = new ArrayList<Reserve>();
   		PreparedStatement pstmt = null;
   		ResultSet rset = null;
-  		//String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where customer_no=? "+sqlAdd+" order by 1 desc)N) where rnum between ? and ?";
   		String sql = "select * from (select rownum as rnum, n.* from (select * from reserve where customer_no = ? "+sqlAdd+"  order by 1 desc)N) where rnum between ? and ?";	
   		try {
   			pstmt = conn.prepareStatement(sql);			
@@ -369,7 +372,6 @@ public class ReserveDao {
   				Reserve r  = getReserveFromRset(rset);
   				list.add(r);
   			}
-  			//System.out.println("dao List.size = "+list.size());
   		} catch (SQLException e) {
   			e.printStackTrace();
   		} finally {
@@ -457,5 +459,10 @@ public int cancelReserve(Connection conn, int reserveNo) {
        JDBCTemplate.close(pstmt);
     }
     return result;
+}
+
+public ArrayList<Reserve> selectAllByDate(Connection conn, Date startSqlDate, Date endSqlDate) {
+	ArrayList<Reserve> list = new ArrayList<Reserve>();
+	return list;
 }
 }

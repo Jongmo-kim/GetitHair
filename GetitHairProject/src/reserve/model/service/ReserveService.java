@@ -1,7 +1,9 @@
 package reserve.model.service;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import common.JDBCTemplate;
 import customer.model.vo.Customer;
@@ -32,6 +34,19 @@ public class ReserveService {
 		list = new ReserveDao().selectAllByDesigner(conn,DesignerNo);
 		JDBCTemplate.close(conn);
 		return list;		
+	}
+	public ArrayList<Reserve> selectAllByDate(String startDate,String endDate){
+		Connection conn = JDBCTemplate.getConnection();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date startUtilDate = sdf.parse(startDate);
+		java.sql.Date startSqlDate = new java.sql.Date(startUtilDate.getTime());
+		Date endUtilDate = sdf.parse(endDate);
+		java.sql.Date endSqlDate = new java.sql.Date(endUtilDate.getTime());
+		
+		ArrayList<Reserve> list = new ReserveDao().selectAllByDate(conn, startSqlDate, endSqlDate);
+		JDBCTemplate.close(conn);
+		return list;
 	}
 	public int insertReserve(Reserve reserve) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -120,10 +135,6 @@ public class ReserveService {
 		JDBCTemplate.close(conn);
 		return rpd;
 	}
-	public Reserve insertReserve(int shopNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	public int getReserveTotalPageByCust(int customerNo, String selStatus, String sqlAdd) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -188,5 +199,6 @@ public class ReserveService {
 		commitOrRollback(conn,result);
 		JDBCTemplate.close(conn);
 		return result;
-	}	
+	}
+	
 }
