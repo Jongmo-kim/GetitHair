@@ -39,6 +39,13 @@ public class UpdateDesignerServlet extends HttpServlet {
 		designer.setDesignerRank(request.getParameter("designerRank"));
 		designer.setDesignerIntro(request.getParameter("designerIntro"));
 		
+		System.out.println(Integer.parseInt(request.getParameter("designerNo")));
+		System.out.println(request.getParameter("designerPw"));
+		System.out.println(request.getParameter("designerPhone"));
+		System.out.println(Integer.parseInt(request.getParameter("designerYear")));
+		System.out.println(request.getParameter("designerRank"));
+		System.out.println(request.getParameter("designerIntro"));
+		
 		int result = new DesignerService().updateDesigner(designer);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
