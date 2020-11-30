@@ -23,7 +23,7 @@
 		<%if(list.size() != 0){ %>
 				<%for(Style style : list){ %>
 					<div class="styleList">
-						<img src = <%=style.getStyleImg() %>>
+						<!-- <img src = > -->
 						<a href="/styleDetail?styleNo=<%=style.getStyleNo() %>"><%=style.getStyleName() %>
 						<%=style.getStyleLikes() %>
 					</div>
