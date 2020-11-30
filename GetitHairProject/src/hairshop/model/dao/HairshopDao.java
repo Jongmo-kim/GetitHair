@@ -146,7 +146,7 @@ public class HairshopDao {
 		PreparedStatement ps = null;
 		ResultSet rset = null;
 		ArrayList<Hairshop> list = new ArrayList<Hairshop>();
-		String query = "select * from (select rownum as rnum,h.* from (select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_img,shop_likes from hairshop order by 1)h) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum,h.* from (select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_likes from hairshop order by 1)h) where rnum between ? and ?";
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, start);
@@ -160,7 +160,6 @@ public class HairshopDao {
 				h.setShopOpen(rset.getString("shop_open"));
 				h.setShopClose(rset.getString("shop_close"));
 				h.setShopRate(rset.getInt("shop_rate"));
-				h.setShopImg(rset.getString("shop_img"));
 				h.setShopLikes(rset.getInt("shop_likes"));
 				list.add(h);
 			}
