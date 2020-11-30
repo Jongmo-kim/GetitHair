@@ -39,23 +39,16 @@ public class UpdateDesignerServlet extends HttpServlet {
 		designer.setDesignerRank(request.getParameter("designerRank"));
 		designer.setDesignerIntro(request.getParameter("designerIntro"));
 		
-		System.out.println(Integer.parseInt(request.getParameter("designerNo")));
-		System.out.println(request.getParameter("designerPw"));
-		System.out.println(request.getParameter("designerPhone"));
-		System.out.println(Integer.parseInt(request.getParameter("designerYear")));
-		System.out.println(request.getParameter("designerRank"));
-		System.out.println(request.getParameter("designerIntro"));
-		
 		int result = new DesignerService().updateDesigner(designer);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		request.setAttribute("designer", designer);
 		if(result>0) {
 			request.setAttribute("msg", "프로필 수정이 완료되었습니다.");
-			request.setAttribute("loc", "/");
+			request.setAttribute("loc", "/WEB-INF/views/mypage/designer/mypageDesigner.jsp");
 		}else {
 			request.setAttribute("msg", "프로필 수정에 실패했습니다. 관리자에게 문의하세요.");
-			request.setAttribute("loc", "/");
+			request.setAttribute("loc", "/WEB-INF/views/mypage/designer/mypageDesigner.jsp");
 		}
 		rd.forward(request, response);
 	}

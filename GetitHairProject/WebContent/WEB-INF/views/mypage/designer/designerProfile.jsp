@@ -32,6 +32,10 @@
 					<th>이름</th>
 					<td><input type="text" name="designerNeme" value="<%=designer.getDesignerName() %>" readonly></td>
 				</tr>
+				<tr>
+					<th>전화번호</th>
+					<td><input type="text" name="designerPhone" value="<%=designer.getDesignerPhone() %>" readonly></td>
+				</tr>
 				<!-- <tr>
 					<th>소속 헤어샵</th>
 					<td><input type="text" name="shopName" value="" readonly></td>
