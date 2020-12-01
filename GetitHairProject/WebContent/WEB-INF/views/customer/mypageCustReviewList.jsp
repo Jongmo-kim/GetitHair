@@ -91,24 +91,23 @@
                   <div class="review inputBox">
                      <input type="text"  id="styleName" class="form-textbox" name="styleName" readonly>
                      <span class="form-label label-focused">스타일이름 </span>
-                  </div> 
+                  </div>             
                   <div class="review inputBox">
-                     <input type="text"  id="reviewContent" class="form-textbox" name="reviewContent" readonly>
-                     <span class="form-label label-focused">리뷰내용 </span>
+                     <textarea class="form-textbox" id="reviewContent" name="reviewContent" readonly></textarea>
+                     <span id="reviewContentSpan" class="form-label label-focused">리뷰내용 </span>
                   </div>             
                   
                   <!-- hidden영역 -->
-                  <input type="hidden" class="form-textbox" name="customerNo" id="customerNo">
-                 
+                  <input type="hidden" class="form-textbox" name="customerNo" id="customerNo" value="<%=customerNo%>">
+                 	<input type="hidden" class="form-textbox" name="reqPage" id="reqPage" value="<%=reqPage%>">
                   <!-- hidden영역 -->
 
                </div>
-               <div class="modal-footer">
-                  <button type="submit" class="btn btn-default">다시예약 하기</button>
-                  <button type="button" class="btn btn-default">예약 취소 하기</button>
-                  <button type="reset" class="btn btn-default resetBtn">초기화</button>
-                  <button type="button" class="btn btn-default">예약 수정하기</button>
-                  <button type="button" class="btn btn-default">예약 수정완료</button>
+               <div class="modal-footer">                 
+                  <button type="button" class="btn btn-default" id="updateOnBtn">수정하기</button>
+                  <button type="button" class="btn btn-default" id="updateCancelBtn">수정취소</button>
+                  <button type="submit" class="btn btn-default" id="updateCompleteBtn">수정완료</button>
+                  <button type="button" class="btn btn-default" id="deleteBtn">삭제하기</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                </div>
             </form>
@@ -134,9 +133,15 @@
 		</div>
 		<!-- 네비게이션부분 -->
 		<script>
-		 $(function(){      
+		 $(function(){    
+			 $("#updateCancelBtn").hide();
+		      $("#updateCompleteBtn").hide();
+		      $("#updateOnBtn").show();
+		      var reviewContent ;
 		      $(".showReviewBtn").click(function(){   
-		         var reviewNo = $(this).val();      
+		         var reviewNo = $(this).val();  
+		         var reqPage = <%=reqPage %>;
+		         var customerNo =  <%=customerNo %>;
 		         console.log("reviewNo = "+reviewNo);         
 		         $.ajax({
 		            url: "/mypageCustReviewAjax",
@@ -144,42 +149,52 @@
 		            data : {reviewNo:reviewNo},
 		            dataType : "JSON",
 		               success : function(data){
-		                  console.log("성공");
-		                  //여기서 servlet에서 보낸 값을 받는다.
-		                  //그후 그값을 형식에 맞춰 변환후 각각의 input에 value를 세팅한다.
-		                  //var rRserveNo = data;
-		                  //show영역
 		                  var reviewNo = data.reviewNo;
 		                  var reviewDate = decodeURIComponent(data.reviewDate);
 		                  var shopName = decodeURIComponent(data.shopName);
 		                  var designerName = decodeURIComponent(data.designerName);
 		                  var styleName = decodeURIComponent(data.styleName);
-		                  var reviewContent = decodeURIComponent(data.reviewContent);
+		                  reviewContent = decodeURIComponent(data.reviewContent);           
 
-		                  //hidden영역
-		                 // var rCustomerNo = data.customerNo;
-		                  //var rDesignerNo = decodeURIComponent(data.designerNo);
-		                 // var rShopNo = decodeURIComponent(data.shopNo);
-		                  //var rStyleNo = decodeURIComponent(data.styleNo); //스타일객체수정시 보여주기
-		                  var rreviewDesignerMemo = decodeURIComponent(data.reviewDesignerMemo);                  
-		                  //show영역
 		                  $("#reviewNo").attr('value',reviewNo);
 		                  $("#reviewDate").attr('value',reviewDate);
 		                  $("#shopName").attr('value',shopName);
 		                  $("#designerName").attr('value',designerName);
 		                  $("#styleName").attr('value',styleName);
-		                  $("#reviewContent").attr('value',reviewContent);
-		                  //$("#reviewCustReq").attr('value',rreviewCustReq);                  
-		                  //hidden영역                  
-		                 // $("#customerNo").attr('value',rCustomerNo);
-		                 // $("#designerNo").attr('value',rDesignerNo);
-		                  ////$("#shopNo").attr('value',rShopNo);
-		                  //$("#styleNo").attr('value',rStyleNo); //스타일객체수정시 보여주기
-		                  //$("#reviewDesignerMemo").attr('value',rreviewDesignerMemo);
-		               
+		                  //$("#reviewContent").attr('value',reviewContent);
+		                  $("#reviewContent").html("\n"+reviewContent);
+		                  //btn에 링크넣기
+		                  $("#deleteBtn").attr('onclick',"location.href='/deleteReviewByCust?reviewNo="+reviewNo+"&customerNo="+customerNo+"&reqPage="+reqPage+"'");
+		                  //$("#updateCompleteBtn").attr('onclick',"location.href='/updateReviewByCust?reviewNo="+reviewNo+"&customerNo="+customerNo+"&reqPage="+reqPage+"'");
 		               }		               
 		         });
 		      });
+		      $("#updateOnBtn").click(function(){
+		    	$("#updateOnBtn").hide();
+		      	$("#updateCancelBtn").show();
+		      	$("#updateCompleteBtn").show();
+		      	$("#reviewContent").attr('readonly',false);
+		      	$("#reviewContent").focus();
+		      });
+		      $("#updateCompleteBtn").click(function(){
+		    	  $("#updateOnBtn").show();
+		    	  $("#updateCancelBtn").hide();
+			      $("#updateCompleteBtn").hide();
+			      $("#reviewContent").attr('readonly',true);
+		      });
+		  	  $("#updateCancelBtn").click(function(){
+		  		 console.log("수정취소클릭!");
+		  		console.log("reviewContent = "+reviewContent);
+		  		$("#updateOnBtn").show();
+		  		$("#updateCancelBtn").hide();
+		      	$("#updateCompleteBtn").hide();		      
+		      	$("#reviewContent").attr('readonly',true);
+		    	$("#reviewContent").html("\n"+reviewContent);
+		    	$("#reviewContent").val("\n"+reviewContent);
+		    	//console.log($("#reviewContent").val());
+		    	//console.log($("#reviewContent").html());		    	
+		      	//$(".showReviewBtn").click();
+			  });
 		 });
 		</script>		
 </body>
