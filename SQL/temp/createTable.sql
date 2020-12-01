@@ -445,9 +445,8 @@ INCREMENT BY 1;
 ALTER TABLE shop_price
     ADD CONSTRAINT shop_price_shop_noFK FOREIGN KEY (shop_no)
         REFERENCES hairshop (shop_no) ON DELETE CASCADE
-ALTER TABLE shop_price
-    ADD CONSTRAINT shop_price_sl_noFK FOREIGN KEY (stylelist_no)
-        REFERENCES style_list (stylelist_no) ON DELETE CASCADE
+/
+
 
 /
 -- hairshop Table Create SQL
@@ -459,6 +458,10 @@ CREATE TABLE style_list
     --shop_price_no           NUMBER    NOT NULL,  이건 필요없어서 지움 오히려 shop_price가 style_list를 참조해야함.
     CONSTRAINT STYLE_LIST_PK PRIMARY KEY (stylelist_no)
 )
+/
+ALTER TABLE shop_price
+    ADD CONSTRAINT shop_price_sl_noFK FOREIGN KEY (stylelist_no)
+        REFERENCES style_list (stylelist_no) ON DELETE CASCADE
 /
 CREATE SEQUENCE style_list_SEQ
 START WITH 1
