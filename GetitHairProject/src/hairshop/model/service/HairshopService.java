@@ -19,7 +19,7 @@ public class HairshopService {
 		}
 		return hs;
 	}
-	public ArrayList<Hairshop> selectHairshopList() {
+	public ArrayList<Hairshop> selectHairshop() {
 	      Connection conn = JDBCTemplate.getConnection();
 	      ArrayList<Hairshop> list = new HairshopDao().selectHairshop(conn);
 	      JDBCTemplate.close(conn);

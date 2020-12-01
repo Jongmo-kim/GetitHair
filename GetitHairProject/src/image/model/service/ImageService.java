@@ -18,6 +18,15 @@ public class ImageService {
 		
 		return image;
 	}
+	
+	public ArrayList<ImageList> selectAllImageListByType(String type){
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<ImageList> list = new ImageDao().selectAllImageListByType(conn,type);
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+	
 	public ArrayList<ImageList> selectAllImageListByTypeAndTypeNo(String type,int typeNo){
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<ImageList> list = new ImageDao().selectAllImageListByTypeAndTypeNo(conn,type,typeNo);
@@ -27,6 +36,7 @@ public class ImageService {
 	}
 	
 	public int insertImage(String type,int typeNo,String filename, String filepath) {
+		//('hairshop','review','style','designer','reserve','designer_portfolio')
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ImageDao().insertImage(conn,filename,filepath);
 		result += new ImageDao().insertImageList(conn, type, typeNo);
