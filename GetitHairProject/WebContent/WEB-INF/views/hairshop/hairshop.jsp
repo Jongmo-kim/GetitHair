@@ -59,6 +59,7 @@
     	border-radius : 10px;
     	outline: none;
     }
+    /*
     .content{
     	float: left;
     	width: 90%;
@@ -71,9 +72,9 @@
     	height: 100%;
     	margin-top: 20px;
     }
+    */
     .mid{
-    	overflow: hidden;
-    	width : 80%;
+    	width : 70%;
     	margin : 0 auto;
     }
     .swiper-slide img{
@@ -100,6 +101,7 @@
     	width: 250px;
     	height: 250px;
     }
+    /*
     .tab a{
     	display : inline-block;
     	width: 100%;
@@ -115,6 +117,7 @@
     	margin: 0;
     	padding: 0;
     }
+    */
     #hairshopList img{
     	width: 100px;
     	height: 100px;
@@ -135,6 +138,7 @@
     	background: #D9ABA0;
     	color: white;
     }
+    /*
     .long{
     	display: none;
     	position: relative;
@@ -147,6 +151,7 @@
     	left: 200px;
     	top: 0px;
     }
+    */
     #hairshopList{
     	display: flex;
     	flex-direction: row;
@@ -212,6 +217,7 @@
 				<input type="search" name="searchShop" placeholder="헤어샵, 지역으로 검색">
 				<button type="submit">검색</button>
 			</form>
+			<!-- 
 			<div class="tab short">
 				<ul>
 					<li><a style="cursor:pointer;"><img src="/img/main/menu.png"></a></li>
@@ -224,6 +230,7 @@
 				</ul>
 				<a style="cursor:pointer;"><img src="/img/main/x.png"></a>
 			</div>
+			 -->
 			<div class="content">
 				<h2>BEST 스타일</h2>
 				<div class="style">
@@ -342,6 +349,7 @@
 			var shopNo = $(this).children().find("input").val();
 			location.href="/hairshopDetail?shopNo="+shopNo;
 		});
+		/*
 		$(".short a").click(function(){
 			$(".short").hide();
 			$(".long").show();
@@ -350,6 +358,7 @@
 			$(".long").hide();
 			$(".short").show();
 		});
+		*/
 		$(".style img").hover(function(){
 			//$(this).parent().css({position:absolute, z-index:10, background-color: rgba(0,0,0,0.5), width: 250px, height: 250px})
 			$(this).val();

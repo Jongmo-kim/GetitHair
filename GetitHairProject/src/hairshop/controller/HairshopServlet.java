@@ -33,7 +33,7 @@ public class HairshopServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		ArrayList<Hairshop> list = new HairshopService().selectHairshopList();
+		ArrayList<Hairshop> list = new HairshopService().selectHairshop();
 		int totalCount = new HairshopService().totalCount();
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshop.jsp");
 		request.setAttribute("list", list);

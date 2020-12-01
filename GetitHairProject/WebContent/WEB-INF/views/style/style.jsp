@@ -74,11 +74,7 @@
     .style-sub{
     	display: none;
     }
-    .content{
-    	float: left;
-    }
     .mid{
-    	overflow: hidden;
     	text-align: center;
     	width : 70%;
     	margin : 0 auto;
@@ -86,11 +82,6 @@
     img{
     	width: 250px;
     	height: 250px;
-    }
-    .tab{
-    	float: left;
-    	display: flex;
-    	flex-direction : column;
     }
     input[type="search"]{
     	width : 700px;
@@ -207,10 +198,6 @@
 						<%} %>
 					<%} %>
 				</div>
-			</div>
-			<div class="tab">
-				<button name="place">지역</button>
-				<button name="style">스타일</button>
 			</div>
 		</div>
 		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
