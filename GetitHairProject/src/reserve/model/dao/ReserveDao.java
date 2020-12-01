@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
@@ -84,9 +85,9 @@ public class ReserveDao {
          reserve.setReserveCustReq(rset.getString("reserve_cust_req"));
          reserve.setReserveDesignerReq(rset.getString("reserve_designer_req"));
          reserve.setReserveDesignerMemo(rset.getString("reserve_designer_memo"));
-         reserve.setReserveDate(rset.getDate("reserve_date"));
-         reserve.setReserveStartdate(rset.getDate("reserve_startdate"));
-         reserve.setReserveEndDate(rset.getDate("reserve_enddate"));
+         reserve.setReserveDate(new Date(rset.getTimestamp("reserve_date").getTime()));
+         reserve.setReserveStartdate(new Date(rset.getTimestamp("reserve_startdate").getTime()));
+         reserve.setReserveEndDate(new Date(rset.getTimestamp("reserve_enddate").getTime()));
       } catch (SQLException e) {
          e.printStackTrace();
       }

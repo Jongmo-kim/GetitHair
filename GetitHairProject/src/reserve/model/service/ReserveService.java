@@ -15,7 +15,7 @@ import reserve.model.vo.ReservePageData;
 public class ReserveService {
 	//custNo로 
 	//sql custno로 where cust
-	public ArrayList<Reserve> selectAll(int reserveNo){
+	public ArrayList<Reserve> selectAll(){
 		ArrayList<Reserve> list = null;
 		Connection conn = JDBCTemplate.getConnection();
 		list = new ReserveDao().selectAll(conn);

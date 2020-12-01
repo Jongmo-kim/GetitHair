@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import common.DebugTemplate;
@@ -399,11 +401,9 @@ public int updateDateReserveTest(Connection conn, int no, String title, Date sta
 	String sql = "update reserve set reserve_startdate = ? , reserve_endDate = ?, reserve_title = ? where reserve_no = ?";
 	int result = 0;
 	try {
-		System.out.println("sql startDate" + startDate.getTime());
-		System.out.println("sql endDate" + endDate.getTime());
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setDate(1, startDate);
-		pstmt.setDate(2, endDate);
+		pstmt.setTimestamp(1, new Timestamp(startDate.getTime()));
+		pstmt.setTimestamp(2, new Timestamp(endDate.getTime()));
 		pstmt.setString(3, title);
 		pstmt.setInt(4, no);
 		result = pstmt.executeUpdate();
