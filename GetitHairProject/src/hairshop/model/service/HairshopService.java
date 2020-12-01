@@ -60,6 +60,13 @@ public class HairshopService {
 	public int deleteShop(int shopNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new HairshopDao().deleteShop(conn,shopNo);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int updateShop(Hairshop shop) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new HairshopDao().updateShop(conn,shop);
+		JDBCTemplate.close(conn);
 		return result;
 	}
 	
