@@ -1,13 +1,12 @@
+<%@page import="reserve.model.service.ReserveService"%>
+<%@page import="reserve.model.vo.Reserve"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="reserveTest.model.service.ReserveTestService"%>
-<%@page import="reserveTest.model.dao.ReserveTestDao"%>
-<%@page import="reserveTest.model.vo.ReserveTest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%
-   		ArrayList<ReserveTest> rt1 = new ReserveTestService().selectAllByDesigner(1);
+   		ArrayList<Reserve> rt1 = new ReserveService().selectAllByDesigner(1);
    		if(rt1 == null){
-   			 rt1  = new ArrayList<ReserveTest>();
+   			 rt1  = new ArrayList<Reserve>();
    		}
    %>
 <!DOCTYPE html>
@@ -55,10 +54,10 @@
       dayMaxEvents: true, // allow "more" link when too many events
       
       	events: [
-      		<% for(ReserveTest r : rt1){ %>
+      		<% for(Reserve r : rt1){ %>
       		{ 
 	      		title:'<%=r.getReserveTitle()%>',
-    	   		start : <%=r.getReserveStartDate().getTime()%>,
+    	   		start : <%=r.getReserveStartdate().getTime()%>,
        			end : <%=r.getReserveEndDate().getTime()%>,
        			id: <%=r.getReserveNo()%>
        			},
@@ -80,7 +79,12 @@
         
         titles.push(arr[i].title);
         startDate.push(arr[i].start);
-        endDate.push(arr[i].end);
+        if(isEmpty(arr[i].end)){
+        	endDate.push(arr[i].start);
+        } else{
+        	endDate.push(arr[i].end);
+        }
+        
         reserveNo.push(arr[i].id);
       }
     
@@ -116,6 +120,32 @@
   });
  
     
+  /**
+   * 문자열이 빈 문자열인지 체크하여 결과값을 리턴한다.
+   * @param str       : 체크할 문자열
+   */
+  function isEmpty(str){
+       
+      if(typeof str == "undefined" || str == null || str == "")
+          return true;
+      else
+          return false ;
+  }
+   
+  /**
+   * 문자열이 빈 문자열인지 체크하여 기본 문자열로 리턴한다.
+   * @param str           : 체크할 문자열
+   * @param defaultStr    : 문자열이 비어있을경우 리턴할 기본 문자열
+   */
+  function nvl(str, defaultStr){
+       
+      if(typeof str == "undefined" || str == null || str == "")
+          str = defaultStr ;
+       
+      return str ;
+  }
+
+
 
 </script>
 <style>

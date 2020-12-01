@@ -19,7 +19,6 @@ import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 import likes.model.service.LikesService;
 import likes.model.vo.Likes;
-import reserve.model.service.ReserveService;
 import reserve.model.vo.Reserve;
 import review.model.service.ReviewService;
 import review.model.vo.Review;

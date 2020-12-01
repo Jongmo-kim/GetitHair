@@ -125,12 +125,12 @@
 							손님 요청 사항<input type="text" class="form-textbox" name="reserveCustReq" id="testid">
 							
 						</div>						
-						<%-- <input type ="hidden" class= "form-textbox" name="reserveStatus" value="<%=reserveList.get(index).getReserveStatus() %>">
+						<input type ="hidden" class= "form-textbox" name="reserveStatus" value="<%=reserveList.get(index).getReserveStatus() %>">
 						<input type="hidden" class="form-textbox" name="customerNo"  value="<%=reserveList.get(index).getCustomer().getCustomerNo()%>" >
 						<input type="hidden" class="form-textbox" name="designerNo"  value="<%=reserveList.get(index).getDesigner().getDesignerNo()%>">
 						<input type="hidden" class="form-textbox" name="shopNo"  value="<%=reserveList.get(index).getShop().getShopNo()%>">
 						<input type="hidden" class="form-textbox" name="reserveDesignerReq"  value="<%=reserveList.get(index).getReserveDesignerReq()%>">
-						<input type="hidden" class="form-textbox" name="reserveDesignerMemo"  value="<%=reserveList.get(index).getReserveDesignerMemo()%>"> --%>
+						<input type="hidden" class="form-textbox" name="reserveDesignerMemo"  value="<%=reserveList.get(index).getReserveDesignerMemo()%>">
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-default">예약하기</button>
@@ -176,7 +176,7 @@
 		 <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
 		 <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
-		 <a href="/modify" lass="btn btn-primary btn-sm">헤어샵 수정하기</a>
+		 <a href="/modifyHairshop" lass="btn btn-primary btn-sm">헤어샵 수정하기</a>
 	</div>
 	<div class="col-md-2"></div>
 	
