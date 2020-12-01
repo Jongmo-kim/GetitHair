@@ -21,13 +21,38 @@
 		}	
 	}
 </script>
-
+<style>
+	input[type="radio"] {
+		display:none;
+	}
+	input[type="radio"] + label{
+		width: 90px;
+		text-align: center;
+		border-radius: 5px;
+		font-size:17px;
+	}
+	input[type="radio"]:checked + label {
+		background-color: var(--black);
+		color: white;
+	}
+	
+	.infoTable,.btnTd{
+		text-align: center;
+	}
+	.btnTd>*{
+		display:block;
+		float:left;
+		width:40%;
+		margin: 20px;
+	}
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<div class="container">
 	<h1>회원정보수정</h1>
 	<form action="/updateAllCustomer" method="post">
-		<table>
+		<table class="table infoTable" style="width:70%;">
 			<tr>
 				<th>회원번호</th>
 				<td><input type="text" name="customerNo"
@@ -547,8 +572,16 @@
  %>
 				</td>
 			</tr>
+			<tr>
+				<td class="btnTd" colspan="2">
+					<input type="submit" class="btn btn-primary" value="회원수정">	
+					<input type="button" class="btn btn-primary" value="이전화면으로" onClick="history.go(-1)">  
+				</td>
+				
+			</tr>
 		</table>
-		<input type="submit" value="회원수정">	 <input type="button" value="이전화면으로" onClick="history.go(-1)"> 	
+			
 	</form>
+	</div>
 </body>
 </html>

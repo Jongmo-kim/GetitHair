@@ -8,19 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import customer.model.service.CustomerService;
+import customer.model.vo.Customer;
 
 /**
- * Servlet implementation class SearchCustomeIdFormServlet
+ * Servlet implementation class SerchCustmerPwServlet2
  */
-@WebServlet(name = "SearchCustomeIdForm", urlPatterns = { "/searchCustomeIdForm" })
-public class SearchCustomeIdFormServlet extends HttpServlet {
+@WebServlet(name = "SerchCustmerPw", urlPatterns = { "/serchCustmerPw" })
+public class SerchCustmerPwServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchCustomeIdFormServlet() {
+    public SerchCustmerPwServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +31,24 @@ public class SearchCustomeIdFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		if(session==null) {
+		String customerId = request.getParameter("customerId");
+		String customerPhone = request.getParameter("customerPhone");		
+		Customer cust = new CustomerService().selectOneSerchPw(customerId, customerPhone);
+		System.out.println("customerId = " + customerId);
+		System.out.println("customerPhone = " + customerPhone);
+		System.out.println("cust = " + cust);
+		if(cust==null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			request.setAttribute("msg", "로그인상태에서는 불가능합니다.");
-			request.setAttribute("loc", "/");
+			request.setAttribute("msg", "조회 할 수 없습니다.");
+			request.setAttribute("loc", "/serchCustmerId");
 			rd.forward(request, response);
 		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/serchCustomerFrom.jsp");
+			String stringResult = cust.getCustomerPw();
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/findSuccess.jsp");
+			request.setAttribute("option", 0);
+			request.setAttribute("stringResult", stringResult);	
 			rd.forward(request, response);
 		}
-		
 	}
 
 	/**

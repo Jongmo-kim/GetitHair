@@ -218,4 +218,16 @@ public class CustomerService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	public Customer selectOneSerchId(String customerName,String customerPhone) {
+		Connection conn = JDBCTemplate.getConnection();
+		Customer Cust = new CustomerDao().selectOneSerchId(conn,customerName,customerPhone);
+		JDBCTemplate.close(conn);
+		return Cust;
+	}
+	public Customer selectOneSerchPw(String customerId,String customerPhone) {
+		Connection conn = JDBCTemplate.getConnection();
+		Customer Cust = new CustomerDao().selectOneSerchPw(conn,customerId,customerPhone);
+		JDBCTemplate.close(conn);
+		return Cust;
+	}
 }
