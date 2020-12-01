@@ -89,11 +89,14 @@
     .mid{
     	width : 70%;
     	margin : 0 auto;
-    	border: 1px solid black;
-    	overflow: hidden;
+    	position: relative;
     }
     .content{
-    	width: 40%;
+    	height: 700px;
+    	overflow-y: scroll;
+    }
+    .hairshopList{
+    	width: 30%;
     	float: left;
     }
     .content table{
@@ -102,7 +105,38 @@
     #map{
     	float: left;
     	width: 60%;
-    	height: 500px;
+    	height: 600px;
+    	position: absolute;
+    	top: 50px;
+    	right: 30px;
+    }
+    .addr h3{
+    	display: inline-block;
+    }
+    .addr>span{
+    	margin-left: 10px;
+    	margin-right: 10px;
+    }
+    .addr{
+    	border-radius: 30px;
+    	margin: 10px;
+    	margin-top: -10px;
+    }
+    .content::-webkit-scrollbar {
+    	width: 7px;
+  	}
+  	.content::-webkit-scrollbar-thumb {
+	    background-color: #260101;
+	    border-radius: 5px;
+	 }
+	 .content::-webkit-scrollbar-track {
+	    background-color: lightgrey;
+	    border-radius: 5px;
+	 }
+	 .hairshopList>table{
+    	margin: 50px;
+    	height: 120px;
+    	width: 300px;
     }
 </style>
 </head>
@@ -125,11 +159,12 @@
 			</form>
 			<div class="content">
 			<%if(list.size() != 0){ %>
+				<div class="hairshopList">
 					<%for(Hairshop shop : list){ %>
 						<table style='cursor:pointer;'>
 							<tr>
 								<th rowspan="3"><img src="/"></th>
-								<td style="font-size:20px;"><a href="/hairshopDetail?shopNo=<%=shop.getShopNo() %>"><%=shop.getShopName() %></a></td>
+								<td style="font-size:20px;"><input type="hidden" value="<%=shop.getShopNo() %>"><%=shop.getShopName() %></td>
 							</tr>
 							<tr>
 								<td style='font-size:15px;'><%=shop.getShopAddr() %></td>
@@ -139,13 +174,15 @@
 							</tr>
 						</table>
 					<%} %>
+				</div>
+				<div id="map"></div>
 			<%}else{ %>
 				<h1>검색하신 헤어샵이 존재하지 않습니다.</h1>
 				<a href="/hairshop">메인으로</a>
 			<%} %>
 			</div>
-			<div id="map"></div>
 		</div>
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</section>
 	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -187,9 +224,10 @@
 			});
 			//최초 중심지 주소
 			var contentString = [
-				'<div class="iw_inner">',
-				'	<h3>KH정보교육원</h3>',
-				'	<p>서울시 영등포구 선유2로 57 이레빌딩 19F, 20F</p>',
+				'<div class="addr">',
+				'<span class="glyphicon glyphicon-scissors"></span>',
+				'<h3>홍길헤어</h3>',
+				'	<p>서울 영등포구 당산동</p>',
 				'</div>'
 			].join('');//string 4개 짜리 배열. 하나의 string으로 합쳐짐
 			//(마커 누르면 주소 나오게)
@@ -199,12 +237,21 @@
 					infoWindow.close();//현재 정보창이 열려있으면 열려있는 정보창 닫기
 				}else{
 					infoWindow = new naver.maps.InfoWindow({
-						content : contentString
+						content : contentString,
+						borderWidth: 3,
+						disableAnchor: true
 					});
 					infoWindow.open(map,marker);
 				}
 			});
 		}
+	    $(document).on(".addr",function(){
+	    	$(".addr").parent().parent().css("border-radius","20px;");
+		});
+	    $("table").click(function(){
+	    	var shopNo = $(this).children().find("input").val();
+			location.href="/hairshopDetail?shopNo="+shopNo;
+	    });
 	   </script>
 	    
 </body>
