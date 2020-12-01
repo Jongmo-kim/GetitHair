@@ -39,6 +39,8 @@
 	href="https://bootswatch.com/4/lux/bootstrap.min.css">
 
 
+
+
 <script>
 Date.prototype.format = function(f) {
     if (!this.valueOf()) return " ";
@@ -164,8 +166,8 @@ Number.prototype.zf = function(len){return this.toString().zf(len);};
                 	<%for (Reserve r : list) {%>
                 	{
                 		title : '<%=r.getReserveTitle()%>',
-                		start : <%=r.getReserveStartdate().getTime()%>,
-                		end : <%=r.getReserveEndDate().getTime()%>,
+                		start : <%=r.getReserveStartdate().getTime()+32400000%>,
+                		end : <%=r.getReserveEndDate().getTime()+32400000%>,
                 		id : <%=r.getReserveNo()%>
                 	},
                 	<%}%>
@@ -220,6 +222,14 @@ Number.prototype.zf = function(len){return this.toString().zf(len);};
             calendar.render();
 
         });
+        function isEmpty(str){
+            
+            if(typeof str == "undefined" || str == null || str == "")
+                return true;
+            else
+                return false ;
+        }
+         
     </script>
 <style>
 body {
@@ -318,11 +328,9 @@ body {
 	<div id='calendar'
 		class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"></div>
 	<br>
-	<button id="submitBtn" type="button" class="btn btn-primary"
-		style="display: none">저장하기</button>
-
-
-	<div style="position: fixed; top: 500px;">
+	<button id="submitBtn" type="button" class="btn btn-primary" >저장하기</button>
+	<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">ahekf</button>
+	<!-- <div style="position: fixed; top: 500px;">
 		<button id="submitBtn" type="button" class="btn btn-primary"
 			style="width: 200px; height: 200px">제출하기</button>
 
@@ -331,7 +339,7 @@ body {
 				<img src="/img/signup/loading.gif" />
 			</p>
 		</span>
-	</div>
+	</div> -->
 
 	<div id="result"
 		style="display: none; height: 500px; background-color: black;"></div>
