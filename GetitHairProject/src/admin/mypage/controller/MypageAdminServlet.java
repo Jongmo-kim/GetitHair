@@ -33,6 +33,52 @@ public class MypageAdminServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	private String getStartWeekAgoDate(int week) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.set(Calendar.DATE, cal.get(Calendar.DATE) - week * 7);
+		cal.set(Calendar.HOUR, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+
+		return sdf.format(cal.getTime());
+	}
+	private String getStartMonthAgoDate(int month) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) - month);
+		cal.set(Calendar.DATE, 1);
+		cal.set(Calendar.HOUR, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+
+		return sdf.format(cal.getTime());
+	}
+	private String getEndCurrentDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.add(Calendar.DATE, 1); //
+		cal.set(Calendar.HOUR, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		
+		return sdf.format(cal.getTime());
+	}
+	private String getEndMonthAgoDate(int month) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) - month);
+		cal.set(Calendar.DATE,cal.getActualMaximum(Calendar.DAY_OF_MONTH)); // 마지막 일로 지정
+		cal.set(Calendar.HOUR, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		System.out.println(cal.getTime());
+		return sdf.format(cal.getTime());
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -40,17 +86,12 @@ public class MypageAdminServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
 		
 		// 회원 관련 summary 정보
 		int customerCnt = new CustomerService().selectAllCustomer().size(); // 전체 회원 수
-		cal.add(Calendar.DATE, 1);
-		String endDate = sdf.format(cal.getTime());
-		cal.add(Calendar.DATE, -7-1);
-		String startDate = sdf.format(cal.getTime());
-		int customerWeekCnt = new CustomerService().selectAllCustomer(startDate,endDate).size(); // 1주간 가입한 회원 수
+		int customerWeekCnt = new CustomerService().selectAllCustomer(getStartWeekAgoDate(1), getEndCurrentDate()).size(); // 1주내 가입한 회원 수
+		int customerMonthCnt = new CustomerService().selectAllCustomer(getStartMonthAgoDate(0), getEndMonthAgoDate(0)).size(); // 이번달 가입한 회원 수
+		int customerLastMonthCnt = new CustomerService().selectAllCustomer(getStartMonthAgoDate(1), getEndMonthAgoDate(1)).size(); // 저번달 가입한 회원 수
 		// 디자이너 관련 summary 정보
 		int designerCnt = new DesignerService().selectAllDesigner().size(); // 전체 디자이너 수
 
@@ -59,16 +100,22 @@ public class MypageAdminServlet extends HttpServlet {
 
 		// 헤어샵 관련 summary 정보
 		int shopCnt = new HairshopService().selectHairshopList().size(); // 전체 헤어샵 수
-		
+
 		// 예약 관련 sumamry 정보
-		int reserveWeekCnt = new ReserveService().selectAllByDate(startDate,endDate); // 1주내 진행될(된) 예약 수
+		int reserveWeekCnt = new ReserveService().selectAllByDate(getStartWeekAgoDate(1), getEndMonthAgoDate(0)); // 1주내 진행된 예약 수
+		int reserveMonthCnt = new ReserveService().selectAllByDate(getStartMonthAgoDate(0), getEndMonthAgoDate(0)); // 이번달 진행된 예약 수
 		// 값 설정 후 메인 관리페이지로 이동
+		// 회원 값 설정
 		request.setAttribute("customerCnt", customerCnt);
 		request.setAttribute("customerWeekCnt", customerWeekCnt);
+		request.setAttribute("customerMonthCnt", customerMonthCnt);
+		request.setAttribute("customerLastMonthCnt", customerLastMonthCnt);
+		// 디자이너 값 설정
 		request.setAttribute("designerCnt", designerCnt);
 		request.setAttribute("reviewCnt", reviewCnt);
 		request.setAttribute("shopCnt", shopCnt);
 		request.setAttribute("reserveWeekCnt", reserveWeekCnt);
+		request.setAttribute("reserveMonthCnt", reserveMonthCnt);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminMain.jsp").forward(request, response);
 	}
 

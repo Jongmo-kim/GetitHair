@@ -399,6 +399,8 @@ public int updateDateReserveTest(Connection conn, int no, String title, Date sta
 	String sql = "update reserve set reserve_startdate = ? , reserve_endDate = ?, reserve_title = ? where reserve_no = ?";
 	int result = 0;
 	try {
+		System.out.println("sql startDate" + startDate.getTime());
+		System.out.println("sql endDate" + endDate.getTime());
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setDate(1, startDate);
 		pstmt.setDate(2, endDate);

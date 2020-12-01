@@ -61,24 +61,26 @@ public class test2FormServlet extends HttpServlet {
 		for(int i = 0 ; i < jsonTitle.size() ; ++i) {
 			System.out.println("title :"+jsonTitle.get(i).toString().replaceAll("\"", ""));
 			System.out.println("title :"+jsonTitle.get(i).toString());
-			System.out.println("Start :"+jsonStart.get(i).toString().replaceAll("\"", ""));
-			System.out.println("End :"+jsonEnd.get(i).toString().replaceAll("\"", ""));
-			System.out.println("No :"+jsonNo.get(i).toString().replaceAll("\"", ""));
+			System.out.println("Start :"+jsonStart.get(i).toString());
+			System.out.println("End :"+jsonEnd.get(i).toString());
+			System.out.println("No :"+jsonNo.get(i).toString());
 			String title = jsonTitle.get(i).toString().replaceAll("\"", "");
 			String start = jsonStart.get(i).toString();
 			String end = jsonEnd.get(i).toString();
 			int no = Integer.parseInt(jsonNo.get(i).toString().replaceAll("\"", ""));
-			
+		
 			DateFormat dateFormat = new SimpleDateFormat("\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"");
 			java.sql.Date startDate = null;
 			java.sql.Date endDate = null;
 			try {
 				java.util.Date date = dateFormat.parse(start);
-				startDate = new java.sql.Date(date.getTime()+86400000);
-				date = dateFormat.parse(end);
-				endDate= new java.sql.Date(date.getTime()+86400000);//왜인지 모르겠지만 date가 하루씩 밀림 그러므로 1day -> millsec = 86400000을 더한다
-				
-				
+				startDate = new java.sql.Date(date.getTime());
+				System.out.println("start format Date :"+ dateFormat.format(startDate.getTime()));
+				System.out.println("end format Date :"+ dateFormat.format(startDate.getTime()));
+				java.util.Date date1 = dateFormat.parse(end);
+				System.out.println("startDate"+date.getTime());
+				System.out.println("endDate"+date1.getTime());
+				endDate= new java.sql.Date(date1.getTime());//왜인지 모르겠지만 date가 하루씩 밀림 그러므로 1day -> millsec = 86400000을 더한다
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
