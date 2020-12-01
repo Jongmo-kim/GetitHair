@@ -308,6 +308,48 @@ public class CustomerDao {
 		return list;	
 	}
 ///////////////////////////////////////////////////////////
+	public Customer selectOneSerchId(Connection conn, String customerName, String customerPhone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Customer customer = null;
+		String query = "select * from customer where customer_name=? and customer_phone=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, customerName);
+			pstmt.setString(2, customerPhone);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				customer = getCustomerFromRset(rset);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}		
+		return customer;
+	}
+	public Customer selectOneSerchPw(Connection conn, String customerId, String customerPhone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Customer customer = null;
+		String query = "select * from customer where customer_id=? and customer_phone=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, customerId);
+			pstmt.setString(2, customerPhone);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				customer = getCustomerFromRset(rset);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}		
+		return customer;
+	}
 
 
 }
