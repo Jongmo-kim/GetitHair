@@ -13,6 +13,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=boyoclpts9&submodules=geocoder"></script>
 <title>헤어샵 검색</title>
 <style>
 	html,
@@ -89,6 +90,19 @@
     	width : 70%;
     	margin : 0 auto;
     	border: 1px solid black;
+    	overflow: hidden;
+    }
+    .content{
+    	width: 40%;
+    	float: left;
+    }
+    .content table{
+    	margin : 0 auto;
+    }
+    #map{
+    	float: left;
+    	width: 60%;
+    	height: 500px;
     }
 </style>
 </head>
@@ -130,6 +144,7 @@
 				<a href="/hairshop">메인으로</a>
 			<%} %>
 			</div>
+			<div id="map"></div>
 		</div>
 	</section>
 	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
@@ -151,5 +166,46 @@
 	        clickable: true,
 	      }
 	    });
+	    
+	    //네이버 지도
+	    window.onload=function(){
+			//아무 값도 지정하지 않고 지도 객체를 불러오면 서울 시청 중심으로 불러와짐
+			//var map = new naver.maps.Map("map");
+			var map = new naver.maps.Map("map",{
+				center : new naver.maps.LatLng(37.533807,126.896772),//지도 중심 좌표 설정
+				zoom : 17,//지도 확대 크기
+				zoomControl : true,//줌 컨트롤러
+				zoomControlOptions : {
+					position : naver.maps.Position.TOP_RIGHT,//줌 컨트롤러 위치 설정. 우측 상단 위치
+					style : naver.maps.ZoomControlStyle.SMALL
+				}
+			});
+			//마커 추가
+			var marker = new naver.maps.Marker({
+				position : new naver.maps.LatLng(37.533807,126.896772),//마커 위치
+				map : map//어떤 지도에 마커를 추가할지
+			});
+			//최초 중심지 주소
+			var contentString = [
+				'<div class="iw_inner">',
+				'	<h3>KH정보교육원</h3>',
+				'	<p>서울시 영등포구 선유2로 57 이레빌딩 19F, 20F</p>',
+				'</div>'
+			].join('');//string 4개 짜리 배열. 하나의 string으로 합쳐짐
+			//(마커 누르면 주소 나오게)
+			var infoWindow = new naver.maps.InfoWindow();//지도 위에 뜨는 정보창
+			naver.maps.Event.addListener(marker,'click',function(e){
+				if(infoWindow.getMap()){//지금 지도에 infoWindow가 열려있으면 true 반환. 열려있으면 닫고 열려있지 않으면 열리게
+					infoWindow.close();//현재 정보창이 열려있으면 열려있는 정보창 닫기
+				}else{
+					infoWindow = new naver.maps.InfoWindow({
+						content : contentString
+					});
+					infoWindow.open(map,marker);
+				}
+			});
+		}
+	   </script>
+	    
 </body>
 </html>
