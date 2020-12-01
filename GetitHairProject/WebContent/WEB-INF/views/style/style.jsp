@@ -226,11 +226,11 @@
 			$(".menu li:first-child>a").click();
 		});
 		$(".menu a").click(function(){
-			$(".menu a").parent().css("border-bottom","1px solid #8C2E40");
+			$(".menu a").parent().css("border-bottom","none");
 			$(".style-sub").hide();
 			var name = $(this).attr("name");
 			$("."+name).show();
-			$(this).parent().css("border-bottom","5px solid #8C2E40");
+			$(this).parent().css("border-bottom","5px solid #260101");
 		});
 		$(".tab>button:first-child").click(function(){
 			location.href="/hairshop";
