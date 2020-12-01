@@ -13,11 +13,6 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <style>
-	.swiper-pagination{
-		position: abosolute;
-		top: 420px;
-		height: 10px;
-	}
     html,
     body {
       position: relative;
@@ -36,12 +31,6 @@
     .swiper-container {
       width: 100%;
       height: 400px;
-
-    }
-    .swiper-container1 {
-      width: 100%;
-      height: 400px;
-      overflow: hidden;
 
     }
 
@@ -168,7 +157,7 @@
     	overflow-x: scroll;
     }
     .shop::-webkit-scrollbar {
-    	height: 5px;
+    	height: 7px;
   	}
   	.shop::-webkit-scrollbar-thumb {
 	    background-color: #260101;
@@ -193,15 +182,25 @@
 	 .type h1{
 	 	font-size: 60px;
 	 }
+	 .style{
+	 	height: 300px;
+	 	display: flex;
+	 	flex-direction: row;
+	 	align-items: center;
+	 	justify-content: space-around;
+	 	position: relative;
+	 	z-index: 0;
+	 }
+
 </style>
 <title>헤어샵 메인페이지</title>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
-		<div class="swiper-container1">
+		<div class="swiper-container">
 		    <div class="swiper-wrapper">
-		      <div class="swiper-slide"><img src="/img/main/3.jpg"><h1>11월 신규 매장 이벤트</h1></div>
+		      <div class="swiper-slide"><img src="/img/main/3.jpg"><h1>12월 신규 매장 이벤트</h1></div>
 		      <div class="swiper-slide"><img src="/img/main/1.jpeg"><h1>커트만 예약해도 50% 할인 쿠폰 증정!</h1></div>
 		      <div class="swiper-slide"><img src="/img/main/6.jpg"><h1>미리 메리 크리스마스 이벤트</h1></div>
 		    </div>
@@ -226,29 +225,18 @@
 				<a style="cursor:pointer;"><img src="/img/main/x.png"></a>
 			</div>
 			<div class="content">
+				<h2>BEST 스타일</h2>
 				<div class="style">
-					<h2>BEST 스타일</h2>
-					<div class="swiper-container">
-					    <div class="swiper-wrapper">
-					      <div class="swiper-slide"><img src="/img/style/cut/레이어드컷.jpg"></div>
-					      <div class="swiper-slide"><img src="/img/style/cut/리프컷.jpg"></div>
-					      <div class="swiper-slide"><img src="/img/style/cut/샌드컷.jpg"></div>
-					      <div class="swiper-slide"><img src="/img/style/cut/허쉬컷.jpeg"></div>
-					      <div class="swiper-slide"><img src="/img/style/perm/빌드펌.jpg"></div>
-						  <div class="swiper-slide"><img src="/img/style/perm/레인펌.jpg"></div>
-						  <div class="swiper-slide"><img src="/img/style/perm/엘리자벳펌.jpg"></div>
-			  			  <div class="swiper-slide"><img src="/img/style/perm/플라워펌.jpg"></div>
-					    </div>
-					    <!-- Add Arrows -->
-					    <div class="swiper-button-next"></div>
-					    <div class="swiper-button-prev"></div>
-					</div>
+					<img src="/img/style/cut/레이어드컷.jpg" value="레이어드컷"><div></div>
+				    <img src="/img/style/perm/플라워펌.jpg" value="플라워펌"><div></div>
+				    <img src="/img/style/cut/샌드컷.jpg" value="샌드컷"><div></div>
+				    <img src="/img/style/color/밤비브라운.jpg" value="밤비브라운"><div></div>
 				</div>
 				<h2>BEST 헤어샵</h2>
 				<div class="shop">
 					<div id="hairshopList"></div>
 					<div style="text-align:center;">
-						<button currentCount="0" value="" totalCount="<%=totalCount %>" id="more-btn">더보기</button>
+						<input type="hidden" currentCount="0" value="" totalCount="<%=totalCount %>" id="more-btn">
 					</div>
 				</div>
 				<div class="type">
@@ -293,7 +281,7 @@
 
 	  <!-- Initialize Swiper -->
 	  <script>
-	    var swiper = new Swiper('.swiper-container1', {
+	    var swiper = new Swiper('.swiper-container', {
 	   	  slidesPerView: 1,
 	      spaceBetween: 30,
 	      centeredSlides: true,
@@ -307,22 +295,16 @@
 	        clickable: true,
 	      }
 	    });
-	    var swiper = new Swiper('.swiper-container', {
-	      slidesPerView: 4,
-	      spaceBetween: 0,
-	      slidesPerGroup: 4,
-	      loop: true,
-	      loopFillGroupWithBlank: true,
-	      navigation: {
-	        nextEl: '.swiper-button-next',
-	        prevEl: '.swiper-button-prev',
-	      },
-	    });
 	    $(function(){
 			hairshopMore(1);
 		});
-		$("#more-btn").click(function(){
-			hairshopMore($(this).val());
+	    $(".shop").scroll(function(){
+	    	var left = $(this).scrollLeft();
+	    	var width = $(this).width();
+	    	var listWidth = $("#hairshopList").width();
+	    	if(left+width >= listWidth){
+	    		hairshopMore($("#more-btn").val());
+	    	}
 		});
 		function hairshopMore(start){//더보기(시작번호). 처음에는 1번 세팅
 			$.ajax({
@@ -334,7 +316,7 @@
 					var html ="";
 					for(var i in data){
 						var h = data[i];
-						html += "<table style='cursor:pointer;'><tr><th rowspan='4'><img src = "+h.shopImg+"></th>";
+						html += "<table style='cursor:pointer;'><tr><th rowspan='4'><img src = "+"></th>";//이미지 넣어야됨
 						html += "<td colspan='2' style='font-size:20px;'>"+h.shopName+"</td></tr>";
 						html += "<input type='hidden' name='shopNo' value="+h.shopNo+">";
 						html += "<tr><td><span class='glyphicon glyphicon-star'></span> <span>"+h.shopRate+"</span></td>";
@@ -367,6 +349,10 @@
 		$(".long a").click(function(){
 			$(".long").hide();
 			$(".short").show();
+		});
+		$(".style img").hover(function(){
+			//$(this).parent().css({position:absolute, z-index:10, background-color: rgba(0,0,0,0.5), width: 250px, height: 250px})
+			$(this).val();
 		});
 	  </script>
 </body>

@@ -89,7 +89,6 @@ public class HairshopDao {
 			while(rset.next()) {
 				Hairshop h = new Hairshop();
 				h.setShopNo(rset.getInt("shop_no"));
-				h.setShopCompNo(rset.getString("shop_comp_no"));
 				h.setShopName(rset.getString("shop_name"));
 				h.setShopAddr(rset.getString("shop_addr"));
 				h.setShopOpen(rset.getString("shop_open"));
