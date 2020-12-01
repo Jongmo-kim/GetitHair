@@ -9,61 +9,63 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- 부트스트랩 테마 -->
+<!-- <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css"> -->
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
-		<form action="/updateDesigner" method="post">
-			<h1>마이페이지</h1>
-			<table>
-				<tr>
-					<th>디자이너 회원번호</th>
-					<td><input type="text" name="designerNo"value="<%=designer.getDesignerNo() %>" readonly></td>
-				</tr>
+	<div style="height: 920px; padding-top:90px;">
+		<form action="/updateDesigner" style="width:800px;margin:0 auto;color:black;" method="post">
+			<h1>프로필 관리</h1>
+			<br>
+			<table class="table">
+				<input type="hidden" name="designerNo"value="<%=designer.getDesignerNo() %>" readonly>
 				<tr>
 					<th>아이디</th>
-					<td><input type="text" name="designerId" value="<%=designer.getDesignerId() %>" readonly></td>
+					<td><%=designer.getDesignerId() %></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
-					<td><input type="password" name="designerPw" value="<%=designer.getDesignerPw() %>"></td>
+					<td><input type="password" class="form-control" name="designerPw" value="<%=designer.getDesignerPw() %>"></td>
 				</tr>
 				<tr>
 					<th>이름</th>
-					<td><input type="text" name="designerNeme" value="<%=designer.getDesignerName() %>" readonly></td>
+					<td><%=designer.getDesignerName() %></td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="text" name="designerPhone" value="<%=designer.getDesignerPhone() %>" readonly></td>
+					<td><input type="text" class="form-control" name="designerPhone" value="<%=designer.getDesignerPhone() %>"></td>
 				</tr>
 				<!-- <tr>
 					<th>소속 헤어샵</th>
-					<td><input type="text" name="shopName" value="" readonly></td>
+					<td><input type="text" class="form-control" name="shopName" value="" readonly></td>
 				</tr>  -->
 				<tr>
 					<th>경력</th>
-					<td><input type="text" name="designerYear" value="<%=designer.getDesignerYear() %>"></td>
+					<td><input type="text" class="form-control" name="designerYear" value="<%=designer.getDesignerYear() %>" style="width: 50px;display: inline-block;"> 년</td>
 				</tr>
 				<tr>
 					<th>직급</th>
-					<td><input type="text" name="designerRank" value="<%=designer.getDesignerRank() %>"></td>
+					<td><input type="text" class="form-control" name="designerRank" value="<%=designer.getDesignerRank() %>"></td>
 				</tr>
 				<tr>
 					<th>소개글</th>
-					<td><input type="text" name="designerIntro" value="<%=designer.getDesignerIntro() %>"></td>
+					<td><textarea class="form-control" name="designerIntro"><%=designer.getDesignerIntro() %></textarea></td>
 				</tr>
 				<tr>
 					<th>가입일자</th>
-					<td><input type="text" name="designerEnrolldate" value="<%=designer.getDesignerEnrolldate() %>" readonly></td>
+					<td><%=designer.getDesignerEnrolldate() %></td>
 				</tr>
 				<tr>
 					<th colspan="2" style="text-align: center">
-					<button type="submit">수정하기</button>
-					<button type="button" onclick="location.href='/deleteDesigner?designerId=<%=designer.getDesignerId()%>'">회원탈퇴</button>
+					<button style="margin: 10px;" class="btn btn-primary" type="submit">수정하기</button>
+					<button style="margin: 10px" class="btn btn-primary" type="button" onclick="location.href='/deleteDesigner?designerId=<%=designer.getDesignerId()%>'">회원탈퇴</button>
 					</th>
 				</tr>
 			</table>
 		</form>
+		</div>
 	</section>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
