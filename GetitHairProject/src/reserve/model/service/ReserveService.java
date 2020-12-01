@@ -10,6 +10,8 @@ import common.JDBCTemplate;
 import reserve.model.dao.ReserveDao;
 import reserve.model.vo.Reserve;
 import reserve.model.vo.ReservePageData;
+import reserveTest.model.dao.ReserveTestDao;
+import reserveTest.model.vo.ReserveTest;
 
 
 public class ReserveService {
@@ -204,6 +206,19 @@ public class ReserveService {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ReserveDao().cancelReserve(conn,reserveNo);
 		commitOrRollback(conn,result);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	
+	// 디자이너 예약관리 캘린더 조회 메소드
+	public int updateReserveCalnedar(ReserveTest rt) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReserveDao().updateReserveCalnedar(conn, rt);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
 		JDBCTemplate.close(conn);
 		return result;
 	}

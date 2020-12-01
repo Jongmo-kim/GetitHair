@@ -16,6 +16,7 @@ import designer.model.service.DesignerService;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 import reserve.model.vo.Reserve;
+import reserveTest.model.vo.ReserveTest;
 import stylelist.model.service.StylelistService;
 import stylelist.model.vo.Stylelist;
 
@@ -483,5 +484,40 @@ public int selectAllByDate(Connection conn, Date startSqlDate, Date endSqlDate) 
 	
 	return result;
 }
+	// 디자이너 예약관리 캘린더 조회 메소드
+	public int updateReserveCalnedar(Connection conn, ReserveTest rt) {
+		PreparedStatement pstmt = null;
+		String query = "update reserve set reserve_title=?, reserve_date=?, reserve_startdate=?, reserve_enddate=?, reserve_status=?, reserve_cust_req=?, reserve_designer_req=?, reserve_designer_memo=? where reserve_no=?";
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, rt.getReserveTitle());
+			pstmt.setDate(2, rt.getReserveDate());
+			pstmt.setDate(3, rt.getReserveStartDate());
+			pstmt.setDate(4, rt.getReserveEndDate());
+			pstmt.setString(5, rt.getReserveStatus());
+			pstmt.setString(6, rt.getReserveCustReq());
+			pstmt.setString(7, rt.getReserveDesignerReq());
+			pstmt.setString(8, rt.getReserveDesignerMemo());
+			pstmt.setInt(9, rt.getReserveNo());
+			result = pstmt.executeUpdate();
+			System.out.println(rt.getReserveNo());
+			System.out.println(rt.getReserveTitle());
+			System.out.println(rt.getReserveStatus());
+			System.out.println(rt.getReserveCustReq());
+			System.out.println(rt.getReserveDesignerReq());
+			System.out.println(rt.getReserveDesignerMemo());
+			System.out.println(rt.getReserveDate());
+			System.out.println(rt.getReserveEndDate());
+			System.out.println(rt.getReserveStartDate());
+			System.out.println("dao result : " + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}
 
 }
