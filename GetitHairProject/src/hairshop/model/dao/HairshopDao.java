@@ -149,22 +149,30 @@ public class HairshopDao {
 		PreparedStatement ps = null;
 		ResultSet rset = null;
 		ArrayList<Hairshop> list = new ArrayList<Hairshop>();
-		String query = "select * from (select rownum as rnum,h.* from (select shop_no,shop_name,shop_addr,shop_open,shop_close,shop_rate,shop_likes from hairshop order by 1)h) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum,h.* from (select * from hairshop order by 1)h) where rnum between ? and ?";
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, start);
 			ps.setInt(2, end);
 			rset = ps.executeQuery();
 			while(rset.next()) {
-				Hairshop h = new Hairshop();
-				h.setShopNo(rset.getInt("shop_no"));
-				h.setShopName(rset.getString("shop_name"));
-				h.setShopAddr(rset.getString("shop_addr"));
-				h.setShopOpen(rset.getString("shop_open"));
-				h.setShopClose(rset.getString("shop_close"));
-				h.setShopRate(rset.getInt("shop_rate"));
-				h.setShopLikes(rset.getInt("shop_likes"));
-				list.add(h);
+				Hairshop hs = new Hairshop();
+				hs.setShopNo(rset.getInt("shop_no"));
+				hs.setShopId(rset.getString("shop_id"));
+				hs.setShopPw(rset.getString("shop_pw"));
+				hs.setShopCompNo(rset.getString("shop_comp_no"));
+				hs.setShopName(rset.getString("shop_name"));
+				hs.setShopAddr(rset.getString("shop_addr"));
+				hs.setShopPhone(rset.getString("shop_phone"));
+				hs.setShopOpen(rset.getString("shop_open"));
+				hs.setShopClose(rset.getString("shop_close"));
+				hs.setShopHoliday(rset.getString("shop_holiday"));
+				hs.setShopRate(rset.getInt("shop_rate"));
+				hs.setShopLikes(rset.getInt("shop_likes"));
+				hs.setAddrDetail(rset.getString("addr_detail"));
+				hs.setAddrPostcode(rset.getString("addr_postcode"));
+				hs.setEnrollDate(rset.getDate("shop_enrolldate"));
+				list.add(hs);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
