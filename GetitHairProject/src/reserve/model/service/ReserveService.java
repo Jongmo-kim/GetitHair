@@ -211,9 +211,20 @@ public class ReserveService {
 	}
 	
 	// 디자이너 예약관리 캘린더 조회 메소드
-	public int updateReserveCalnedar(ReserveTest rt) {
+	public int updateReserveCalnedar(Reserve r) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReserveDao().updateReserveCalnedar(conn, rt);
+		int result = new ReserveDao().updateReserveCalnedar(conn, r);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int updateDateReserve(int no, String title, java.sql.Date startDate, java.sql.Date endDate) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReserveDao().updateDateReserve(conn, no, title, startDate, endDate);
 		if(result>0) {
 			JDBCTemplate.commit(conn);
 		}else {

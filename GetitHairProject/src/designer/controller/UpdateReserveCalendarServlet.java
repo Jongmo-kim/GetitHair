@@ -17,7 +17,7 @@ import org.json.simple.JSONObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
-import reserveTest.model.service.ReserveTestService;
+import reserve.model.service.ReserveService;
 
 /**
  * Servlet implementation class UpdateReserveCalendarServlet
@@ -63,7 +63,7 @@ public class UpdateReserveCalendarServlet extends HttpServlet {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			result += new ReserveTestService().updateDateReserve(no,title,startDate,endDate);
+			result += new ReserveService().updateDateReserve(no, title, startDate, endDate);
 		}
 		JSONObject obj = new JSONObject();
 		obj.put("result", result);
