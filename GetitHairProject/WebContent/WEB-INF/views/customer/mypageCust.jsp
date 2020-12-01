@@ -51,7 +51,7 @@
 					method="post">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">다시 예약하기</h4>
+						<h4 class="modal-title">나의예약</h4>
 					</div>
 					<div class="modal-body">
 						<div class="reserve inputBox">
@@ -82,12 +82,12 @@
 						<div class="reserve inputBox">
 							<input type="text" id="reserveDate"
 								class="form-textbox reserveInput updateAction"
-								name="reserveDate"> <span
+								name="reserveDate" readonly> <span
 								class="form-label label-focused updateActionSpan">예약일정 </span>
 						</div>
 						<div class="reserve inputBox">
 							<input type="text" class="form-textbox reserveInput updateAction"
-								name="reserveCustReq" id="reserveCustReq"> <span
+								name="reserveCustReq" id="reserveCustReq" readonly> <span
 								class="form-label label-focused updateActionSpan">손님요청사항
 							</span>
 						</div>
@@ -108,18 +108,12 @@
 						<button type="submit" class="btn btn-default">다시예약 하기</button>
 						<button type="button" class="btn btn-default"
 							onclick="location.href='/cancelReserveByCust?reserveNo=1&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'">
-							예약 취소 하기</button>
-						<button type="reset" class="btn btn-default resetBtn">초기화</button>
-						<button type="button" class="btn btn-default reserveCustUpdateOn">예약
-							수정하기</button>
-						<button type="button"
-							class="btn btn-default reserveCustUpdateComplete">예약
-							수정완료</button>
+							예약 취소 하기(상태변경)</button>
+						<button type="button" class="btn btn-default" id="updateOnBtn">수정하기</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
 				</form>
 			</div>
-
 		</div>
 	</div>
 	<div id="reserveList" style="widtn: 80%;">
@@ -204,9 +198,10 @@
 	</div>
 	<script>
    //document.getElementById('reserveDate').value = new Date().toISOString().substring(0, 10);;
-   $(function(){      
+   $(function(){
       $(".reReserveBtn").click(function(){   
-         var reserveNo = $(this).val();      
+         var reserveNo = $(this).val(); 
+         
          console.log("reserveNo = "+reserveNo);         
          $.ajax({
             url: "/mypageCustAjax",
@@ -245,14 +240,10 @@
                   $("#designerNo").attr('value',rDesignerNo);
                   $("#shopNo").attr('value',rShopNo);
                   //$("#styleNo").attr('value',rStyleNo); //스타일객체수정시 보여주기
-                  $("#reserveDesignerMemo").attr('value',rReserveDesignerMemo);
-               
-               }
-               
+                  $("#reserveDesignerMemo").attr('value',rReserveDesignerMemo);               
+               }               
          });
-      }); 
-   
-      
+      });      
       $("#allDelBtn").click(function(){
          var chkList = new Array();
          var obj = $(".subChk");
@@ -304,35 +295,7 @@
             } else {
                $(".subChk").prop("checked", false);
             }
-         });
-         $(".resetBtnCust").click(function() {
-            $(".updateAction").attr("readonly", false);
-            $(".updateAction").attr('value', '');
-         });
-         $(".reserveCustUpdateComplete").hide();
-         $(".reserveCustUpdateOn").click(function() {
-            console.log("수정하기 버튼클릭함");
-            $(this).hide();
-            $(".reserveCustUpdateComplete").show();
-            $(".updateAction").attr("readonly", false);
-            $(".updateAction").attr('value', '');
-            $(".updateActionSpan").removeClass("label-focused");
-         });
-         $(".reserveCustUpdateComplete").click(function() {
-            console.log("수정하기 완료 버튼클릭함");
-            $(this).hide();
-            $(".reserveCustUpdateOn").show();
-            $(".updateAction").attr("readonly", true);
-            for (var i = 0; i < $(".updateAction").length; i++) {
-               if ($(".updateAction").eq(i).val() == '') {
-                  console.log("여기공백이에요");
-                  $(".updateAction").eq(i).removeClass("label-focused");
-               } else {
-                  console.log("여기공백아니에요");
-                  $(".updateAction").eq(i).addClass("label-focused");
-               }
-            }
-         });
+         });              
       });
    </script>
 

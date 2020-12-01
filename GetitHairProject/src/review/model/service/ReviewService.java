@@ -230,6 +230,25 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	//태민추가 하나의 리뷰정보 가지고오기 위해생성
+	public Review selectOneReview(int reviewNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Review reivew = new ReviewDao().selectOneReview(conn, reviewNo);
+		JDBCTemplate.close(conn);
+		return reivew;
+	}
+	//태민 추가 리뷰 코멘트만 수정하는 쿼리문 작성을 위하여
+	public int updateReviewByCust(int reviewNo,String reviewContent) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReviewDao().updatereviewByCust(conn,reviewNo,reviewContent);
+		if(result>0) {
+			JDBCTemplate.commit(conn);;
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
 	
 	
 }

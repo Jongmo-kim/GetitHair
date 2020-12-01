@@ -1,8 +1,7 @@
-package common;
+package designer.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,34 +12,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import reserveTest.model.service.ReserveTestService;
+import reserve.model.service.ReserveService;
 
 /**
- * Servlet implementation class test2FormServlet
+ * Servlet implementation class UpdateReserveCalendarServlet
  */
-@WebServlet(name = "test2Form", urlPatterns = { "/test2Form" })
-public class test2FormServlet extends HttpServlet {
+@WebServlet(name = "UpdateReserveCalendar", urlPatterns = { "/updateReserveCalendar" })
+public class UpdateReserveCalendarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public test2FormServlet() {
+    public UpdateReserveCalendarServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
@@ -49,10 +41,6 @@ public class test2FormServlet extends HttpServlet {
 		String End = request.getParameter("JsonEndDate");
 		String reserveNo = request.getParameter("JsonReserveNo");
 		JsonParser parser = new JsonParser();
-		System.out.println(Title);
-		System.out.println(Start);
-		System.out.println(End);
-		System.out.println(reserveNo);
 		JsonArray jsonTitle = (JsonArray)parser.parse(Title);
 		JsonArray jsonStart = (JsonArray)parser.parse(Start);
 		JsonArray jsonEnd = (JsonArray)parser.parse(End);
@@ -75,8 +63,7 @@ public class test2FormServlet extends HttpServlet {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			result += new ReserveTestService().updateDateReserveTest(no,title,startDate,endDate);
-			System.out.println(result);
+			result += new ReserveService().updateDateReserve(no, title, startDate, endDate);
 		}
 		JSONObject obj = new JSONObject();
 		obj.put("result", result);
@@ -84,14 +71,9 @@ public class test2FormServlet extends HttpServlet {
 		out.print(obj);
 		out.flush();
 		out.close();
-		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

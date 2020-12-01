@@ -1,4 +1,4 @@
-package reserveTest.controller;
+package reserve.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import customer.model.service.CustomerService;
+import reserve.model.service.ReserveService;
 import reserveTest.model.service.ReserveTestService;
 import reserveTest.model.vo.ReserveTest;
 
@@ -68,7 +69,7 @@ public class UpdateReserveCalnedarServlet extends HttpServlet {
 		rt.setReserveDesignerReq(request.getParameter("reserveDesignerReq"));
 		rt.setReserveDesignerMemo(request.getParameter("reserveDesignerMemo"));
 		// 3. 비지니스로직 처리
-		int result = new ReserveTestService().updateReserveCalnedar(rt);
+		int result = new ReserveService().updateReserveCalnedar(rt);
 		System.out.println("resut : " + result);
 
 		// 4. 결과출력
