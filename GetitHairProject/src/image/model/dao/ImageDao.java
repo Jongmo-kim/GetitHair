@@ -12,7 +12,7 @@ import image.model.vo.ImageList;
 
 public class ImageDao {
 
-	public Image selecteOneImage(Connection conn,int imageNo) {
+	public Image selecteOneImage(Connection conn, int imageNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "select * from image where img_no = ?";
@@ -23,7 +23,7 @@ public class ImageDao {
 			pstmt = conn.prepareStatement(qrySelect);
 			pstmt.setInt(1, imageNo);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				image = new Image();
 				image.setImageNo(rs.getInt(1));
 				image.setImageFileName(rs.getString(2));
@@ -35,6 +35,33 @@ public class ImageDao {
 		}
 
 		return image;
+	}
+
+	public ArrayList<ImageList> selectAllImageListByType(Connection conn, String type) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "select * from image_list where img_type = ?";
+
+		ArrayList<ImageList> list = new ArrayList<ImageList>();
+
+		try {
+			pstmt = conn.prepareStatement(qrySelect);
+			pstmt.setString(1, type);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				ImageList il = new ImageList();
+				il.setImageListNo(rs.getInt("img_list_no"));
+				il.setImage(new ImageService().selecteOneImage(rs.getInt("img_no")));
+				il.setImageType(rs.getString("img_type"));
+				il.setImageTypeNo(rs.getInt("img_type"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
 	}
 
 	public ArrayList<ImageList> selectAllImageListByTypeAndTypeNo(Connection conn, String type, int typeNo) {
