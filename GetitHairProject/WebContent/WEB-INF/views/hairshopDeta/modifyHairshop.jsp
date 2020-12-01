@@ -6,6 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
+    <style>
+        input:read-only{
+            background-color: whitesmoke;
+            border: 1px solid;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,7 +24,7 @@
                 <ul>
                     <li>
                         <div>샵 번호</div>
-                        <input type="text" name="shopNo" id="" value="${shop.shopNo}">
+                        <input type="text" name="shopNo" id="" value="${shop.shopNo}" readonly>
                     </li>
                     <li>
                         <div>샵 이름</div>
@@ -26,19 +32,19 @@
                     </li>
                     <li>
                         <div>사업자 번호</div>
-                        <input type="text" name="" id="" value="${shop.shopCompNo}">
+                        <input type="text" name="" id="" value="${shop.shopCompNo}"readonly>
                     </li>
                     <li>
                         <div>우편번호</div>
-                        <input type="text" name="" id="" value="${shop.addrPostcode}">
+                        <input type="text" name="" id="" value="${shop.addrPostcode}"readonly>
                     </li>
                     <li>
                         <div>주소</div>
-                        <input type="text" name="" id="" value="${shop.shopAddr}">
+                        <input type="text" name="" id="" value="${shop.shopAddr}"readonly>
                     </li>
                     <li>
                         <div>상세주소</div>
-                        <input type="text" name="" id="" value="${shop.addrDetail}">
+                        <input type="text" name="" id="" value="${shop.addrDetail}"readonly>
                     </li>
                     <li>
                         <div>전화번호</div>
