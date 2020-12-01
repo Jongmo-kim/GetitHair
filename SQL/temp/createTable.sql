@@ -464,9 +464,9 @@ CREATE SEQUENCE style_list_SEQ
 START WITH 1
 INCREMENT BY 1;
 /
-ALTER TABLE style_list
-    ADD CONSTRAINT FK_style_list_shop_price_no FOREIGN KEY (shop_price_no)
-        REFERENCES shop_price(shop_price_no) ON  DELETE CASCADE --헤어스타일리스트 지워지면 가격도 지워짐
+--ALTER TABLE style_list
+  --  ADD CONSTRAINT FK_style_list_shop_price_no FOREIGN KEY (shop_price_no)
+    --    REFERENCES shop_price(shop_price_no) ON  DELETE CASCADE --헤어스타일리스트 지워지면 가격도 지워짐
 /
 --DROP TRIGGER style_list_AI_TRG;
 /
