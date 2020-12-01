@@ -21,6 +21,9 @@
 		background-color: var(--black);
 		color: white;
 	}
+	.readonly{
+		background-color:grey;	
+	}
 </style>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -34,30 +37,30 @@
 	    <br>
 	    <hr>
 	        <div class="name inputBox">
-	            <input autofocus type="text" class="form-textbox" name="customerName">
+	            <input autofocus type="text" class="form-textbox" id="nameInput"name="customerName">
 	            <span class="form-label label-focused">이름</span>
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="date inputBox">
-	            <input type="text" class="form-textbox dateOfBirth" name="customerBirthDate">
+	            <input type="text" class="form-textbox dateOfBirth" id="dateInput"name="customerBirthDate">
 	            <span class="form-label">생년월일</span>
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="inputBox">
-	            <input type="text" class="form-textbox phoneInput" name="customerPhone">
+	            <input type="text" class="form-textbox phoneInput" id="phoneInput"name="customerPhone">
 	            <span class="form-label">전화번호</span>
 	        </div>
 			<hr>
 	        <br>
 			<div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerId">
+	            <input type="text" class="form-textbox" id="idInput" name="customerId">
 	            <span class="form-label">아이디</span>
 	        </div>
 	        
 	        <div class="name inputBox">
-	            <input type="password" class="form-textbox" name="customerPw">
+	            <input type="password" class="form-textbox" id="pwInput" name="customerPw">
 	            <span class="form-label">비밀번호</span>
 	        </div>
 	        <hr>
@@ -72,29 +75,26 @@
 	        <hr>
 	        <br>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerName">
-	            <span class="form-label">이름</span>
-	        </div>
-	        <hr>
-	        <br>
-	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerEmail">
+	            <input type="text" class="form-textbox" id="email" name="customerEmail">
 	            <span class="form-label">이메일</span>
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerAddr">
+	            <input type="text" class="form-textbox" readonly name="customerAddr">
 	            <span class="form-label">주소</span>
+	            
 	        </div>
 	        
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="addrPostcode">
+	            <input type="text" class="form-textbox readonly" readonly name="addrPostcode">
 	            <span class="form-label">Zipcode</span>
+	            <button class="btn btn-primary">주소검색</button>
 	        </div>
+	        
 	        <div class="name inputBox">
 	            <input type="text" class="form-textbox" name="addrDetail">
-	            <span class="form-label">상세표기</span>
+	            <span class="form-label">상세주소</span>
 	        </div>
 	        <hr>
 	        <br>
