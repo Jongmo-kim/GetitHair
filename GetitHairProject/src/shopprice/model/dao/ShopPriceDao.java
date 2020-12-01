@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
+
+import org.apache.jasper.tagplugins.jstl.core.Set;
 
 import common.JDBCTemplate;
 import hairshop.model.service.HairshopService;
@@ -41,21 +44,22 @@ public class ShopPriceDao {
 		return shopPrice;
 	}
 
-	public ShopPrice selectOneShopDetaPrice(int shopNo, Connection conn) {
+	public ArrayList<ShopPrice> selectOneShopDetaPrice(int shopNo, Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ShopPrice p = new ShopPrice();
-		String query = "select * from where shop_no = ?";
+		ArrayList<ShopPrice> list = new ArrayList<ShopPrice>();
+		String query = "select * from shop_price where shop_no = ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, shopNo);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				p = new ShopPrice();
-				p.setShopPriceNo(rs.getInt("shop_price_no"));
-				p.setPrice(rs.getInt("price"));
-				Hairshop hairshop = new HairshopService().selectOneHairshop(rs.getInt("shop_no"));
-				p.setHairshop(hairshop);
+			while(rs.next()) {
+				ShopPrice price = new ShopPrice();
+				Hairshop shopNo1 = new HairshopService().selectOneHairshop(shopNo);
+				price.setHairshop(shopNo1);
+				price.setPrice(rs.getInt("price"));
+				price.setShopPriceNo(rs.getInt("shop_price_no"));
+				list.add(price);
 			}
 			
 		} catch (SQLException e) {
@@ -65,7 +69,7 @@ public class ShopPriceDao {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(pstmt);
 		}
-		return p;
+		return list;
 	}
 
 }

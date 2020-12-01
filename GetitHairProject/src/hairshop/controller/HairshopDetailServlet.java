@@ -25,6 +25,10 @@ import review.model.service.ReviewService;
 import review.model.vo.Review;
 import shopprice.model.service.ShopPriceService;
 import shopprice.model.vo.ShopPrice;
+import style.model.vo.Style;
+import stylelist.model.service.StylelistService;
+import stylelist.model.vo.StyleTypeList;
+import stylelist.model.vo.Stylelist;
 
 
 /**
@@ -52,7 +56,18 @@ public class HairshopDetailServlet extends HttpServlet {
 		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(hs.getShopNo());
 		ArrayList<DesignerList> designerList = new DesignerListService().selectDesignerListByShopNo(shopNo);
 		ArrayList<Reserve> reserve = new ReserveService().selectOneReserveShop(shopNo);
-		ShopPrice price = new ShopPriceService().selectOneShopDetaPrice(shopNo);
+		String[] type = {"cut","perm","dye"};
+		ArrayList<StyleTypeList> typeList = new ArrayList<StyleTypeList>();
+		for(int i =0 ; i<type.length;i++) {
+			StyleTypeList stl = new StyleTypeList(type[i],new ArrayList<ArrayList<Style>>());
+			for(int j =0;j<designerList.size();j++) {
+				ArrayList<Style> sl = new StylelistService().selectAllStylelistByTypeAndDesignerNo(type[i], designerList.get(j).getDesigner().getDesignerNo());
+				stl.addStyleList(sl);
+			}
+			typeList.add(stl);
+		}
+		
+		ArrayList<ShopPrice> price = new ShopPriceService().selectOneShopDetaPrice(shopNo);
 			if(hs != null){
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");
 				request.setAttribute("hs", hs);
@@ -60,6 +75,7 @@ public class HairshopDetailServlet extends HttpServlet {
 				request.setAttribute("designerList", designerList);
 				request.setAttribute("reserve", reserve);
 				request.setAttribute("price", price);
+				request.setAttribute("typeList", typeList);
 				rd.forward(request, response);
 			}else{
 				response.sendRedirect("/hairshop");	

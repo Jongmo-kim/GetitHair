@@ -1,3 +1,8 @@
+<%@page import="stylelist.model.vo.StyleTypeList"%>
+<%@page import="stylelist.model.service.StylelistService"%>
+<%@page import="stylelist.model.vo.Stylelist"%>
+<%@page import="style.model.service.StyleService"%>
+<%@page import="style.model.vo.Style"%>
 <%@page import="shopprice.model.vo.ShopPrice"%>
 <%@page import="reserve.model.service.ReserveService"%>
 <%@page import="reserve.model.vo.Reserve"%>
@@ -17,8 +22,9 @@
    		ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
     	ArrayList<DesignerList> deli = (ArrayList<DesignerList>)request.getAttribute("designerList");
     	ArrayList<Reserve> reserve = (ArrayList<Reserve>)request.getAttribute("reserve");
-    	ShopPrice price = (ShopPrice)request.getAttribute("price");
-    	
+    	ArrayList<ShopPrice> price = (ArrayList<ShopPrice>)request.getAttribute("price");
+    	ArrayList<ArrayList<Stylelist>> styleList = (ArrayList<ArrayList<Stylelist>>)request.getAttribute("styleList");
+    	ArrayList<StyleTypeList> stlList = (ArrayList<StyleTypeList>)request.getAttribute("typeList");
     %>
 <!DOCTYPE html>
 <html>
@@ -106,7 +112,7 @@
 	<div class="modal fade" id="ReserveModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form action="/reserVation" method="post">
+				<form action="/insertRserve" method="post">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">예약하기</h4>
@@ -118,26 +124,20 @@
 						<div class="reserve inputBox">
 							손님 요청 사항<input type="text" class="form-textbox" name="custReq" id="testid">	
 						</div>
+							<input type="hidden" name="designerNo" value="<%=deli.get(0).getDesigner().getDesignerNo()%>">
+							<input type="hidden" name="shopNo" value="<%=hs.getShopNo() %>">
+							<%-- <input type="hidden" name="stylelistNo" value="<%=styleList.getStylelistNo()%>"> --%>
 						<div class="reserve inputBox">
-						<input type="hidden" name="designerNo" value="<%= %>">
+						<input type="hidden" name="title" value="<%=reserve.get(0).getReserveTitle()%>">
 						</div>
 						<div class="reserve inputBox">
-						<input type="hidden" name="shopNo" value="<%=hs.getShopNo() %>">
+						<input type="hidden" name="status" value="<%=reserve.get(0).getReserveStatus()%>">
 						</div>
 						<div class="reserve inputBox">
-						<input type="text" name="stylelistNo">
+							<input type="time" name="startDate">
 						</div>
 						<div class="reserve inputBox">
-						<input type="text" name="title">
-						</div>
-						<div class="reserve inputBox">
-						<input type="text" name="status">
-						</div>
-						<div class="reserve inputBox">
-						<input type="date" name="startDate">
-						</div>
-						<div class="reserve inputBox">
-						<input type="date" name="endDate">
+							<input type="hidden" name="endDate">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -185,7 +185,7 @@
 		 <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
 		 <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
-		 <a href="/modifyHairshop" lass="btn btn-primary btn-sm">헤어샵 수정하기</a>
+		 <a href="/hairshopModifyPage" class="btn btn-primary btn-sm">헤어샵 수정하기</a>
 	</div>
 	<div class="col-md-2"></div>
 	
@@ -204,7 +204,7 @@
     	</div>
     	<form action="/reserVation" method="get">
     	<div class="designerPt col-md-2" style="height: 100px; display:block;">
-    		<a class="btn btn-primary btn-sm" style="margin-top: 30px;" data-toggle="modal" data-target="#ReserveModal" onclick="reserveBtn(<%=deli.get(i).getDesigner().getDesignerNo()%>)">예약하기</a>
+    		<a class="btn btn-primary btn-sm" style="margin-top: 30px;" data-toggle="modal" data-target="#ReserveModal">예약하기</a>
     	</div>
     	</form>
     </div>
@@ -212,19 +212,22 @@
     	<%} %>
     </div>
     <div id="menu2" class="tab-pane fade">
-     <%for(int i = 0; i<5; i++) {%>
-      <h4><%=price.getPrice() %></h4>
+    <%for(int i = 0 ; i< stlList.size(); ++i) {%>
+      <!-- style.type -->	
+      <h4 style="font-size: 14px;"><%=stlList.get(i).getType()%></h4>
+      <!-- stlye.name -->	
+      <%for(int j = 0; j<stlList.get(i).getStyleList().size();j++) {%>
+      <%for(int k = 0; k<stlList.get(i).getStyleList().get(j).size();k++) {%>
+      <h4><%=stlList.get(i).getStyleList().get(j).get(k).getStyleName() %></h4>
+      <%} %>
+      <%} %>
     	<br>
-    	<p style="font-size: 14px;">남성 커트 : 15,000</p>
-    	<p style="font-size: 14px">여성 커트 : 15,000</p>
+    	<p style="font-size: 14px;"><%=price.get(i).getPrice()%></p>
     	<hr>
-    	<h4>펌</h4>
-    	<br>
-    	<p style="font-size: 14px">남성 펌 : 15,000</p>
-    	<p style="font-size: 14px">여성 펌 : 15,000</p>
-    	<hr>
-    	<%} %>
+      <%} %>
+    	
     </div>
+    
     <div id="menu3" class="tab-pane fade">
 	     <% for(int i=0; i<review.size(); i++){%>
 	   		<% Review currReview = review.get(i); %>
