@@ -51,16 +51,9 @@ public class WriteReviewByCustServlet extends HttpServlet {
 		}
 		int stylelistNo = reserve.getStylelist().getStylelistNo();
 		Stylelist sl = new StylelistService().selectOneStylelist(stylelistNo);
-		reserve.setStylelist(sl);
-		/*
-		if(reserve.getStylelist().getDesigner()==null) {
-			reserve.getStylelist().setDesigner(sl.getDesigner());
-		}
-		if(reserve.getStylelist().getStyle()==null) {
-			reserve.getStylelist().setStyle(sl.getStyle());
-		}*/		
-		System.out.println("reserve = "+reserve);
-		System.out.println("Stylelist = "+sl);
+		reserve.setStylelist(sl);	
+		//System.out.println("reserve = "+reserve); //null값 확인용
+		//System.out.println("Stylelist = "+sl); //null값 확인용2
 		String status = reserve.getReserveStatus();
 		if(!status.equals("완료")) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
@@ -70,6 +63,8 @@ public class WriteReviewByCustServlet extends HttpServlet {
 		}else {			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/writeReviewByCustFrm.jsp");
 			request.setAttribute("reserve", reserve);
+			request.setAttribute("selStatus", selStatus);
+			request.setAttribute("reqPage", reqPage);
 			rd.forward(request, response);
 		}		
 

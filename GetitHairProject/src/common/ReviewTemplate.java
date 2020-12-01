@@ -17,7 +17,14 @@ import style.model.vo.Style;
 
 public class ReviewTemplate {
 	public static Review setReview(HttpServletRequest request) {
-		int reviewNo = request.getParameter("reviewNo")==null ?  -1:Integer.parseInt(request.getParameter("reviewNo"));
+		Review r = new Review();
+		int reviewNo; 
+		if(request.getParameter("reviewNo")==null || request.getParameter("reviewNo").equals("")) {
+			reviewNo =-1;
+		}else {
+			reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+		}
+		//int reviewNo = request.getParameter("reviewNo")==null|| request.getParameter("reviewNo").equals("") ?  -1:Integer.parseInt(request.getParameter("reviewNo"));
 		int shopNo = request.getParameter("shopNo")==null ?  -1:Integer.parseInt(request.getParameter("shopNo"));
 		int designerNo = request.getParameter("designerNo")==null ?  -1:Integer.parseInt(request.getParameter("designerNo"));
 		int customerNo = request.getParameter("customerNo")==null ?  -1:Integer.parseInt(request.getParameter("customerNo"));		
@@ -25,7 +32,38 @@ public class ReviewTemplate {
 		String reviewContent = request.getParameter("reviewContent");
 		int reviewRate = request.getParameter("reviewRate")==null ?  -1:Integer.parseInt(request.getParameter("reviewRate"));
 		int reviewLikes = request.getParameter("reviewLikes")==null ?  -1:Integer.parseInt(request.getParameter("reviewLikes"));		
-		String reviewDate = request.getParameter("reviewDate");
+		
+		if(request.getParameter("reviewDate")!=null ) {
+			String reviewDate  = request.getParameter("reviewDate");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				java.util.Date to = sdf.parse(reviewDate);			
+				java.sql.Date sqlDate = new java.sql.Date(to.getTime());			
+				r.setReviewDate(sqlDate);	
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				java.util.Date to = sdf.parse("1900-01-01");			
+				java.sql.Date sqlDate = new java.sql.Date(to.getTime());			
+				r.setReviewDate(sqlDate);	
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println("ReviewTemplate reviewNo = "+reviewNo);
+		System.out.println("ReviewTemplate shopNo = "+shopNo);
+		System.out.println("ReviewTemplate designerNo = "+designerNo);
+		System.out.println("ReviewTemplate customerNo = "+customerNo);
+		System.out.println("ReviewTemplate styleNo = "+styleNo);
+		System.out.println("ReviewTemplate reviewContent = "+reviewContent);
+		System.out.println("ReviewTemplate reviewRate = "+reviewRate);
+		System.out.println("ReviewTemplate reviewLikes = "+reviewLikes);
+		//System.out.println("ReviewTemplate reviewDate = "+reviewDate);
+		
 		
 		Hairshop s = new HairshopService().selectOneHairshop(shopNo);
 		if( s ==null) {
@@ -44,21 +82,14 @@ public class ReviewTemplate {
 		if(style ==null) {
 			style = new Style();
 		}		
-		Review r = new Review();
+		
 		r.setReviewNo(reviewNo);
 		r.setShop(s);
 		r.setDesigner(d);
 		r.setCustomer(c);
 		r.setStyle(style);		
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			java.util.Date to = sdf.parse(reviewDate);			
-			java.sql.Date sqlDate = new java.sql.Date(to.getTime());			
-			r.setReviewDate(sqlDate);	
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}		
+				
 		
 		r.setReviewContent(reviewContent);
 		r.setReviewRate(reviewRate);

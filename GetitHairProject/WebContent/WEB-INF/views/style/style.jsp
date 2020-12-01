@@ -52,12 +52,19 @@
       -webkit-align-items: center;
       align-items: center;
     }
+    .menu{
+    	margin: 30px;
+    }
 	.menu li{
     	list-style-type : none;
     	float: left;
-    	width: 150px;
-    	height: 30px;
-    	border: 1px solid black;
+    	width: calc(100%/4);
+    	height: 50px;
+    	line-height: 50px;
+    }
+    .menu ul{
+    	margin : 0;
+    	padding: 0;
     }
     .menu a{
     	display: inline-block;
@@ -84,6 +91,38 @@
     	float: left;
     	display: flex;
     	flex-direction : column;
+    }
+    input[type="search"]{
+    	width : 700px;
+    	height: 50px;
+    	border-radius : 10px;
+    	outline: none;
+    }
+    .mid>form{
+    	text-align: center;
+    	margin-top: 40px;
+    	margin-bottom: 20px;
+    }
+    body button{
+    	height: 50px;
+    	width : 80px;
+    	border: none;
+    	border-radius: 10px;
+    	background: #D9ABA0;
+    	color: white;
+    }
+    .content{
+    	width: 100%;
+    }
+    .style-sub>img{
+    	margin: 10px;
+    }
+    .style-sub>h1{
+    	margin: 30px;
+    }
+    label{
+    	margin-right: 30px;
+    	margin-left: 5px;
     }
 </style>
 </head>
@@ -113,25 +152,24 @@
 		    <div class="swiper-button-prev"></div>
 		</div>
 		<div class="mid">
-			<div class="content">
-				<h1>스타일</h1>
-				<form action="/searchStyle" method="get">
+			<form action="/searchStyle" method="get">
 					<input type="search" name="searchStyle" placeholder="스타일로 검색">
 					<button type="submit">검색</button>
-				</form>
+			</form>
+			<div class="content">
 				<div class="menu">
 					<ul style="overflow:hidden;">
-						<li><a href="#" name="cut">커트</a></li>
-						<li><a href="#" name="perm">파마</a></li>
-						<li><a href="#" name="color">염색</a></li>
-						<li><a href="#" name="etc">기타</a></li>
+						<li><a style="cursor:pointer" name="cut">커트</a></li>
+						<li><a style="cursor:pointer" name="perm">파마</a></li>
+						<li><a style="cursor:pointer" name="color">염색</a></li>
+						<li><a style="cursor:pointer" name="etc">기타</a></li>
 					</ul>
 				</div>
 				<div class="style-sub cut">
-					<input type="checkbox" name="long">롱
-					<input type="checkbox" name="medium">미디엄
-					<input type="checkbox" name="bob">단발
-					<input type="checkbox" name="short">숏
+					<input type="checkbox" name="long" id="long"><label for="long">롱</label>
+					<input type="checkbox" name="medium" id="medium"><label for="medium">미디엄</label>
+					<input type="checkbox" name="bob" id="bob"><label for="bob">단발</label>
+					<input type="checkbox" name="short" id="short"><label for="short">숏</label>
 					<h1>cut</h1>
 					<img src="/img/style/cut/레이어드컷.jpg">
 					<img src="/img/style/cut/리프컷.jpg">
@@ -139,10 +177,10 @@
 					<img src="/img/style/cut/허쉬컷.jpeg">
 				</div>
 				<div class="style-sub perm">
-					<input type="checkbox" name="long">롱
-					<input type="checkbox" name="medium">미디엄
-					<input type="checkbox" name="bob">단발
-					<input type="checkbox" name="short">숏
+					<input type="checkbox" name="long" id="long"><label for="long">롱</label>
+					<input type="checkbox" name="medium" id="medium"><label for="medium">미디엄</label>
+					<input type="checkbox" name="bob" id="bob"><label for="bob">단발</label>
+					<input type="checkbox" name="short" id="short"><label for="short">숏</label>
 					<h1>perm</h1>
 					<%for(Style s : list) {%>
 						<%if(s.getStyleType().equals("perm")){ %>
@@ -150,10 +188,10 @@
 					<%} %>
 				</div>
 				<div class="style-sub color">
-					<input type="checkbox" name="long">롱
-					<input type="checkbox" name="medium">미디엄
-					<input type="checkbox" name="bob">단발
-					<input type="checkbox" name="short">숏
+					<input type="checkbox" name="long" id="long"><label for="long">롱</label>
+					<input type="checkbox" name="medium" id="medium"><label for="medium">미디엄</label>
+					<input type="checkbox" name="bob" id="bob"><label for="bob">단발</label>
+					<input type="checkbox" name="short" id="short"><label for="short">숏</label>
 					<h1>color</h1>
 					<%for(Style s : list) {%>
 						<%if(s.getStyleType().equals("color")){ %>
@@ -161,8 +199,8 @@
 					<%} %>
 				</div>
 				<div class="style-sub etc">
-					<input type="checkbox" name="clinic">클리닉
-					<input type="checkbox" name="dry">드라이
+					<input type="checkbox" name="clinic" id="clinic"><label for="clinic">클리닉</label>
+					<input type="checkbox" name="dry" id="dry"><label for="dry">드라이</label>
 					<h1>etc</h1>
 					<%for(Style s : list) {%>
 						<%if(s.getStyleType().equals("etc")){ %>
@@ -201,9 +239,11 @@
 			$(".menu li:first-child>a").click();
 		});
 		$(".menu a").click(function(){
+			$(".menu a").parent().css("border-bottom","1px solid #8C2E40");
 			$(".style-sub").hide();
 			var name = $(this).attr("name");
 			$("."+name).show();
+			$(this).parent().css("border-bottom","5px solid #8C2E40");
 		});
 		$(".tab>button:first-child").click(function(){
 			location.href="/hairshop";
