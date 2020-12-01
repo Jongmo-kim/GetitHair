@@ -208,5 +208,4 @@ public class ReserveService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	
 }

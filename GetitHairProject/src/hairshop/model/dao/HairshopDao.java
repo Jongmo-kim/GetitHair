@@ -229,4 +229,26 @@ public class HairshopDao {
 		}
 		return result;
 	}
+
+	public int updateShop(Connection conn, Hairshop shop) {
+		PreparedStatement ps = null;
+		int result = 0;
+		String query = "UPDATE hairshop SET shop_name = ? , shop_phone = ?,shop_open = ?,shop_close = ?,shop_holiday = ? where shop_no = ?";
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, shop.getShopName());
+			ps.setString(2, shop.getShopPhone());
+			ps.setString(3, shop.getShopOpen());
+			ps.setString(4, shop.getShopClose());
+			ps.setString(5, shop.getShopHoliday());
+			ps.setInt(6, shop.getShopNo());
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(ps);
+		}
+		return result;
+	}
 }
