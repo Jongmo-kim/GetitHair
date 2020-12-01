@@ -48,5 +48,3 @@ END;
 insert into admin values(admin_seq.nextval,'admin', '1234');
 -- ÇÊ¼ö!!!!!!
 COMMIT;
-
-
