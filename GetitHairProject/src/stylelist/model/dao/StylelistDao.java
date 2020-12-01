@@ -40,7 +40,13 @@ public class StylelistDao {
 	private Stylelist getStylelistFromRset(ResultSet rset) {
 		Stylelist stylelist = new Stylelist();
 		try {
+			//rset.getInt("style_no");
+			//Style style = new StyleService().selectOneStyle(rset.getInt("style_no"));
+			//rset.getInt("designer_no");
+			//Designer designer = new DesignerService().selectOneDesigner(rset.getInt("designer_no"));
 			ShopPrice shopprice = new ShopPriceService().selectOneShopPrice(rset.getInt("shop_price_no"));
+			//stylelist.setStyle(style);
+			//stylelist.setDesigner(designer);
 			stylelist.setShopPrice(shopprice);
 			stylelist.setDesigner(getDesignerByNo(rset.getInt("designer_no")));
 			stylelist.setStyle(getStyleByNo(rset.getInt("style_no")));
