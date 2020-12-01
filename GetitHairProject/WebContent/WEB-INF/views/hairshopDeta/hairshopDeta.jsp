@@ -1,3 +1,4 @@
+<%@page import="reserve.model.service.ReserveService"%>
 <%@page import="reserve.model.vo.Reserve"%>
 <%@page import="likes.model.service.LikesService"%>
 <%@page import="likes.model.vo.Likes"%>
@@ -15,8 +16,11 @@
    		ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
    		Likes like = (Likes)request.getAttribute("like");
     	ArrayList<DesignerList> deli = (ArrayList<DesignerList>)request.getAttribute("designerList");
-    	ArrayList<Reserve> reserveList = (ArrayList<Reserve>) request.getAttribute("reserveList");
+    	//ArrayList<Reserve> reserveList = (ArrayList<Reserve>) request.getAttribute("reserveList");
+    	/////이거바꿈 임시로 페이지 로드가안되서
+    	ArrayList<Reserve> reserveList = new ReserveService().selectAllByDesigner(1);
     	int index = 0;
+    	
     %>
 <!DOCTYPE html>
 <html>
@@ -36,11 +40,9 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=yehjayrzn1&submodules=geocoder"></script>
-  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
-
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=yehjayrzn1&submodules=geocoder"></script>
+  	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style media="screen">
 	body{
 		padding: 0;
@@ -82,7 +84,6 @@
 		height: 2.1em;
 		width: 80%;
 	}
-	
 </style>
 
 
@@ -93,16 +94,16 @@
 	<br>
 	<script>
 	$(function() {
-		    $("#reserveBtn").on('click',function(){
-		    	<%=%>
-		    });
-		    function reverseBtn(designerNo){
-		    	//designerNo 
-		    	//ajax, json
-		    	
-				$("#designerNo").val(designerNo);
-		    }
+		   
 		});
+	 $("#reserveBtn").on('click',function(){
+	    	
+	    });
+	    function reverseBtn(designerNo){
+			$("#designerNo").val(designerNo);
+	    }
+	  
+	  
 	</script>
 	<div class="modal fade" id="ReserveModal" role="dialog">
 		<div class="modal-dialog">
@@ -124,13 +125,15 @@
 						<div class="reserve inputBox">
 							손님 요청 사항<input type="text" class="form-textbox" name="reserveCustReq" id="testid">
 							
-						</div>						
-						<%-- <input type ="hidden" class= "form-textbox" name="reserveStatus" value="<%=reserveList.get(index).getReserveStatus() %>">
+						</div>
+									
+						<input type ="hidden" class= "form-textbox" name="reserveStatus" value="<%=reserveList.get(index).getReserveStatus() %>">
 						<input type="hidden" class="form-textbox" name="customerNo"  value="<%=reserveList.get(index).getCustomer().getCustomerNo()%>" >
 						<input type="hidden" class="form-textbox" name="designerNo"  value="<%=reserveList.get(index).getDesigner().getDesignerNo()%>">
 						<input type="hidden" class="form-textbox" name="shopNo"  value="<%=reserveList.get(index).getShop().getShopNo()%>">
 						<input type="hidden" class="form-textbox" name="reserveDesignerReq"  value="<%=reserveList.get(index).getReserveDesignerReq()%>">
-						<input type="hidden" class="form-textbox" name="reserveDesignerMemo"  value="<%=reserveList.get(index).getReserveDesignerMemo()%>"> --%>
+						<input type="hidden" class="form-textbox" name="reserveDesignerMemo"  value="<%=reserveList.get(index).getReserveDesignerMemo()%>">
+						
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-default">예약하기</button>
@@ -168,7 +171,12 @@
   	<div class="col-md-4">
       	 <input type="hidden" value ="<%=hs.getShopNo() %>">
       	 <input type="hidden" name="likeShopNo" id="likeShopNo" value ="<%=like.getLikesType() %>">
-		 <h3 style="font-weight: bold; margin-bottom: 0;"><%=hs.getShopName() %> <label style="font-size: 15px;" id="shopLike"><%=hs.getShopLikes() %><span class="material-icons" style="font-size: 14px;">favorite</span></label></h3>
+		 <h3 style="font-weight: bold; margin-bottom: 0;"> 
+			 <label style="font-size: 15px;" id="shopLike">
+			 <%=hs.getShopName() %> <%=hs.getShopLikes() %>
+			 	<span class="material-icons" style="font-size: 14px;">favorite</span>
+			 </label>
+		 </h3>
 		 <br>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 16px;">place</span>장소</h4>
 		 <p style="font-size: 14px"><%=hs.getShopAddr() %></p>
@@ -176,7 +184,7 @@
 		 <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
 		 <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
-		 <a href="/modify" lass="btn btn-primary btn-sm">헤어샵 수정하기</a>
+		 <a href="/modifyHairshop" lass="btn btn-primary btn-sm">헤어샵 수정하기</a>
 	</div>
 	<div class="col-md-2"></div>
 	

@@ -6,13 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import common.JDBCTemplate;
+import designer.model.service.DesignerService;
+import designer.model.vo.Designer;
 import shopprice.model.vo.ShopPrice;
+import style.model.service.StyleService;
+import style.model.vo.Style;
 import stylelist.model.vo.Stylelist;
 
 public class StylelistDao {
 
 	public Stylelist selectOneStylelist(Connection conn, int no) {
-		Stylelist stylelist = null;
+		Stylelist stylelist = new Stylelist();
 		String sql = "select * from style_list where stylelist_no = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -27,6 +31,7 @@ public class StylelistDao {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
 		}
 		
 		return stylelist;
@@ -35,15 +40,36 @@ public class StylelistDao {
 	private Stylelist getStylelistFromRset(ResultSet rset) {
 		Stylelist stylelist = new Stylelist();
 		try {
-			rset.getInt("style_no");
-			rset.getInt("designer_no");
+			//rset.getInt("style_no");
+			//Style style = new StyleService().selectOneStyle(rset.getInt("style_no"));
+			//rset.getInt("designer_no");
+			//Designer designer = new DesignerService().selectOneDesigner(rset.getInt("designer_no"));
 			ShopPrice shopprice = new ShopPriceService().selectOneShopPrice(rset.getInt("shop_price_no"));
+			//stylelist.setStyle(style);
+			//stylelist.setDesigner(designer);
 			stylelist.setShopPrice(shopprice);
+			stylelist.setDesigner(getDesignerByNo(rset.getInt("designer_no")));
+			stylelist.setStyle(getStyleByNo(rset.getInt("style_no")));
 			stylelist.setStylelistNo(rset.getInt("stylelist_no"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return stylelist;
 	}
-
+	private Style getStyleByNo(int no) {
+		Style style = new StyleService().selectOneStyle(no);
+		if(style == null) {
+			style = new Style();
+			style.setStyleNo(-1);
+	      }
+		return style;
+	}
+	  private Designer getDesignerByNo(int no) {
+	      Designer designer = new DesignerService().selectOneDesigner(no);
+	      if(designer == null) {
+	         designer = new Designer();
+	         designer.setDesignerNo(-1);
+	      }
+	      return designer;
+	   }
 }
