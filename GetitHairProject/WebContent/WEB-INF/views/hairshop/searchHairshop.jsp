@@ -25,7 +25,7 @@
 				<%for(Hairshop shop : list){ %>
 					<table>
 						<tr>
-							<th rowspan="3"><img src = <%=shop.getShopImg() %>></th>
+							<th rowspan="3"><img src =""></th>
 							<td><a href="/hairshopDetail?shopNo=<%=shop.getShopNo() %>"><%=shop.getShopName() %></a></td>
 							<td><%=shop.getShopRate() %><%=shop.getShopLikes() %></td>
 						</tr>

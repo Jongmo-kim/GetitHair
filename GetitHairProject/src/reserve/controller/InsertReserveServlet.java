@@ -1,31 +1,23 @@
-package hairshop.controller;
+package reserve.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hairshop.model.dao.HairshopDao;
-import hairshop.model.service.HairshopService;
-import hairshop.model.vo.Hairshop;
-import reserve.model.service.ReserveService;
-import reserve.model.vo.Reserve;
-
 /**
- * Servlet implementation class ReserVationServlet
+ * Servlet implementation class InsertReserveServlet
  */
-@WebServlet(name = "ReserVation", urlPatterns = { "/reserVation" })
-public class ReserVationServlet extends HttpServlet {
+@WebServlet(name = "InsertReserveJinhyun", urlPatterns = { "/insertReserveJinhyun" })
+public class InsertReserveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReserVationServlet() {
+    public InsertReserveServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,14 +26,8 @@ public class ReserVationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		//2. view	
-		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
-		//3. 비지니스
-		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/hairshopDeta/reserVation.jsp");
-		request.setAttribute("hs", hs);
-		rd.forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

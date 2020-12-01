@@ -484,8 +484,8 @@ public int selectAllByDate(Connection conn, Date startSqlDate, Date endSqlDate) 
 	return result;
 }
 
-public Reserve selectOneReserveShop(Connection conn, int shopNo) {
-	Reserve reserve = null;
+public ArrayList<Reserve> selectOneReserveShop(Connection conn, int shopNo) {
+	ArrayList<Reserve> list = new ArrayList<Reserve>();
     PreparedStatement pstmt = null;
     ResultSet rset = null;
     String sql = "select * from reserve where shop_no = ?";
@@ -493,9 +493,10 @@ public Reserve selectOneReserveShop(Connection conn, int shopNo) {
        pstmt = conn.prepareStatement(sql);
        pstmt.setInt(1, shopNo);
        rset = pstmt.executeQuery();
-       if(rset.next()) {
-    	   reserve = getReserveFromRset(rset);
-       }
+       while(rset.next()) {
+           Reserve r  = getReserveFromRset(rset);
+           list.add(r);
+        }
     } catch (SQLException e) {
        e.printStackTrace();
     } finally {
@@ -503,7 +504,7 @@ public Reserve selectOneReserveShop(Connection conn, int shopNo) {
        JDBCTemplate.close(pstmt);
     }   
     
-    return reserve;
+    return list;
  }
 
 }

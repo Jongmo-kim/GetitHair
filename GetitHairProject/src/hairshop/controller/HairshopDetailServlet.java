@@ -51,7 +51,7 @@ public class HairshopDetailServlet extends HttpServlet {
 		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);//hs == null.getNo()
 		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(hs.getShopNo());
 		ArrayList<DesignerList> designerList = new DesignerListService().selectDesignerListByShopNo(shopNo);
-		Reserve reserve = new ReserveService().selectOneReserveShop(shopNo);
+		ArrayList<Reserve> reserve = new ReserveService().selectOneReserveShop(shopNo);
 		ShopPrice price = new ShopPriceService().selectOneShopDetaPrice(shopNo);
 			if(hs != null){
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");

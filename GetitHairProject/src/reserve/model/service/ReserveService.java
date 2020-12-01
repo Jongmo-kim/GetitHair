@@ -208,13 +208,10 @@ public class ReserveService {
 		return result;
 	}
 	
-	public Reserve selectOneReserveShop(int shopNo) {
+	public ArrayList<Reserve> selectOneReserveShop(int shopNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		Reserve reserve = new ReserveDao().selectOneReserveShop(conn, shopNo);
-		if(reserve == null) {
-			reserve = new Reserve();
-		}
+		ArrayList<Reserve> list = new ReserveDao().selectOneReserveShop(conn, shopNo);
 		JDBCTemplate.close(conn);
-		return reserve;
+		return list;
 	}
 }

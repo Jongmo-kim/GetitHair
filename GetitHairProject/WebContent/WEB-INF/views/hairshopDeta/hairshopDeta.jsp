@@ -16,8 +16,9 @@
     	Hairshop hs = (Hairshop)request.getAttribute("hs");
    		ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
     	ArrayList<DesignerList> deli = (ArrayList<DesignerList>)request.getAttribute("designerList");
-    	Reserve reserve = (Reserve)request.getAttribute("reserve");
+    	ArrayList<Reserve> reserve = (ArrayList<Reserve>)request.getAttribute("reserve");
     	ShopPrice price = (ShopPrice)request.getAttribute("price");
+    	
     %>
 <!DOCTYPE html>
 <html>
@@ -112,23 +113,32 @@
 					</div>
 					<div class="modal-body">
 						<div class="reserve inputBox">
-						<input type="hidden" class="form-textbox" name="reserveNo" value="<%=reserve.getReserveNo() %>" readonly>
-						</div>
-						<div class="reserve inputBox">
 							예약 일자<input type="text" id="testDatepicker" class="form-textbox" name="reserveDate" placeholder="00/00/00로 적어주세요(년/월/일)">							
 						</div>											
 						<div class="reserve inputBox">
-							손님 요청 사항<input type="text" class="form-textbox" name="reserveCustReq" id="testid">	
+							손님 요청 사항<input type="text" class="form-textbox" name="custReq" id="testid">	
 						</div>
-						<input type ="hidden" class= "form-textbox" name="Status" value="<%=reserve.getReserveStatus()%>">
-						<input type="hidden" class="form-textbox" name="customerNo"  value="<%=reserve.getCustomer().getCustomerNo()%>" >
-						<input type="hidden" class="form-textbox" name="designerNo"  value="<%=reserve.getDesigner().getDesignerNo()%>">
-						<input type="hidden" class="form-textbox" name="shopNo"  value="<%=reserve.getShop().getShopNo()%>">
-						<input type="hidden" class="form-textbox" name="date"  value="<%=reserve.getReserveDate()%>">
-						<input type="hidden" class="form-textbox" name="date"  value="<%=reserve.getReserveStatus()%>">
-						<input type="hidden" class="form-textbox" name="Req"  value="<%=reserve.getReserveDesignerReq()%>">
-						<input type="hidden" class="form-textbox" name="Memo"  value="<%=reserve.getReserveDesignerMemo()%>">
-	
+						<div class="reserve inputBox">
+						<input type="hidden" name="designerNo" value="<%= %>">
+						</div>
+						<div class="reserve inputBox">
+						<input type="hidden" name="shopNo" value="<%=hs.getShopNo() %>">
+						</div>
+						<div class="reserve inputBox">
+						<input type="text" name="stylelistNo">
+						</div>
+						<div class="reserve inputBox">
+						<input type="text" name="title">
+						</div>
+						<div class="reserve inputBox">
+						<input type="text" name="status">
+						</div>
+						<div class="reserve inputBox">
+						<input type="date" name="startDate">
+						</div>
+						<div class="reserve inputBox">
+						<input type="date" name="endDate">
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-default">예약하기</button>
@@ -139,6 +149,7 @@
 
 		</div>
 	</div>
+	
 	<div class="slideImg">
         <!-- Swiper -->
         <div class="swiper-container" style="width: 800px; height: 500px;">
