@@ -24,7 +24,7 @@
 					<th>작성자</th>
 					<td><%=r.getCustomer() == null ? "탈퇴한 회원" : r.getCustomer().getCustomerName() %></td>
 				</tr>
-				<!-- 시술 이미지 수정중 -->
+				<!-- 시술 이미지 드랍하기로함 -->
 				<%-- <tr>
 					<th>시술이미지</th>
 					<td>
@@ -49,7 +49,7 @@
 				<form action="/insertDesignerReviewComment" method="post">
 					<ul>
 						<li>
-							<%-- <input type="hidden" name="reviewCommentWriter" value="<%=d.getDesignerId() %>"> --%>
+							<input type="hidden" name="reviewCommentWriter" value="<%=loginDesigner.getDesignerId() %>">
 							<input type="hidden" name="reviewRef" value="<%=r.getReviewNo() %>">
 							<input type="hidden" name="reviewCommentRef" value="0">
 							<textarea class="form-control" name="reviewCommentContent"></textarea>
@@ -75,10 +75,10 @@
 								<textarea name="reviewCommentContent" class="form-control changeComment" style="display:none;"><%=rc.getReviewCommentContent() %></textarea>
 								<%-- <%if(d!=null) {%> --%>
 								<p class="linkBox">
-									<%-- <%if(d.getDesignerId().equals(rc.getReviewCommentWriter())) {	// 작성자일때 보임%> --%>
+									<%if(loginDesigner.getDesignerId().equals(rc.getReviewCommentWriter())) {	%>
 									<a href="javascript:void(0)" onclick="modifyComment(this,'<%=rc.getReviewCommentNo()%>','<%=r.getReviewNo()%>')">수정</a>
 									<a href="javascript:void(0)" onclick="deleteComment(this,'<%=rc.getReviewCommentNo()%>','<%=r.getReviewNo()%>')">삭제</a>
-									<%-- <%} %> --%>
+									<%} %>
 								</p>
 							</li>
 						</ul>

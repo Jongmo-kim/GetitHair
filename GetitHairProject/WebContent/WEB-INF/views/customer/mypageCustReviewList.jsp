@@ -31,20 +31,31 @@
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- jQuery 호출 -->
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+	<style>
+		p{
+			text-align : center;
+		}
+		#pageNavi{
+   		margin:0 auto;
+   		padding: 0;
+   		text-align:center;
+   }
+	</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<div class="container">
 	<h1>나의 리뷰 리스트</h1>
 	<!-- 테이블부분 -->
-	<table class="talbe" border="1">			
+	<table class="table" style="width:100%;text-align:center;" border="1">			
 			<tr>				
-				<th>리뷰번호</th>
-				<th>작성일자</th>
-				<th>미용실이름</th>				
-				<th>디자이너 이름</th>
-				<th>스타일 이름</th>
-				<th>리뷰내용</th>
-				<th>리뷰보기</th>				
+				<th><p>리뷰번호</p></th>
+				<th><p>작성일자</p></th>
+				<th><p>미용실이름</p></th>				
+				<th><p>디자이너 이름</p></th>
+				<th><p>스타일 이름</p></th>
+				<th><p>리뷰내용</p></th>
+				<th><p>리뷰보기</p></th>				
 			</tr>
 				<%for(Review r : list) {%>
 				<tr>
@@ -55,7 +66,7 @@
 					<td><%=r.getStyle().getStyleName() %></td>
 					<td><%=r.getReviewContent() %></td>					
 					<td><button type="button" class="btn btn-primary showReviewBtn"
-                           data-toggle="modal" data-target="#reviewModal"
+                           data-toggle="modal" data-target="#reviewModal" style="width:100%;"
                            value="<%=r.getReviewNo()%>">상세보기</button>
                     </td>							
 				</tr>
@@ -91,24 +102,23 @@
                   <div class="review inputBox">
                      <input type="text"  id="styleName" class="form-textbox" name="styleName" readonly>
                      <span class="form-label label-focused">스타일이름 </span>
-                  </div> 
+                  </div>             
                   <div class="review inputBox">
-                     <input type="text"  id="reviewContent" class="form-textbox" name="reviewContent" readonly>
-                     <span class="form-label label-focused">리뷰내용 </span>
+                     <textarea class="form-textbox" id="reviewContent" name="reviewContent" readonly></textarea>
+                     <span id="reviewContentSpan" class="form-label label-focused">리뷰내용 </span>
                   </div>             
                   
                   <!-- hidden영역 -->
-                  <input type="hidden" class="form-textbox" name="customerNo" id="customerNo">
-                 
+                  <input type="hidden" class="form-textbox" name="customerNo" id="customerNo" value="<%=customerNo%>">
+                 	<input type="hidden" class="form-textbox" name="reqPage" id="reqPage" value="<%=reqPage%>">
                   <!-- hidden영역 -->
 
                </div>
-               <div class="modal-footer">
-                  <button type="submit" class="btn btn-default">다시예약 하기</button>
-                  <button type="button" class="btn btn-default">예약 취소 하기</button>
-                  <button type="reset" class="btn btn-default resetBtn">초기화</button>
-                  <button type="button" class="btn btn-default">예약 수정하기</button>
-                  <button type="button" class="btn btn-default">예약 수정완료</button>
+               <div class="modal-footer">                 
+                  <button type="button" class="btn btn-default" id="updateOnBtn">수정하기</button>
+                  <button type="button" class="btn btn-default" id="updateCancelBtn">수정취소</button>
+                  <button type="submit" class="btn btn-default" id="updateCompleteBtn">수정완료</button>
+                  <button type="button" class="btn btn-default" id="deleteBtn">삭제하기</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                </div>
             </form>
@@ -119,7 +129,7 @@
 		
 		<!-- 모달부분 -->
 		<!-- 네비게이션부분 -->
-		<div>
+		<div id="pageNavi">
 			<%if(start!=1){ %>
 				<a class="btn btn-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=(start-1) %>">이전</a>
 			<%} %>
@@ -133,10 +143,17 @@
 						
 		</div>
 		<!-- 네비게이션부분 -->
+</div>
 		<script>
-		 $(function(){      
+		 $(function(){    
+			 $("#updateCancelBtn").hide();
+		      $("#updateCompleteBtn").hide();
+		      $("#updateOnBtn").show();
+		      var reviewContent ;
 		      $(".showReviewBtn").click(function(){   
-		         var reviewNo = $(this).val();      
+		         var reviewNo = $(this).val();  
+		         var reqPage = <%=reqPage %>;
+		         var customerNo =  <%=customerNo %>;
 		         console.log("reviewNo = "+reviewNo);         
 		         $.ajax({
 		            url: "/mypageCustReviewAjax",
@@ -144,43 +161,54 @@
 		            data : {reviewNo:reviewNo},
 		            dataType : "JSON",
 		               success : function(data){
-		                  console.log("성공");
-		                  //여기서 servlet에서 보낸 값을 받는다.
-		                  //그후 그값을 형식에 맞춰 변환후 각각의 input에 value를 세팅한다.
-		                  //var rRserveNo = data;
-		                  //show영역
 		                  var reviewNo = data.reviewNo;
 		                  var reviewDate = decodeURIComponent(data.reviewDate);
 		                  var shopName = decodeURIComponent(data.shopName);
 		                  var designerName = decodeURIComponent(data.designerName);
 		                  var styleName = decodeURIComponent(data.styleName);
-		                  var reviewContent = decodeURIComponent(data.reviewContent);
+		                  reviewContent = decodeURIComponent(data.reviewContent);           
 
-		                  //hidden영역
-		                 // var rCustomerNo = data.customerNo;
-		                  //var rDesignerNo = decodeURIComponent(data.designerNo);
-		                 // var rShopNo = decodeURIComponent(data.shopNo);
-		                  //var rStyleNo = decodeURIComponent(data.styleNo); //스타일객체수정시 보여주기
-		                  var rreviewDesignerMemo = decodeURIComponent(data.reviewDesignerMemo);                  
-		                  //show영역
 		                  $("#reviewNo").attr('value',reviewNo);
 		                  $("#reviewDate").attr('value',reviewDate);
 		                  $("#shopName").attr('value',shopName);
 		                  $("#designerName").attr('value',designerName);
 		                  $("#styleName").attr('value',styleName);
-		                  $("#reviewContent").attr('value',reviewContent);
-		                  //$("#reviewCustReq").attr('value',rreviewCustReq);                  
-		                  //hidden영역                  
-		                 // $("#customerNo").attr('value',rCustomerNo);
-		                 // $("#designerNo").attr('value',rDesignerNo);
-		                  ////$("#shopNo").attr('value',rShopNo);
-		                  //$("#styleNo").attr('value',rStyleNo); //스타일객체수정시 보여주기
-		                  //$("#reviewDesignerMemo").attr('value',rreviewDesignerMemo);
-		               
+		                  //$("#reviewContent").attr('value',reviewContent);
+		                  $("#reviewContent").html("\n"+reviewContent);
+		                  //btn에 링크넣기
+		                  $("#deleteBtn").attr('onclick',"location.href='/deleteReviewByCust?reviewNo="+reviewNo+"&customerNo="+customerNo+"&reqPage="+reqPage+"'");
+		                  //$("#updateCompleteBtn").attr('onclick',"location.href='/updateReviewByCust?reviewNo="+reviewNo+"&customerNo="+customerNo+"&reqPage="+reqPage+"'");
 		               }		               
 		         });
 		      });
+		      $("#updateOnBtn").click(function(){
+		    	$("#updateOnBtn").hide();
+		      	$("#updateCancelBtn").show();
+		      	$("#updateCompleteBtn").show();
+		      	$("#reviewContent").attr('readonly',false);
+		      	$("#reviewContent").focus();
+		      });
+		      $("#updateCompleteBtn").click(function(){
+		    	  $("#updateOnBtn").show();
+		    	  $("#updateCancelBtn").hide();
+			      $("#updateCompleteBtn").hide();
+			      $("#reviewContent").attr('readonly',true);
+		      });
+		  	  $("#updateCancelBtn").click(function(){
+		  		 console.log("수정취소클릭!");
+		  		console.log("reviewContent = "+reviewContent);
+		  		$("#updateOnBtn").show();
+		  		$("#updateCancelBtn").hide();
+		      	$("#updateCompleteBtn").hide();		      
+		      	$("#reviewContent").attr('readonly',true);
+		    	$("#reviewContent").html("\n"+reviewContent);
+		    	$("#reviewContent").val("\n"+reviewContent);
+		    	//console.log($("#reviewContent").val());
+		    	//console.log($("#reviewContent").html());		    	
+		      	//$(".showReviewBtn").click();
+			  });
 		 });
-		</script>		
+		</script>	
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>	
 </body>
 </html>

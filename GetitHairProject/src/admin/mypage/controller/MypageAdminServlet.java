@@ -41,7 +41,7 @@ public class MypageAdminServlet extends HttpServlet {
 		cal.set(Calendar.HOUR, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
-
+		System.out.println(cal.getTime());
 		return sdf.format(cal.getTime());
 	}
 	private String getStartMonthAgoDate(int month) {
@@ -56,11 +56,21 @@ public class MypageAdminServlet extends HttpServlet {
 
 		return sdf.format(cal.getTime());
 	}
-	private String getEndCurrentDate() {
+	private String getAddedDate(int num) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		cal.add(Calendar.DATE, 1); //
+		cal.set(Calendar.DATE, cal.get(Calendar.DATE) + num);
+		cal.set(Calendar.HOUR, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		
+		return sdf.format(cal.getTime());
+	}
+	private String getCurrentDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
 		cal.set(Calendar.HOUR, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
@@ -76,7 +86,7 @@ public class MypageAdminServlet extends HttpServlet {
 		cal.set(Calendar.HOUR, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
-		System.out.println(cal.getTime());
+//		System.out.println(cal.getTime());
 		return sdf.format(cal.getTime());
 	}
 	/**
@@ -89,7 +99,7 @@ public class MypageAdminServlet extends HttpServlet {
 		
 		// 회원 관련 summary 정보
 		int customerCnt = new CustomerService().selectAllCustomer().size(); // 전체 회원 수
-		int customerWeekCnt = new CustomerService().selectAllCustomer(getStartWeekAgoDate(1), getEndCurrentDate()).size(); // 1주내 가입한 회원 수
+		int customerWeekCnt = new CustomerService().selectAllCustomer(getStartWeekAgoDate(1), getAddedDate(1)).size(); // 1주내 가입한 회원 수
 		int customerMonthCnt = new CustomerService().selectAllCustomer(getStartMonthAgoDate(0), getEndMonthAgoDate(0)).size(); // 이번달 가입한 회원 수
 		int customerLastMonthCnt = new CustomerService().selectAllCustomer(getStartMonthAgoDate(1), getEndMonthAgoDate(1)).size(); // 저번달 가입한 회원 수
 		// 디자이너 관련 summary 정보
@@ -99,11 +109,14 @@ public class MypageAdminServlet extends HttpServlet {
 		int reviewCnt = new ReviewService().selectAllReviewCount(); // 전체 리뷰 수
 
 		// 헤어샵 관련 summary 정보
-		int shopCnt = new HairshopService().selectHairshopList().size(); // 전체 헤어샵 수
+		int shopCnt = new HairshopService().selectHairshop().size(); // 전체 헤어샵 수
 
 		// 예약 관련 sumamry 정보
 		int reserveWeekCnt = new ReserveService().selectAllByDate(getStartWeekAgoDate(1), getEndMonthAgoDate(0)); // 1주내 진행된 예약 수
 		int reserveMonthCnt = new ReserveService().selectAllByDate(getStartMonthAgoDate(0), getEndMonthAgoDate(0)); // 이번달 진행된 예약 수
+		int reserveCurrCnt = new ReserveService().selectAllByDate(getCurrentDate(),getAddedDate(1)); // 당일 예약 수
+		int reserveAfterWeekCnt = new ReserveService().selectAllByDate(getAddedDate(1),getStartWeekAgoDate(-1)); // 향후 1주간 진행될 예약 수
+		int reserveAfterMonthCnt = new ReserveService().selectAllByDate(getAddedDate(1), getAddedDate(30)); // 향후 한달내 예약 수
 		// 값 설정 후 메인 관리페이지로 이동
 		// 회원 값 설정
 		request.setAttribute("customerCnt", customerCnt);
@@ -112,10 +125,17 @@ public class MypageAdminServlet extends HttpServlet {
 		request.setAttribute("customerLastMonthCnt", customerLastMonthCnt);
 		// 디자이너 값 설정
 		request.setAttribute("designerCnt", designerCnt);
+		//리뷰 값 설정
 		request.setAttribute("reviewCnt", reviewCnt);
+		//헤어샵 값 설정
 		request.setAttribute("shopCnt", shopCnt);
+		//예약 값 설정
 		request.setAttribute("reserveWeekCnt", reserveWeekCnt);
 		request.setAttribute("reserveMonthCnt", reserveMonthCnt);
+		request.setAttribute("reserveCurrCnt", reserveCurrCnt);
+		request.setAttribute("reserveAfterWeekCnt", reserveAfterWeekCnt);
+		request.setAttribute("reserveAfterMonthCnt", reserveAfterMonthCnt);
+		
 		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminMain.jsp").forward(request, response);
 	}
 

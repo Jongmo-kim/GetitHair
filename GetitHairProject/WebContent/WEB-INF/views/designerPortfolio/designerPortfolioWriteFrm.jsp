@@ -18,7 +18,7 @@
 					<tr>
 						<th>작성자</th>
 						<td>
-							<%-- <%=d.getDesignerId() %> --%>
+							<%=loginDesigner.getDesignerId() %>
 							<input type="hidden" name="portfolioWriter" value="">
 						</td>
 					</tr>

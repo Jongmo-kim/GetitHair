@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="/css/mypage/admin/container.css">
     <style>
         .admin-content {
@@ -27,7 +28,7 @@
         }
 
         .summary {
-            width: 300px;
+            width: 350px;
             height: fit-content;
             box-shadow: 0px 0px 5px 0px gray;
             background-color: rgb(250, 255, 173);
@@ -36,6 +37,59 @@
 </head>
 
 <body>
+    <script>
+        $(document).ready(function () {
+            let ctx = document.getElementById('customerChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ['저번달', '이번달', '1주'],
+                    datasets: [{
+                        label: '회원 가입율',
+                        // backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: '#F28D77',
+                        data: [${customerLastMonthCnt}, ${customerMonthCnt}, ${customerWeekCnt}]
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+            ctx = document.getElementById('reserveChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'bar',
+
+                // The data for our dataset
+                data: {
+                    labels: ['저번달', '이번달','오늘', '향후 1주','향후 한달'],
+                    datasets: [{
+                        label: '에약 수',
+                        backgroundColor: '#F28D77',
+                        borderColor: '#F28D77',
+                        data: [${reserveWeekCnt}, ${reserveMonthCnt},${reserveCurrCnt},${reserveAfterWeekCnt},${reserveAfterMonthCnt}],
+                       
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    scales: {
+				yAxes: [{
+					ticks: {
+						min: 0,
+						// fontSize : 14,
+					}
+				}]
+			}
+                }
+            });
+            
+        });
+    </script>
     <div class="admin-main-container">
         <header>
             <%@ include file="/WEB-INF/views/mypage/admin/common/header.jsp" %>
@@ -55,10 +109,8 @@
                                 <span>이번달 가입한 회원 :${customerMonthCnt} 명</span>
                             </div>
                         </li>
-                        <li>
-                            <canvas id="myChart"></canvas>
-                        </li>
                     </ul>
+                    <canvas id="customerChart"></canvas>
                 </div>
                 <div class="summary">
                     <h3>디자이너</h3>
@@ -102,33 +154,15 @@
                             <div class="count-month">
                                 <span>한달간 예약 : ${reserveMonthCnt} 개</span>
                             </div>
+                            
                         </li>
                     </ul>
+                    <canvas id="reserveChart"></canvas>
                 </div>
             </div>
         </section>
     </div>
-    <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: ['두달전', '한달전', '일주전'],
-                datasets: [{
-                    label: '회원 가입율',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: [${customerLastMonthCnt}, ${customerMonthCnt}, ${customerWeekCnt}]
-                }]
-            },
-
-            // Configuration options go here
-            options: {}
-        });
-    </script>
+    
 </body>
 
 </html>

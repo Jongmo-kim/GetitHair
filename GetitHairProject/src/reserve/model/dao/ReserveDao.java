@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
@@ -16,6 +18,7 @@ import designer.model.service.DesignerService;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 import reserve.model.vo.Reserve;
+import reserveTest.model.vo.ReserveTest;
 import stylelist.model.service.StylelistService;
 import stylelist.model.vo.Stylelist;
 
@@ -84,9 +87,9 @@ public class ReserveDao {
          reserve.setReserveCustReq(rset.getString("reserve_cust_req"));
          reserve.setReserveDesignerReq(rset.getString("reserve_designer_req"));
          reserve.setReserveDesignerMemo(rset.getString("reserve_designer_memo"));
-         reserve.setReserveDate(rset.getDate("reserve_date"));
-         reserve.setReserveStartdate(rset.getDate("reserve_startdate"));
-         reserve.setReserveEndDate(rset.getDate("reserve_enddate"));
+         reserve.setReserveDate(new Date(rset.getTimestamp("reserve_date").getTime()));
+         reserve.setReserveStartdate(new Date(rset.getTimestamp("reserve_startdate").getTime()));
+         reserve.setReserveEndDate(new Date(rset.getTimestamp("reserve_enddate").getTime()));
       } catch (SQLException e) {
          e.printStackTrace();
       }
@@ -507,4 +510,47 @@ public ArrayList<Reserve> selectOneReserveShop(Connection conn, int shopNo) {
     return list;
  }
 
+	// 디자이너 예약관리 캘린더 조회 메소드
+	public int updateReserveCalnedar(Connection conn, Reserve rt) {
+		PreparedStatement pstmt = null;
+		String query = "update reserve set reserve_title=?, reserve_date=?, reserve_startdate=?, reserve_enddate=?, reserve_status=?, reserve_cust_req=?, reserve_designer_req=?, reserve_designer_memo=? where reserve_no=?";
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, rt.getReserveTitle());
+			pstmt.setTimestamp(2, new Timestamp(rt.getReserveDate().getTime()));
+			pstmt.setTimestamp(3, new Timestamp(rt.getReserveStartdate().getTime()));
+			pstmt.setTimestamp(4, new Timestamp(rt.getReserveEndDate().getTime()));
+			pstmt.setString(5, rt.getReserveStatus());
+			pstmt.setString(6, rt.getReserveCustReq());
+			pstmt.setString(7, rt.getReserveDesignerReq());
+			pstmt.setString(8, rt.getReserveDesignerMemo());
+			pstmt.setInt(9, rt.getReserveNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+		
+	}
+	public int updateDateReserve(Connection conn, int no, String title, Date startDate, Date endDate) {
+		PreparedStatement pstmt = null;
+		String sql = "update reserve set reserve_startdate = ? , reserve_endDate = ?, reserve_title = ? where reserve_no = ?";
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setTimestamp(1, new Timestamp(startDate.getTime()));
+			pstmt.setTimestamp(2, new Timestamp(endDate.getTime()));
+			pstmt.setString(3, title);
+			pstmt.setInt(4, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}   
 }

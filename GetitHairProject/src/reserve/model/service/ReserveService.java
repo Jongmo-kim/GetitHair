@@ -10,12 +10,14 @@ import common.JDBCTemplate;
 import reserve.model.dao.ReserveDao;
 import reserve.model.vo.Reserve;
 import reserve.model.vo.ReservePageData;
+import reserveTest.model.dao.ReserveTestDao;
+import reserveTest.model.vo.ReserveTest;
 
 
 public class ReserveService {
 	//custNo로 
 	//sql custno로 where cust
-	public ArrayList<Reserve> selectAll(int reserveNo){
+	public ArrayList<Reserve> selectAll(){
 		ArrayList<Reserve> list = null;
 		Connection conn = JDBCTemplate.getConnection();
 		list = new ReserveDao().selectAll(conn);
@@ -213,5 +215,27 @@ public class ReserveService {
 		ArrayList<Reserve> list = new ReserveDao().selectOneReserveShop(conn, shopNo);
 		JDBCTemplate.close(conn);
 		return list;
+	// 디자이너 예약관리 캘린더 조회 메소드
+	public int updateReserveCalnedar(Reserve r) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReserveDao().updateReserveCalnedar(conn, r);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	public int updateDateReserve(int no, String title, java.sql.Date startDate, java.sql.Date endDate) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new ReserveDao().updateDateReserve(conn, no, title, startDate, endDate);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
 	}
 }

@@ -1,14 +1,14 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="reserve.model.service.ReserveService"%>
 <%@page import="reserve.model.vo.Reserve"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%
-   		ArrayList<Reserve> rt1 = new ReserveService().selectAllByDesigner(1);
+   		ArrayList<Reserve> rt1 = new ReserveService().selectAll();
    		if(rt1 == null){
    			 rt1  = new ArrayList<Reserve>();
    		}
-   		System.out.println(false);
    %>
 <!DOCTYPE html>
 <html>
@@ -48,8 +48,6 @@
         //modal
         //arg.events
           alert(arg.event.end);
-          
-        
       },
       editable: true,
       dayMaxEvents: true, // allow "more" link when too many events
@@ -58,8 +56,8 @@
       		<% for(Reserve r : rt1){ %>
       		{ 
 	      		title:'<%=r.getReserveTitle()%>',
-    	   		start : <%=r.getReserveStartdate().getTime()%>,
-       			end : <%=r.getReserveEndDate().getTime()%>,
+    	   		start : <%=r.getReserveStartdate().getTime()+32400000%>,
+       			end : <%=r.getReserveEndDate().getTime()+32400000%>,//왜인지 모르겠지만 324000000 약10시간가량이 밀림 수...박 
        			id: <%=r.getReserveNo()%>
        			},
       		<%}%>
@@ -110,7 +108,7 @@
     		 var result = data.result;
     		 $("#ajaxResult").html(result);
     	 },
-    	 	complete: function() {
+    	 complete: function() {
     		  $('#loading_indicator').fadeOut();
     		  $('#submitBtn').show();
     		 }

@@ -10,6 +10,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-top: 50px;
+	margin-bottom: 100px;
 }
 
 .mypage-btn-container {
@@ -44,7 +46,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="mypage-wrap">
-		<h2>My Page</h2>
+		<h2>My Page</h2><br>
 		<div class="mypage-btn-container">
 			<a class="mypage-btn" href="/designerReserve?DesignerNo=<%=loginDesigner.getDesignerNo()%>">예약관리</a> 
 			<a class="mypage-btn" href="/designerProfile?designerId=<%=loginDesigner.getDesignerId()%>">프로필</a> 

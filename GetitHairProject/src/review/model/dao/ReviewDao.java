@@ -426,6 +426,7 @@ public class ReviewDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
 		return r;
@@ -503,6 +504,23 @@ public class ReviewDao {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, reviewCommentContent);
 			pstmt.setInt(2, reviewCommentNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	public int updatereviewByCust(Connection conn, int reviewNo, String reviewContent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "update review set review_content=? where review_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, reviewContent);
+			pstmt.setInt(2, reviewNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
