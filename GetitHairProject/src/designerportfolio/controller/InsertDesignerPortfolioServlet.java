@@ -1,6 +1,7 @@
 package designerportfolio.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,9 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import designerportfolio.model.service.DesignerPortfolioService;
 import designerportfolio.model.vo.DesignerPortfolio;
+import image.model.dao.ImageDao;
+import image.model.service.ImageService;
+import image.model.vo.Image;
 
 /**
  * Servlet implementation class InsertDesignerPortfolioServlet
@@ -48,8 +52,8 @@ public class InsertDesignerPortfolioServlet extends HttpServlet {
 		String saveDirectory = root+"upload/designerPortfolio";
 		int maxSize = 10*1024*1024;
 		MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, maxSize,"UTF-8",new DefaultFileRenamePolicy());
+		//ArrayList<Image> list = new ImageService().selectAllImageListByType();
 		DesignerPortfolio dp = new DesignerPortfolio();
-		dp.setFilepath(mRequest.getFilesystemName("filename"));
 		dp.setPortfolioContent(mRequest.getParameter("PortfolioContent"));
 		dp.setPortfolioWriter(mRequest.getParameter("PortfolioWriter"));
 		int result = new DesignerPortfolioService().insertDesignerPortfolio(dp);
