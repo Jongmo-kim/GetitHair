@@ -9,7 +9,12 @@
 .btnDiv {
 	margin: 0 auto;
 	padding: 0px;
+	text-align: center;
 }
+.btnDiv > *{
+	width : 50%;
+}
+
 </style>
 </head>
 <body>
@@ -17,7 +22,7 @@
 	<div class="container">
 	<h1>Customer ID/PW찾기</h1>
 		<form method="post" action="/serchCustmerId">			
-			<table class="table" border="1">
+			<table class="table">
 				<tr>
 					<th colspan="2"><p>ID찾기</p></th>
 				</tr>
@@ -28,14 +33,7 @@
 								name="customerName"> <span
 								class="form-label label-focused">이름</span>
 						</div>
-					</td>
-					<td rowspan="2">
-						<div class="inputBox btnDiv"
-							style="width: 100%; height: 100%;">
-							<input class="btn btn-primary form-textbox" type="submit"
-								value="ID 찾기">
-						</div>
-					</td>
+					</td>					
 				</tr>
 				<tr>
 					<td>
@@ -45,10 +43,19 @@
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<div class="inputBox btnDiv"
+							style="width: 100%; height: 100%;">
+							<input class="btn btn-primary" type="submit"
+								value="ID 찾기">
+						</div>
+					</td>
+				</tr>
 			</table>			
 		</form>
 		<form method="post" action="/serchCustmerPw">			
-			<table class="table" border="1">
+			<table class="table">
 				<tr>
 					<th colspan="2"><p>PW찾기</p></th>
 				</tr>
@@ -59,20 +66,22 @@
 								name="customerId"> <span
 								class="form-label label-focused">아이디</span>
 						</div>
-					</td>
-					<td rowspan="2">
-						<div class="inputBox btnDiv"
-							style="width: 100%; height: 100%;">
-							<input class="btn btn-primary form-textbox" type="submit"
-								value="PW 찾기">
-						</div>
-					</td>
+					</td>					
 				</tr>
 				<tr>
 					<td>
 						<div class="inputBox">
 							<input type="text" class="form-textbox phoneInput"
 								name="customerPhone"> <span class="form-label">전화번호</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="inputBox btnDiv"
+							style="width: 100%; height: 100%;">
+							<input class="btn btn-primary" type="submit"
+								value="PW 찾기">
 						</div>
 					</td>
 				</tr>

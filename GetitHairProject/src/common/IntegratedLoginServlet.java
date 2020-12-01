@@ -85,7 +85,7 @@ public class IntegratedLoginServlet extends HttpServlet {
 				break;
 		}
 		if(isLogined) {
-			request.setAttribute("loc", "/");
+			request.setAttribute("loc", "/hairshop");
 			request.setAttribute("msg", "로그인 성공");			
 		} else {
 			request.setAttribute("loc", "/");

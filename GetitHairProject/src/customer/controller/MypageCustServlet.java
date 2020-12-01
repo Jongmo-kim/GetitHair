@@ -47,7 +47,7 @@ public class MypageCustServlet extends HttpServlet {
 			request.setAttribute("msg", "회원정보가 일치하지않습니다. 회원으로 로그인해주세요");
 			request.setAttribute("loc", "/");
 			rd.forward(request, response);
-		}
+		}else {
 		//예약 리스트 view에서 저장	
 		
 		int reqPage = Integer.parseInt(request.getParameter("reqPage"));		
@@ -82,7 +82,7 @@ public class MypageCustServlet extends HttpServlet {
 		request.setAttribute("selStatus", selStatus);
 		request.setAttribute("reqPage", reqPage);
 		rd1.forward(request, response);	
-
+		}
 	}
 
 	/**
