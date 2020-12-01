@@ -35,7 +35,7 @@ BEGIN
     INSERT INTO DESIGNER VALUES(DESIGNER_SEQ.NEXTVAL,'designer0'||designer_SEQ.currval,'1234','김영희','010-1234-5678',3,'직급','안녕하십니까 저는 이시대 최고의 디자이너 디자이너 최라고 합니다. 저의 특기는 컷이고 투블럭, 그중에서도 군대가기전에 장병들이 해야하는...',sysdate);--여까지함
     INSERT INTO DESIGNER_LIST VALUES(DESIGNER_LIST_SEQ.NEXTVAL,DESIGNER_SEQ.currval,DESIGNER_SEQ.currval);
     INSERT INTO STYLE VALUES(STYLE_SEQ.NEXTVAL,'perm','스타일이름',0);
-    INSERT INTO STYLE_LIST VALUES(style_list_seq.nextval,style_list_seq.currval,style_list_seq.currval,style_list_seq.currval);
+    INSERT INTO STYLE_LIST VALUES(style_list_seq.nextval,style_list_seq.currval,style_list_seq.currval);
     INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,'예약제목',default,'손님요청','디자이너요청','디자이너메모',sysdate,sysdate + (1/1440*15)*reserve_seq.currval*7, sysdate + (1/1440*15)*reserve_seq.currval*8);
     INSERT INTO REVIEW VALUES(review_seq.nextval,review_seq.currval,review_seq.currval,review_seq.currval,review_seq.currval,'리뷰인데 이 미용실 디자이너분 정말 마음에드네요',5,0,SYSDATE);
     INSERT INTO LIKES VALUES(likes_seq.nextval,likes_seq.currval,decode(MOD(floor(DBMS_RANDOM.VALUE(1,4)),3),0,'h',1,'r',2,'s'),likes_seq.currval);
