@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import common.JDBCTemplate;
-import customer.model.vo.Customer;
 import reserve.model.dao.ReserveDao;
 import reserve.model.vo.Reserve;
 import reserve.model.vo.ReservePageData;

@@ -1,17 +1,16 @@
-<%@page import="reserveTest.model.service.ReserveTestService"%>
+<%@page import="reserve.model.vo.Reserve"%>
 <%@page import="reserve.model.service.ReserveService"%>
-<%@page import="reserveTest.model.vo.ReserveTest"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
  <%
  	//이 JSP '안에서' designer no 1인 모든 예약 list에 가져올게요
- 	ArrayList<ReserveTest> list = new ReserveTestService().selectAllByDesigner(1);
+ 	ArrayList<Reserve> list = new ReserveService().selectAllByDesigner(1);
  	if(list==null){
- 		list = new ArrayList<ReserveTest>();
+ 		list = new ArrayList<Reserve>();
  	}
- 	ReserveTest rt = (ReserveTest)request.getAttribute("rt");
+ 	Reserve rt = (Reserve)request.getAttribute("rt");
  %>
 <html lang="kr">
 
@@ -19,24 +18,15 @@
 <meta charset='utf-8' />
 
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src='/calendarapi/lib/main.js'></script>
 <link href='/calendarapi/lib/main.css' rel='stylesheet' />
-<link
-	href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css'
-	rel='stylesheet' />
-<link
-	href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css'
-	rel='stylesheet'>
-<link rel="stylesheet"
-	href="https://bootswatch.com/4/lux/bootstrap.min.css">
+<link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet' />
+<link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
+<link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
 	
 	
 
@@ -173,10 +163,10 @@ Number.prototype.zf = function(len){return this.toString().zf(len);};
                 editable: true,
                 dayMaxEvents: true, // allow "more" link when too many events
                 events: [
-                	<%for(ReserveTest r : list) {%>
+                	<%for(Reserve r : list) {%>
                 	{
                 		title : '<%=r.getReserveTitle()%>',
-                		start : <%=r.getReserveStartDate().getTime() %>,
+                		start : <%=r.getReserveStartdate().getTime() %>,
                 		end : <%=r.getReserveEndDate().getTime()%>,
                 		id : <%=r.getReserveNo()%>
                 	},
