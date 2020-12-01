@@ -75,10 +75,8 @@ public class test2FormServlet extends HttpServlet {
 			try {
 				java.util.Date date = dateFormat.parse(start);
 				startDate = new java.sql.Date(date.getTime()+86400000);
-				date = dateFormat.parse(end);
-				endDate= new java.sql.Date(date.getTime()+86400000);//왜인지 모르겠지만 date가 하루씩 밀림 그러므로 1day -> millsec = 86400000을 더한다
-				
-				
+				java.util.Date date1 = dateFormat.parse(end);
+				endDate= new java.sql.Date(date1.getTime()+86400000);//왜인지 모르겠지만 date가 하루씩 밀림 그러므로 1day -> millsec = 86400000을 더한다
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
