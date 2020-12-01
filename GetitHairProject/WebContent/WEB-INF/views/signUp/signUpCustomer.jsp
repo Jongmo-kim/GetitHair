@@ -21,10 +21,24 @@
 		background-color: var(--black);
 		color: white;
 	}
+	
 	.readonly{
 		background-color:grey;	
 	}
 </style>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function addrSearch(){
+		
+	
+    new daum.Postcode({
+        oncomplete: function(data) {
+        	$('input[name="customerAddr"]').val(data.address);
+        	$('input[name="addrPostcode"]').val(data.zonecode);
+        }
+    }).open();
+	}
+</script>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
@@ -78,21 +92,21 @@
 	        <hr>
 	        <br>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" id="email" name="customerEmail">
+	            <input type="text" class="form-textbox" id="emailInput" name="customerEmail">
 	            <span class="form-label">이메일</span>
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" readonly name="customerAddr">
-	            <span class="form-label">주소</span>
+	            <input type="text" class="form-textbox"value=" " readonly name="customerAddr">
+	            <span class="form-label label-focused">주소</span>
 	            
 	        </div>
 	        
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox readonly" readonly name="addrPostcode">
-	            <span class="form-label">Zipcode</span>
-	            <button class="btn btn-primary">주소검색</button>
+	            <input type="text" class="form-textbox readonly" value=" "readonly name="addrPostcode">
+	            <span class="form-label label-focused">Zipcode</span>
+	            <button class="btn btn-primary" type="button" onclick="addrSearch()">주소검색</button>
 	        </div>
 	        
 	        <div class="name inputBox">
