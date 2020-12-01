@@ -8,13 +8,11 @@ public class Stylelist {
 	private int stylelistNo;
 	private Style style;
 	private Designer designer;
-	private ShopPrice shopPrice;
-	public Stylelist(int stylelistNo, Style style, Designer designer, ShopPrice shopPrice) {
+	public Stylelist(int stylelistNo, Style style, Designer designer) {
 		super();
 		this.stylelistNo = stylelistNo;
 		this.style = style;
 		this.designer = designer;
-		this.shopPrice = shopPrice;
 	}
 	public Stylelist() {
 		super();
@@ -37,16 +35,9 @@ public class Stylelist {
 	public void setDesigner(Designer designer) {
 		this.designer = designer;
 	}
-	public ShopPrice getShopPrice() {
-		return shopPrice;
-	}
-	public void setShopPrice(ShopPrice shopPrice) {
-		this.shopPrice = shopPrice;
-	}
 	@Override
 	public String toString() {
-		return "Stylelist [stylelistNo=" + stylelistNo + ", style=" + style + ", designer=" + designer + ", shopPrice="
-				+ shopPrice + "]";
+		return "Stylelist [stylelistNo=" + stylelistNo + ", style=" + style + ", designer=" + designer;
 	}
 	
 }

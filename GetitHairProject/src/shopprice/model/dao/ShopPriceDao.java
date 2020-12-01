@@ -14,6 +14,7 @@ import common.JDBCTemplate;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 import shopprice.model.vo.ShopPrice;
+import stylelist.model.service.StylelistService;
 
 public class ShopPriceDao {
 
@@ -32,6 +33,7 @@ public class ShopPriceDao {
 				shopPrice.setShopPriceNo((rset.getInt("shop_price_no")));
 				Hairshop hairshop = new HairshopService().selectOneHairshop(rset.getInt("shop_no"));
 				shopPrice.setHairshop(hairshop);
+				shopPrice.setStyleList(new StylelistService().selectOneStylelist(rset.getInt("stylelist_no")));
 				shopPrice.setPrice(rset.getInt("price"));
 			}
 		} catch (SQLException e) {
@@ -58,6 +60,36 @@ public class ShopPriceDao {
 				Hairshop shopNo1 = new HairshopService().selectOneHairshop(shopNo);
 				price.setHairshop(shopNo1);
 				price.setPrice(rs.getInt("price"));
+				price.setStyleList(new StylelistService().selectOneStylelist(rs.getInt("stylelist_no")));
+				price.setShopPriceNo(rs.getInt("shop_price_no"));
+				list.add(price);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<ShopPrice> selectAllShopDetaPrice(int shopNo, Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ShopPrice> list = new ArrayList<ShopPrice>();
+		String query = "select * from shop_price where shop_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, shopNo);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ShopPrice price = new ShopPrice();
+				Hairshop shopNo1 = new HairshopService().selectOneHairshop(shopNo);
+				price.setHairshop(shopNo1);
+				price.setPrice(rs.getInt("price"));
+				price.setStyleList(new StylelistService().selectOneStylelist(rs.getInt("stylelist_no")));
 				price.setShopPriceNo(rs.getInt("shop_price_no"));
 				list.add(price);
 			}

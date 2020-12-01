@@ -215,6 +215,7 @@ public class ReserveService {
 		ArrayList<Reserve> list = new ReserveDao().selectOneReserveShop(conn, shopNo);
 		JDBCTemplate.close(conn);
 		return list;
+	}
 	// 디자이너 예약관리 캘린더 조회 메소드
 	public int updateReserveCalnedar(Reserve r) {
 		Connection conn = JDBCTemplate.getConnection();
