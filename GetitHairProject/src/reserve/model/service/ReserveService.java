@@ -12,9 +12,7 @@ import reserve.model.dao.ReserveDao;
 import reserve.model.vo.Reserve;
 import reserve.model.vo.ReservePageData;
 
-public class Car abstract{
-	
-}
+
 public class ReserveService {
 	//custNo로 
 	//sql custno로 where cust
