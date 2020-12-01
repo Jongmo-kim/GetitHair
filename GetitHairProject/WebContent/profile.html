@@ -1,0 +1,64 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style>
+    </style>
+</head>
+<body>
+	<section>
+		<form action="/updateDesigner" style="width:800px;margin:0 auto;color:black;" method="post">
+			<h1>프로필 관리</h1>
+			<table>
+				<tr>
+					<td><input type="hidden" name="designerNo"value="<%=designer.getDesignerNo() %>" readonly></td>
+				</tr>
+				<tr>
+					<th>아이디</th>
+					<td><input type="text" class="form-control" name="designerId" value="<%=designer.getDesignerId() %>" readonly></td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td><input type="password" class="form-control" name="designerPw" value="<%=designer.getDesignerPw() %>"></td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td><input type="text" class="form-control" name="designerNeme" value="<%=designer.getDesignerName() %>" readonly></td>
+				</tr>
+				<tr>
+					<th>전화번호</th>
+					<td><input type="text" class="form-control" name="designerPhone" value="<%=designer.getDesignerPhone() %>" readonly></td>
+				</tr>
+				<!-- <tr>
+					<th>소속 헤어샵</th>
+					<td><input type="text" class="form-control" name="shopName" value="" readonly></td>
+				</tr>  -->
+				<tr>
+					<th>경력</th>
+					<td><input type="text" class="form-control" name="designerYear" value="<%=designer.getDesignerYear() %>"></td>
+				</tr>
+				<tr>
+					<th>직급</th>
+					<td><input type="text" class="form-control" name="designerRank" value="<%=designer.getDesignerRank() %>"></td>
+				</tr>
+				<tr>
+					<th>소개글</th>
+					<td><input type="text" class="form-control" name="designerIntro" value="<%=designer.getDesignerIntro() %>"></td>
+				</tr>
+				<tr>
+					<th>가입일자</th>
+					<td><input type="text" class="form-control" name="designerEnrolldate" value="<%=designer.getDesignerEnrolldate() %>" readonly></td>
+				</tr>
+				<tr>
+					<th colspan="2" style="text-align: center">
+					<button class="btn btn-primary" type="submit">수정하기</button>
+					<button class="btn btn-primary" type="button" onclick="location.href='/deleteDesigner?designerId=<%=designer.getDesignerId()%>'">회원탈퇴</button>
+					</th>
+				</tr>
+			</table>
+		</form>
+	</section>
+</body>
+</html>
