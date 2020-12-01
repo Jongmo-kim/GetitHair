@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import common.JDBCTemplate;
+import designer.model.service.DesignerService;
+import designer.model.vo.Designer;
 import shopprice.model.vo.ShopPrice;
+import style.model.service.StyleService;
+import style.model.vo.Style;
 import stylelist.model.vo.Stylelist;
 
 public class StylelistDao {
@@ -26,7 +30,8 @@ public class StylelistDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);			
 		}
 		
 		return stylelist;
@@ -35,9 +40,13 @@ public class StylelistDao {
 	private Stylelist getStylelistFromRset(ResultSet rset) {
 		Stylelist stylelist = new Stylelist();
 		try {
-			rset.getInt("style_no");
-			rset.getInt("designer_no");
+			//rset.getInt("style_no");
+			Style style = new StyleService().selectOneStyle(rset.getInt("style_no"));
+			//rset.getInt("designer_no");
+			Designer designer = new DesignerService().selectOneDesigner(rset.getInt("designer_no"));
 			ShopPrice shopprice = new ShopPriceService().selectOneShopPrice(rset.getInt("shop_price_no"));
+			stylelist.setStyle(style);
+			stylelist.setDesigner(designer);
 			stylelist.setShopPrice(shopprice);
 			stylelist.setStylelistNo(rset.getInt("stylelist_no"));
 		} catch (SQLException e) {
