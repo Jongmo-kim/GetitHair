@@ -208,4 +208,14 @@ public class ReserveService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	
+	public Reserve selectOneReserveShop(int shopNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Reserve reserve = new ReserveDao().selectOneReserveShop(conn, shopNo);
+		if(reserve == null) {
+			reserve = new Reserve();
+		}
+		JDBCTemplate.close(conn);
+		return reserve;
+	}
 }

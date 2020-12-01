@@ -484,4 +484,26 @@ public int selectAllByDate(Connection conn, Date startSqlDate, Date endSqlDate) 
 	return result;
 }
 
+public Reserve selectOneReserveShop(Connection conn, int shopNo) {
+	Reserve reserve = null;
+    PreparedStatement pstmt = null;
+    ResultSet rset = null;
+    String sql = "select * from reserve where shop_no = ?";
+    try {
+       pstmt = conn.prepareStatement(sql);
+       pstmt.setInt(1, shopNo);
+       rset = pstmt.executeQuery();
+       if(rset.next()) {
+    	   reserve = getReserveFromRset(rset);
+       }
+    } catch (SQLException e) {
+       e.printStackTrace();
+    } finally {
+       JDBCTemplate.close(rset);
+       JDBCTemplate.close(pstmt);
+    }   
+    
+    return reserve;
+ }
+
 }

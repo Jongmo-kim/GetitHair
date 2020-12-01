@@ -19,9 +19,12 @@ import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 import likes.model.service.LikesService;
 import likes.model.vo.Likes;
+import reserve.model.service.ReserveService;
 import reserve.model.vo.Reserve;
 import review.model.service.ReviewService;
 import review.model.vo.Review;
+import shopprice.model.service.ShopPriceService;
+import shopprice.model.vo.ShopPrice;
 
 
 /**
@@ -47,14 +50,16 @@ public class HairshopDetailServlet extends HttpServlet {
 		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
 		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);//hs == null.getNo()
 		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(hs.getShopNo());
-		Likes like = new LikesService().selectOneLikes(shopNo);
 		ArrayList<DesignerList> designerList = new DesignerListService().selectDesignerListByShopNo(shopNo);
+		Reserve reserve = new ReserveService().selectOneReserveShop(shopNo);
+		ShopPrice price = new ShopPriceService().selectOneShopDetaPrice(shopNo);
 			if(hs != null){
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshopDeta/hairshopDeta.jsp");
 				request.setAttribute("hs", hs);
 				request.setAttribute("review", review);
 				request.setAttribute("designerList", designerList);
-				request.setAttribute("like", like);
+				request.setAttribute("reserve", reserve);
+				request.setAttribute("price", price);
 				rd.forward(request, response);
 			}else{
 				response.sendRedirect("/hairshop");	

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
+
 import common.JDBCTemplate;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
@@ -37,6 +39,33 @@ public class ShopPriceDao {
 		}
 		
 		return shopPrice;
+	}
+
+	public ShopPrice selectOneShopDetaPrice(int shopNo, Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ShopPrice p = new ShopPrice();
+		String query = "select * from where shop_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, shopNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				p = new ShopPrice();
+				p.setShopPriceNo(rs.getInt("shop_price_no"));
+				p.setPrice(rs.getInt("price"));
+				Hairshop hairshop = new HairshopService().selectOneHairshop(rs.getInt("shop_no"));
+				p.setHairshop(hairshop);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return p;
 	}
 
 }
