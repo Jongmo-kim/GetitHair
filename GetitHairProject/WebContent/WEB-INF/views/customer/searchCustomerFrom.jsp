@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%
+		String msg = "";
+		if((String)request.getAttribute("msg")==null){
+			msg = "";
+		}else{
+			msg = (String)request.getAttribute("msg");
+		}
+		//암호 autofocus용
+		int option = -1;
+		if(request.getAttribute("option")==null){
+			option = -1;
+		}else{
+			option = (Integer)request.getAttribute("option");
+		}
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,6 +31,14 @@
 }
 
 </style>
+<script type="text/javascript">
+	window.onload = function() {
+		var print= '<%=msg %>';
+		if(print!=''){
+			alert(print);
+		}	
+	}
+</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -29,9 +52,14 @@
 				<tr>
 					<td>
 						<div class="name inputBox">
+						<% if(option ==-1){ %>
 							<input autofocus type="text" class="form-textbox"
-								name="customerName"> <span
-								class="form-label label-focused">이름</span>
+								name="customerName"> 
+						<%} else{%>
+							<input type="text" class="form-textbox"
+								name="customerName">
+						<%} %>
+						<span class="form-label label-focused">이름</span>
 						</div>
 					</td>					
 				</tr>
@@ -62,9 +90,14 @@
 				<tr>
 					<td>
 						<div class="id inputBox">
+							<% if(option ==-1){ //암호 autofocus 용%>
 							<input type="text" class="form-textbox"
-								name="customerId"> <span
-								class="form-label label-focused">아이디</span>
+								name="customerName"> 
+							<%} else{%>
+							<input autofocus type="text" class="form-textbox"
+								name="customerName">
+							<%} %>
+								<span class="form-label label-focused">아이디</span>
 						</div>
 					</td>					
 				</tr>

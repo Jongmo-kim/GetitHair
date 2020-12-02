@@ -11,9 +11,9 @@ import image.model.vo.ImageList;
 
 public class ImageService {
 	
-	public Image selecteOneImage(int imageNo) {
+	public Image selectOneImage(int imageNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		Image image = new ImageDao().selecteOneImage(conn, imageNo);
+		Image image = new ImageDao().selectOneImage(conn, imageNo);
 		JDBCTemplate.close(conn);
 		
 		return image;

@@ -36,5 +36,12 @@ public class DesignerPortfolioService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+
+	public ArrayList<DesignerPortfolio> selectAllPortfolio(int designerNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<DesignerPortfolio> pflist = new DesignerPortfolioDao().selectAllPortfolio(conn, designerNo);
+		JDBCTemplate.close(conn);
+		return pflist;
+	}
 	
 }

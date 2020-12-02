@@ -1,7 +1,7 @@
-package hairshop.controller;
+package customer.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,24 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import org.json.simple.JSONObject;
 
-import hairshop.model.service.HairshopService;
-import hairshop.model.vo.Hairshop;
-import image.model.service.ImageService;
-import image.model.vo.ImageList;
+import customer.model.service.CustomerService;
+import customer.model.vo.Customer;
 
 /**
- * Servlet implementation class HairshopMoreServlet
+ * Servlet implementation class IdNestedCheckServlet
  */
-@WebServlet(name = "HairshopMore", urlPatterns = { "/hairshopMore" })
-public class HairshopMoreServlet extends HttpServlet {
+@WebServlet(name = "IdNestedCheck", urlPatterns = { "/idNestedCheck" })
+public class IdNestedCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HairshopMoreServlet() {
+    public IdNestedCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,12 +33,15 @@ public class HairshopMoreServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		int start = Integer.parseInt(request.getParameter("start"));
-		ArrayList<ImageList> shopimg = new ImageService().selectAllImageListByType("hairshop");//넘버로
-		ArrayList<Hairshop> list = new HairshopService().hairshopMore(start);
-		response.setCharacterEncoding("utf-8");
-		new Gson().toJson(list,response.getWriter());//객체 새로 만들어서 묶어서 보내기
+		String inputId = request.getParameter("inputId");
+		boolean isNested = new CustomerService().isNestedId(inputId);
+		JSONObject jObj = new JSONObject();
+		response.setContentType("applaction/json");
+		jObj.put("isNested", isNested);
+		PrintWriter out = response.getWriter();
+		out.print(jObj);
+		out.flush();
+		out.close();
 	}
 
 	/**

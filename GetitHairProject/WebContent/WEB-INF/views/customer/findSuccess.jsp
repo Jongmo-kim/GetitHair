@@ -13,9 +13,7 @@
     		intResult = (Integer)request.getAttribute("intResult");
     	}else{
     		intResult = -1;
-    	}
-
-    	
+    	}    	
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -36,7 +34,6 @@
 	 	<button class="btn btn-primary" onclick="location.href='/searchCustomeIdForm'">암호찾기</button>
 	 <% } %>
 	 	<button class="btn btn-primary" data-toggle="modal" data-target="#loginModal">로그인하기</button>
-
 	 </div> 	
 </body>
 </html>

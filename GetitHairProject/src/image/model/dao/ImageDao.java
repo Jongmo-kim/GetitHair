@@ -13,7 +13,7 @@ import image.model.vo.ImageList;
 
 public class ImageDao {
 
-	public Image selecteOneImage(Connection conn, int imageNo) {
+	public Image selectOneImage(Connection conn, int imageNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "select * from image where img_no = ?";
@@ -56,7 +56,7 @@ public class ImageDao {
 			while (rs.next()) {
 				ImageList il = new ImageList();
 				il.setImageListNo(rs.getInt("img_list_no"));
-				il.setImage(new ImageService().selecteOneImage(rs.getInt("img_no")));
+				il.setImage(new ImageService().selectOneImage(rs.getInt("img_no")));
 				il.setImageType(rs.getString("img_type"));
 				il.setImageTypeNo(rs.getInt("img_type"));
 			}
@@ -87,7 +87,7 @@ public class ImageDao {
 			while (rs.next()) {
 				ImageList il = new ImageList();
 				il.setImageListNo(rs.getInt("img_list_no"));
-				il.setImage(new ImageService().selecteOneImage(rs.getInt("img_no")));
+				il.setImage(new ImageService().selectOneImage(rs.getInt("img_no")));
 				il.setImageType(rs.getString("img_type"));
 				il.setImageTypeNo(rs.getInt("img_type"));
 			}

@@ -81,4 +81,33 @@ public class DesignerPortfolioDao {
 		}
 		return list;
 	}
+
+
+	public ArrayList<DesignerPortfolio> selectAllPortfolio(Connection conn, int designerNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<DesignerPortfolio> pflist = new ArrayList<DesignerPortfolio>();
+		String query = "select * from designer_portfolio where designer_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, designerNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				DesignerPortfolio dp = new DesignerPortfolio();
+				dp.setPortfolioNo(rset.getInt("designer_portfolio_no"));
+				dp.setStyleName(rset.getString("designer_portfolio_style_name"));
+				dp.setPortfolioWriter(rset.getString("designer_no"));
+				dp.setPortfolioContent(rset.getString("designer_portfolio_content"));
+				dp.setPortfolioDate(rset.getString("designer_portfolio_date"));
+				pflist.add(dp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return pflist;
+	}
 }

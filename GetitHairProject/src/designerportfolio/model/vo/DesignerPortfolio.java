@@ -4,8 +4,8 @@ import designer.model.vo.Designer;
 
 public class DesignerPortfolio {
 	private int portfolioNo;
-	private String portfolioWriter;
-	private String styleName;
+	private String portfolioWriter;//디자이너
+	private String styleName;//시술명
 	private String portfolioContent;
 	private String portfolioDate;
 	public DesignerPortfolio() {

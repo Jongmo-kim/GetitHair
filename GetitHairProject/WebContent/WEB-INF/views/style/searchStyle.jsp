@@ -136,7 +136,7 @@
 					<%for(Style style : list){ %>
 						<div class="styleList" style="cursor:pointer">
 							<img src = "/">
-							<input type="hidden" value="<%=style.getStyleNo() %>">
+							<input type="hidden" value="<%=style.getStyleNo()%>">
 							<p><%=style.getStyleName() %></p>
 							<span class='glyphicon glyphicon-heart'></span> <span><%=style.getStyleLikes() %></span>
 						</div>
@@ -170,7 +170,7 @@
 	    });
 	  	$(function(){
 	  		$(".styleList").click(function(){
-	  			var styleNo = $(this).children().find("input").val();
+	  			var styleNo = $(this).find("input").val();//find가 이미 자식 찾는거
 				location.href="/styleDetail?styleNo="+styleNo;
 	  		});
 		});
