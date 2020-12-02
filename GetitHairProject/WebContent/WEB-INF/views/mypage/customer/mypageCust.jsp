@@ -49,6 +49,22 @@
    		padding: 0;
    		text-align:center;
    }
+   .buttons {    	  	
+   	display: flex;
+  	align-items: center;
+  	justify-content: left;
+   	float:right;
+   	width:100%;   
+   }
+   .btn-group{
+   	width:100%;    
+   }
+   .tabButton{
+	   	width:15%;
+   }
+   .tabLable{
+   		width:5%;
+   }
 </style>
 </head>
 <body>
@@ -88,20 +104,25 @@
 							<input type="text" id="reserveDesignerReq" class="form-textbox"
 								name="reserveDesignerReq" readonly> <span
 								class="form-label label-focused">디자이너 요청사항 </span>
-						</div>						
+						</div>
+						<!-- <input type="datetime-local" id="reserveDate"
+								class="form-textbox reserveInput updateAction"
+								name="reserveDate3"> -->						
 						<div class="reserve inputBox">
 							<input type="date" id="reserveDate"
 								class="form-textbox reserveInput updateAction"
-								name="reserveDate1">
-								<input type="time" id="reserveDate"
+								name="reserveDate1">							
+								 <span
+								class="form-label label-focused updateActionSpan">예약일자 </span>
+						</div>
+						<div class="reserve inputBox">
+							<input type="time" id="reserveTime"
 								class="form-textbox reserveInput updateAction"
 								name="reserveDate2">
-							<!-- <input type="datetime-local" id="reserveDate"
-								class="form-textbox reserveInput updateAction"
-								name="reserveDate3"> -->
 								 <span
 								class="form-label label-focused updateActionSpan">예약시간 </span>
 						</div>
+						
 						<div class="reserve inputBox">
 							<input type="text" class="form-textbox reserveInput updateAction"
 								name="reserveCustReq" id="reserveCustReq"> <span
@@ -127,11 +148,11 @@
 
 					</div>
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-default">다시예약 하기</button>
-						<button type="button" class="btn btn-default"
+						<button type="submit" class="btn btn-primary">다시예약 하기</button>
+						<button type="button" class="btn btn-warning"
 							onclick="location.href='/cancelReserveByCust?reserveNo=1&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'">
 							예약 취소 하기(상태변경)</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal">닫기</button>
 					</div>
 				</form>
 			</div>
@@ -146,7 +167,7 @@
 			<li>
 				<button type="button" class="btn btn-primary"
 					onclick="location.href='/updateAllCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>'">정보수정</button>
-				<button type="button" class="btn btn-denger"
+				<button type="button" class="btn btn-danger"
 					onclick="location.href='/deleteAllCustomer?customerNo=<%=loginCustomer.getCustomerNo()%>'">회원탈퇴</button>
 			</li>
 			<br>
@@ -154,25 +175,23 @@
 				<a class="btn btn-success btn-lg"
 				href="/mypageCustReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">나의
 					리뷰 리스트 확인</a>
-			</li>
-			<div style="text-align: right;" class="tabs">
-				<a class="btn btn-primary btn-lg"
-					href="/mypageCust?selStatus=전체&reqPage=1">전체</a> <a
-					class="btn btn-warning btn-lg"
-					href="/mypageCust?selStatus=예약&reqPage=1">예약</a> <a
-					class="btn btn-success btn-lg"
-					href="/mypageCust?selStatus=완료&reqPage=1">완료</a> <a
-					class="btn btn-danger btn-lg"
-					href="/mypageCust?selStatus=취소&reqPage=1">취소</a>
-			</div>
-
+			</li>	
+			 
 			<div class="tab_container">
 				<h1><%=selStatus%>
 					List
-				</h1>
-				<input type="checkBox" id="allCheck"><label for="allCheck">전체선택</label>
-				<button type="button" class="btn btn-primary" id="allDelBtn">삭제</button>
-				<table class="table" style="width:100%;" border="1">
+				</h1>				
+				<div class="buttons">
+				<input type="checkBox" id="allCheck"><label class="tabLable" for="allCheck">전체</label>
+				<button type="button" class="btn btn-primary btn-lg tabButton" id="allDelBtn">삭제</button>
+				 <div class="btn-group" style="display: flex;justify-content: flex-end;">
+   				 <button type="button" class="btn btn-primary btn-lg tabButton" onclick="location.href='/mypageCust?selStatus=전체&reqPage=1'">전체</button>
+   				 <button type="button" class="btn btn-warning btn-lg tabButton" onclick="location.href='/mypageCust?selStatus=예약&reqPage=1'">예약</button>
+   				 <button type="button" class="btn btn-success btn-lg tabButton" onclick="location.href='/mypageCust?selStatus=완료&reqPage=1'">완료</button>
+   				 <button type="button" class="btn btn-danger btn-lg tabButton" onclick="location.href='/mypageCust?selStatus=취소&reqPage=1'">취소</button>
+  				</div>
+  				</div>
+				<table class="table table-striped table-hover" style="width:100%;">
 					<tr>
 						<th>선택</th>
 						<th>번호</th>
@@ -188,8 +207,14 @@
 					</tr>
 					<%
                      for (Reserve r : reserveList) {
-                  %>
-					<tr>
+                 	 %>
+                 	 <%if(r.getReserveStatus().equals("예약")){ %>
+					<tr class="warning">
+					<% }else if(r.getReserveStatus().equals("완료")) {%>
+					<tr class="success">
+					<% } else if(r.getReserveStatus().equals("취소")) {%>
+					<tr class="danger">
+					<% } %>
 						<td><input type="checkBox" class="subChk"
 							value="<%=r.getReserveNo()%>"></td>
 						<td><%=r.getReserveNo()%></td>
@@ -200,17 +225,17 @@
 						<td><%=r.getReserveDesignerReq()%></td>
 						<td><%=r.getReserveStatus()%></td>
 						<td>
-							<button type="button" class="btn btn-primary btn-sm reReserveBtn"
+							<button type="button" class="btn reReserveBtn"
 								data-toggle="modal" data-target="#reReserveModal"
 								value="<%=r.getReserveNo()%>">예약보기</button>
 						</td>
 						<td><button
 								onclick="location.href='/deleteReserveByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'"
-								type="button" class="btn btn-primary btn-sm">예약 삭제하기</button></td>
+								type="button" class="btn">예약 삭제하기</button></td>
 
 						<td><button type="button"
 								onclick="location.href='/writeReviewByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus %>&reqPage=<%=reqPage %>'"
-								class="btn btn-primary" btn-sm>리뷰작성하기</button></td>
+								class="btn" btn-sm>리뷰작성하기</button></td>
 					</tr>
 					<%
                      }
@@ -245,6 +270,7 @@
                   var rReserveStatus = decodeURIComponent(data.reserveStatus);
                   var rReserveDesignerReq = decodeURIComponent(data.reserveDesignerReq);
                   var rReserveDate = decodeURIComponent(data.reserveDate);
+                  var rReserveTime = decodeURIComponent(data.reserveTime);
                   var rReserveCustReq = decodeURIComponent(data.reserveCustReq);   
                   //hidden영역
                   var rCustomerNo = data.customerNo;
@@ -260,6 +286,7 @@
                   $("#reserveStatus").attr('value',rReserveStatus);
                   $("#reserveDesignerReq").attr('value',rReserveDesignerReq);
                   $("#reserveDate").attr('value',rReserveDate);
+                  $("#reserveTime").attr('value',rReserveTime);
                   $("#reserveCustReq").attr('value',rReserveCustReq);                  
                   //hidden영역                  
                   $("#customerNo").attr('value',rCustomerNo);

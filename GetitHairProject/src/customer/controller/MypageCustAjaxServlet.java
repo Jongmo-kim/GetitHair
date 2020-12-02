@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import org.json.simple.JSONObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sun.jmx.snmp.Timestamp;
 
 import reserve.model.service.ReserveService;
 import reserve.model.vo.Reserve;
@@ -57,7 +59,19 @@ public class MypageCustAjaxServlet extends HttpServlet {
 		String reserveDesignerName =  r.getDesigner().getDesignerName();
 		String reserveStatus =r.getReserveStatus();
 		String reserveDesignerReq = r.getReserveDesignerReq();
-		java.util.Date reserveDate = r.getReserveDate();
+		java.util.Date reserveDate = r.getReserveDate();	
+		//java.util.Date reserveTime = r.getReserveDate();
+		java.sql.Date sqlDate = new java.sql.Date(reserveDate.getTime());
+		//System.out.println("sqlDate="+sqlDate);
+		SimpleDateFormat timeSdf = new SimpleDateFormat("HH:mm");
+		//SimpleDateFormat time1Sdf = new SimpleDateFormat("YYYY-MM-dd'Y'HH:mm");
+		//System.out.println("sqlDate="+time1Sdf.format(sqlDate));
+		//String resultTime1 = time1Sdf.format(sqlDate);
+		String resultTime2 = timeSdf.format(sqlDate);
+		//System.out.println("resultTime1= "+resultTime1);
+		//System.out.println("resultTime2= "+resultTime2);
+		//Timestamp timestamp  = new Timestamp(resultDate);
+		//long timeSdfDate = timeSdf.parse(sqlDate);		
 		String  reserveCustReq = r.getReserveCustReq();
 		//hidden영역
 		int reserveCustomerNo = r.getCustomer().getCustomerNo();
@@ -85,6 +99,7 @@ public class MypageCustAjaxServlet extends HttpServlet {
 		result.put("reserveStatus", URLEncoder.encode(reserveStatus.toString(),"UTF-8"));		
 		result.put("reserveDesignerReq", URLEncoder.encode(reserveDesignerReq.toString(),"UTF-8"));
 		result.put("reserveDate", URLEncoder.encode(reserveDate.toString(),"UTF-8"));
+		result.put("reserveTime", URLEncoder.encode(resultTime2.toString(),"UTF-8"));
 		result.put("reserveCustReq", URLEncoder.encode(reserveCustReq.toString(),"UTF-8"));
 		//hidden영역
 		result.put("customerNo", reserveCustomerNo);
@@ -94,8 +109,7 @@ public class MypageCustAjaxServlet extends HttpServlet {
 		result.put("reserveTitle ", URLEncoder.encode(reserveTitle .toString(),"UTF-8"));
 		result.put("reserveDesignerMemo", URLEncoder.encode(reserveDesignerMemo.toString(),"UTF-8"));
 		result.put("reserveStartDate", URLEncoder.encode(reserveStartDate.toString(),"UTF-8"));
-		result.put("reserveEndDate", URLEncoder.encode(reserveEndDate.toString(),"UTF-8"));
-		
+		result.put("reserveEndDate", URLEncoder.encode(reserveEndDate.toString(),"UTF-8"));		
 		//System.out.println(result);			
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
