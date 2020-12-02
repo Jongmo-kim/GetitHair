@@ -46,12 +46,12 @@ public class MypageCustAjaxServlet extends HttpServlet {
 		}else {
 			reserveNo = Integer.parseInt(request.getParameter("reserveNo"));
 		}		
-		System.out.println("reserveNo = "+reserveNo);
+		//System.out.println("reserveNo = "+reserveNo);
 		Reserve r = new ReserveService().selectOneReserve(reserveNo);
 		if(r==null) {
 			r = new Reserve();
 		}
-		System.out.println("reserve ="+r);
+		//System.out.println("reserve ="+r);
 		//show영역
 		String reserveShopName =  r.getShop().getShopName();
 		String reserveDesignerName =  r.getDesigner().getDesignerName();
@@ -63,9 +63,11 @@ public class MypageCustAjaxServlet extends HttpServlet {
 		int reserveCustomerNo = r.getCustomer().getCustomerNo();
 		int reserveDesignerNo = r.getDesigner().getDesignerNo();
 		int reserveShopNo = r.getShop().getShopNo();
-		//int reserveStyleNo = r.getStyle().getStyleNo(); //스타일객체수정시 보여주기
+		int reserveStylelistNo = r.getStylelist().getStylelistNo(); //스타일객체수정시 보여주기
+		String reserveTitle = r.getReserveTitle();
 		String reserveDesignerMemo = r.getReserveDesignerMemo();
-		
+		java.util.Date reserveStartDate = r.getReserveStartdate();
+		java.util.Date reserveEndDate = r.getReserveEndDate();
 		if(reserveDesignerReq == null) {
 			reserveDesignerReq="(null)";
 		}
@@ -88,10 +90,13 @@ public class MypageCustAjaxServlet extends HttpServlet {
 		result.put("customerNo", reserveCustomerNo);
 		result.put("designerNo",reserveDesignerNo );
 		result.put("shopNo",reserveShopNo);
-		//result.put("styleNo",reserveStyleNo);
+		result.put("stylelistNo",reserveStylelistNo);
+		result.put("reserveTitle ", URLEncoder.encode(reserveTitle .toString(),"UTF-8"));
 		result.put("reserveDesignerMemo", URLEncoder.encode(reserveDesignerMemo.toString(),"UTF-8"));
+		result.put("reserveStartDate", URLEncoder.encode(reserveStartDate.toString(),"UTF-8"));
+		result.put("reserveEndDate", URLEncoder.encode(reserveEndDate.toString(),"UTF-8"));
 		
-		System.out.println(result);			
+		//System.out.println(result);			
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		out.print(result);

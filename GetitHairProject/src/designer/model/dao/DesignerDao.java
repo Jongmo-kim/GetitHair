@@ -257,4 +257,82 @@ public class DesignerDao {
 		}
 		return result;
 	}
+
+	public Object[] selectAllDesignerById(Connection conn, String keyword, int reqPage, int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Designer> list = new ArrayList<Designer>();
+		String query = "SELECT R.*,(SELECT COUNT(*) FROM (SELECT D.* FROM designer D WHERE designer_id LIKE ? ORDER BY D.DESIGNER_NO DESC) D) as cnt FROM (SELECT ROWNUM RN,D.* FROM "
+				+ "(SELECT D.* FROM designer D WHERE designer_id LIKE ? ORDER BY D.DESIGNER_NO DESC) D) R "
+				+ "WHERE RN BETWEEN ? AND ?";
+		int cnt=0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, keyword+"%");
+			pstmt.setString(2, keyword+"%");
+			pstmt.setInt(3, (maxPrintSize*(reqPage-1))+1);
+			pstmt.setInt(4, maxPrintSize*reqPage);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				cnt = rset.getInt("cnt");
+				Designer d = new Designer();
+				d.setDesignerNo(rset.getInt("designer_no"));
+				d.setDesignerId(rset.getString("designer_id"));
+				d.setDesignerPw(rset.getString("designer_pw"));
+				d.setDesignerName(rset.getString("designer_name"));
+				d.setDesignerPhone(rset.getString("designer_phone"));
+				d.setDesignerYear(rset.getInt("designer_year"));
+				d.setDesignerRank(rset.getString("designer_rank"));
+				d.setDesignerIntro(rset.getString("designer_intro"));
+				d.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
+				list.add(d);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return new Object[]{cnt,list};
+	}
+
+	public Object[] selectAllDesignerByName(Connection conn, String keyword, int reqPage, int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Designer> list = new ArrayList<Designer>();
+		String query = "SELECT R.*,(SELECT COUNT(*) FROM (SELECT D.* FROM designer D WHERE designer_name LIKE ? ORDER BY D.DESIGNER_NO DESC) D) as cnt FROM (SELECT ROWNUM RN,D.* FROM "
+				+ "(SELECT D.* FROM designer D WHERE designer_name LIKE ? ORDER BY D.DESIGNER_NO DESC) D) R "
+				+ "WHERE RN BETWEEN ? AND ?";
+		int cnt=0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, keyword+"%");
+			pstmt.setString(2, keyword+"%");
+			pstmt.setInt(3, (maxPrintSize*(reqPage-1))+1);
+			pstmt.setInt(4, maxPrintSize*reqPage);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				cnt = rset.getInt("cnt");
+				Designer d = new Designer();
+				d.setDesignerNo(rset.getInt("designer_no"));
+				d.setDesignerId(rset.getString("designer_id"));
+				d.setDesignerPw(rset.getString("designer_pw"));
+				d.setDesignerName(rset.getString("designer_name"));
+				d.setDesignerPhone(rset.getString("designer_phone"));
+				d.setDesignerYear(rset.getInt("designer_year"));
+				d.setDesignerRank(rset.getString("designer_rank"));
+				d.setDesignerIntro(rset.getString("designer_intro"));
+				d.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
+				list.add(d);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return new Object[]{cnt,list};
+	}
 }

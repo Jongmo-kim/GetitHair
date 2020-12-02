@@ -73,7 +73,7 @@ public class DesignerService {
 		return list;
 	}
 
-	//페이징관련 기능 추가
+	//페이징관련 기능 추가 도현
 	public int getAllDesignerMaxPageSize(int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new DesignerDao().getAllDesignerMaxPageSize(conn,maxPrintSize);
@@ -83,6 +83,25 @@ public class DesignerService {
 	public ArrayList<Designer> selectAllDesigner(int reqPage, int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Designer> list = new DesignerDao().selectAllDesigner(conn,reqPage,maxPrintSize);
+		JDBCTemplate.close(conn);
+		return list;
+	}
+
+	public Object[] selectAllDesignerById(String keyword, int reqPage, int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		Object[] list = new DesignerDao().selectAllDesignerById(conn,keyword,reqPage,maxPrintSize);
+		int result = (Integer)list[0];
+		result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0); //maxPageSize 계산
+		list[0] = result;
+		JDBCTemplate.close(conn);
+		return list;
+	}
+	public Object[] selectAllDesignerByName(String keyword, int reqPage, int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		Object[] list = new DesignerDao().selectAllDesignerByName(conn,keyword,reqPage,maxPrintSize);
+		int result = (Integer)list[0];
+		result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0); //maxPageSize 계산
+		list[0] = result;
 		JDBCTemplate.close(conn);
 		return list;
 	}
