@@ -139,15 +139,15 @@
                     </div>
                     <div class="page-nav">
                         <c:if test="${pageStart!=1}">
-                            <a href="mypageAdminCustomer?reqPage=${pageStart-1}">이전</a>
+                            <a href="mypageAdminCustomer?searchType=&keyword=${param.searchType}&keyword=${param.keyword}&reqPage=${pageStart-1}&list_num=${param.list_num}}">이전</a>
                         </c:if>
                         <c:forEach var="i" begin="${pageStart}" end="${pageEnd}">
-                            <a href="mypageAdminCustomer?reqPage=${i}"
+                            <a href="mypageAdminCustomer?searchType=${param.searchType}&keyword=${param.keyword}&reqPage=${i}&list_num=${param.list_num}"
                                 style="${i==(not empty param.reqPage ? param.reqPage : 1) ? " color: #F29A2E;" : ""
                                 }">${i}</a>
                         </c:forEach>
                         <c:if test="${pageEnd<pageSize}">
-                            <a href="mypageAdminCustomer?reqPage=${pageEnd+1}">다음</a>
+                            <a href="mypageAdminCustomer?searchType=${param.searchType}&keyword=${param.keyword}&reqPage=${pageEnd+1}&list_num=${param.list_num}">다음</a>
                         </c:if>
                     </div>
                 </form>

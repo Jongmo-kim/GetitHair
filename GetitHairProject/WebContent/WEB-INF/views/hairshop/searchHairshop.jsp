@@ -76,39 +76,40 @@
     .mid>form{
     	text-align: center;
     	margin-top: 40px;
-    	margin-bottom: 20px;
+    	margin-bottom: 40px;
     }
     body button{
     	height: 50px;
     	width : 80px;
     	border: none;
     	border-radius: 10px;
-    	background: #D9ABA0;
+    	background: #8C2E40;
     	color: white;
+    }
+    button:hover{
+    	background: #D9ABA0;
+    	transition-duration: 0.2s;
     }
     .mid{
     	width : 70%;
     	margin : 0 auto;
-    	position: relative;
     }
     .content{
     	height: 700px;
-    	overflow-y: scroll;
+    	position: relative;
     }
     .hairshopList{
-    	width: 30%;
-    	float: left;
-    }
-    .content table{
-    	margin : 0 auto;
+    	height: 700px;
+    	width: 100%;
+    	overflow-y: auto;
+    	position: absolute;
     }
     #map{
-    	float: left;
-    	width: 60%;
+    	width: 900px;
     	height: 600px;
     	position: absolute;
-    	top: 50px;
-    	right: 30px;
+    	top: 60px;
+    	left: 400px;
     }
     .addr h3{
     	display: inline-block;
@@ -122,14 +123,14 @@
     	margin: 10px;
     	margin-top: -10px;
     }
-    .content::-webkit-scrollbar {
+    .hairshopList::-webkit-scrollbar {
     	width: 7px;
   	}
-  	.content::-webkit-scrollbar-thumb {
+  	.hairshopList::-webkit-scrollbar-thumb {
 	    background-color: #260101;
 	    border-radius: 5px;
 	 }
-	 .content::-webkit-scrollbar-track {
+	 .hairshopList::-webkit-scrollbar-track {
 	    background-color: lightgrey;
 	    border-radius: 5px;
 	 }
@@ -137,6 +138,11 @@
     	margin: 50px;
     	height: 120px;
     	width: 300px;
+    	margin-left: 100px;
+    }
+    .noexist{
+    	text-align: center;
+    	margin-top: 50px;
     }
 </style>
 </head>
@@ -177,8 +183,10 @@
 				</div>
 				<div id="map"></div>
 			<%}else{ %>
-				<h1>검색하신 헤어샵이 존재하지 않습니다.</h1>
-				<a href="/hairshop">메인으로</a>
+				<div class="noexist">
+					<h1>검색하신 헤어샵이 존재하지 않습니다.</h1>
+					<a href="/hairshop">메인으로</a>
+				</div>
 			<%} %>
 			</div>
 		</div>
@@ -245,13 +253,14 @@
 				}
 			});
 		}
-	    $(document).on(".addr",function(){
+	    $(document).on(".addr",function(){//얘 안됨
 	    	$(".addr").parent().parent().css("border-radius","20px;");
 		});
 	    $("table").click(function(){
 	    	var shopNo = $(this).children().find("input").val();
 			location.href="/hairshopDetail?shopNo="+shopNo;
 	    });
+	  	//css 객체로 넣는 법({"top":"50px","right":"30px"})
 	   </script>
 	    
 </body>

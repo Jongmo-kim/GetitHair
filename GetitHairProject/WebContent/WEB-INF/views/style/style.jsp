@@ -70,6 +70,11 @@
     	display: inline-block;
     	width: 100%;
     	height: 100%;
+    	color: #260101;
+    }
+    .menu a:hover{
+    	text-decoration: none;
+    	font-weight: bold;
     }
     .style-sub{
     	display: none;
@@ -92,15 +97,19 @@
     .mid>form{
     	text-align: center;
     	margin-top: 40px;
-    	margin-bottom: 20px;
+    	margin-bottom: 40px;
     }
     body button{
     	height: 50px;
     	width : 80px;
     	border: none;
     	border-radius: 10px;
-    	background: #D9ABA0;
+    	background: #8C2E40;
     	color: white;
+    }
+    button:hover{
+    	background: #D9ABA0;
+    	transition-duration: 0.2s;
     }
     .content{
     	width: 100%;
@@ -226,11 +235,14 @@
 			$(".menu li:first-child>a").click();
 		});
 		$(".menu a").click(function(){
-			$(".menu a").parent().css("border-bottom","none");
+			$(".menu a").parent().css("background","#fff");
+			$(".menu a").css("color","#260101");
 			$(".style-sub").hide();
 			var name = $(this).attr("name");
 			$("."+name).show();
-			$(this).parent().css("border-bottom","5px solid #260101");
+			$(this).parent().css("background","#260101");
+			$(this).css("color","#fff");
+			$(this).css("font-weight","normal");
 		});
 		$(".tab>button:first-child").click(function(){
 			location.href="/hairshop";

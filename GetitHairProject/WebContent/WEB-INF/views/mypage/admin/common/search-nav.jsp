@@ -15,7 +15,7 @@
 		<button class="btn">검색</button>
 		<select name="list_num">
 			<option value=15 ${param.list_num == 15 ? "selected" : ""}>15개</option>
-			<option value=20 ${param.list_num == 20 ? "selected" : ""}>20개</option>
+			<option value=20 ${param.list_num == 20 || empty param.list_num ? "selected" : ""}>20개</option>
 			<option value=25 ${param.list_num == 25 ? "selected" : ""}>25개</option>
 		</select>
 	</div>

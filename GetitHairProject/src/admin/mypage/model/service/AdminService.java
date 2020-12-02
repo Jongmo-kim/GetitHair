@@ -9,15 +9,21 @@ import common.JDBCTemplate;
 import customer.model.vo.Customer;
 
 public class AdminService {
-	public ArrayList<Customer> getCustomerListById(String keyword){
+	public Object[] getCustomerListById(String keyword, int reqPage, int maxPrintSize){
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Customer> list = new AdminDao().getCustomerListById(conn, keyword);
+		Object[] list = new AdminDao().getCustomerListById(conn, keyword,reqPage,maxPrintSize);
+		int result = (Integer)list[0];
+		result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0); //maxPageSize 계산
+		list[0] = result;
 		JDBCTemplate.close(conn);
 		return list;
 	}
-	public ArrayList<Customer> getCustomerListByName(String keyword) {
+	public Object[] getCustomerListByName(String keyword, int reqPage, int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Customer> list = new AdminDao().getCustomerListByName(conn, keyword);
+		Object[] list = new AdminDao().getCustomerListByName(conn, keyword,reqPage,maxPrintSize);
+		int result = (Integer)list[0];
+		result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0); //maxPageSize 계산
+		list[0] = result;
 		JDBCTemplate.close(conn);
 		return list;
 	}

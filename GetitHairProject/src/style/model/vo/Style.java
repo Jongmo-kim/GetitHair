@@ -2,7 +2,7 @@ package style.model.vo;
 
 public class Style {
 	private int styleNo;
-	private String styleType;//컷, 염색, 파마, 기타
+	private String styleType;//cut, color, perm, etc
 	private String styleName;//상세 이름
 	private int styleLikes;
 	public Style() {

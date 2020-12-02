@@ -45,6 +45,10 @@ public class UpdateReserveCalendarServlet extends HttpServlet {
 		JsonArray jsonStart = (JsonArray)parser.parse(Start);
 		JsonArray jsonEnd = (JsonArray)parser.parse(End);
 		JsonArray jsonNo = (JsonArray)parser.parse(reserveNo);
+		System.out.println(jsonTitle);
+		System.out.println(jsonStart);
+		System.out.println(jsonEnd);
+		System.out.println(jsonNo);
 		//값 받기 끝
 		for(int i = 0 ; i < jsonTitle.size() ; ++i) {
 			String title = jsonTitle.get(i).toString().replaceAll("\"", "");

@@ -427,17 +427,24 @@ public int getTotalCount(Connection conn, String sqlAdd) {
 
 public int insertReReserve(Connection conn, Reserve reserve) {
 	PreparedStatement pstmt = null;
-    //String sql = "insert into reserve values(DEFAULT,?,?,?,?,sysdate,'예약',?,'','')";
-	//태민local sql insert into reserve values(DEFAULT,1,1,1,1,'2020-12-01','예약','테스트123','','');
-    String sql = "insert into reserve values(DEFAULT,?,?,?,1,?,'예약',?,'','')";
+    //String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,?,sysdate,'예약',?,'','')";
+	//태민local sql insert into reserve values(reserve_seq.nextval,1,1,1,1,'2020-12-01','예약','테스트123','','');
+    String sql = "INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,?,?,?,?,?,DEFAULT,?,?,?,?,?,?)";
     int result = 0 ;
     try {
        pstmt = conn.prepareStatement(sql);
        pstmt.setInt(1, reserve.getCustomer().getCustomerNo());
        pstmt.setInt(2, reserve.getDesigner().getDesignerNo());
        pstmt.setInt(3, reserve.getShop().getShopNo());
-       pstmt.setTimestamp(4, new Timestamp(reserve.getReserveDate().getTime()));
-       pstmt.setString(5,reserve.getReserveCustReq());
+       pstmt.setInt(4, reserve.getStylelist().getStylelistNo());
+       pstmt.setString(5, reserve.getReserveTitle());
+       //pstmt.setString(6, reserve.getReserveStatus());//DEFAULT인 '예약'으로 설정
+       pstmt.setString(6,reserve.getReserveCustReq());
+       pstmt.setString(7,reserve.getReserveDesignerReq());
+       pstmt.setString(8,reserve.getReserveDesignerMemo());       
+       pstmt.setTimestamp(9,new Timestamp(reserve.getReserveDate().getTime()));      
+       pstmt.setTimestamp(10,new Timestamp(reserve.getReserveStartdate().getTime()));
+       pstmt.setTimestamp(11,new Timestamp(reserve.getReserveEndDate().getTime()));
        result = pstmt.executeUpdate();
     } catch (SQLException e) {
        e.printStackTrace();
