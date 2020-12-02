@@ -96,48 +96,36 @@
 	<!-- 헤더 -->
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<br>
-	<script>
-	$(function() {
-		   
-		});
-	 $("#reserveBtn").on('click',function(){
-	    	
-	    });
-	    function reverseBtn(designerNo){
-			$("#designerNo").val(designerNo);
-	    }
-	  
-	  
-	</script>
+
 	<div class="modal fade" id="ReserveModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form action="/insertRserve" method="post">
+				<form action="/insertReserve" method="post">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">예약하기</h4>
 					</div>
 					<div class="modal-body">
+						<input class="designerNo" type="hidden" name="desinerNo">
+						<input type="hidden" name="shopNo" value="<%=hs.getShopNo() %>">
 						<div class="reserve inputBox">
-							예약 일자<input type="text" id="testDatepicker" class="form-textbox" name="reserveDate" placeholder="00/00/00로 적어주세요(년/월/일)">							
-						</div>											
+							날짜 및 시간<input type="datetime-local" name="startDate"  class="form-textbox">							
+						</div>							
 						<div class="reserve inputBox">
-							손님 요청 사항<input type="text" class="form-textbox" name="custReq" id="testid">	
-						</div>
-							<input type="hidden" name="designerNo" value="<%=deli.get(0).getDesigner().getDesignerNo()%>">
-							<input type="hidden" name="shopNo" value="<%=hs.getShopNo() %>">
-							<%-- <input type="hidden" name="stylelistNo" value="<%=styleList.getStylelistNo()%>"> --%>
-						<div class="reserve inputBox">
-						<input type="hidden" name="title" value="<%=reserve.get(0).getReserveTitle()%>">
+							손님 요청 사항<input type="text" class="form-textbox" name="custReq">	
 						</div>
 						<div class="reserve inputBox">
-						<input type="hidden" name="status" value="<%=reserve.get(0).getReserveStatus()%>">
+							<select name="title" class="form-textbox">
+							<%for(int i = 0 ; i< stlList.size(); ++i) {%>
+								<option value="<%=stlList.get(i).getType()%>"><%=stlList.get(i).getType()%></option>
+								<%} %>
+							</select>
 						</div>
 						<div class="reserve inputBox">
-							<input type="time" name="startDate">
+						<input type="hidden" name="status" value="예약">
 						</div>
 						<div class="reserve inputBox">
-							<input type="hidden" name="endDate">
+							<input type="hidden" name="endDate" value="">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -185,11 +173,11 @@
 		 <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
 		 <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
-		 <a href="/hairshopModifyPage" class="btn btn-primary btn-sm">헤어샵 수정하기</a>
+		 <a href="/hairshopModifyPage?shopNo=<%=hs.getShopNo() %>" class="btn btn-primary btn-sm">헤어샵 수정하기</a>
 	</div>
 	<div class="col-md-2"></div>
 	
-	<div class="col-md-6" id="map" style="height: 280px; margin-top: 20px; border: 2px solid #a2a2b2"><div></div></div>
+	<div class="col-md-6" id="map" style="height: 280px; margin-top: 20px; border: 2px solid #a2a2b2"></div>
     </div>
     <div id="menu1" class="tab-pane fade">
     	<br>
@@ -202,26 +190,24 @@
     		<p style="margin: 0; margin-bottom: 10px"><%=deli.get(i).getDesigner().getDesignerName() %><span style="font-size: 13px;"><%=deli.get(i).getDesigner().getDesignerRank() %></span></p>
     		<span style="font-size: 13px; color: #737270;"><%=deli.get(i).getDesigner().getDesignerIntro() %> <span>(경력 : <%=deli.get(i).getDesigner().getDesignerYear() %>년)</span></span>
     	</div>
-    	<form action="/reserVation" method="get">
     	<div class="designerPt col-md-2" style="height: 100px; display:block;">
-    		<a class="btn btn-primary btn-sm" style="margin-top: 30px;" data-toggle="modal" data-target="#ReserveModal">예약하기</a>
+    		<a class="btn btn-primary btn-sm" style="margin-top: 30px;" data-toggle="modal" data-target="#ReserveModal" data-name="<%=deli.get(i).getDesigner().getDesignerNo()%>" id="reserBtn">예약하기</a>
+    		
+    		
     	</div>
-    	</form>
     </div>
     	<hr>	
     	<%} %>
     </div>
     <div id="menu2" class="tab-pane fade">
     <%for(int i = 0 ; i< stlList.size(); ++i) {%>
-      <!-- style.type -->	
-      <h4 style="font-size: 14px;"><%=stlList.get(i).getType()%></h4>
-      <!-- stlye.name -->	
+      <h4 style="font-weight: bold;"><%=stlList.get(i).getType()%></h4>
       <%for(int j = 0; j<stlList.get(i).getStyleList().size();j++) {%>
       <%for(int k = 0; k<stlList.get(i).getStyleList().get(j).size();k++) {%>
-      <h4><%=stlList.get(i).getStyleList().get(j).get(k).getStyleName() %></h4>
+      <h4 style="font-size: 14px"><%=stlList.get(i).getStyleList().get(j).get(k).getStyleName() %>
       <%for(int l = 0;l<price.size();l++) {%>
       <%if(price.get(l).getStyleList().getStyle().getStyleName().equals(stlList.get(i).getStyleList().get(j).get(k).getStyleName())) {%>
-    	<p style="font-size: 14px;"><%=price.get(l).getPrice()%></p>
+    	<span style="font-size: 14px;"><%=price.get(l).getPrice()%></span></h4>
     	 <%} %> <!-- if 1 --> 
     	<%} %> <!-- for 4 -->
       <%} %> <!-- for 3 -->
@@ -238,7 +224,7 @@
 	   		<% Review currReview = review.get(i); %>
 	    	<h4><span style="font-size:16px; font-weight: bold;"><%=review.get(i).getDesigner().getDesignerName()%> 디자이너</span></h4>
 	    	<br>
-	    	<p style="font-size: 14px"><%=review.get(i).getCustomer().getCustomerName() %>님 - <%=review.get(i).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(0).getReviewDate() %></span></p>
+	    	<p style="font-size: 14px"><%=review.get(i).getCustomer().getCustomerName() %>님 - <%=review.get(i).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(i).getReviewDate() %></span></p>
 	    	<hr>
 	    	<%} %>
     </div>
@@ -251,14 +237,21 @@
 
 	<!-- Initialize Swiper -->
 	<script>
+	/* 헤어샵 사진 */
 		var swiper = new Swiper('.swiper-container', {
       pagination: {
         el: '.swiper-pagination',
         dynamicBullets: true,
       },
     });
+		$(document).ready(function(){
+			$('#reserBtn').click(function(){
+				$('.designerNo').val($(this).data('name'));
+			});
 		});
 		
+		
+		//네이버 지도
 		window.onload=function(){
    			//아무 값도 지정하지 않고 지도객체를 불러오면 서울시청 중심으로 불러와짐
    			/* var map = new naver.maps.Map("map"); */

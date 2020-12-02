@@ -26,21 +26,22 @@ public class ReserveDao {
 
    public int insertReserve(Connection conn, Reserve reserve) {
       PreparedStatement pstmt = null;
-      String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,?,?,default,?,?,?,sysdate,?,?)";
+      String sql = "insert into reserve values(reserve_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,?)";
       int result = 0 ;
       try {
          pstmt = conn.prepareStatement(sql);
          pstmt.setInt(1, reserve.getCustomer().getCustomerNo());
          pstmt.setInt(2, reserve.getDesigner().getDesignerNo());
          pstmt.setInt(3, reserve.getShop().getShopNo());
-         pstmt.setInt(4, reserve.getStylelist().getStylelistNo());
+         pstmt.setString(4, null);
          pstmt.setString(5, reserve.getReserveTitle());
-         pstmt.setString(6, reserve.getReserveCustReq());
-         pstmt.setString(7, reserve.getReserveDesignerReq());
-         pstmt.setString(8, reserve.getReserveDesignerMemo());
-         pstmt.setTimestamp(9, new Timestamp(reserve.getReserveDate().getTime()));
-         pstmt.setTimestamp(10, new Timestamp(reserve.getReserveStartdate().getTime()));
-         pstmt.setTimestamp(11, new Timestamp(reserve.getReserveEndDate().getTime()));
+         pstmt.setString(6, reserve.getReserveStatus());
+         pstmt.setString(7, reserve.getReserveCustReq());
+         pstmt.setString(8, "");
+         pstmt.setString(9, "");
+         pstmt.setTimestamp(10, new Timestamp(reserve.getReserveDate().getTime()));
+         pstmt.setTimestamp(11, new Timestamp(reserve.getReserveStartdate().getTime()));
+         pstmt.setTimestamp(12, new Timestamp(reserve.getReserveEndDate().getTime()));
          result = pstmt.executeUpdate();
       } catch (SQLException e) {
          e.printStackTrace();
