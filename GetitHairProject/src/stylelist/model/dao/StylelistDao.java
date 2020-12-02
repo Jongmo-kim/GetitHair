@@ -99,4 +99,31 @@ public class StylelistDao {
 		}
 		return list;
 	}
+
+	public Stylelist selectOneStylelistByStyleNo(Connection conn, int styleNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Stylelist stylelist = new Stylelist();
+		String sql = "select * from style_list where style_no = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, styleNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				stylelist = getStylelistFromRset(rset);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rset);
+		}
+		
+		return stylelist;
+	}
+
+	public ArrayList<Stylelist> selectAllStylelistByDesignerNo(Connection conn, int designerNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

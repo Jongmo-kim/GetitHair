@@ -88,27 +88,39 @@
 							<input type="text" id="reserveDesignerReq" class="form-textbox"
 								name="reserveDesignerReq" readonly> <span
 								class="form-label label-focused">디자이너 요청사항 </span>
-						</div>
+						</div>						
 						<div class="reserve inputBox">
-							<input type="text" id="reserveDate"
+							<input type="date" id="reserveDate"
 								class="form-textbox reserveInput updateAction"
-								name="reserveDate" readonly> <span
-								class="form-label label-focused updateActionSpan">예약일정 </span>
+								name="reserveDate1">
+								<input type="time" id="reserveDate"
+								class="form-textbox reserveInput updateAction"
+								name="reserveDate2">
+							<!-- <input type="datetime-local" id="reserveDate"
+								class="form-textbox reserveInput updateAction"
+								name="reserveDate3"> -->
+								 <span
+								class="form-label label-focused updateActionSpan">예약시간 </span>
 						</div>
 						<div class="reserve inputBox">
 							<input type="text" class="form-textbox reserveInput updateAction"
-								name="reserveCustReq" id="reserveCustReq" readonly> <span
+								name="reserveCustReq" id="reserveCustReq"> <span
 								class="form-label label-focused updateActionSpan">손님요청사항
 							</span>
 						</div>
 						<!-- hidden영역 -->
 						<input type="hidden" class="form-textbox" name="customerNo"
-							id="customerNo"> <input
+							id="customerNo"> 
+							<input
 							type="hidden" class="form-textbox" name="designerNo"
-							id="designerNo"> <input
+							id="designerNo"> 
+							<input
 							type="hidden" class="form-textbox" name="shopNo" id="shopNo">
+						<input type="hidden" class="form-textbox" name="stylelistNo"
+							id="stylelistNo">
 						<input type="hidden" class="form-textbox" name="styleNo"
-							id="styleNo"> <input type="hidden"
+							id="styleNo">  
+							<input type="hidden"
 							class="form-textbox" name="reserveDesignerMemo"
 							id="reserveDesignerMemo">
 						<!-- hidden영역 -->
@@ -236,9 +248,10 @@
                   var rReserveCustReq = decodeURIComponent(data.reserveCustReq);   
                   //hidden영역
                   var rCustomerNo = data.customerNo;
-                  var rDesignerNo = decodeURIComponent(data.designerNo);
-                  var rShopNo = decodeURIComponent(data.shopNo);
-                  //var rStyleNo = decodeURIComponent(data.styleNo); //스타일객체수정시 보여주기
+                  var rDesignerNo = data.designerNo;
+                  var rShopNo = data.shopNo;
+                  var rStyleNo = data.styleNo; //스타일객체수정시 보여주기
+                  var rStylelistNo = data.stylelistNo; //스타일객체수정시 보여주기
                   var rReserveDesignerMemo = decodeURIComponent(data.reserveDesignerMemo);                  
                   //show영역
                   $("#reserveNo").attr('value',rRserveNo);
@@ -252,7 +265,8 @@
                   $("#customerNo").attr('value',rCustomerNo);
                   $("#designerNo").attr('value',rDesignerNo);
                   $("#shopNo").attr('value',rShopNo);
-                  //$("#styleNo").attr('value',rStyleNo); //스타일객체수정시 보여주기
+                  $("#styleNo").attr('value',rStyleNo); //스타일객체수정시 보여주기
+                  $("#stylelistNo").attr('value',rStylelistNo); //스타일객체수정시 보여주기
                   $("#reserveDesignerMemo").attr('value',rReserveDesignerMemo);               
                }               
          });

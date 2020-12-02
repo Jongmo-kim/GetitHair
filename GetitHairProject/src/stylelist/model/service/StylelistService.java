@@ -21,16 +21,22 @@ public class StylelistService {
 
 	public ArrayList<Stylelist> selectAllStylelistByDesingerNo(int designerNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Stylelist> stylelist = new StylelistDao().select();
-		return null;
+		ArrayList<Stylelist> stylelist = new StylelistDao().selectAllStylelistByDesignerNo(conn,designerNo);
+		JDBCTemplate.close(conn);
+		return stylelist;
 	}
 	
 	public ArrayList<Style> selectAllStylelistByTypeAndDesignerNo(String type,int designerNo){
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Style> list = new StylelistDao().selectAllStylelistByTypeAndDesignerNo(conn,type,designerNo);
 		JDBCTemplate.close(conn);
-		
 		return list;
+	}
+	public Stylelist selectOneStylelistByStyleNo(int styleNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Stylelist stylelist = new StylelistDao().selectOneStylelistByStyleNo(conn, styleNo);
+		JDBCTemplate.close(conn);
+		return stylelist;
 	}
 
 }
