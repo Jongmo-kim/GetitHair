@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%
     String keyword = request.getAttribute("keyword") != null ? (String)request.getAttribute("keyword") : "";
-
+    pageContext.setAttribute("reviewPage","true");
 %>
 <!DOCTYPE html>
 <html>
