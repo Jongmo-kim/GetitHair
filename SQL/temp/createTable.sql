@@ -37,12 +37,12 @@ drop sequence image_seq;
 
 -- hairshop Table Create SQL
 CREATE SEQUENCE HAIR_INFO_SEQ;
-CREATE SEQUENCE IMAGE_LIST_SEQ;
+CREATE SEQUENCE IMAGE_SEQ;
 /
 
 
-create table image_list(
-    img_list_no number primary key,
+create table image(
+    img_no number primary key,
     filepath varchar(200) NOT null,
     img_type char(20) check(img_type in ('hairshop','review','style','designer','reserve','designer_portfolio')),
     img_type_no number not null

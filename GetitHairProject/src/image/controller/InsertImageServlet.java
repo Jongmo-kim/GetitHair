@@ -32,7 +32,7 @@ public class InsertImageServlet extends HttpServlet {
 		
 		
 		//비즈니스
-		int result = new ImageService().insertImage("hairshop", 1, "image1", "/img/hairshop/image1.png");
+		int result = new ImageService().insertImage("/img/hairshop/image1.png", "hairshop", 1);
 		if(result >1) {
 			System.out.println("이미지 넣기 성공");
 		}else {

@@ -1,12 +1,12 @@
-<%@page import="image.model.vo.ImageList"%>
+<%@page import="image.model.vo.Image"%>
 <%@page import="hairshop.model.vo.Hairshop"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
     	ArrayList<Hairshop> list = (ArrayList<Hairshop>)request.getAttribute("list");
-    	int totalCount = (Integer)request.getAttribute("totalCount");
-    	ArrayList<ImageList> styleimg = (ArrayList<ImageList>)request.getAttribute("styleimg");
+        	int totalCount = (Integer)request.getAttribute("totalCount");
+        	ArrayList<Image> styleimg = (ArrayList<Image>)request.getAttribute("styleimg");
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
