@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
 import image.model.service.ImageService;
-import image.model.vo.ImageList;
+import image.model.vo.Image;
 
 /**
  * Servlet implementation class HairshopServlet
@@ -37,7 +37,7 @@ public class HairshopServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		ArrayList<Hairshop> list = new HairshopService().selectHairshop();
 		int totalCount = new HairshopService().totalCount();
-		ArrayList<ImageList> styleimg = new ImageService().selectAllImageListByType("style");
+		ArrayList<Image> styleimg = new ImageService().selectAllImageListByType("style");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshop.jsp");
 		request.setAttribute("list", list);
 		request.setAttribute("totalCount", totalCount);
