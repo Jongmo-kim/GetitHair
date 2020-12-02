@@ -10,7 +10,11 @@
 		Customer loginCustomer = null;
 		Designer loginDesigner = null;
 		Hairshop loginHairshop = null;
+<<<<<<< HEAD
 		Admin loginAdmin = null;
+=======
+		//Admin loginAdmin = null;
+>>>>>>> 7e5f4a6ac2dee41e86b2eddf12f39607e3e1f6ca
 		boolean isLogined = false;
 		
 		switch(loginType) {
@@ -27,7 +31,11 @@
 			isLogined = true;
 			break;
 		case "admin":
+<<<<<<< HEAD
 			loginAdmin = (Admin)session.getAttribute("loginAdmin");
+=======
+			Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+>>>>>>> 7e5f4a6ac2dee41e86b2eddf12f39607e3e1f6ca
 			isLogined = true;
 			break;
 	}
@@ -35,7 +43,13 @@
 	%>
 <!-- 글꼴 호출 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
+<<<<<<< HEAD
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+=======
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
+>>>>>>> 7e5f4a6ac2dee41e86b2eddf12f39607e3e1f6ca
 <!-- //글꼴 호출 -->
 
 <!-- 부트스트랩 호출 -->
@@ -223,6 +237,9 @@
 			 }else if($(this).val()=='admin'){
 				$("#searchId").hide();
 				$("#searchPw").hide();
+			 }else if($(this).val()=='admin'){
+				 $("#searchId").hide();
+				 $("#searchPw").hide();
 			 }		 	 
 		 });			 
 	</script>
