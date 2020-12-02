@@ -83,30 +83,31 @@
     	width : 80px;
     	border: none;
     	border-radius: 10px;
-    	background: #D9ABA0;
+    	background: #8C2E40;
     	color: white;
+    }
+    button:hover{
+    	background: #D9ABA0;
+    	transition-duration: 0.2s;
     }
     .mid{
     	width : 70%;
     	margin : 0 auto;
-    	position: relative;
     }
     .content{
     	height: 700px;
-    	overflow-y: scroll;
+    	overflow-y: auto;
+    	position: relative;
     }
     .hairshopList{
     	width: 30%;
     	float: left;
     }
-    .content table{
-    	margin : 0 auto;
-    }
     #map{
     	float: left;
-    	width: 60%;
+    	width: 900px;
     	height: 600px;
-    	position: absolute;
+    	position: fixed;
     	top: 50px;
     	right: 30px;
     }
@@ -137,6 +138,11 @@
     	margin: 50px;
     	height: 120px;
     	width: 300px;
+    	margin : 0 auto;
+    }
+    .noexist{
+    	text-align: center;
+    	margin-top: 50px;
     }
 </style>
 </head>
@@ -177,8 +183,10 @@
 				</div>
 				<div id="map"></div>
 			<%}else{ %>
-				<h1>검색하신 헤어샵이 존재하지 않습니다.</h1>
-				<a href="/hairshop">메인으로</a>
+				<div class="noexist">
+					<h1>검색하신 헤어샵이 존재하지 않습니다.</h1>
+					<a href="/hairshop">메인으로</a>
+				</div>
 			<%} %>
 			</div>
 		</div>
@@ -245,12 +253,17 @@
 				}
 			});
 		}
-	    $(document).on(".addr",function(){
+	    $(document).on(".addr",function(){//얘 안됨
 	    	$(".addr").parent().parent().css("border-radius","20px;");
 		});
 	    $("table").click(function(){
 	    	var shopNo = $(this).children().find("input").val();
 			location.href="/hairshopDetail?shopNo="+shopNo;
+	    });
+	    $(".content").scroll(function(){
+	    	$("#map").css("position", "fixed !important");
+	    	$("#map").css("top", "50px");
+	    	$("#map").css("right", "30px");//객체로 넣는 법 물어보기
 	    });
 	   </script>
 	    

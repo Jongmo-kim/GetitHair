@@ -135,8 +135,12 @@
     	width : 80px;
     	border: none;
     	border-radius: 10px;
-    	background: #D9ABA0;
+    	background: #8C2E40;
     	color: white;
+    }
+    button:hover{
+    	background: #D9ABA0;
+    	transition-duration: 0.2s;
     }
     /*
     .long{
