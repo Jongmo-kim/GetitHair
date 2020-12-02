@@ -1,7 +1,6 @@
-package hairshop.controller;
+package customer.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,23 +8,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import hairshop.model.service.HairshopService;
-import hairshop.model.vo.Hairshop;
-import image.model.service.ImageService;
-import image.model.vo.Image;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class HairshopServlet
+ * Servlet implementation class SearchCustomeIdFormServlet
  */
-@WebServlet(name = "Hairshop", urlPatterns = { "/hairshop" })
-public class HairshopServlet extends HttpServlet {
+@WebServlet(name = "SearchCustomerIdForm", urlPatterns = { "/searchCustomerIdForm" })
+public class SearchCustomerIdFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HairshopServlet() {
+    public SearchCustomerIdFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,13 +29,17 @@ public class HairshopServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		ArrayList<Hairshop> list = new HairshopService().selectHairshop();
-		int totalCount = new HairshopService().totalCount();
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshop.jsp");
-		request.setAttribute("list", list);
-		request.setAttribute("totalCount", totalCount);
-		rd.forward(request, response);
+		HttpSession session = request.getSession();
+		if(session==null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+			request.setAttribute("msg", "로그인상태에서는 불가능합니다.");
+			request.setAttribute("loc", "/");
+			rd.forward(request, response);
+		}else {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/signUp/searchCustomerForm.jsp");
+			rd.forward(request, response);
+		}
+		
 	}
 
 	/**

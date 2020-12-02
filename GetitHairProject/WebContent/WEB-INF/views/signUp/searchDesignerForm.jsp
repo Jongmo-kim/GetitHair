@@ -19,7 +19,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>회원 아이디 암호 찾기</title>
+<title>디자이너 아이디 암호 찾기</title>
 <style>
 .btnDiv {
 	margin: 0 auto;
@@ -43,8 +43,8 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container">
-	<h1>Customer ID/PW찾기</h1>
-		<form method="post" action="/serchCustmerId">			
+	<h1>Designer ID/PW찾기</h1>
+		<form method="post" action="/searchDesignerId">			
 			<table class="table">
 				<tr>
 					<th colspan="2"><p>ID찾기</p></th>
@@ -54,10 +54,10 @@
 						<div class="name inputBox">
 						<% if(option ==-1){ %>
 							<input autofocus type="text" class="form-textbox"
-								name="customerName"> 
+								name="designerName"> 
 						<%} else{%>
 							<input type="text" class="form-textbox"
-								name="customerName">
+								name="designerName">
 						<%} %>
 						<span class="form-label label-focused">이름</span>
 						</div>
@@ -67,7 +67,7 @@
 					<td>
 						<div class="inputBox">
 							<input type="text" class="form-textbox phoneInput"
-								name="customerPhone"> <span class="form-label">전화번호</span>
+								name="designerPhone"> <span class="form-label">전화번호</span>
 						</div>
 					</td>
 				</tr>
@@ -82,7 +82,7 @@
 				</tr>
 			</table>			
 		</form>
-		<form method="post" action="/serchCustmerPw">			
+		<form method="post" action="/searchDesignerPw">			
 			<table class="table">
 				<tr>
 					<th colspan="2"><p>PW찾기</p></th>
@@ -92,10 +92,10 @@
 						<div class="id inputBox">
 							<% if(option ==-1){ //암호 autofocus 용%>
 							<input type="text" class="form-textbox"
-								name="customerName"> 
+								name="designerId"> 
 							<%} else{%>
 							<input autofocus type="text" class="form-textbox"
-								name="customerName">
+								name="designerName">
 							<%} %>
 								<span class="form-label label-focused">아이디</span>
 						</div>
@@ -105,7 +105,7 @@
 					<td>
 						<div class="inputBox">
 							<input type="text" class="form-textbox phoneInput"
-								name="customerPhone"> <span class="form-label">전화번호</span>
+								name="designerPhone"> <span class="form-label">전화번호</span>
 						</div>
 					</td>
 				</tr>

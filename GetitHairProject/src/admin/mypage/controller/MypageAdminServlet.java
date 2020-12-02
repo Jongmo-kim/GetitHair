@@ -113,10 +113,11 @@ public class MypageAdminServlet extends HttpServlet {
 
 		// 예약 관련 sumamry 정보
 		int reserveWeekCnt = new ReserveService().selectAllByDate(getStartWeekAgoDate(1), getEndMonthAgoDate(0)); // 1주내 진행된 예약 수
-		int reserveMonthCnt = new ReserveService().selectAllByDate(getStartMonthAgoDate(0), getEndMonthAgoDate(0)); // 이번달 진행된 예약 수
+		int reserveCurrMonthCnt = new ReserveService().selectAllByDate(getStartMonthAgoDate(0), getEndMonthAgoDate(0)); // 이번달 진행된 예약 수
+		int reserveLastMonthCnt = new ReserveService().selectAllByDate(getStartMonthAgoDate(1), getEndMonthAgoDate(1)); // 이번달 진행된 예약 수
 		int reserveCurrCnt = new ReserveService().selectAllByDate(getCurrentDate(),getAddedDate(1)); // 당일 예약 수
 		int reserveAfterWeekCnt = new ReserveService().selectAllByDate(getAddedDate(1),getStartWeekAgoDate(-1)); // 향후 1주간 진행될 예약 수
-		int reserveAfterMonthCnt = new ReserveService().selectAllByDate(getAddedDate(1), getAddedDate(30)); // 향후 한달내 예약 수
+		int reserveNextMonthCnt = new ReserveService().selectAllByDate(getStartMonthAgoDate(-1), getEndMonthAgoDate(-1)); // 다음달 예약 수
 		// 값 설정 후 메인 관리페이지로 이동
 		// 회원 값 설정
 		request.setAttribute("customerCnt", customerCnt);
@@ -131,10 +132,11 @@ public class MypageAdminServlet extends HttpServlet {
 		request.setAttribute("shopCnt", shopCnt);
 		//예약 값 설정
 		request.setAttribute("reserveWeekCnt", reserveWeekCnt);
-		request.setAttribute("reserveMonthCnt", reserveMonthCnt);
+		request.setAttribute("reserveCurrMonthCnt", reserveCurrMonthCnt);
+		request.setAttribute("reserveLastMonthCnt", reserveLastMonthCnt);
 		request.setAttribute("reserveCurrCnt", reserveCurrCnt);
 		request.setAttribute("reserveAfterWeekCnt", reserveAfterWeekCnt);
-		request.setAttribute("reserveAfterMonthCnt", reserveAfterMonthCnt);
+		request.setAttribute("reserveNextMonthCnt", reserveNextMonthCnt);
 		
 		request.getRequestDispatcher("/WEB-INF/views/mypage/admin/mypageAdminMain.jsp").forward(request, response);
 	}

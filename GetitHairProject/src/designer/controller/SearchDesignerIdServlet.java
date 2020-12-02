@@ -1,4 +1,4 @@
-package customer.controller;
+package designer.controller;
 
 import java.io.IOException;
 
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import customer.model.service.CustomerService;
-import customer.model.vo.Customer;
+import designer.model.service.DesignerService;
+import designer.model.vo.Designer;
 
 /**
- * Servlet implementation class SerchCustmerIdServlet
+ * Servlet implementation class SerchDesignerIdServlet
  */
-@WebServlet(name = "SearchCustmerId", urlPatterns = { "/searchCustmerId" })
-public class SearchCustmerIdServlet extends HttpServlet {
+@WebServlet(name = "SearchDesignerId", urlPatterns = { "/searchDesignerId" })
+public class SearchDesignerIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchCustmerIdServlet() {
+    public SearchDesignerIdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +31,24 @@ public class SearchCustmerIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String customerName = request.getParameter("customerName");
-		String customerPhone = request.getParameter("customerPhone");		
-		Customer cust = new CustomerService().selectOneSerchId(customerName, customerPhone);
-		//System.out.println("customerName = " + customerName);
-		//System.out.println("customerPhone = " + customerPhone);
-		//System.out.println("cust = " + cust);
-		if(cust==null) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/signUp/searchCustomerForm.jsp");
+		String designerName = request.getParameter("designerName");
+		String designerPhone = request.getParameter("designerPhone");		
+		Designer designer = new DesignerService().selectOneSerchId(designerName, designerPhone);
+		//System.out.println("designerName = " + designerName);
+		//System.out.println("designerPhone = " + designerPhone);
+		//System.out.println("designer = " + designer);
+		if(designer==null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/signUp/searchDesignerForm.jsp");
 			request.setAttribute("msg", "아이디를 찾을 수 없습니다.....");			
 			rd.forward(request, response);
 		}else {
-			String stringResult = cust.getCustomerId();
+			String stringResult = designer.getDesignerId();
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/signUp/findSuccess.jsp");
 			request.setAttribute("msg", "성공했습니다!");
-			request.setAttribute("option", 1);//암호찾기 버튼 옵션 cust:1 designer:2
+			request.setAttribute("option",2);//암호찾기 버튼 옵션  cust:1 designer:2
 			request.setAttribute("stringResult", stringResult);	
 			rd.forward(request, response);
 		}
-		
 	}
 
 	/**

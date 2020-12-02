@@ -48,7 +48,7 @@
                 data: {
                     labels: ['저번달', '이번달', '1주'],
                     datasets: [{
-                        label: '회원 가입율',
+                        label: '가입한 회원수',
                         // backgroundColor: 'rgb(255, 99, 132)',
                         borderColor: '#F28D77',
                         data: [${customerLastMonthCnt}, ${customerMonthCnt}, ${customerWeekCnt}]
@@ -65,12 +65,12 @@
 
                 // The data for our dataset
                 data: {
-                    labels: ['저번달', '이번달','오늘', '향후 1주','향후 한달'],
+                    labels: ['저번달', '이번달','오늘', '향후 1주','다음달'],
                     datasets: [{
-                        label: '에약 수',
+                        label: '에약 수(종료일 기준)',
                         backgroundColor: '#F28D77',
                         borderColor: '#F28D77',
-                        data: [${reserveWeekCnt}, ${reserveMonthCnt},${reserveCurrCnt},${reserveAfterWeekCnt},${reserveAfterMonthCnt}],
+                        data: [${reserveLastMonthCnt}, ${reserveCurrMonthCnt},${reserveCurrCnt},${reserveAfterWeekCnt},${reserveNextMonthCnt}],
                        
                     }]
                 },
@@ -147,12 +147,12 @@
                     <ul>
                         <li>
                             <div class="count-week">
-                                <span>일주일간 예약 : ${reserveWeekCnt} 개</span>
+                                <span>7일전~오늘 예약 : ${reserveWeekCnt} 개</span>
                             </div>
                         </li>
                         <li>
                             <div class="count-month">
-                                <span>한달간 예약 : ${reserveMonthCnt} 개</span>
+                                <span>이번달 예약 : ${reserveCurrMonthCnt} 개</span>
                             </div>
                             
                         </li>

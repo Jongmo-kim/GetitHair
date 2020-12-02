@@ -10,6 +10,9 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<link rel="stylesheet" href="/css/signUp/inputBox.css">
 	<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
+	<%if(loginDesigner == null){%>
+		<a href="/searchDesignerIdForm">ID</a> / <a href="/searchDesignerPwForm">PW</a>찾기</p>
+	<% } %>
 	<form action="/signUpDesigner" method="post" enctype="">
 		<input type="hidden" name="designerNo" value="-1">
 	    <div class="container">

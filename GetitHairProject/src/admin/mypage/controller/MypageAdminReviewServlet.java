@@ -47,6 +47,7 @@ public class MypageAdminReviewServlet extends HttpServlet {
 		int pageSize = 0;
 		ArrayList<Review> list = null;
 		if(type != 0 && !keyword.equals("")) { //검색으로 얻어올 경우
+			pageSize = new ReviewService().getAllReviewByCustomerIdMaxPageSize(maxPrintSize,keyword);
 			list = new ReviewService().selectAllReviewById(keyword,reqPage,maxPrintSize);
 		}else { //검색이 아닐때 모든 리뷰를 반환.
 			pageSize = new ReviewService().getAllReviewMaxPageSize(maxPrintSize);

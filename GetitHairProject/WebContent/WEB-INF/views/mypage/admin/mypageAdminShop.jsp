@@ -87,7 +87,6 @@
                 <form action="/mypageAdminShop" method="GET">
                     <div class="shop-search">
                         <select name="searchType">
-                            <option value="1" ${param.searchType==1 ? "selected" : "" }>아이디</option>
                             <option value="2" ${param.searchType==2 ? "selected" : "" }>이름</option>
                         </select>
                         <input type="text" name="keyword" value="<%=keyword%>">
@@ -122,8 +121,8 @@
                                             <th>${hs.shopLikes}</th>
                                             <th>${hs.addrPostcode}</th>
                                             <th>
-                                                <button class="rvbtn" type="button">미용실 리뷰목록</button>
-                                                <button>삭제</button>
+                                                <button class="btn rvbtn" type="button">미용실 리뷰목록</button>
+                                                <button class="btn btn-one-del">삭제</button>
                                             </th>
                                         </tr>
                                     </c:forEach>
@@ -132,9 +131,9 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="8">
-                                        <button class="btn-allcheck" type="button">전체선택</button>
-                                        <button>선택한 샵 삭제</button>
-                                        <button type="reset">전체 선택해제</button>
+                                        <button class="btn btn-allcheck" type="button">전체선택</button>
+                                        <button class="btn btn-del">선택한 샵 삭제</button>
+                                        <button class="btn" type="reset">전체 선택해제</button>
                                     </th>
                                 </tr>
                             </tfoot>
@@ -309,6 +308,19 @@
             $("#close-modal").click(function (e) {
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
+            })
+            //한명 탈퇴 버튼 클릭 이벤트
+            $(".del-one-btn").on("click", function (e) {
+                $("input:checkbox[name=customerId]").prop("checked", false);
+                if (!confirm("정말 탈퇴하시겠습니까?")) {
+                    return false; //취소 눌렀을 시 submit 이벤트 발생 방지
+                }
+            })
+            //선택회원 탈퇴 버튼 클릭 이벤트
+            $(".del-btn").on("click", function (e) {
+                if (!confirm("정말 탈퇴하시겠습니까?")) {
+                    return false; //취소 눌렀을 시 submit 이벤트 발생 방지
+                }
             })
             // 전체 선택 버튼 클릭 이벤트
             $(".btn-allcheck").on("click", function (e) {
