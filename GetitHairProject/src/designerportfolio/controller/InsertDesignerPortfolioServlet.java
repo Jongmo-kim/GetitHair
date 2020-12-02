@@ -1,7 +1,6 @@
 package designerportfolio.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,10 +16,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import designerportfolio.model.service.DesignerPortfolioService;
 import designerportfolio.model.vo.DesignerPortfolio;
-import image.model.dao.ImageDao;
 import image.model.service.ImageService;
-import image.model.vo.Image;
-import image.model.vo.ImageList;
 
 /**
  * Servlet implementation class InsertDesignerPortfolioServlet
@@ -64,10 +60,9 @@ public class InsertDesignerPortfolioServlet extends HttpServlet {
 		int desigerNo = Integer.parseInt(mRequest.getParameter("designerNo"));		
 		System.out.println("desigerNo : "+desigerNo);
 		
-		// 여기서 이미지 파일 리스트 불러오는 로직을 구현하는 로직
+		// 여기서 이미지 파일 리스트 불러오는 로직을 구현해야함
 		String filename = mRequest.getOriginalFileName("filename");
 		String filepath = mRequest.getFilesystemName("filename");
-
 		
 		int imgResult = new ImageService().insertImage("designer", desigerNo, filename, filepath);
 		int result = new DesignerPortfolioService().insertDesignerPortfolio(dp,desigerNo);
