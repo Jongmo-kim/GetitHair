@@ -37,7 +37,7 @@ public class HairshopServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		ArrayList<Hairshop> list = new HairshopService().selectHairshop();
 		int totalCount = new HairshopService().totalCount();
-		ArrayList<Image> styleimg = new ImageService().selectAllImageListByType("style");
+		ArrayList<Image> styleimg = new ImageService().selectAllImageByType("style");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/hairshop.jsp");
 		request.setAttribute("list", list);
 		request.setAttribute("totalCount", totalCount);
