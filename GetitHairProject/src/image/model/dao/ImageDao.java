@@ -122,5 +122,27 @@ public class ImageDao {
 
 		return result;
 	}
+	public String selectFilepath(Connection conn, String type, int typeNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select filepath from image where img_type=? and img_no=?";
+		String filepath = "";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, type);
+			pstmt.setInt(2, typeNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				filepath = rset.getString("filepath");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+
+		return filepath;
+	}
 
 }
