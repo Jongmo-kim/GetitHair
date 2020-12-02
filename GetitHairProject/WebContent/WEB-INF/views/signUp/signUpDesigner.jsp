@@ -45,7 +45,7 @@
 	        </div>
 	        <div class="name inputBox">
 	        	이미지
-	            <input type="file">
+	            <input type="filename">
 	        </div>
 	        <div class="name">
 		        <button class="btn btn-primary">제출</button>

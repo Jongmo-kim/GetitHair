@@ -19,6 +19,7 @@ import common.DesignerTemplate;
 import designer.model.dao.DesignerDao;
 import designer.model.service.DesignerService;
 import designer.model.vo.Designer;
+import image.model.service.ImageService;
 
 /**
  * Servlet implementation class DesignerSignupServlet
@@ -39,28 +40,46 @@ public class SignupDesignerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(!ServletFileUpload.isMultipartContent(request)) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			request.setAttribute("msg", "디자이너 회원가입 오류 [enctype]");
-			request.setAttribute("loc", "/");
-			rd.forward(request, response);
+		if(isMultiContent(request)) {
+			toMsg();
 			return;
 		}
+		String Msg = "";
 		MultipartRequest mRequest = getMultipartRequest(request);
 		Designer designer = DesignerTemplate.setDesigner(mRequest);
 		int result = new DesignerService().insertDesigner(designer);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		
 		if(result >0) {
+			Designer insertedDesigner = new DesignerService().selectOneDesigner(designer.getDesignerId());
+			String type="designer";
+			int typeNo = insertedDesigner.getDesignerNo();
+			int imgResult = new ImageService().insertImage(mRequest.getFilesystemName("filename"), type, typeNo);
+			if(imgResult > 0) {
+				Msg += "이미지 등록 성공";
+			}else {
+				Msg += "이미지 등록 실패";
+			}
 			request.setAttribute("loc", "/");
-			request.setAttribute("msg", "디자이너 가입 성공");
+			request.setAttribute("msg", Msg);
 		} else {
 			request.setAttribute("loc", "/");
-			request.setAttribute("msg", "디자이너 가입 실패");
+			request.setAttribute("msg", Msg);
 		}
 		rd.forward(request, response);
 	}
 	
+	private boolean isMultiContent(HttpServletRequest request) {
+		return !ServletFileUpload.isMultipartContent(request);
+	}
+
+	private void toMsg(HttpServletRequest request,HttpServletResponse response) {
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+		request.setAttribute("msg", "디자이너 회원가입 오류 [enctype]");
+		request.setAttribute("loc", "/");
+		rd.forward(request, response);
+	}
+
 	private MultipartRequest getMultipartRequest(HttpServletRequest request) {
 		String root = getServletContext().getRealPath("/");
 		String saveDir = root + "upload/designer";
