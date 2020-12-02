@@ -17,31 +17,29 @@
 <head>
 <meta charset='utf-8' />
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<link
-	href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css'
-	rel='stylesheet'>
+<link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
 
 <script src='calendarapi/lib/main.js'></script>
 <link href='calendarapi/lib/main.css' rel='stylesheet' />
 
-<link
-	href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css'
-	rel='stylesheet' />
-<link
-	href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css'
-	rel='stylesheet'>
-<link rel="stylesheet"
-	href="https://bootswatch.com/4/lux/bootstrap.min.css">
+<link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet' />
+<link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
+<link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
 
 
 
 
 <script>
+var arr = new Array();
+<%if(!list.isEmpty()){%>
+	<%for (Reserve r : list){%>
+		arr.push(<%=r.getReserveNo()%>);
+	<%}%>
+<%}%>
+
 Date.prototype.format = function(f) {
     if (!this.valueOf()) return " ";
  
@@ -98,67 +96,13 @@ Number.prototype.zf = function(len){return this.toString().zf(len);};
                     calendar.unselect();
                 },
                 eventClick: function(arg) {
-                	//data-toggle="modal" data-target="#loginModal"
                 	//data-toggle="modal" data-target="#myModal"
                     var selectEvent = arg.el;
                 	var event = arg.event;
                 	var reserveNo = arg.event.id;
-                	selectEvent.setAttribute('data-toggle', 'modal'); 
-                	selectEvent.setAttribute('data-target', '#myModal');
-                	//모달창을 띄웠으니 그 안 inputvalue에 값을 채울거에요
-                	//어떻게 채울거냐면 reserveNo로 값을 가져와야하는데 지금 html에서는 가져올수없으니
-                	//ajax를 통해 sevlet을 호출하여 모든 rserve요소들을 가져올거에요
-                	//1. ajax 요청을 받을 적당한 servlet만들기
-                	//2. reserveNo를 ajax를 통해 servlet에 보내기
-                	//3. servlet에서 받은 data로 input tag에 값 채워넣기
-                	$.ajax({
-                		url : "/selectOneReserveCalnedar?reserveNo="+reserveNo,
-                		type : "post",
-                		success : function(date){
-                			var data = JSON.parse(date);
-                			var reserveNoInputTag = $('input[name="reserveNo"]');
-                			var reserveTitleInputTag = $('input[name="reserveTitle"]');
-                			var customerNameInputTag = $('input[name="customerName"]');
-                			var reserveStartDate = $('input[name="reserveStartDate"]');
-                			var reserveEndDate = $('input[name="reserveEndDate"]');
-                			var reserveDate = $('input[name="reserveDate"]');
-                			var reserveStatus = $('input[name="reserveStatus"]');
-                			var reserveCustReq = $('input[name="reserveCustReq"]');
-                			var reserveDesignerReq = $('input[name="reserveDesignerReq"]');
-                			var reserveDesignerMemo = $('input[name="reserveDesignerMemo"]');
-                			var reserveDesignerMemo = $('input[name="reserveDesignerMemo"]');
-                			var reserveNo = data.reserveNo;
-                			var reserveNo = data.reservTitle;
-                			
-                			var endDate = new Date(data.reserveEndDate);
-                			$(reserveEndDate).val(endDate.format('yyyy-MM-dd hh시 mm분'));
-                			
-                			var currDate = new Date(data.reserveDate);
-                			$(reserveStartDate).val(currDate.format('yyyy-MM-dd hh시 mm분'));
-                			
-                			var startDate = new Date(data.reserveStartDate);
-                			$(reserveDate).val(startDate.format('yyyy-MM-dd hh시 mm분'));
-                			
-                			$(reserveNoInputTag).val(data.reserveNo);
-                			$(reserveTitleInputTag).val(data.reserveTitle);
-                			$(customerNameInputTag).val(data.customerName);
-                			$(reserveStatus).val(data.reserveStatus);
-                			$(reserveCustReq).val(data.reserveCustReq);
-                			$(reserveDesignerReq).val(data.reserveDesignerReq);
-                			$(reserveDesignerMemo).val(data.reserveDesignerMemo);
-                			
-                		},beforeSend: function() {
-                    		  $('#loading_indicator').show().fadeIn('fast');
-                      		  $('#submitBtn').hide();
-                      		 },
-                    	error : function(){
-                    		
-                    	},
-                    	complete : function(){
-                    		 $('#loading_indicator').fadeOut();
-                      		  $('#submitBtn').show();
-                    	}
-                	})
+                	return selectEvent;
+                	return event;
+                	return reserveNo;
                 },
                 editable: true,
                 dayMaxEvents: true, // allow "more" link when too many events
@@ -229,7 +173,70 @@ Number.prototype.zf = function(len){return this.toString().zf(len);};
             else
                 return false ;
         }
-         
+         $(function(){
+        	$(document).on("click",".fc-daygrid-event-harness",function(){
+        		alert("!");
+        		console.log($(this));
+        		//$(this).attr('data-toggle', 'modal'); 
+        		//$(this).attr('data-target', '#eventModal');
+        		$("#eventModal").show();
+        		var idx = $(".fc-daygrid-event-harness").index(this);
+        		var reserveNo = arr[idx];
+        		console.log(reserveNo);
+            	$.ajax({
+            		url : "/selectOneReserveCalnedar",
+            		data : {reserveNo,reserveNo},
+            		type : "post",
+            		success : function(date){
+            			var data = JSON.parse(date);
+            			var reserveNoInputTag = $('input[name="reserveNo"]');
+            			var reserveTitleInputTag = $('input[name="reserveTitle"]');
+            			var customerNameInputTag = $('input[name="customerName"]');
+            			var reserveStartDate = $('input[name="reserveStartDate"]');
+            			var reserveEndDate = $('input[name="reserveEndDate"]');
+            			var reserveDate = $('input[name="reserveDate"]');
+            			var reserveStatus = $('input[name="reserveStatus"]');
+            			var reserveCustReq = $('input[name="reserveCustReq"]');
+            			var reserveDesignerReq = $('input[name="reserveDesignerReq"]');
+            			var reserveDesignerMemo = $('input[name="reserveDesignerMemo"]');
+            			var reserveDesignerMemo = $('input[name="reserveDesignerMemo"]');
+            			var reserveNo = data.reserveNo;
+            			var reserveNo = data.reservTitle;
+            			
+            			var endDate = new Date(data.reserveEndDate);
+            			$(reserveEndDate).val(endDate.format('yyyy-MM-dd hh시 mm분'));
+            			
+            			var currDate = new Date(data.reserveDate);
+            			$(reserveStartDate).val(currDate.format('yyyy-MM-dd hh시 mm분'));
+            			
+            			var startDate = new Date(data.reserveStartDate);
+            			$(reserveDate).val(startDate.format('yyyy-MM-dd hh시 mm분'));
+            			
+            			$(reserveNoInputTag).val(data.reserveNo);
+            			$(reserveTitleInputTag).val(data.reserveTitle);
+            			$(customerNameInputTag).val(data.customerName);
+            			$(reserveStatus).val(data.reserveStatus);
+            			$(reserveCustReq).val(data.reserveCustReq);
+            			$(reserveDesignerReq).val(data.reserveDesignerReq);
+            			$(reserveDesignerMemo).val(data.reserveDesignerMemo);
+            			
+            		},beforeSend: function() {
+                		  $('#loading_indicator').show().fadeIn('fast');
+                  		  $('#submitBtn').hide();
+                  		 },
+                	error : function(){
+                		
+                	},
+                	complete : function(){
+                		 $('#loading_indicator').fadeOut();
+                  		  $('#submitBtn').show();
+                	}
+            	})
+        	});
+        	$(document).on("click","#modalClose",function(){
+        		$("#eventModal").hide();
+        	});
+         });
     </script>
 <style>
 body {
@@ -253,64 +260,55 @@ body {
 <body>
 
 	<!-- The Modal -->
-	<div class="modal" id="myModal">
+	<div class="modal" id="eventModal" style="display: none">
 		<div class="modal-dialog">
 			<div class="modal-content">
 
 				<!-- Modal Header -->
 				<div class="modal-header">
-					<h4 class="modal-title" style="text-align: center">예약 조회</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" style="text-align: center"></h4>
+					<button type="button" class="close">&times;</button>
 				</div>
 
 				<!-- Modal body -->
-				<form action="/updateReserveCalnedar" method="post">
+				<form action="/updateReserveCalendarModal" method="post">
 					<div class="modal-body" style="text-align: center">
-						<table>
+						<table >
 							<tr>
-								<th colspan="2"><input type="hidden" name="reserveNo"
-									class="form-control"> <input type="text"
-									name="reserveTitle" class="form-control"></th>
+								<th colspan="2"><input type="hidden" name="reserveNo" class="form-control"> 
+								<input type="text" name="reserveTitle" class="form-control"></th>
 							</tr>
 							<tr>
 								<th><label>예약자명</label></th>
-								<td><input type="text" name="customerName"
-									class="form-control" readonly></td>
+								<td><input type="text" name="customerName" class="form-control" readonly></td>
 							</tr>
 							<tr>
 								<th><label>예약시작일</label></th>
-								<td><input type="text" name="reserveStartDate"
-									class="form-control"></td>
+								<td><input type="text" name="reserveStartDate" class="form-control"></td>
 							</tr>
 							<tr>
 								<th><label>예약종료일</label></th>
-								<td><input type="text" name="reserveEndDate"
-									class="form-control"></td>
+								<td><input type="text" name="reserveEndDate" class="form-control"></td>
 							</tr>
 							<tr>
 								<th><label>예약날짜</label></th>
-								<td><input type="text" name="reserveDate"
-									class="form-control"></td>
+								<td><input type="text" name="reserveDate" class="form-control"></td>
 							</tr>
 							<tr>
 								<th><label>상태</label></th>
-								<td><input type="text" name="reserveStatus"
-									class="form-control"></td>
+								<td><input type="text" name="reserveStatus" class="form-control"></td>
 							</tr>
 							<tr>
 								<th><label>손님코멘트</label></th>
-								<td><input type="text" name="reserveCustReq"
-									class="form-control" readonly></td>
+								<td><input type="text" name="reserveCustReq" class="form-control" readonly></td>
 							</tr>
 							<tr>
 								<th><label>디자이너코멘트</label></th>
-								<td><input type="text" name="reserveDesignerReq"
-									class="form-control"></td>
+								<td><input type="text" name="reserveDesignerReq" class="form-control"></td>
 							</tr>
 							<tr>
 								<th><label>메모</label></th>
-								<td><input type="text" name="reserveDesignerMemo"
-									class="form-control"></td>
+								<td><input type="text" name="reserveDesignerMemo" class="form-control"></td>
 							</tr>
 						</table>
 					</div>
@@ -318,7 +316,7 @@ body {
 					<!-- Modal footer -->
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-default">수정</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-default" id="modalClose">닫기</button>
 					</div>
 				</form>
 
@@ -329,7 +327,6 @@ body {
 		class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"></div>
 	<br>
 	<button id="submitBtn" type="button" class="btn btn-primary" >저장하기</button>
-	<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">ahekf</button>
 	<!-- <div style="position: fixed; top: 500px;">
 		<button id="submitBtn" type="button" class="btn btn-primary"
 			style="width: 200px; height: 200px">제출하기</button>
