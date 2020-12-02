@@ -69,7 +69,7 @@ public class HairshopDetailServlet extends HttpServlet {
 			typeList.add(stl);
 		}
 		for(int i=0;i<typeList.size();i++)
-		System.out.println("type: "+typeList.get(i).getType()+" size:"+typeList.get(i).getStyleList().size());
+			System.out.println("type: "+typeList.get(i).getType()+" size:"+typeList.get(i).getStyleList().size());
 
 		ArrayList<ShopPrice> price = new ShopPriceService().selectOneShopDetaPrice(shopNo);
 		if (hs != null) {
