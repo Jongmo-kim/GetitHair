@@ -56,19 +56,27 @@ public class SignupDesignerServlet extends HttpServlet {
 		Designer designer = DesignerTemplate.setDesigner(mRequest);
 		int result = new DesignerService().insertDesigner(designer);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+		System.out.println(designer);
 		if(result >0) {
-			Designer insertedDesigner = new DesignerService().selectOneDesigner(designer.getDesignerId());
-			String type = "designer";
-			int typeNo = insertedDesigner.getDesignerNo();
-			int imgResult = new ImageService().insertImage(mRequest.getFilesystemName("filename"), type, typeNo);
-			if(imgResult > 0) {
-				Msg += "이미지 등록 성공\n";
-			}else {
-				Msg += "이미지 등록 실패\n";
+			String fileName = mRequest.getFilesystemName("filename");
+			if(fileName==null) {
+				
+			} else {
+				Designer insertedDesigner = new DesignerService().selectOneDesigner(designer.getDesignerId());
+				String type = "designer";
+				int typeNo = insertedDesigner.getDesignerNo();
+				int imgResult = new ImageService().insertImage(mRequest.getFilesystemName("filename"), type, typeNo);
+				if(imgResult > 0) {
+					Msg += "이미지 등록 성공\n";
+				}else {
+					Msg += "이미지 등록 실패\n";
+				}
 			}
+			Msg += "회원가입 성공";
 			request.setAttribute("loc", "/");
 			request.setAttribute("msg", Msg);
 		} else {
+			Msg += "회원가입 실패";
 			request.setAttribute("loc", "/");
 			request.setAttribute("msg", Msg);
 		}

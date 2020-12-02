@@ -15,7 +15,6 @@ public class Designer {
 	private Hairshop shop;
 	public Designer() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Designer(int designerNo, String designerId, String designerPw, String designerName, String designerPhone,
 			int designerYear, String designerRank, String designerIntro, String designerEnrolldate, Hairshop shop) {
@@ -91,4 +90,12 @@ public class Designer {
 	public void setShop(Hairshop shop) {
 		this.shop = shop;
 	}
+	@Override
+	public String toString() {
+		return "Designer [designerNo=" + designerNo + ", designerId=" + designerId + ", designerPw=" + designerPw
+				+ ", designerName=" + designerName + ", designerPhone=" + designerPhone + ", designerYear="
+				+ designerYear + ", designerRank=" + designerRank + ", designerIntro=" + designerIntro
+				+ ", designerEnrolldate=" + designerEnrolldate + ", shop=" + shop + "]";
+	}
+	
 }

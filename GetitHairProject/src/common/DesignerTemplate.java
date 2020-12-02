@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.oreilly.servlet.MultipartRequest;
 
 import designer.model.vo.Designer;
+import hairshop.model.service.HairshopService;
+import hairshop.model.vo.Hairshop;
 import image.model.service.ImageService;
 
 public class DesignerTemplate {
@@ -54,6 +56,9 @@ public class DesignerTemplate {
 		String rank = request.getParameter("designerRank");
 		String intro = request.getParameter("designerIntro");
 		String enrollDate = request.getParameter("designerEnrollDate");
+		int styleNo = Integer.parseInt(request.getParameter("styleNo"));
+		Hairshop hairshop = new HairshopService().selectOneHairshop(styleNo);
+		
 		if(DebugTemplate.DebugMode) {
 			System.out.println("DesignerId : " +id);
 			System.out.println("Designerpw : " +pw);
@@ -64,8 +69,7 @@ public class DesignerTemplate {
 			System.out.println("Designerintro : " +intro);
 			System.out.println("DesignerEnrollDate : " +enrollDate);
 		}
-		
-		
+		designer.setShop(hairshop);
 		designer.setDesignerId(id);
 		designer.setDesignerIntro(intro);
 		designer.setDesignerName(name);
@@ -75,7 +79,6 @@ public class DesignerTemplate {
 		designer.setDesignerRank(rank);
 		designer.setDesignerYear(year);
 		designer.setDesignerEnrolldate(enrollDate);
-		// desinger 초기화
 		return designer;
 	}
 }
