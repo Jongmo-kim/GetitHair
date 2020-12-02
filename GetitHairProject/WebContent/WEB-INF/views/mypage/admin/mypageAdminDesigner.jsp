@@ -62,6 +62,7 @@
                                     <th>이름</th>
                                     <th>경력</th>
                                     <th>직급</th>
+                                    <th>가입일</th>
                                     <th>기능</th>
                                 </tr>
                             </thead>
@@ -69,15 +70,17 @@
                                 <c:if test="${not empty list}">
                                     <c:forEach var="de" items="${list}">
                                         <tr>
-                                            <th width="30"><input type="checkbox" name="designerId" value="${de.designerId}">
+                                            <th width="30"><input type="checkbox" name="designerId"
+                                                    value="${de.designerId}">
                                             </th>
                                             <th>${de.designerNo}</th>
                                             <th>${de.designerId}</th>
                                             <th>${de.designerName}</th>
-                                            <th>${de.designerYear}</th>
+                                            <th>${de.designerYear}년</th>
                                             <th>${de.designerRank}</th>
+                                            <th>${de.designerEnrolldate}</th>
                                             <th>
-                                                <button class="btn">탈퇴</button>
+                                                <button class="btn del-one-btn">탈퇴</button>
                                             </th>
                                         </tr>
                                     </c:forEach>
@@ -87,7 +90,7 @@
                                 <tr>
                                     <th colspan="8">
                                         <button class="btn btn-allcheck" type="button">전체선택</button>
-                                        <button class="btn">선택회원 탈퇴</button>
+                                        <button class="btn del-btn">선택회원 탈퇴</button>
                                         <button class="btn" type="reset">전체 선택해제</button>
                                     </th>
                                 </tr>
@@ -96,7 +99,8 @@
                     </div>
                     <div class="page-nav">
                         <c:if test="${pageStart!=1}">
-                            <a href="mypageAdminDesigner?searchType=&keyword=${param.searchType}&keyword=${param.keyword}&reqPage=${pageStart-1}">이전</a>
+                            <a
+                                href="mypageAdminDesigner?searchType=&keyword=${param.searchType}&keyword=${param.keyword}&reqPage=${pageStart-1}">이전</a>
                         </c:if>
                         <c:forEach var="i" begin="${pageStart}" end="${pageEnd}">
                             <a href="mypageAdminDesigner?searchType=${param.searchType}&keyword=${param.keyword}&reqPage=${i}"
@@ -104,7 +108,8 @@
                                 }">${i}</a>
                         </c:forEach>
                         <c:if test="${pageEnd<pageSize}">
-                            <a href="mypageAdminDesigner?searchType=${param.searchType}&keyword=${param.keyword}&reqPage=${pageEnd+1}">다음</a>
+                            <a
+                                href="mypageAdminDesigner?searchType=${param.searchType}&keyword=${param.keyword}&reqPage=${pageEnd+1}">다음</a>
                         </c:if>
                     </div>
                 </form>
@@ -146,12 +151,14 @@
                 }
             });
         }
+
         function toggleCheckbox(checkbox) {
             if ($(checkbox).prop("checked") == true)
                 $(checkbox).prop("checked", false);
             else if ($(checkbox).prop("checked") == false)
                 $(checkbox).prop("checked", true);
         }
+
         function setClickToRemoveReviewBtn() {
             $(document).off("click", ".delete-review");
             $(document).on("click", ".delete-review", function (e) {
@@ -189,7 +196,19 @@
                 $(".modal-overlay").css("display", "none");
                 $(".review-container").css("display", "none");
             })
-
+            //한명 탈퇴 버튼 클릭 이벤트
+            $(".del-one-btn").on("click", function (e) {
+                $("input:checkbox[name=customerId]").prop("checked", false);
+                if (!confirm("정말 탈퇴하시겠습니까?")) {
+                    return false; //취소 눌렀을 시 submit 이벤트 발생 방지
+                }
+            })
+            //선택회원 탈퇴 버튼 클릭 이벤트
+            $(".del-btn").on("click", function (e) {
+                if (!confirm("정말 탈퇴하시겠습니까?")) {
+                    return false; //취소 눌렀을 시 submit 이벤트 발생 방지
+                }
+            })
             // 전체 선택 버튼 클릭 이벤트
             $(".btn-allcheck").on("click", function (e) {
                 console.log($(".designer-list tbody th>input:checkbox"));

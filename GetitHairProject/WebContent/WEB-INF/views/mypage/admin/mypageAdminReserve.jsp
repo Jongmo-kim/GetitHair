@@ -47,10 +47,11 @@
                                     <th></th>
                                     <th>번호</th>
                                     <th>미용실</th>
+                                    <th>담당 디자이너</th>
                                     <th>예약자</th>
-                                    <th>디자이너</th>
                                     <th>상태</th>
-                                    <th>예약일</th>
+                                    <th>예약 접수일</th>
+                                    <th>예약 종료일</th>
                                     <th>기능</th>
                                 </tr>
                             </thead>
@@ -63,12 +64,12 @@
                                             </th>
                                             <th>${rsv.reserveNo}</th>
                                             <th>${rsv.shop.shopName}</th>
-                                            <th>${rsv.customer.customerId}</th>
                                             <th>${rsv.designer.designerName}</th>
+                                            <th>${rsv.customer.customerId}</th>
                                             <th>${rsv.reserveStatus}</th>
                                             <th>${rsv.reserveDate}</th>
+                                            <th>${rsv.reserveEndDate}</th>
                                             <th>
-                                                <button class="btn rvbtn" type="button">작성한 리뷰보기</button>
                                                 <button class="btn del-one-btn">삭제</button>
                                             </th>
                                         </tr>
@@ -174,68 +175,6 @@
                 reviewAjax(customerNo, reqPage);
 
             });
-        }
-        //리뷰목록 불러오기
-        function reviewAjax(customerNo, reqPage) {
-            $.ajax({
-                url: "/adminSelectCustomerReview",
-                type: "post",
-                cache: false,
-                dataType: "json",
-                data: {
-                    customerNo: customerNo,
-                    reqPage: reqPage
-                },
-                success: function (data) {
-                    if (data != null)
-                        for (var i = 0; i < data.length; i++) {
-                            var html = [
-                                "<tr class='row-review'>",
-                                "<th width='30'><input type='checkbox' name='chk' value='" + data[i]
-                                .reviewNo + "'></th>",
-                                "<th>" + data[i].reviewNo + "</th>",
-                                "<th>" + data[i].shop.shopName + "</th>",
-                                "<th>" + data[i].designer.designerName + "</th>",
-                                "<th>" + data[i].customer.customerId + "</th>",
-                                "<th>" + data[i].reviewContent + "</th>",
-                                "<th><button class='delete-review' value='" + data[i].reviewNo +
-                                "'data-customerNo='"+data[i].customer.customerNo+"'>삭제</button></th>",
-                                "</tr>"
-                            ];
-                            $(".review-list").children('tbody').append(html.join());
-                        }
-                        reviewPagingAjax(customerNo,reqPage);
-                }
-            })
-        }
-        //리뷰목록 페이징
-        function reviewPagingAjax(customerNo, reqPage) {
-            $(".review-container .page-nav").empty();
-            $.ajax({
-                url: "/adminSelectReviewPaging",
-                type: "post",
-                cache: false,
-                dataType: "json",
-                data: {
-                    customerNo: customerNo,
-                    reqPage: reqPage
-                },
-                success: function (data) {
-                    let html = [];
-
-                    if (data.pageStart != 1) {
-                        html.push('<a href="#">이전</a>');
-                    }
-                    for (let i = data.pageStart; i <= data.pageEnd; i++) {
-                        html.push('<a href="#" class="page-no" style="' + (i == data.reqPage ?
-                            "color: black;" : "") + '">' + i + '</a>');
-                    }
-                    if (data.pageEnd < data.maxPageSize) {
-                        html.push('<a href="#">다음</a>');
-                    }
-                    $(".review-container .page-nav").append(html.join());
-                }
-            })
         }
 
         function toggleCheckbox(checkbox) {

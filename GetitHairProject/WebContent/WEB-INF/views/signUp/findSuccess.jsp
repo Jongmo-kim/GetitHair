@@ -6,8 +6,13 @@
     		stringResult = (String)request.getAttribute("stringResult");
     	}else{
     		stringResult = "-1";
+    	}    	
+    	int option ;
+    	if((Integer)request.getAttribute("option") !=null){
+    		option = (Integer)request.getAttribute("option");
+    	}else{
+    		option = -1;
     	}
-    	int option = (Integer)request.getAttribute("option");
     	int intResult ;
     	if((Integer)request.getAttribute("intResult") !=null){
     		intResult = (Integer)request.getAttribute("intResult");
@@ -31,7 +36,10 @@
 	 	<h1>당신이 찾는 결과는  [ <%= intResult%> ]입니다</h1>
 	 <% } %>
 	 <% if(option == 1) {%>
-	 	<button class="btn btn-primary" onclick="location.href='/searchCustomeIdForm'">암호찾기</button>
+	 	<button class="btn btn-primary" onclick="location.href='/searchCustomerIdForm'">암호찾기</button>
+	 <% }else if(option == 2) {%>
+	 	<h1>암호변경에 성공했습니다!</h1>	 
+	 	<button class="btn btn-primary" onclick="location.href='/searchDesignerIdForm'">암호찾기</button>
 	 <% } %>
 	 	<button class="btn btn-primary" data-toggle="modal" data-target="#loginModal">로그인하기</button>
 	 </div> 	

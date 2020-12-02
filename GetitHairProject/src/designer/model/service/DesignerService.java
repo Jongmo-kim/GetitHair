@@ -105,5 +105,19 @@ public class DesignerService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	//태민추가 메서드 디자이너 ID/PW찾기 위함...
+	public Designer selectOneSerchId(String designerName, String designerPhone) {
+		Connection conn = JDBCTemplate.getConnection();
+		Designer result = new DesignerDao().selectOneSerchId(conn, designerName, designerPhone);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+	//태민추가메서드 암호찾기..
+	public Designer selectOneSerchPw(String designerId, String designerPhone) {
+		Connection conn = JDBCTemplate.getConnection();
+		Designer result = new DesignerDao().selectOneSerchPw(conn, designerId, designerPhone);
+		JDBCTemplate.close(conn);
+		return result;
+	}
 
 }
