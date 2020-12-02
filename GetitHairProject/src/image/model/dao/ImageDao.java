@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import common.JDBCTemplate;
 import image.model.service.ImageService;
 import image.model.vo.Image;
 import image.model.vo.ImageList;
@@ -32,6 +33,9 @@ public class ImageDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
 		}
 
 		return image;
@@ -59,6 +63,9 @@ public class ImageDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
 		}
 
 		return list;
@@ -87,6 +94,9 @@ public class ImageDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
 		}
 
 		return list;
@@ -105,11 +115,12 @@ public class ImageDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
 		}
 
 		return result;
 	}
-
 	public int insertImageList(Connection conn, String type, int typeNo) {
 		PreparedStatement pstmt = null;
 		String qryInsert = "insert into image_list values(image_list_seq.nextval,image_seq.currval,?,?)";
@@ -123,6 +134,8 @@ public class ImageDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
 		}
 
 		return result;
