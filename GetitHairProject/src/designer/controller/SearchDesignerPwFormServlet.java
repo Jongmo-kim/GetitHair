@@ -1,4 +1,4 @@
-package customer.controller;
+package designer.controller;
 
 import java.io.IOException;
 
@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class SearchCustomeIdFormServlet
+ * Servlet implementation class SearchDesignerPwFormServlet
  */
-@WebServlet(name = "SearchCustomeIdForm", urlPatterns = { "/searchCustomeIdForm" })
-public class SearchCustomeIdFormServlet extends HttpServlet {
+@WebServlet(name = "SearchDesignerPwForm", urlPatterns = { "/searchDesignerPwForm" })
+public class SearchDesignerPwFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchCustomeIdFormServlet() {
+    public SearchDesignerPwFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,10 +36,10 @@ public class SearchCustomeIdFormServlet extends HttpServlet {
 			request.setAttribute("loc", "/");
 			rd.forward(request, response);
 		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/searchCustomerFrom.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/signUp/searchDesignerForm.jsp");
+			request.setAttribute("option", 1);//암호focus옵션...
 			rd.forward(request, response);
 		}
-		
 	}
 
 	/**

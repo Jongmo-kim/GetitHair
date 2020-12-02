@@ -15,7 +15,7 @@ import customer.model.vo.Customer;
 /**
  * Servlet implementation class SerchCustmerPwServlet2
  */
-@WebServlet(name = "SerchCustmerPw", urlPatterns = { "/serchCustmerPw" })
+@WebServlet(name = "SearchCustmerPw", urlPatterns = { "/searchCustmerPw" })
 public class SearchCustmerPwServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,15 +32,19 @@ public class SearchCustmerPwServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String customerId = request.getParameter("customerId");
-		String customerPhone = request.getParameter("customerPhone");		
+		String customerPhone = request.getParameter("customerPhone");	
+		System.out.println("customerId = " + customerId);
+		System.out.println("customerPhone = " + customerPhone);
+
 		Customer cust = new CustomerService().selectOneSerchPw(customerId, customerPhone);
+		System.out.println("cust = " + cust);
 		if(cust==null) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/searchCustomerFrom.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/signUp/searchCustomerForm.jsp");
 			request.setAttribute("msg", "암호를 찾을수 없습니다..");
 			request.setAttribute("option", 1);
 			rd.forward(request, response);
 		}else {			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/resetCustomerPw.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/signUp/resetCustomerPw.jsp");
 			request.setAttribute("customer", cust);
 			rd.forward(request, response);
 		}

@@ -19,13 +19,14 @@
 						<th>작성자</th>
 						<td>
 							<%=loginDesigner.getDesignerId() %>
-							<input type="hidden" name="portfolioWriter" value="">
+							<input type="hidden" name="portfolioWriter" value="<%=loginDesigner.getDesignerId() %>">
+							<input type="hidden" name="designerNo" value="<%=loginDesigner.getDesignerNo()%>">
 						</td>
 					</tr>
 					<tr>
 						<th>File</th>
 						<td>
-							<input type="file" name="filename" onchange="loadImg(this)">
+							<input type="file" name="filename" onchange="loadImg(this)" multiple="multiple">
 						</td>
 					</tr>
 					<tr>
@@ -41,8 +42,7 @@
 					<tr>
 						<th>Style Type</th>
 						<td>
-							<%-- <%=d.getDesignerId() %> --%>
-							<input type="hidden" name="portfolioWriter" value="">
+							<input type="hidden" name="styleType" value="">
 						</td>
 					</tr>
 					<tr>
@@ -50,7 +50,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<textarea rows="3" name="designerPortfolioContent" class="form-control"></textarea>
+							<textarea rows="3" name="portfolioContent" class="form-control"></textarea>
 						</td>
 					</tr>
 					<tr style="text-align:center">

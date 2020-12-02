@@ -45,4 +45,10 @@ public class ImageService {
 		
 		return result;
 	}
+	public String selectFilepath(String type, int typeNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		String filepath = new ImageDao().selectFilepath(conn, type, typeNo);
+		JDBCTemplate.close(conn);		
+		return filepath;
+	}
 }

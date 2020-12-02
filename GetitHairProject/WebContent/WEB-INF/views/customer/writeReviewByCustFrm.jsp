@@ -12,6 +12,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>손님 리뷰작성</title>
+<style>
+	.infoTable,.btnTd{
+		text-align: center;
+	}
+	.btnTd>*{
+		display:block;
+		float:left;
+		width:40%;
+		margin: 20px;
+	}
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -57,12 +68,11 @@
 						</td>
 					</tr>					
 					<tr style="text-align:center">
-						<th colspan="2">
-							<button type="submit" class="btn btn-primary btn-lg">등록하기</button>							
-						</th>
-						<th colspan="2">
-							<input type="button" value="이전화면으로" onClick="history.go(-1)">					
-						</th>
+						<td class="btnTd" colspan="2">
+							<button type="submit" class="btn btn-primary btn-lg">등록하기</button>	
+							<input type="button" class="btn btn-primary btn-lg" value="이전화면으로" onClick="history.go(-1)">							
+						</td>
+						
 					</tr>
 				</table>
 			</form>

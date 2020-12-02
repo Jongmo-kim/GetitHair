@@ -53,6 +53,13 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	public int getAllReviewByCustomerIdMaxPageSize(int maxPrintSize,String keyword) {
+		Connection conn = JDBCTemplate.getConnection();
+		int customerNo = new ReviewDao().selectCustomerNoById(conn, keyword);
+		int result = new ReviewDao().getMaxPageSizeByCustomerNo(conn, maxPrintSize,customerNo);
+		JDBCTemplate.close(conn);
+		return result;
+	}
 	public int getAllReviewByShopNoMaxPageSize(int maxPrintSize,int shopNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ReviewDao().getMaxPageSizeByShopNo(conn, maxPrintSize,shopNo);

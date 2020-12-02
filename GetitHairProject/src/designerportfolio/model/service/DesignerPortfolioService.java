@@ -16,9 +16,9 @@ public class DesignerPortfolioService {
 		return totalCount;
 	}
 	
-	public int insertDesignerPortfolio(DesignerPortfolio dp) {
+	public int insertDesignerPortfolio(DesignerPortfolio dp, int desigerNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new DesignerPortfolioDao().insertDesignerPortfolio(conn,dp);
+		int result = new DesignerPortfolioDao().insertDesignerPortfolio(conn,dp,desigerNo);
 		if(result>0) {
 			JDBCTemplate.commit(conn);
 		}else {
