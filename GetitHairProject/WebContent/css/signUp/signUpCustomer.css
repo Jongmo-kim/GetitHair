@@ -49,5 +49,14 @@
             font-size: 11px;
         }
          .form-textbox-wrong{
-		        border: 1px solid red;
+		    appearance: none;
+		    border:2px solid #DE071C;
+            outline: 0;
+        }
+        .additional-info{
+        	position: absolute;
+		    top: 15px;
+		    width:300px;
+		    color:#DE071C;
+		    
         }

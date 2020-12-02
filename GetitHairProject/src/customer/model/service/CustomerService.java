@@ -230,4 +230,10 @@ public class CustomerService {
 		JDBCTemplate.close(conn);
 		return Cust;
 	}
+	public boolean isNestedId(String inputId) {
+		Connection conn = JDBCTemplate.getConnection();
+		boolean result = new CustomerDao().isNestedId(conn,inputId);
+		JDBCTemplate.close(conn);
+		return result;
+	}
 }

@@ -30,8 +30,6 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	function addrSearch(){
-		
-	
     new daum.Postcode({
         oncomplete: function(data) {
         	$('input[name="customerAddr"]').val(data.address);
@@ -39,11 +37,13 @@
         }
     }).open();
 	}
+
 </script>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
 	<script type="text/javascript" src="/js/signUp/signUpCustomer.js?v=<%=System.currentTimeMillis()%>"></script>
+	
 	<form action="/signUpCustomer" method="post">
 	    <div class="container">
 	    <h2>Get it hair</h2>
@@ -57,29 +57,40 @@
 	        <div class="name inputBox">
 	            <input autofocus type="text" class="form-textbox" id="nameInput"name="customerName">
 	            <span class="form-label label-focused">이름</span>
+	            <span class="additional-info" id="nameInfo"></span>
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="date inputBox">
-	            <input type="text" class="form-textbox dateOfBirth" id="dateInput"name="customerBirthDate">
+	            <input type="text" class="form-textbox dateOfBirth" id="dateInput" name="customerBirthdate">
 	            <span class="form-label">생년월일</span>
+	            <span class="additional-info" id="dateInfo"></span>
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="inputBox">
 	            <input type="text" class="form-textbox phoneInput" id="phoneInput"name="customerPhone">
 	            <span class="form-label">전화번호</span>
+	            <span class="additional-info" id="phoneInfo"></span>
 	        </div>
 			<hr>
 	        <br>
 			<div class="name inputBox">
 	            <input type="text" class="form-textbox" id="idInput" name="customerId">
 	            <span class="form-label">아이디</span>
+	            <span class="additional-info" id="idInfo"></span>
+	            <button type="button" class="btn btn-primary" onclick="idInputRegFunc()">조건확인</button>
 	        </div>
 	        
 	        <div class="name inputBox">
 	            <input type="password" class="form-textbox" id="pwInput" name="customerPw">
 	            <span class="form-label">비밀번호</span>
+	            <span class="additional-info" id="pwInfo"></span>
+	        </div>
+	        <div class="name inputBox">
+	            <input type="password" class="form-textbox" id="pwreInput">
+	            <span class="form-label">비밀번호확인</span>
+	            <span class="additional-info" id="pwreInfo"></span>
 	        </div>
 	        <hr>
 	        <br>
@@ -89,19 +100,23 @@
 				<label for="signupMale">남자</label>
 				<input type="radio" id="signupFemale" name="customerGen" value="여" >
 				<label for="signupFemale">여자</label>
+	            <span class="additional-info" id="genInfo"></span>
+				
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="name inputBox">
 	            <input type="text" class="form-textbox" id="emailInput" name="customerEmail">
 	            <span class="form-label">이메일</span>
+	            <span class="additional-info" id="emailInfo"></span>
+	            
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox"value=" " readonly name="customerAddr">
+	            <input type="text" class="form-textbox"value=" " readonly id="addrInput" name="customerAddr">
 	            <span class="form-label label-focused">주소</span>
-	            
+	            <span class="additional-info" id="addrInfo"></span>
 	        </div>
 	        
 	        <div class="name inputBox">
@@ -217,7 +232,7 @@
 				</td>
 			</tr>
 		</table>
-        <button class="btn">제출</button>
+        <button id="submitBtn" class="btn">제출</button>
         <button class="btn resetBtn" type="reset">초기화</button>
     </div>
 	</form>

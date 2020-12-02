@@ -36,7 +36,6 @@ public class UpdateReserveCalendarServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
-		System.out.println(112);
 		String Title = request.getParameter("JsonTitles");
 		String Start = request.getParameter("JsonStartDate");
 		String End = request.getParameter("JsonEndDate");
@@ -66,7 +65,6 @@ public class UpdateReserveCalendarServlet extends HttpServlet {
 			}
 			result += new ReserveService().updateDateReserve(no, title, startDate, endDate);
 		}
-		System.out.println(119);
 		JSONObject obj = new JSONObject();
 		obj.put("result", result);
 		PrintWriter out = response.getWriter();
