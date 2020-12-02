@@ -1,5 +1,9 @@
+<%@page import="designerportfolio.model.vo.DesignerPortfolio"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    	DesignerPortfolio dp = (DesignerPortfolio)request.getAttribute("rd");
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,13 +17,12 @@
 			<form action="/insertDesignerPortfolio" method="post" enctype="multipart/form-data">
 				<table class="table">
 					<tr>
-						<th colspan="2">포트폴리오 작성</th>
+						<th colspan="2">포트폴리오</th>
 					</tr>
 					<tr>
 						<th>작성자</th>
 						<td>
-							<%=loginDesigner.getDesignerId() %>
-							<input type="hidden" name="portfolioWriter" value="">
+							<input type="hidden" name="portfolioWriter" value="<%=dp.getPortfolioWriter()%>">
 						</td>
 					</tr>
 					<tr>
@@ -41,8 +44,7 @@
 					<tr>
 						<th>Style Type</th>
 						<td>
-							<%-- <%=d.getDesignerId() %> --%>
-							<input type="hidden" name="portfolioWriter" value="">
+							<input type="hidden" name="portfolioWriter" value="<%=dp.getStyleName()%>">
 						</td>
 					</tr>
 					<tr>
@@ -50,7 +52,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<textarea rows="3" name="designerPortfolioContent" class="form-control"></textarea>
+							<textarea rows="3" name="designerPortfolioContent" class="form-control"><%=dp.getPortfolioContent() %></textarea>
 						</td>
 					</tr>
 					<tr style="text-align:center">

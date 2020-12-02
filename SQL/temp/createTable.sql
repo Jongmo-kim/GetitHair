@@ -432,6 +432,7 @@ CREATE TABLE shop_price
 (
     shop_price_no    NUMBER    NOT NULL, 
     shop_no        NUMBER    NOT NULL, 
+    stylelist_no NUMBER NULL, -- 시술 가격인데 무슨 스타일의 시술가격인지 필요해서 추가
     price           NUMBER     NULL, 
     CONSTRAINT SHOP_PRICE_PK PRIMARY KEY (shop_price_no)
 )
@@ -444,6 +445,8 @@ INCREMENT BY 1;
 ALTER TABLE shop_price
     ADD CONSTRAINT shop_price_shop_noFK FOREIGN KEY (shop_no)
         REFERENCES hairshop (shop_no) ON DELETE CASCADE
+/
+
 
 /
 -- hairshop Table Create SQL
@@ -452,17 +455,21 @@ CREATE TABLE style_list
     stylelist_no    NUMBER    NOT NULL, 
     style_no        NUMBER    NOT NULL, 
     designer_no     NUMBER    NULL, 
-    shop_price_no           NUMBER    NOT NULL, 
+    --shop_price_no           NUMBER    NOT NULL,  이건 필요없어서 지움 오히려 shop_price가 style_list를 참조해야함.
     CONSTRAINT STYLE_LIST_PK PRIMARY KEY (stylelist_no)
 )
+/
+ALTER TABLE shop_price
+    ADD CONSTRAINT shop_price_sl_noFK FOREIGN KEY (stylelist_no)
+        REFERENCES style_list (stylelist_no) ON DELETE CASCADE
 /
 CREATE SEQUENCE style_list_SEQ
 START WITH 1
 INCREMENT BY 1;
 /
-ALTER TABLE style_list
-    ADD CONSTRAINT FK_style_list_shop_price_no FOREIGN KEY (shop_price_no)
-        REFERENCES shop_price(shop_price_no) ON  DELETE CASCADE --헤어스타일리스트 지워지면 가격도 지워짐
+--ALTER TABLE style_list
+  --  ADD CONSTRAINT FK_style_list_shop_price_no FOREIGN KEY (shop_price_no)
+    --    REFERENCES shop_price(shop_price_no) ON  DELETE CASCADE --헤어스타일리스트 지워지면 가격도 지워짐
 /
 --DROP TRIGGER style_list_AI_TRG;
 /

@@ -34,7 +34,7 @@ public class MypageCustReviewListSerlvet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int customerNo = Integer.parseInt(request.getParameter("customerNo")); //회원
 		int reqPage = Integer.parseInt(request.getParameter("reqPage")); 
-		int numPerPage = 10;		//하나에 페이지당 10개씩
+		int numPerPage = 15;		//하나에 페이지당 10개씩
 		int maxSize = 5; //1 2 3 4 5 => 5개 네비 최대 갯수 표시 6개면  6으로 시작함
 
 		//3.비지니스로직처리

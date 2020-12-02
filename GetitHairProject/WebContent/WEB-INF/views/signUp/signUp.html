@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="kr">
-
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,8 +72,27 @@
         }
     </style>
 </head>
+<script>
 
+    $(function(){
+        var date = new Date();
+        $('.moment').html(moment(date).format('YYYY MM DD HH:mm:ss'));
+        //YYYY년 MM월 dd일
+        var str = "1996년 02월 27일";
+        var limit = "202Y년 12월 02일";
+        var underlimit = "1850년 01월 01일";
+        var Regexp = /^\d{4}년 \d{2}월 \d{2}일$/i;
+        if(Regexp.test(str)){
+            return false;
+        }
+        console.log(moment(str,'YYYY년 MM월 DD일').toDate());
+        console.log(moment(limit,'YYYY년 MM월 DD일').toDate());
+        console.log(moment(underlimit,'YYYY년 MM월 DD일').toDate());
+    });
+</script>
 <body>
+    
+    <div class="moment"></div>
     <div class="container">
         <div class="name inputBox">
             <input type="text" class="form-textbox">

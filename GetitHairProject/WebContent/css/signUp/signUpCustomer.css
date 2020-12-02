@@ -48,3 +48,6 @@
             top: 2px;
             font-size: 11px;
         }
+         .form-textbox-wrong{
+		        border: 1px solid red;
+        }

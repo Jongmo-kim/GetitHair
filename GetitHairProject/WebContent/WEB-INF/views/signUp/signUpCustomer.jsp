@@ -6,7 +6,8 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 </head>
-		 
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <style>
 	input[type="radio"] {
 		display:none;
@@ -21,7 +22,24 @@
 		background-color: var(--black);
 		color: white;
 	}
+	
+	.readonly{
+		background-color:grey;	
+	}
 </style>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function addrSearch(){
+		
+	
+    new daum.Postcode({
+        oncomplete: function(data) {
+        	$('input[name="customerAddr"]').val(data.address);
+        	$('input[name="addrPostcode"]').val(data.zonecode);
+        }
+    }).open();
+	}
+</script>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
@@ -30,34 +48,37 @@
 	    <div class="container">
 	    <h2>Get it hair</h2>
 	    <h3>회원가입</h3>
-	    <p>이미 Get it hair의 회원이신가요? <a href="/searchCustomeIdForm">ID</a> / <a href="/searchCustomerPwForm">PW</a>찾기</p>
+	    <p>이미 Get it hair의 회원이신가요? 
+	    <%if(loginCustomer == null){%>
+	    <a href="/searchCustomeIdForm">ID</a> / <a href="/searchCustomerPwForm">PW</a>찾기</p>
+	    <% } %>
 	    <br>
 	    <hr>
 	        <div class="name inputBox">
-	            <input autofocus type="text" class="form-textbox" name="customerName">
+	            <input autofocus type="text" class="form-textbox" id="nameInput"name="customerName">
 	            <span class="form-label label-focused">이름</span>
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="date inputBox">
-	            <input type="text" class="form-textbox dateOfBirth" name="customerBirthDate">
+	            <input type="text" class="form-textbox dateOfBirth" id="dateInput"name="customerBirthDate">
 	            <span class="form-label">생년월일</span>
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="inputBox">
-	            <input type="text" class="form-textbox phoneInput" name="customerPhone">
+	            <input type="text" class="form-textbox phoneInput" id="phoneInput"name="customerPhone">
 	            <span class="form-label">전화번호</span>
 	        </div>
 			<hr>
 	        <br>
 			<div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerId">
+	            <input type="text" class="form-textbox" id="idInput" name="customerId">
 	            <span class="form-label">아이디</span>
 	        </div>
 	        
 	        <div class="name inputBox">
-	            <input type="password" class="form-textbox" name="customerPw">
+	            <input type="password" class="form-textbox" id="pwInput" name="customerPw">
 	            <span class="form-label">비밀번호</span>
 	        </div>
 	        <hr>
@@ -72,29 +93,26 @@
 	        <hr>
 	        <br>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerName">
-	            <span class="form-label">이름</span>
-	        </div>
-	        <hr>
-	        <br>
-	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerEmail">
+	            <input type="text" class="form-textbox" id="emailInput" name="customerEmail">
 	            <span class="form-label">이메일</span>
 	        </div>
 	        <hr>
 	        <br>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="customerAddr">
-	            <span class="form-label">주소</span>
+	            <input type="text" class="form-textbox"value=" " readonly name="customerAddr">
+	            <span class="form-label label-focused">주소</span>
+	            
 	        </div>
 	        
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox" name="addrPostcode">
-	            <span class="form-label">Zipcode</span>
+	            <input type="text" class="form-textbox readonly" value=" "readonly name="addrPostcode">
+	            <span class="form-label label-focused">Zipcode</span>
+	            <button class="btn btn-primary" type="button" onclick="addrSearch()">주소검색</button>
 	        </div>
+	        
 	        <div class="name inputBox">
 	            <input type="text" class="form-textbox" name="addrDetail">
-	            <span class="form-label">상세표기</span>
+	            <span class="form-label">상세주소</span>
 	        </div>
 	        <hr>
 	        <br>

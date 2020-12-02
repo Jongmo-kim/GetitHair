@@ -486,6 +486,30 @@ public int selectAllByDate(Connection conn, Date startSqlDate, Date endSqlDate) 
 	
 	return result;
 }
+
+public ArrayList<Reserve> selectOneReserveShop(Connection conn, int shopNo) {
+	ArrayList<Reserve> list = new ArrayList<Reserve>();
+    PreparedStatement pstmt = null;
+    ResultSet rset = null;
+    String sql = "select * from reserve where shop_no = ?";
+    try {
+       pstmt = conn.prepareStatement(sql);
+       pstmt.setInt(1, shopNo);
+       rset = pstmt.executeQuery();
+       while(rset.next()) {
+           Reserve r  = getReserveFromRset(rset);
+           list.add(r);
+        }
+    } catch (SQLException e) {
+       e.printStackTrace();
+    } finally {
+       JDBCTemplate.close(rset);
+       JDBCTemplate.close(pstmt);
+    }   
+    
+    return list;
+ }
+
 	// 디자이너 예약관리 캘린더 조회 메소드
 	public int updateReserveCalnedar(Connection conn, Reserve rt) {
 		PreparedStatement pstmt = null;

@@ -40,6 +40,16 @@
 <link rel="stylesheet" href="/css/header/header.css">
 <link rel="stylesheet" href="/css/signUp/inputBox.css">
 <script type="text/javascript" src="/js/signUp/inputBox.js"></script>
+<style>
+	ul{
+  	 list-style:none;
+   }
+   #pageNavi{
+   		margin:0 auto;
+   		padding: 0;
+   		text-align:center;
+   }
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -109,14 +119,13 @@
 						<button type="button" class="btn btn-default"
 							onclick="location.href='/cancelReserveByCust?reserveNo=1&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'">
 							예약 취소 하기(상태변경)</button>
-						<button type="button" class="btn btn-default" id="updateOnBtn">수정하기</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	<div id="reserveList" style="widtn: 80%;">
+	<div class="container">
 		<h1>회원관리 및 예약관리</h1>
 		<ul>
 			<p>
@@ -125,9 +134,12 @@
 			<li>
 				<button type="button" class="btn btn-primary"
 					onclick="location.href='/updateAllCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>'">정보수정</button>
-				<button type="button" class="btn btn-primary"
+				<button type="button" class="btn btn-denger"
 					onclick="location.href='/deleteAllCustomer?customerNo=<%=loginCustomer.getCustomerNo()%>'">회원탈퇴</button>
-				<a class="btn btn-primary btn-lg"
+			</li>
+			<br>
+			<li>
+				<a class="btn btn-success btn-lg"
 				href="/mypageCustReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">나의
 					리뷰 리스트 확인</a>
 			</li>
@@ -148,19 +160,19 @@
 				</h1>
 				<input type="checkBox" id="allCheck"><label for="allCheck">전체선택</label>
 				<button type="button" class="btn btn-primary" id="allDelBtn">삭제</button>
-				<table class="table" border="1">
+				<table class="table" style="width:100%;" border="1">
 					<tr>
 						<th>선택</th>
-						<th>예약번호</th>
+						<th>번호</th>
 						<th>예약일시</th>
-						<th>미용실이름</th>
-						<th>디자이너 이름</th>
-						<th>손님요청사항 요청사항</th>
-						<th>디자이너 요청사항</th>
-						<th>상태코드</th>
-						<th>기능버튼1</th>
-						<th>기능버튼2</th>
-						<th>기능버튼3</th>
+						<th>ShopName</th>
+						<th>DeginerName</th>
+						<th>MyReq</th>
+						<th>DesignerReq</th>
+						<th>Status</th>
+						<th>func1()</th>
+						<th>func2()</th>
+						<th>func3()</th>
 					</tr>
 					<%
                      for (Reserve r : reserveList) {
@@ -176,23 +188,24 @@
 						<td><%=r.getReserveDesignerReq()%></td>
 						<td><%=r.getReserveStatus()%></td>
 						<td>
-							<button type="button" class="btn btn-primary reReserveBtn"
+							<button type="button" class="btn btn-primary btn-sm reReserveBtn"
 								data-toggle="modal" data-target="#reReserveModal"
 								value="<%=r.getReserveNo()%>">예약보기</button>
 						</td>
 						<td><button
 								onclick="location.href='/deleteReserveByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'"
-								type="button" class="btn btn-primary">예약 삭제하기</button></td>
+								type="button" class="btn btn-primary btn-sm">예약 삭제하기</button></td>
 
 						<td><button type="button"
 								onclick="location.href='/writeReviewByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus %>&reqPage=<%=reqPage %>'"
-								class="btn btn-primary">리뷰작성하기</button></td>
+								class="btn btn-primary" btn-sm>리뷰작성하기</button></td>
 					</tr>
 					<%
                      }
-                  %>
+                  	%>
+                  	
 				</table>
-				<div id="pageNavi"><%=pageNavi%></div>
+				<div id="pageNavi"><%=pageNavi%></div>				
 			</div>
 		</ul>
 	</div>
@@ -298,6 +311,6 @@
          });              
       });
    </script>
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

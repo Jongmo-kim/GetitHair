@@ -1,3 +1,9 @@
+<%@page import="stylelist.model.vo.StyleTypeList"%>
+<%@page import="stylelist.model.service.StylelistService"%>
+<%@page import="stylelist.model.vo.Stylelist"%>
+<%@page import="style.model.service.StyleService"%>
+<%@page import="style.model.vo.Style"%>
+<%@page import="shopprice.model.vo.ShopPrice"%>
 <%@page import="reserve.model.service.ReserveService"%>
 <%@page import="reserve.model.vo.Reserve"%>
 <%@page import="likes.model.service.LikesService"%>
@@ -14,13 +20,11 @@
     <%
     	Hairshop hs = (Hairshop)request.getAttribute("hs");
    		ArrayList<Review> review = (ArrayList<Review>)request.getAttribute("review");
-   		Likes like = (Likes)request.getAttribute("like");
     	ArrayList<DesignerList> deli = (ArrayList<DesignerList>)request.getAttribute("designerList");
-    	//ArrayList<Reserve> reserveList = (ArrayList<Reserve>) request.getAttribute("reserveList");
-    	/////이거바꿈 임시로 페이지 로드가안되서
-    	ArrayList<Reserve> reserveList = new ReserveService().selectAllByDesigner(1);
-    	int index = 0;
-    	
+    	ArrayList<Reserve> reserve = (ArrayList<Reserve>)request.getAttribute("reserve");
+    	ArrayList<ShopPrice> price = (ArrayList<ShopPrice>)request.getAttribute("price");
+    	ArrayList<ArrayList<Stylelist>> styleList = (ArrayList<ArrayList<Stylelist>>)request.getAttribute("styleList");
+    	ArrayList<StyleTypeList> stlList = (ArrayList<StyleTypeList>)request.getAttribute("typeList");
     %>
 <!DOCTYPE html>
 <html>
@@ -108,32 +112,33 @@
 	<div class="modal fade" id="ReserveModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form action="/reserVation" method="post">
+				<form action="/insertRserve" method="post">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">예약하기</h4>
 					</div>
 					<div class="modal-body">
-						<%-- <div class="reserve inputBox">
-							<!-- 구현하면 예약번호 hiddn으로 숨겨야함 -->
-							<span>예약번호  </span>
-							<input type="hidden" class="form-textbox" name="reserveNo" value="<%=reserveList.get(index).getReserveNo() %>" readonly>
-						</div> --%>
 						<div class="reserve inputBox">
-							예약 일자<input type="date" id="testDatepicker" class="form-textbox" name="reserveDate" placeholder="">							
+							예약 일자<input type="text" id="testDatepicker" class="form-textbox" name="reserveDate" placeholder="00/00/00로 적어주세요(년/월/일)">							
 						</div>											
 						<div class="reserve inputBox">
-							손님 요청 사항<input type="text" class="form-textbox" name="reserveCustReq" id="testid">
-							
+							손님 요청 사항<input type="text" class="form-textbox" name="custReq" id="testid">	
 						</div>
-									
-						<input type ="hidden" class= "form-textbox" name="reserveStatus" value="<%=reserveList.get(index).getReserveStatus() %>">
-						<input type="hidden" class="form-textbox" name="customerNo"  value="<%=reserveList.get(index).getCustomer().getCustomerNo()%>" >
-						<input type="hidden" class="form-textbox" name="designerNo"  value="<%=reserveList.get(index).getDesigner().getDesignerNo()%>">
-						<input type="hidden" class="form-textbox" name="shopNo"  value="<%=reserveList.get(index).getShop().getShopNo()%>">
-						<input type="hidden" class="form-textbox" name="reserveDesignerReq"  value="<%=reserveList.get(index).getReserveDesignerReq()%>">
-						<input type="hidden" class="form-textbox" name="reserveDesignerMemo"  value="<%=reserveList.get(index).getReserveDesignerMemo()%>">
-						
+							<input type="hidden" name="designerNo" value="<%=deli.get(0).getDesigner().getDesignerNo()%>">
+							<input type="hidden" name="shopNo" value="<%=hs.getShopNo() %>">
+							<%-- <input type="hidden" name="stylelistNo" value="<%=styleList.getStylelistNo()%>"> --%>
+						<div class="reserve inputBox">
+						<input type="hidden" name="title" value="<%=reserve.get(0).getReserveTitle()%>">
+						</div>
+						<div class="reserve inputBox">
+						<input type="hidden" name="status" value="<%=reserve.get(0).getReserveStatus()%>">
+						</div>
+						<div class="reserve inputBox">
+							<input type="time" name="startDate">
+						</div>
+						<div class="reserve inputBox">
+							<input type="hidden" name="endDate">
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-default">예약하기</button>
@@ -144,6 +149,7 @@
 
 		</div>
 	</div>
+	
 	<div class="slideImg">
         <!-- Swiper -->
         <div class="swiper-container" style="width: 800px; height: 500px;">
@@ -169,13 +175,8 @@
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active" style="width: 100%">
   	<div class="col-md-4">
-      	 <input type="hidden" value ="<%=hs.getShopNo() %>">
-      	 <input type="hidden" name="likeShopNo" id="likeShopNo" value ="<%=like.getLikesType() %>">
-		 <h3 style="font-weight: bold; margin-bottom: 0;"> 
-			 <label style="font-size: 15px;" id="shopLike">
-			 <%=hs.getShopName() %> <%=hs.getShopLikes() %>
-			 	<span class="material-icons" style="font-size: 14px;">favorite</span>
-			 </label>
+  		 <h3>
+      	 <input type="hidden" value ="<%=hs.getShopNo() %>"><label><%=hs.getShopName() %></label>
 		 </h3>
 		 <br>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 16px;">place</span>장소</h4>
@@ -184,7 +185,7 @@
 		 <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
 		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
 		 <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
-		 <a href="/modifyHairshop" lass="btn btn-primary btn-sm">헤어샵 수정하기</a>
+		 <a href="/hairshopModifyPage" class="btn btn-primary btn-sm">헤어샵 수정하기</a>
 	</div>
 	<div class="col-md-2"></div>
 	
@@ -203,7 +204,7 @@
     	</div>
     	<form action="/reserVation" method="get">
     	<div class="designerPt col-md-2" style="height: 100px; display:block;">
-    		<a class="btn btn-primary btn-sm" style="margin-top: 30px;" data-toggle="modal" data-target="#ReserveModal" onclick="reserveBtn(<%=deli.get(i).getDesigner().getDesignerNo()%>)">예약하기</a>
+    		<a class="btn btn-primary btn-sm" style="margin-top: 30px;" data-toggle="modal" data-target="#ReserveModal">예약하기</a>
     	</div>
     	</form>
     </div>
@@ -211,17 +212,27 @@
     	<%} %>
     </div>
     <div id="menu2" class="tab-pane fade">
-      <h4>커트</h4>
+    <%for(int i = 0 ; i< stlList.size(); ++i) {%>
+      <!-- style.type -->	
+      <h4 style="font-size: 14px;"><%=stlList.get(i).getType()%></h4>
+      <!-- stlye.name -->	
+      <%for(int j = 0; j<stlList.get(i).getStyleList().size();j++) {%>
+      <%for(int k = 0; k<stlList.get(i).getStyleList().get(j).size();k++) {%>
+      <h4><%=stlList.get(i).getStyleList().get(j).get(k).getStyleName() %></h4>
+      <%for(int l = 0;l<price.size();l++) {%>
+      <%if(price.get(l).getStyleList().getStyle().getStyleName().equals(stlList.get(i).getStyleList().get(j).get(k).getStyleName())) {%>
+    	<p style="font-size: 14px;"><%=price.get(l).getPrice()%></p>
+    	 <%} %> <!-- if 1 --> 
+    	<%} %> <!-- for 4 -->
+      <%} %> <!-- for 3 -->
+      <%} %> <!-- for 2 -->
+      <%} %> <!-- for 1 -->   
     	<br>
-    	<p style="font-size: 14px">남성 커트 : 15,000</p>
-    	<p style="font-size: 14px">여성 커트 : 15,000</p>
+    	
     	<hr>
-    	<h4>펌</h4>
-    	<br>
-    	<p style="font-size: 14px">남성 펌 : 15,000</p>
-    	<p style="font-size: 14px">여성 펌 : 15,000</p>
-    	<hr>
+    	
     </div>
+    
     <div id="menu3" class="tab-pane fade">
 	     <% for(int i=0; i<review.size(); i++){%>
 	   		<% Review currReview = review.get(i); %>
@@ -246,20 +257,7 @@
         dynamicBullets: true,
       },
     });
-		$(function(){
-			var shopNo = $("#likeShopNo").val();
-			var shopLike= $("#shopLike").val();
-			$.ajax({
-				url : "/shopLikesUp",
-				date : {
-					shopNo : shopNo,
-					shopLike : shopLike
-				},
-				success : function(){
-					
-				}
-			})
-		})
+		});
 		
 		window.onload=function(){
    			//아무 값도 지정하지 않고 지도객체를 불러오면 서울시청 중심으로 불러와짐

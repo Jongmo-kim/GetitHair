@@ -31,20 +31,31 @@
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- jQuery 호출 -->
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+	<style>
+		p{
+			text-align : center;
+		}
+		#pageNavi{
+   		margin:0 auto;
+   		padding: 0;
+   		text-align:center;
+   }
+	</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<div class="container">
 	<h1>나의 리뷰 리스트</h1>
 	<!-- 테이블부분 -->
-	<table class="talbe" border="1">			
+	<table class="table" style="width:100%;text-align:center;" border="1">			
 			<tr>				
-				<th>리뷰번호</th>
-				<th>작성일자</th>
-				<th>미용실이름</th>				
-				<th>디자이너 이름</th>
-				<th>스타일 이름</th>
-				<th>리뷰내용</th>
-				<th>리뷰보기</th>				
+				<th><p>리뷰번호</p></th>
+				<th><p>작성일자</p></th>
+				<th><p>미용실이름</p></th>				
+				<th><p>디자이너 이름</p></th>
+				<th><p>스타일 이름</p></th>
+				<th><p>리뷰내용</p></th>
+				<th><p>리뷰보기</p></th>				
 			</tr>
 				<%for(Review r : list) {%>
 				<tr>
@@ -55,7 +66,7 @@
 					<td><%=r.getStyle().getStyleName() %></td>
 					<td><%=r.getReviewContent() %></td>					
 					<td><button type="button" class="btn btn-primary showReviewBtn"
-                           data-toggle="modal" data-target="#reviewModal"
+                           data-toggle="modal" data-target="#reviewModal" style="width:100%;"
                            value="<%=r.getReviewNo()%>">상세보기</button>
                     </td>							
 				</tr>
@@ -118,7 +129,7 @@
 		
 		<!-- 모달부분 -->
 		<!-- 네비게이션부분 -->
-		<div>
+		<div id="pageNavi">
 			<%if(start!=1){ %>
 				<a class="btn btn-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=(start-1) %>">이전</a>
 			<%} %>
@@ -132,6 +143,7 @@
 						
 		</div>
 		<!-- 네비게이션부분 -->
+</div>
 		<script>
 		 $(function(){    
 			 $("#updateCancelBtn").hide();
@@ -196,6 +208,7 @@
 		      	//$(".showReviewBtn").click();
 			  });
 		 });
-		</script>		
+		</script>	
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>	
 </body>
 </html>

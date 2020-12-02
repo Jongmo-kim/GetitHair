@@ -210,6 +210,12 @@ public class ReserveService {
 		return result;
 	}
 	
+	public ArrayList<Reserve> selectOneReserveShop(int shopNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		ArrayList<Reserve> list = new ReserveDao().selectOneReserveShop(conn, shopNo);
+		JDBCTemplate.close(conn);
+		return list;
+	}
 	// 디자이너 예약관리 캘린더 조회 메소드
 	public int updateReserveCalnedar(Reserve r) {
 		Connection conn = JDBCTemplate.getConnection();

@@ -42,7 +42,6 @@ public class DesignerPortfolioDao {
 			pstmt.setString(1, dp.getPortfolioWriter());
 			pstmt.setString(2, dp.getStyleName());
 			pstmt.setString(3, dp.getPortfolioContent());
-			pstmt.setString(4, dp.getFilepath());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -70,10 +69,9 @@ public class DesignerPortfolioDao {
 				dp.setStyleName(rset.getString("designer_portfolio_style_name"));
 				dp.setPortfolioWriter(rset.getString("designer_no"));
 				dp.setPortfolioContent(rset.getString("designer_portfolio_content"));
-				dp.setFilepath(rset.getString("filepath"));
 				dp.setPortfolioDate(rset.getString("designer_portfolio_date"));
 				list.add(dp);
-				}
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 				e.printStackTrace();

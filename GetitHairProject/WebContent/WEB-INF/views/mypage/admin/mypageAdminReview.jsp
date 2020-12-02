@@ -141,7 +141,7 @@
                 $(checkbox).prop("checked", true);
         }
         $(function () {
-            $(".admin-nav a:eq(2)").css("background-color", "whitesmoke");
+            $(".admin-nav a:eq(2)").css("background-color", "#F2C335");
             setClickToTr();
             setClickToChk()
             $(".modal-overlay").click(function (e) {
