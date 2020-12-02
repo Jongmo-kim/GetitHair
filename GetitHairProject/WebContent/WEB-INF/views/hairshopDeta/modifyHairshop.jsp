@@ -11,6 +11,15 @@
             background-color: whitesmoke;
             border: 1px solid;
         }
+        input[type=text]{
+            width: 400px;
+            height: 50px;
+            font-size: 18px;
+        }
+        .btn{
+            width: 100px;
+            height: 40px;
+        }
     </style>
 </head>
 
@@ -63,7 +72,8 @@
                         <input type="text" name="shopHoliday" id="" value="${shop.shopHoliday}">
                     </li>
                 </ul>
-                <button>제출</button>
+                <button class="btn">수정</button>
+                <button class="btn">취소</button>
             </div>
         </form>
     </section>

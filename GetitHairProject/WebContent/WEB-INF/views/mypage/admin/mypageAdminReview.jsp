@@ -50,6 +50,7 @@
                                     <th>디자이너</th>
                                     <th>작성자</th>
                                     <th>내용</th>
+                                    <th>등록일</th>
                                     <th>기능</th>
                                 </tr>
                             </thead>
@@ -64,6 +65,7 @@
                                             <th>${empty rv.designer.designerName ? "탈퇴함" : rv.designer.designerName}</th>
                                             <th>${empty rv.customer.customerId ? "탈퇴한 회원" : rv.customer.customerId}</th>
                                             <th>${rv.reviewContent}</th>
+                                            <th>${rv.reviewDate}</th>
                                             <th>
                                                 <button class="del-one-btn">삭제</button>
                                             </th>
