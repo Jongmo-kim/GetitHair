@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
+
 import common.JDBCTemplate;
 import designer.model.service.DesignerService;
 import designer.model.vo.Designer;
@@ -84,7 +86,7 @@ public class StylelistDao {
 			pstmt.setInt(1, designerNo);
 			pstmt.setString(2, type);
 			rset = pstmt.executeQuery();
-			if(rset.next()) {
+			while(rset.next()) {
 				Style style = new Style();
 				style.setStyleNo(rset.getInt(1));
 				style.setStyleType(rset.getString(2));
@@ -125,5 +127,25 @@ public class StylelistDao {
 	public ArrayList<Stylelist> selectAllStylelistByDesignerNo(Connection conn, int designerNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Stylelist selectOneStylelistDesignerNo(Connection conn, int designerNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select stylelist_no from style_list where designer_no=?";
+		Stylelist list = new Stylelist();
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, designerNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				list.setDesigner(new DesignerService().selectOneDesigner(designerNo));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 }
