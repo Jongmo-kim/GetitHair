@@ -50,4 +50,5 @@ insert into admin values(admin_seq.nextval,'admin', '1234');
 -- ÇÊ¼ö!!!!!!
 COMMIT;
 select * from reserve;
+
 select * from shop_price;

@@ -219,12 +219,17 @@
       <%for(int j = 0; j<stlList.get(i).getStyleList().size();j++) {%>
       <%for(int k = 0; k<stlList.get(i).getStyleList().get(j).size();k++) {%>
       <h4><%=stlList.get(i).getStyleList().get(j).get(k).getStyleName() %></h4>
-      <%} %>
-      <%} %>
+      <%for(int l = 0;l<price.size();l++) {%>
+      <%if(price.get(l).getStyleList().getStyle().getStyleName().equals(stlList.get(i).getStyleList().get(j).get(k).getStyleName())) {%>
+    	<p style="font-size: 14px;"><%=price.get(l).getPrice()%></p>
+    	 <%} %> <!-- if 1 --> 
+    	<%} %> <!-- for 4 -->
+      <%} %> <!-- for 3 -->
+      <%} %> <!-- for 2 -->
+      <%} %> <!-- for 1 -->   
     	<br>
-    	<p style="font-size: 14px;"><%=price.get(i).getPrice()%></p>
+    	
     	<hr>
-      <%} %>
     	
     </div>
     

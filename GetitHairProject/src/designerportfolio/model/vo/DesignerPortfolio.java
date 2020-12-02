@@ -5,20 +5,18 @@ public class DesignerPortfolio {
 	private String portfolioWriter;
 	private String styleName;
 	private String portfolioContent;
-	private String filepath;
 	private String portfolioDate;
 	public DesignerPortfolio() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public DesignerPortfolio(int portfolioNo, String portfolioWriter, String styleName, String portfolioContent,
-			String filepath, String portfolioDate) {
+			String portfolioDate) {
 		super();
 		this.portfolioNo = portfolioNo;
 		this.portfolioWriter = portfolioWriter;
 		this.styleName = styleName;
 		this.portfolioContent = portfolioContent;
-		this.filepath = filepath;
 		this.portfolioDate = portfolioDate;
 	}
 	public int getPortfolioNo() {
@@ -44,12 +42,6 @@ public class DesignerPortfolio {
 	}
 	public void setPortfolioContent(String portfolioContent) {
 		this.portfolioContent = portfolioContent;
-	}
-	public String getFilepath() {
-		return filepath;
-	}
-	public void setFilepath(String filepath) {
-		this.filepath = filepath;
 	}
 	public String getPortfolioDate() {
 		return portfolioDate;
