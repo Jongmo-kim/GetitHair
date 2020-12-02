@@ -36,7 +36,7 @@ public class SearchCustomeIdFormServlet extends HttpServlet {
 			request.setAttribute("loc", "/");
 			rd.forward(request, response);
 		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/serchCustomerFrom.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/searchCustomerFrom.jsp");
 			rd.forward(request, response);
 		}
 		
