@@ -76,7 +76,7 @@
     .mid>form{
     	text-align: center;
     	margin-top: 40px;
-    	margin-bottom: 20px;
+    	margin-bottom: 40px;
     }
     body button{
     	height: 50px;
@@ -96,20 +96,20 @@
     }
     .content{
     	height: 700px;
-    	overflow-y: auto;
     	position: relative;
     }
     .hairshopList{
-    	width: 30%;
-    	float: left;
+    	height: 700px;
+    	width: 100%;
+    	overflow-y: auto;
+    	position: absolute;
     }
     #map{
-    	float: left;
     	width: 900px;
     	height: 600px;
-    	position: fixed;
-    	top: 50px;
-    	right: 30px;
+    	position: absolute;
+    	top: 60px;
+    	left: 400px;
     }
     .addr h3{
     	display: inline-block;
@@ -123,14 +123,14 @@
     	margin: 10px;
     	margin-top: -10px;
     }
-    .content::-webkit-scrollbar {
+    .hairshopList::-webkit-scrollbar {
     	width: 7px;
   	}
-  	.content::-webkit-scrollbar-thumb {
+  	.hairshopList::-webkit-scrollbar-thumb {
 	    background-color: #260101;
 	    border-radius: 5px;
 	 }
-	 .content::-webkit-scrollbar-track {
+	 .hairshopList::-webkit-scrollbar-track {
 	    background-color: lightgrey;
 	    border-radius: 5px;
 	 }
@@ -138,7 +138,7 @@
     	margin: 50px;
     	height: 120px;
     	width: 300px;
-    	margin : 0 auto;
+    	margin-left: 100px;
     }
     .noexist{
     	text-align: center;
@@ -260,11 +260,7 @@
 	    	var shopNo = $(this).children().find("input").val();
 			location.href="/hairshopDetail?shopNo="+shopNo;
 	    });
-	    $(".content").scroll(function(){
-	    	$("#map").css("position", "fixed !important");
-	    	$("#map").css("top", "50px");
-	    	$("#map").css("right", "30px");//객체로 넣는 법 물어보기
-	    });
+	  	//css 객체로 넣는 법({"top":"50px","right":"30px"})
 	   </script>
 	    
 </body>

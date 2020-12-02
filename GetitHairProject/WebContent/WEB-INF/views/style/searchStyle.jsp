@@ -84,6 +84,24 @@
     	width : 70%;
     	margin : 0 auto;
     }
+    .noexist{
+    	text-align: center;
+    	margin-top: 50px;
+    }
+    .content{
+    	text-align: center;
+    	display: flex;
+    	flex-direction: row;
+    	flex-wrap: wrap;
+    	width: 100%;
+    }
+    .glyphicon{
+    	color: lightgray;
+    }
+    .styleList{
+    	width: 250px;
+    	margin: 60px;
+    }
 </style>
 </head>
 <body>
@@ -116,15 +134,18 @@
 			<div class="content">
 			<%if(list.size() != 0){ %>
 					<%for(Style style : list){ %>
-						<div class="styleList">
-							<!-- <img src = > -->
-							<a href="/styleDetail?styleNo=<%=style.getStyleNo() %>"><%=style.getStyleName() %></a>
-							<%=style.getStyleLikes() %>
+						<div class="styleList" style="cursor:pointer">
+							<img src = "/">
+							<input type="hidden" value="<%=style.getStyleNo() %>">
+							<p><%=style.getStyleName() %></p>
+							<span class='glyphicon glyphicon-heart'></span> <span><%=style.getStyleLikes() %></span>
 						</div>
 					<%} %>
 			<%}else{ %>
-				<h1>검색하신 스타일이 존재하지 않습니다.</h1>
-				<a href="/hairshop">메인으로</a>
+				<div class="noexist">
+					<h1>검색하신 스타일이 존재하지 않습니다.</h1>
+					<a href="/hairshop">메인으로</a>
+				</div>
 			<%} %>
 			</div>
 		</div>
@@ -147,6 +168,12 @@
 	        prevEl: '.swiper-button-prev',
 	      },
 	    });
+	  	$(function(){
+	  		$(".styleList").click(function(){
+	  			var styleNo = $(this).children().find("input").val();
+				location.href="/styleDetail?styleNo="+styleNo;
+	  		});
+		});
 	</script>
 </body>
 </html>

@@ -95,7 +95,7 @@
     .mid>form{
     	text-align: center;
     	margin-top: 40px;
-    	margin-bottom: 20px;
+    	margin-bottom: 40px;
     }
     .style img{
     	width: 250px;
