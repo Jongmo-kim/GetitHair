@@ -13,16 +13,16 @@ import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 
 /**
- * Servlet implementation class SerchCustmerIdServlet
+ * Servlet implementation class CustomerResetPwServlet
  */
-@WebServlet(name = "SerchCustmerIdServlet", urlPatterns = { "/serchCustmerId" })
-public class SerchCustmerIdServlet extends HttpServlet {
+@WebServlet(name = "CustomerResetPw", urlPatterns = { "/customerResetPw" })
+public class CustomerResetPwServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SerchCustmerIdServlet() {
+    public CustomerResetPwServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +31,29 @@ public class SerchCustmerIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String customerName = request.getParameter("customerName");
-		String customerPhone = request.getParameter("customerPhone");		
-		Customer cust = new CustomerService().selectOneSerchId(customerName, customerPhone);
-		System.out.println("customerName = " + customerName);
-		System.out.println("customerPhone = " + customerPhone);
-		System.out.println("cust = " + cust);
+		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
+		String customerId = request.getParameter("customerId");
+		String customerPw = request.getParameter("customerPw");
+		Customer cust = new CustomerService().selectOneCustomer(customerNo);
 		if(cust==null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			request.setAttribute("msg", "조회 할 수 없습니다.");
-			request.setAttribute("loc", "/serchCustmerId");
+			request.setAttribute("msg", "조회되지 않는 회원입니다.");
+			request.setAttribute("loc", "/");
 			rd.forward(request, response);
 		}else {
-			String stringResult = cust.getCustomerId();
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/findSuccess.jsp");
-			request.setAttribute("msg", "성공했습니다!");
-			request.setAttribute("option", 1);
-			request.setAttribute("stringResult", stringResult);	
-			rd.forward(request, response);
+			cust.setCustomerPw(customerPw);
+			int result = new CustomerService().updateCustomer(cust);
+			if(result>0) {
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+				request.setAttribute("msg", "암호설정이 완료되었습니다.");
+				request.setAttribute("loc", "/");
+				rd.forward(request, response);
+			}else {
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/findSuccess.jsp");
+				request.setAttribute("option",0);
+				rd.forward(request, response);
+			}
 		}
-		
 	}
 
 	/**

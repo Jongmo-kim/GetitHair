@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import common.JDBCTemplate;
 import image.model.service.ImageService;
 import image.model.vo.Image;
-import image.model.vo.ImageList;
 
 public class ImageDao {
 
-	public Image selecteOneImage(Connection conn, int imageNo) {
+	public Image selectOneImage(Connection conn, int imgNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String qrySelect = "select * from image where img_no = ?";
@@ -22,13 +21,14 @@ public class ImageDao {
 
 		try {
 			pstmt = conn.prepareStatement(qrySelect);
-			pstmt.setInt(1, imageNo);
+			pstmt.setInt(1, imgNo);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				image = new Image();
-				image.setImageNo(rs.getInt(1));
-				image.setImageFileName(rs.getString(2));
-				image.setImageFilePath(rs.getString(3));
+				image.setImgNo(rs.getInt("img_no"));
+				image.setFilepath(rs.getString("filepath"));
+				image.setImgType(rs.getString("img_type"));
+				image.setImgTypeNo(rs.getInt("img_type_no"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -41,12 +41,12 @@ public class ImageDao {
 		return image;
 	}
 
-	public ArrayList<ImageList> selectAllImageListByType(Connection conn, String type) {
+	public ArrayList<Image> selectAllImageByType(Connection conn, String type) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String qrySelect = "select * from image_list where img_type = ?";
+		String qrySelect = "select * from image where img_type = ?";
 
-		ArrayList<ImageList> list = new ArrayList<ImageList>();
+		ArrayList<Image> list = new ArrayList<Image>();
 
 		try {
 			pstmt = conn.prepareStatement(qrySelect);
@@ -54,11 +54,11 @@ public class ImageDao {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ImageList il = new ImageList();
-				il.setImageListNo(rs.getInt("img_list_no"));
-				il.setImage(new ImageService().selecteOneImage(rs.getInt("img_no")));
-				il.setImageType(rs.getString("img_type"));
-				il.setImageTypeNo(rs.getInt("img_type"));
+				Image image = new Image();
+				image.setImgNo(rs.getInt("img_no"));
+				image.setFilepath(rs.getString("filepath"));
+				image.setImgType(rs.getString("img_type"));
+				image.setImgTypeNo(rs.getInt("img_type"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -71,12 +71,12 @@ public class ImageDao {
 		return list;
 	}
 
-	public ArrayList<ImageList> selectAllImageListByTypeAndTypeNo(Connection conn, String type, int typeNo) {
+	public ArrayList<Image> selectAllImageByTypeAndTypeNo(Connection conn, String type, int typeNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String qrySelect = "select * from image_list where img_type = ? and img_type_no = ?";
+		String qrySelect = "select * from image where img_type = ? and img_type_no = ?";
 
-		ArrayList<ImageList> list = new ArrayList<ImageList>();
+		ArrayList<Image> list = new ArrayList<Image>();
 
 		try {
 			pstmt = conn.prepareStatement(qrySelect);
@@ -85,11 +85,11 @@ public class ImageDao {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				ImageList il = new ImageList();
-				il.setImageListNo(rs.getInt("img_list_no"));
-				il.setImage(new ImageService().selecteOneImage(rs.getInt("img_no")));
-				il.setImageType(rs.getString("img_type"));
-				il.setImageTypeNo(rs.getInt("img_type"));
+				Image image = new Image();
+				image.setImgNo(rs.getInt("img_no"));
+				image.setFilepath(rs.getString("filepath"));
+				image.setImgType(rs.getString("img_type"));
+				image.setImgTypeNo(rs.getInt("img_type"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -102,34 +102,16 @@ public class ImageDao {
 		return list;
 	}
 
-	public int insertImage(Connection conn, String filename, String filepath) {
+	public int insertImage(Connection conn, String filepath, String type, int typeNo) {
 		PreparedStatement pstmt = null;
-		String qryInsert = "insert into image values(image_seq.nextval,?,?)";
+		String qryInsert = "insert into image values(image_seq.nextval,?,?,?)";
 		int result = 0;
 
 		try {
 			pstmt = conn.prepareStatement(qryInsert);
-			pstmt.setString(1, filename);
-			pstmt.setString(2, filepath);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-
-		return result;
-	}
-	public int insertImageList(Connection conn, String type, int typeNo) {
-		PreparedStatement pstmt = null;
-		String qryInsert = "insert into image_list values(image_list_seq.nextval,image_seq.currval,?,?)";
-		int result = 0;
-
-		try {
-			pstmt = conn.prepareStatement(qryInsert);
-			pstmt.setString(1, type);
-			pstmt.setInt(2, typeNo);
+			pstmt.setString(1, filepath);
+			pstmt.setString(2, type);
+			pstmt.setInt(3, typeNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

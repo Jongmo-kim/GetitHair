@@ -13,8 +13,8 @@ DROP TABLE RESERVE CASCADE CONSTRAINTS;
 DROP TABLE ADMIN CASCADE CONSTRAINTS;
 DROP TABLE REVIEW_COMMENT CASCADE CONSTRAINTS;
 DROP TABLE DESIGNER_PORTFOLIO CASCADE CONSTRAINTS;
-DROP TABLE IMAGE CASCADE CONSTRAINTS;
 DROP TABLE IMAGE_LIST CASCADE CONSTRAINTS;
+drop table image cascade constraints;
 -- 시퀀스 삭제
 DROP SEQUENCE hairshop_SEQ;
 DROP SEQUENCE designer_SEQ;
@@ -30,29 +30,22 @@ DROP SEQUENCE admin_SEQ;
 DROP SEQUENCE REVIEW_COMMENT_SEQ;
 drop sequence hair_info_seq;
 DROP SEQUENCE DESIGNER_PORTFOLIO_SEQ;
-drop sequence IMAGE_SEQ;
 drop sequence IMAGE_LIST_SEQ;
+drop sequence image_seq;
 -------------------------------------
 -- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
 
 -- hairshop Table Create SQL
 CREATE SEQUENCE HAIR_INFO_SEQ;
 CREATE SEQUENCE IMAGE_SEQ;
-CREATE SEQUENCE IMAGE_LIST_SEQ;
-/
-create table image(
-    img_no number primary key,
-    filename varchar(200) NOT null,
-    filepath varchar(200) NOT null
-);
 /
 
-create table image_list(
-    img_list_no number primary key,
-    img_no number ,
+
+create table image(
+    img_no number primary key,
+    filepath varchar(200) NOT null,
     img_type char(20) check(img_type in ('hairshop','review','style','designer','reserve','designer_portfolio')),
-    img_type_no number not null,
-    CONSTRAINT FK_IMAGE_LIST FOREIGN KEY(img_no) REFERENCES image(img_no)
+    img_type_no number not null
 );
 
 /

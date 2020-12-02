@@ -352,4 +352,26 @@ public class CustomerDao {
 	}
 
 
+	public boolean isNestedId(Connection conn, String inputId) {
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "select customer_id from customer where customer_id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+
 }

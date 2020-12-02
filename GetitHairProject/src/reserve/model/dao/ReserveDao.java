@@ -38,9 +38,9 @@ public class ReserveDao {
          pstmt.setString(6, reserve.getReserveCustReq());
          pstmt.setString(7, reserve.getReserveDesignerReq());
          pstmt.setString(8, reserve.getReserveDesignerMemo());
-         pstmt.setDate(9, reserve.getReserveDate());
-         pstmt.setDate(10, reserve.getReserveStartdate());
-         pstmt.setDate(11, reserve.getReserveEndDate());
+         pstmt.setTimestamp(9, new Timestamp(reserve.getReserveDate().getTime()));
+         pstmt.setTimestamp(10, new Timestamp(reserve.getReserveStartdate().getTime()));
+         pstmt.setTimestamp(11, new Timestamp(reserve.getReserveEndDate().getTime()));
          result = pstmt.executeUpdate();
       } catch (SQLException e) {
          e.printStackTrace();
@@ -442,9 +442,9 @@ public int insertReReserve(Connection conn, Reserve reserve) {
        pstmt.setString(6,reserve.getReserveCustReq());
        pstmt.setString(7,reserve.getReserveDesignerReq());
        pstmt.setString(8,reserve.getReserveDesignerMemo());       
-       pstmt.setDate(9, reserve.getReserveDate());      
-       pstmt.setDate(10, reserve.getReserveStartdate());
-       pstmt.setDate(11, reserve.getReserveEndDate());
+       pstmt.setTimestamp(9,new Timestamp(reserve.getReserveDate().getTime()));      
+       pstmt.setTimestamp(10,new Timestamp(reserve.getReserveStartdate().getTime()));
+       pstmt.setTimestamp(11,new Timestamp(reserve.getReserveEndDate().getTime()));
        result = pstmt.executeUpdate();
     } catch (SQLException e) {
        e.printStackTrace();

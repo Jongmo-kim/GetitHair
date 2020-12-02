@@ -23,12 +23,12 @@ public class CustTemplate {
 		String addrDetail = request.getParameter("addrDetail");
 		String addrPostcode = request.getParameter("addrPostcode");
 		String customerBirthdate = request.getParameter("customerBirthdate");
-		String customerEnrolldate = request.getParameter("customerEnrolldate");		
+//		String customerEnrolldate = request.getParameter("customerEnrolldate");		
 
 		Customer customer = new Customer();
 		//"yyyy년 mm월 dd일" -> sql.date
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(customerBirthdate);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
 		try {
 			java.util.Date to = sdf.parse(customerBirthdate);			
 			java.sql.Date sqlDate = new java.sql.Date(to.getTime());			
@@ -36,14 +36,14 @@ public class CustTemplate {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}			
-		try {
-			java.util.Date to2 = sdf.parse(customerEnrolldate);
-			java.sql.Date sqlDate2 = new java.sql.Date(to2.getTime());
-			customer.setCustomerEnrolldate(sqlDate2);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+//		try {
+//			java.util.Date to2 = sdf.parse(customerEnrolldate);
+//			java.sql.Date sqlDate2 = new java.sql.Date(to2.getTime());
+//			customer.setCustomerEnrolldate(sqlDate2);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}	
 		
 		//customer.setCustomerBirthdate(customerBirthdate);
 		customer.setAddrDetail(addrDetail);
