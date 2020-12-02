@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
+import hairshop.model.vo.HairshopImage;
 import image.model.service.ImageService;
 import image.model.vo.Image;
 
@@ -37,8 +38,11 @@ public class HairshopMoreServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int start = Integer.parseInt(request.getParameter("start"));
-		ArrayList<Image> shopimg = new ImageService().selectAllImageByType("hairshop");//넘버로
-		ArrayList<Hairshop> list = new HairshopService().hairshopMore(start);
+		
+		ArrayList<Image> imglist = new ImageService().selectAllImageByType("hairshop");
+		ArrayList<Hairshop> shoplist = new HairshopService().hairshopMore(start);
+		System.out.println(shoplist.size());
+		HairshopImage list = new HairshopImage(imglist, shoplist);
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(list,response.getWriter());//객체 새로 만들어서 묶어서 보내기
 	}
