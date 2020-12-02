@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,12 @@ import image.model.service.ImageService;
 /**
  * Servlet implementation class DesignerSignupServlet
  */
+@MultipartConfig(
+		location="upload/designer",
+		fileSizeThreshold=1024*1024*5,
+		maxFileSize=1024*1024*10,
+		maxRequestSize=1024*1024*15
+)
 @WebServlet(name = "DesignerSignup", urlPatterns = { "/signUpDesigner" })
 public class SignupDesignerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,7 +48,7 @@ public class SignupDesignerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(isMultiContent(request)) {
-			toMsg();
+			toMsg(request,response);
 			return;
 		}
 		String Msg = "";
@@ -49,16 +56,15 @@ public class SignupDesignerServlet extends HttpServlet {
 		Designer designer = DesignerTemplate.setDesigner(mRequest);
 		int result = new DesignerService().insertDesigner(designer);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-		
 		if(result >0) {
 			Designer insertedDesigner = new DesignerService().selectOneDesigner(designer.getDesignerId());
-			String type="designer";
+			String type = "designer";
 			int typeNo = insertedDesigner.getDesignerNo();
 			int imgResult = new ImageService().insertImage(mRequest.getFilesystemName("filename"), type, typeNo);
 			if(imgResult > 0) {
-				Msg += "이미지 등록 성공";
+				Msg += "이미지 등록 성공\n";
 			}else {
-				Msg += "이미지 등록 실패";
+				Msg += "이미지 등록 실패\n";
 			}
 			request.setAttribute("loc", "/");
 			request.setAttribute("msg", Msg);
@@ -77,7 +83,13 @@ public class SignupDesignerServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		request.setAttribute("msg", "디자이너 회원가입 오류 [enctype]");
 		request.setAttribute("loc", "/");
-		rd.forward(request, response);
+		try {
+			rd.forward(request, response);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private MultipartRequest getMultipartRequest(HttpServletRequest request) {
@@ -93,11 +105,7 @@ public class SignupDesignerServlet extends HttpServlet {
 		return mRequest;
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
