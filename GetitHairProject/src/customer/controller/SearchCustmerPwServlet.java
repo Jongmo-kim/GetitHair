@@ -8,19 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import customer.model.service.CustomerService;
+import customer.model.vo.Customer;
 
 /**
- * Servlet implementation class SearchCustomerPwFormServlet
+ * Servlet implementation class SerchCustmerPwServlet2
  */
-@WebServlet(name = "SearchCustomerPwForm", urlPatterns = { "/searchCustomerPwForm" })
-public class SearchCustomerPwFormServlet extends HttpServlet {
+@WebServlet(name = "SerchCustmerPw", urlPatterns = { "/serchCustmerPw" })
+public class SearchCustmerPwServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchCustomerPwFormServlet() {
+    public SearchCustmerPwServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,15 +31,17 @@ public class SearchCustomerPwFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		if(session==null) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			request.setAttribute("msg", "로그인상태에서는 불가능합니다.");
-			request.setAttribute("loc", "/");
-			rd.forward(request, response);
-		}else {
+		String customerId = request.getParameter("customerId");
+		String customerPhone = request.getParameter("customerPhone");		
+		Customer cust = new CustomerService().selectOneSerchPw(customerId, customerPhone);
+		if(cust==null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/searchCustomerFrom.jsp");
-			request.setAttribute("option", 1);//암호focus옵션...
+			request.setAttribute("msg", "암호를 찾을수 없습니다..");
+			request.setAttribute("option", 1);
+			rd.forward(request, response);
+		}else {			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/resetCustomerPw.jsp");
+			request.setAttribute("customer", cust);
 			rd.forward(request, response);
 		}
 	}

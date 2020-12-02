@@ -64,6 +64,10 @@
     .content span{
     	font-size: 18px;
     }
+    .content>div{
+    	height: 300px;
+    	overflow: hidden;
+    }
 </style>
 </head>
 <body>
@@ -81,7 +85,12 @@
 				<img src="/img/main/heartbig.png" style="height: 25px"> <span><%=stylelist.getStyle().getStyleLikes() %></span>
 				<br><br>
 				<h2 style="display:inline-block"><%=stylelist.getDesigner().getDesignerName() %> 디자이너</h2><span> <%=stylelist.getDesigner().getDesignerRank() %> <%=stylelist.getDesigner().getDesignerYear() %>년</span>
-				<h3>추천 스타일</h3>
+				<div>
+					<h3>추천 스타일</h3>
+					<%for(DesignerPortfolio pf : pflist){ %>
+						<p><%=pf.getStyleName() %></p>
+					<%} %>
+				</div>
 			</div>
 		</div>
 	</section>

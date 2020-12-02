@@ -13,16 +13,16 @@ import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
 
 /**
- * Servlet implementation class SerchCustmerPwServlet2
+ * Servlet implementation class SerchCustmerIdServlet
  */
-@WebServlet(name = "SerchCustmerPw", urlPatterns = { "/serchCustmerPw" })
-public class SerchCustmerPwServlet extends HttpServlet {
+@WebServlet(name = "SerchCustmerIdServlet", urlPatterns = { "/serchCustmerId" })
+public class SearchCustmerIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SerchCustmerPwServlet() {
+    public SearchCustmerIdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +31,25 @@ public class SerchCustmerPwServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String customerId = request.getParameter("customerId");
+		String customerName = request.getParameter("customerName");
 		String customerPhone = request.getParameter("customerPhone");		
-		Customer cust = new CustomerService().selectOneSerchPw(customerId, customerPhone);
-		System.out.println("customerId = " + customerId);
+		Customer cust = new CustomerService().selectOneSerchId(customerName, customerPhone);
+		System.out.println("customerName = " + customerName);
 		System.out.println("customerPhone = " + customerPhone);
 		System.out.println("cust = " + cust);
 		if(cust==null) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			request.setAttribute("msg", "조회 할 수 없습니다.");
-			request.setAttribute("loc", "/serchCustmerId");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/customer/searchCustomerFrom.jsp");
+			request.setAttribute("msg", "아이디를 찾을 수 없습니다.....");			
 			rd.forward(request, response);
 		}else {
-			String stringResult = cust.getCustomerPw();
+			String stringResult = cust.getCustomerId();
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/findSuccess.jsp");
-			request.setAttribute("option", 0);
+			request.setAttribute("msg", "성공했습니다!");
+			request.setAttribute("option", 1);//암호focus옵션...
 			request.setAttribute("stringResult", stringResult);	
 			rd.forward(request, response);
 		}
+		
 	}
 
 	/**

@@ -1,44 +1,53 @@
 package image.model.vo;
 
 public class Image {
-	private int imageNo;
-	private String imageFileName;
-	private String imageFilePath;
+	private int imgNo;
+	private String filepath;//이미지 객체 - 파일패스
+	private String imgType;//헤어샵, 스타일
+	private int imgTypeNo;//상세 번호
 	
 	public Image() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Image(int imageNo, String imageFileName, String imageFilePath) {
+	public Image(int imgNo, String filepath, String imgType, int imgTypeNo) {
 		super();
-		this.imageNo = imageNo;
-		this.imageFileName = imageFileName;
-		this.imageFilePath = imageFilePath;
+		this.imgNo = imgNo;
+		this.filepath = filepath;
+		this.imgType = imgType;
+		this.imgTypeNo = imgTypeNo;
 	}
 
-	public int getImageNo() {
-		return imageNo;
+	public int getImgNo() {
+		return imgNo;
 	}
 
-	public void setImageNo(int imageNo) {
-		this.imageNo = imageNo;
+	public void setImgNo(int imgNo) {
+		this.imgNo = imgNo;
 	}
 
-	public String getImageFileName() {
-		return imageFileName;
+	public String getFilepath() {
+		return filepath;
 	}
 
-	public void setImageFileName(String imageFileName) {
-		this.imageFileName = imageFileName;
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
 	}
 
-	public String getImageFilePath() {
-		return imageFilePath;
+	public String getImgType() {
+		return imgType;
 	}
 
-	public void setImageFilePath(String imageFilePath) {
-		this.imageFilePath = imageFilePath;
+	public void setImgType(String imgType) {
+		this.imgType = imgType;
 	}
 
+	public int getImgTypeNo() {
+		return imgTypeNo;
+	}
 
+	public void setImgTypeNo(int imgTypeNo) {
+		this.imgTypeNo = imgTypeNo;
+	}
+	
 }
