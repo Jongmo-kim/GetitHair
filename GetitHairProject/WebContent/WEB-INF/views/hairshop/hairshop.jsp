@@ -5,8 +5,8 @@
     pageEncoding="UTF-8"%>
     <%
     	ArrayList<Hairshop> list = (ArrayList<Hairshop>)request.getAttribute("list");
-        	int totalCount = (Integer)request.getAttribute("totalCount");
-        	ArrayList<Image> styleimg = (ArrayList<Image>)request.getAttribute("styleimg");
+        int totalCount = (Integer)request.getAttribute("totalCount");
+        ArrayList<Image> styleimg = (ArrayList<Image>)request.getAttribute("styleimg");
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -327,9 +327,9 @@
 				dataType : "json",//데이터 타입 json인 걸 여기서 해도 됨.아님 서블릿에서
 				success : function(data){
 					var html ="";
-					for(var i in data){
-						var h = data[i];
-						html += "<table style='cursor:pointer;'><tr><th rowspan='4'><img src = '/upload/hairshop/"+h.filepath+"'></th>";
+					for(var i in data.shoplist){
+						var h = data.shoplist[i];
+						html += "<table style='cursor:pointer;'><tr><th rowspan='4'><img src = '/upload/hairshop/"+data.imglist[i].filepath+"'></th>";
 						html += "<td colspan='2' style='font-size:20px;'>"+h.shopName+"</td></tr>";
 						html += "<input type='hidden' name='shopNo' value="+h.shopNo+">";
 						html += "<tr><td><span class='glyphicon glyphicon-star'></span> <span>"+h.shopRate+"</span></td>";
