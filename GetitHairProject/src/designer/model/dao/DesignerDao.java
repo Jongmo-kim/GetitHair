@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import common.JDBCTemplate;
 import designer.model.vo.Designer;
@@ -118,10 +120,9 @@ public class DesignerDao {
 			pstmt.setInt(5, designer.getDesignerYear());
 			pstmt.setString(6, designer.getDesignerRank());
 			pstmt.setString(7, designer.getDesignerIntro());
-			pstmt.setString(8, designer.getDesignerEnrolldate());
+			pstmt.setTimestamp(8,new Timestamp(new Date().getTime()));
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(pstmt);
@@ -359,7 +360,6 @@ public class DesignerDao {
 				Designer.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rset);
@@ -391,7 +391,6 @@ public class DesignerDao {
 				Designer.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rset);
