@@ -33,13 +33,13 @@ public class DesignerPortfolioDao {
 	}
 
 
-	public int insertDesignerPortfolio(Connection conn, DesignerPortfolio dp) {
+	public int insertDesignerPortfolio(Connection conn, DesignerPortfolio dp, int desigerNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = "insert into designer_portfolio values(designer_portfolio_seq.nextval,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'))";
+		String query = "insert into designer_portfolio values(designer_portfolio_seq.nextval,?,?,?,to_char(sysdate,'yyyy-mm-dd'))";
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, dp.getPortfolioWriter());
+			pstmt.setInt(1, desigerNo);
 			pstmt.setString(2, dp.getStyleName());
 			pstmt.setString(3, dp.getPortfolioContent());
 			result = pstmt.executeUpdate();
