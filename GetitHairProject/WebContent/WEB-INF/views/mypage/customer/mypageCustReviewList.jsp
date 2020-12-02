@@ -47,7 +47,7 @@
 	<div class="container">
 	<h1>나의 리뷰 리스트</h1>
 	<!-- 테이블부분 -->
-	<table class="table" style="width:100%;text-align:center;" border="1">			
+	<table class="table table-striped table-hover" style="width:100%;text-align:center;" border="1">			
 			<tr>				
 				<th><p>리뷰번호</p></th>
 				<th><p>작성일자</p></th>
@@ -115,11 +115,11 @@
 
                </div>
                <div class="modal-footer">                 
-                  <button type="button" class="btn btn-default" id="updateOnBtn">수정하기</button>
-                  <button type="button" class="btn btn-default" id="updateCancelBtn">수정취소</button>
-                  <button type="submit" class="btn btn-default" id="updateCompleteBtn">수정완료</button>
-                  <button type="button" class="btn btn-default" id="deleteBtn">삭제하기</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                  <button type="button" class="btn btn-primary" id="updateOnBtn">수정하기</button>
+                  <button type="button" class="btn btn-warning" id="updateCancelBtn">수정취소</button>
+                  <button type="submit" class="btn btn-success" id="updateCompleteBtn">수정완료</button>
+                  <button type="button" class="btn btn-danger" id="deleteBtn">삭제하기</button>
+                  <button type="button" class="btn btn-info" data-dismiss="modal">닫기</button>
                </div>
             </form>
          </div>

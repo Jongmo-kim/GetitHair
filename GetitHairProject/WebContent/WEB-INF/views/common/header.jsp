@@ -129,6 +129,8 @@
 		       			</div>
 				</div>
 				<div class="modal-footer">
+          			<button type="button" id="searchId" class="btn btn-default">ID찾기</button>
+          			<button type="button" id="searchPw" class="btn btn-default">PW찾기</button>
 					<button type="submit" class="btn btn-default">제출</button>
 					<button type="reset" class="btn btn-default">초기화</button>
 				</div>
@@ -203,4 +205,27 @@
 			</li>
 		</ul>
 	</div>
+	<script>
+			$("#searchId").attr("onclick","location.href='/searchCustomerIdForm'");
+			$("#searchPw").attr("onclick","location.href='/searchCustomerPwForm'");
+		 $("input[name='loginType']").change(function(){	
+			 if($(this).val()=='designer'){
+				$("#searchId").attr("onclick","location.href='/searchDesignerIdForm'");
+				$("#searchPw").attr("onclick","location.href='/searchDesignerPwForm'");
+				$("#searchId").show();
+				 $("#searchPw").show();
+			 }else if($(this).val()=='customer'){
+				$("#searchId").attr("onclick","location.href='/searchCustomerIdForm'");
+				$("#searchPw").attr("onclick","location.href='/searchCustomerPwForm'");
+				$("#searchId").show();
+				$("#searchPw").show();
+			 }else if($(this).val()=='hairshop'){
+				 $("#searchId").hide();
+				 $("#searchPw").hide();				 
+			 }else if($(this).val()=='admin'){
+				 $("#searchId").hide();
+				 $("#searchPw").hide();
+			 }		 	 
+		 });			 
+	</script>
 </header>

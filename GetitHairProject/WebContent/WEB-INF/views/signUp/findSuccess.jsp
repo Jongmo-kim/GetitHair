@@ -40,6 +40,8 @@
 	 <% }else if(option == 2) {%>
 	 	<h1>암호변경에 성공했습니다!</h1>	 
 	 	<button class="btn btn-primary" onclick="location.href='/searchDesignerIdForm'">암호찾기</button>
+	  <% }else if(option == 0) {%>
+	  	<h1>암호변경에 성공했습니다!</h1>	 
 	 <% } %>
 	 	<button class="btn btn-primary" data-toggle="modal" data-target="#loginModal">로그인하기</button>
 	 </div> 	
