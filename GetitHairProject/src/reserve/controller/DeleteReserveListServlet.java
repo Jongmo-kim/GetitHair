@@ -54,20 +54,20 @@ public class DeleteReserveListServlet extends HttpServlet {
 		Reserve reserve = new ReserveService().selectOneReserve(reserveNo);		
 		int maxPrintSize = 10;
 		int beforeTotalPage = new  ReserveService().getAllReserveMaxPageSize(maxPrintSize,selStatus);
-		System.out.println("beforeTotalPage = "+beforeTotalPage);
-		System.out.println("jsonChklist.size() = "+jsonChklist.size());
+		//System.out.println("beforeTotalPage = "+beforeTotalPage);
+	//	System.out.println("jsonChklist.size() = "+jsonChklist.size());
 		for(int i=0;i<jsonChklist.size();i++) {
-			System.out.println("JsonChkList("+i+") = "+jsonChklist.get(i).toString());
-			System.out.println("JsonChkList("+i+").replace = "+jsonChklist.get(i).toString().replace("\"", ""));
+		//	System.out.println("JsonChkList("+i+") = "+jsonChklist.get(i).toString());
+		//	System.out.println("JsonChkList("+i+").replace = "+jsonChklist.get(i).toString().replace("\"", ""));
 			reserveNo = Integer.parseInt(jsonChklist.get(i).toString().replace("\"", ""));		
-			System.out.println("reserveNo = "+reserveNo);
+		//	System.out.println("reserveNo = "+reserveNo);
 			result += new ReserveService().deleteReserve(reserveNo);
 		}
 		if(result>0) {
-			System.out.println("result = "+result);
+			//System.out.println("result = "+result);
 			reserve = new ReserveService().selectOneReserve(reserveNo); //customer정보조회때문에 reserve객체생성
 			int afterTotalPage = new  ReserveService().getAllReserveMaxPageSize(maxPrintSize,selStatus);
-			System.out.println("afterTotalPage = "+afterTotalPage);
+		//	System.out.println("afterTotalPage = "+afterTotalPage);
 			if(beforeTotalPage>afterTotalPage) {
 				reqPage--;
 				if (reqPage <= 0) {
@@ -75,14 +75,14 @@ public class DeleteReserveListServlet extends HttpServlet {
 				}
 			}
 
-			System.out.println("afterReqPage = " + reqPage);
+			//System.out.println("afterReqPage = " + reqPage);
 		}
 		JSONObject resultJson = new JSONObject();
 		resultJson.put("result", result);
 		resultJson.put("reqPage", reqPage);
 		resultJson.put("selStatus", URLEncoder.encode(selStatus.toString(),"UTF-8"));
 		
-		System.out.println("resultJson = "+resultJson);
+		//System.out.println("resultJson = "+resultJson);
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		out.print(resultJson);

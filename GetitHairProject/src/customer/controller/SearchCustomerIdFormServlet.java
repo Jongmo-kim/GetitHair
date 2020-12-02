@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class SearchCustomerPwFormServlet
+ * Servlet implementation class SearchCustomeIdFormServlet
  */
-@WebServlet(name = "SearchCustomerPwForm", urlPatterns = { "/searchCustomerPwForm" })
-public class SearchCustomerPwFormServlet extends HttpServlet {
+@WebServlet(name = "SearchCustomerIdForm", urlPatterns = { "/searchCustomerIdForm" })
+public class SearchCustomerIdFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchCustomerPwFormServlet() {
+    public SearchCustomerIdFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,9 +37,9 @@ public class SearchCustomerPwFormServlet extends HttpServlet {
 			rd.forward(request, response);
 		}else {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/signUp/searchCustomerForm.jsp");
-			request.setAttribute("option", 1);//암호focus옵션...
 			rd.forward(request, response);
 		}
+		
 	}
 
 	/**

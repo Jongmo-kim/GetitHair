@@ -335,4 +335,68 @@ public class DesignerDao {
 		}
 		return new Object[]{cnt,list};
 	}
+
+	public Designer selectOneSerchId(Connection conn, String designerName, String designerPhone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Designer Designer = null;
+		String query = "select * from designer where designer_name=? and designer_phone=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, designerName);
+			pstmt.setString(2, designerPhone);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				Designer = new Designer();
+				Designer.setDesignerNo(rset.getInt("designer_no"));
+				Designer.setDesignerId(rset.getString("designer_id"));
+				Designer.setDesignerPw(rset.getString("designer_pw"));
+				Designer.setDesignerName(rset.getString("designer_name"));
+				Designer.setDesignerPhone(rset.getString("designer_phone"));
+				Designer.setDesignerYear(rset.getInt("designer_year"));
+				Designer.setDesignerRank(rset.getString("designer_rank"));
+				Designer.setDesignerIntro(rset.getString("designer_intro"));
+				Designer.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return Designer;
+	}
+
+	public Designer selectOneSerchPw(Connection conn, String designerId, String designerPhone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Designer Designer = null;
+		String query = "select * from designer where designer_Id=? and designer_phone=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, designerId);
+			pstmt.setString(2, designerPhone);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				Designer = new Designer();
+				Designer.setDesignerNo(rset.getInt("designer_no"));
+				Designer.setDesignerId(rset.getString("designer_id"));
+				Designer.setDesignerPw(rset.getString("designer_pw"));
+				Designer.setDesignerName(rset.getString("designer_name"));
+				Designer.setDesignerPhone(rset.getString("designer_phone"));
+				Designer.setDesignerYear(rset.getInt("designer_year"));
+				Designer.setDesignerRank(rset.getString("designer_rank"));
+				Designer.setDesignerIntro(rset.getString("designer_intro"));
+				Designer.setDesignerEnrolldate(rset.getString("designer_enrolldate"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return Designer;
+	}
 }

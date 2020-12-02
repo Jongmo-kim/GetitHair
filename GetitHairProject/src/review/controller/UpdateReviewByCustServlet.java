@@ -41,7 +41,7 @@ public class UpdateReviewByCustServlet extends HttpServlet {
 		}else {
 			request.setAttribute("msg", "해당 리뷰가 수정 안됬습니다...");
 		}
-		request.setAttribute("loc", "mypageCustReviewList?customerNo="+customerNo+"&reqPage="+reqPage);
+		request.setAttribute("loc", "/mypageCustReviewList?customerNo="+customerNo+"&reqPage="+reqPage);
 		rd.forward(request, response);
 	}
 

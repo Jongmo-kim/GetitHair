@@ -1,4 +1,4 @@
-package customer.controller;
+package designer.controller;
 
 import java.io.IOException;
 
@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import customer.model.service.CustomerService;
-import customer.model.vo.Customer;
+import designer.model.service.DesignerService;
+import designer.model.vo.Designer;
+
+
 
 /**
- * Servlet implementation class CustomerResetPwServlet
+ * Servlet implementation class DesignerResetPwServlet
  */
-@WebServlet(name = "CustomerResetPw", urlPatterns = { "/customerResetPw" })
-public class CustomerResetPwServlet extends HttpServlet {
+@WebServlet(name = "DesignerResetPw", urlPatterns = { "/designerResetPw" })
+public class DesignerResetPwServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerResetPwServlet() {
+    public DesignerResetPwServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +33,18 @@ public class CustomerResetPwServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int customerNo = Integer.parseInt(request.getParameter("customerNo"));
-		String customerId = request.getParameter("customerId");
-		String customerPw = request.getParameter("customerPw");
-		Customer cust = new CustomerService().selectOneCustomer(customerNo);
-		if(cust==null) {
+		int designerNo = Integer.parseInt(request.getParameter("designerNo"));
+		String designerId = request.getParameter("designerId");
+		String designerPw = request.getParameter("designerPw");
+		Designer designer = new DesignerService().selectOneDesigner(designerNo);
+		if(designer==null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 			request.setAttribute("msg", "조회되지 않는 회원입니다.");
 			request.setAttribute("loc", "/");
 			rd.forward(request, response);
 		}else {
-			cust.setCustomerPw(customerPw);
-			int result = new CustomerService().updateCustomer(cust);
+			designer.setDesignerPw(designerPw);
+			int result = new DesignerService().updateDesigner(designer);
 			if(result>0) {
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/signUp/findSuccess.jsp");
 				request.setAttribute("option",0);
@@ -52,7 +54,6 @@ public class CustomerResetPwServlet extends HttpServlet {
 				request.setAttribute("msg", "암호설정이 실패했습니다..");
 				request.setAttribute("loc", "/");
 				rd.forward(request, response);
-				
 			}
 		}
 	}

@@ -76,7 +76,7 @@ public class MypageCustServlet extends HttpServlet {
 			}
 		}
 		
-		RequestDispatcher rd1 =request.getRequestDispatcher("/WEB-INF/views/customer/mypageCust.jsp");		
+		RequestDispatcher rd1 =request.getRequestDispatcher("/WEB-INF/views/mypage/customer/mypageCust.jsp");		
 		request.setAttribute("reserveList", rpd.getList()); 
 		request.setAttribute("pageNavi", rpd.getPageNavi()); 
 		request.setAttribute("selStatus", selStatus);

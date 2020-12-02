@@ -50,7 +50,7 @@
 	    <h3>회원가입</h3>
 	    <p>이미 Get it hair의 회원이신가요? 
 	    <%if(loginCustomer == null){%>
-	    <a href="/searchCustomeIdForm">ID</a> / <a href="/searchCustomerPwForm">PW</a>찾기</p>
+	    <a href="/searchCustomerIdForm">ID</a> / <a href="/searchCustomerPwForm">PW</a>찾기</p>
 	    <% } %>
 	    <br>
 	    <hr>
