@@ -44,7 +44,7 @@ CREATE SEQUENCE IMAGE_SEQ;
 create table image(
     img_no number primary key,
     filepath varchar(200) NOT null,
-    img_type char(20) check(img_type in ('hairshop','review','style','designer','reserve','designer_portfolio')),
+    img_type varchar2(20) check(img_type in ('hairshop','review','style','designer','reserve','designer_portfolio')),
     img_type_no number not null
 );
 
