@@ -17,17 +17,7 @@
 <head>
 <meta charset='utf-8' />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
-
-<script src='calendarapi/lib/main.js'></script>
-<link href='calendarapi/lib/main.css' rel='stylesheet' />
-
-<!-- <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet' /> -->
-<link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
-<link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
 
 
 
@@ -257,7 +247,7 @@ body {
 </head>
 
 <body>
-	
+	<%@ include file="/WEB-INF/views/common/headerCalendar.jsp" %>
 
 	<!-- The Modal -->
 	<div class="modal" id="eventModal" style="display: none">
@@ -323,10 +313,19 @@ body {
 			</div>
 		</div>
 	</div>
+	<div style="margin: 0 auto; width: 1100px;">
+		<h1>예약 리스트</h1>
+		<br><br>
+	</div>
 	<div id='calendar'
 		class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"></div>
 	<br>
-	<button id="submitBtn" type="button" class="btn btn-primary" >저장하기</button>
+	
+	<div style="margin: 0 auto; width: 1100px;">
+		<button id="submitBtn" type="button" class="btn btn-primary" >저장하기</button>
+	</div>
+	
+	
 	<!-- <div style="position: fixed; top: 500px;">
 		<button id="submitBtn" type="button" class="btn btn-primary"
 			style="width: 200px; height: 200px">제출하기</button>
