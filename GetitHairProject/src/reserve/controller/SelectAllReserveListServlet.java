@@ -32,7 +32,8 @@ public class SelectAllReserveListServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		System.out.println("너가 범인이니?");
 		//1.인코딩
 		//2.view에서 넘어온값저장
 		int customerNo = Integer.parseInt(request.getParameter("customerNo"));

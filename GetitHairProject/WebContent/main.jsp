@@ -232,10 +232,16 @@ body {
 				<a href="/style">스타일</a>
 			</div>
 			<div class="nav-menu">
+				<%if(!isLogined) {%>
 				<a style="color: #fff" data-toggle="modal" data-target="#loginModal">로그인</a>
+				<%} else {%>
+				<a style="color: #fff" href="/custLogout">로그아웃</a>
+				<%} %>
 			</div>
 			<div class="nav-menu">
+				<%if(!isLogined) {%>
 				<a href="/signUpCustomer">회원가입</a>
+				<%} %>
 			</div>
 		</div>
 	</div>

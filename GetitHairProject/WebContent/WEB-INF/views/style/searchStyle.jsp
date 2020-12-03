@@ -87,8 +87,11 @@
     	margin : 0 auto;
     }
     .noexist{
-    	text-align: center;
+    	margin: 0 auto;
+    	width: 650px;
     	margin-top: 50px;
+    	margin-bottom: 50px;
+    	height: 500px;
     }
     .content{
     	text-align: center;
@@ -177,6 +180,11 @@
 	  			var styleNo = $(this).find("input").val();//find가 이미 자식 찾는거
 				location.href="/styleDetail?styleNo="+styleNo;
 	  		});
+		});
+	  	$("button:submit").click(function(){
+			if($(this).prev().val() == ""){
+				return false;
+			}
 		});
 	</script>
 </body>

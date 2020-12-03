@@ -80,11 +80,13 @@
     }
     .style-sub{
     	display: none;
+    	overflow: hidden;
     }
     .mid{
     	text-align: center;
     	width : 70%;
     	margin : 0 auto;
+    	margin-bottom: 50px;
     }
     img{
     	width: 250px;
@@ -116,16 +118,18 @@
     .content{
     	width: 100%;
     }
-    .style-sub>img{
-    	margin: 10px;
-    	cursor: pointer;
-    }
     .style-sub>h1{
     	margin: 30px;
     }
     label{
     	margin-right: 30px;
     	margin-left: 5px;
+    }
+    .style-sub>div{
+    	width: 250px;
+    	margin: 60px;
+    	float: left;
+    	cursor: pointer;
     }
 </style>
 </head>
@@ -171,12 +175,16 @@
 					<input type="checkbox" name="bob" id="bob"><label for="bob">단발</label>
 					<input type="checkbox" name="short" id="short"><label for="short">숏</label>
 					<h1>cut</h1>
-					<%for(Style s : stylelist) {%>
-						<%if(s.getStyleType().equals("cut")){ %>
-							<%for(Image i : imglist){ %>
-								<%if(s.getStyleNo() == i.getImgTypeNo()) %>
-									<img src="/upload/style/<%=i.getFilepath() %>">
-									<input type="hidden" value="<%=s.getStyleNo()%>">
+					<%for(Image i : imglist) { %>
+						<%for(Style s : stylelist) {%>
+							<%if(s.getStyleNo() == i.getImgTypeNo()) {%>
+								<%if(s.getStyleType().equals("cut")){ %>
+									<div>
+										<img src="/upload/style/<%=i.getFilepath() %>">
+										<input type="hidden" value="<%=s.getStyleNo()%>">
+										<p style="font-size:24px;"><%=s.getStyleName() %></p>
+									</div>
+								<%} %>
 							<%} %>
 						<%} %>
 					<%} %>
@@ -187,12 +195,16 @@
 					<input type="checkbox" name="bob" id="bob"><label for="bob">단발</label>
 					<input type="checkbox" name="short" id="short"><label for="short">숏</label>
 					<h1>perm</h1>
-					<%for(Style s : stylelist) {%>
-						<%if(s.getStyleType().equals("perm")){ %>
-							<%for(Image i : imglist){ %>
-								<%if(s.getStyleNo() == i.getImgTypeNo()) %>
-									<img src="/upload/style/<%=i.getFilepath() %>">
-									<input type="hidden" value="<%=s.getStyleNo()%>">
+					<%for(Image i : imglist){ %>
+						<%for(Style s : stylelist) {%>
+							<%if(s.getStyleNo() == i.getImgTypeNo()) {%>
+								<%if(s.getStyleType().equals("perm")){ %>
+									<div>
+										<img src="/upload/style/<%=i.getFilepath() %>">
+										<input type="hidden" value="<%=s.getStyleNo()%>">
+										<p style="font-size:24px;"><%=s.getStyleName() %></p>
+									</div>
+								<%} %>
 							<%} %>
 						<%} %>
 					<%} %>
@@ -203,12 +215,16 @@
 					<input type="checkbox" name="bob" id="bob"><label for="bob">단발</label>
 					<input type="checkbox" name="short" id="short"><label for="short">숏</label>
 					<h1>color</h1>
-					<%for(Style s : stylelist) {%>
-						<%if(s.getStyleType().equals("color")){ %>
-							<%for(Image i : imglist){ %>
-								<%if(s.getStyleNo() == i.getImgTypeNo()) %>
-									<img src="/upload/style/<%=i.getFilepath() %>">
-									<input type="hidden" value="<%=s.getStyleNo()%>">
+					<%for(Image i : imglist){ %>
+						<%for(Style s : stylelist) {%>
+							<%if(s.getStyleNo() == i.getImgTypeNo()) {%>
+								<%if(s.getStyleType().equals("color")){ %>
+									<div>
+										<img src="/upload/style/<%=i.getFilepath() %>">
+										<input type="hidden" value="<%=s.getStyleNo()%>">
+										<p style="font-size:24px;"><%=s.getStyleName() %></p>
+									</div>
+								<%} %>
 							<%} %>
 						<%} %>
 					<%} %>
@@ -217,12 +233,16 @@
 					<input type="checkbox" name="clinic" id="clinic"><label for="clinic">클리닉</label>
 					<input type="checkbox" name="dry" id="dry"><label for="dry">드라이</label>
 					<h1>etc</h1>
-					<%for(Style s : stylelist) {%>
-						<%if(s.getStyleType().equals("etc")){ %>
-							<%for(Image i : imglist){ %>
-								<%if(s.getStyleNo() == i.getImgTypeNo()) %>
-									<img src="/upload/style/<%=i.getFilepath() %>">
-									<input type="hidden" value="<%=s.getStyleNo()%>">
+					<%for(Image i : imglist){ %>
+						<%for(Style s : stylelist) {%>
+							<%if(s.getStyleNo() == i.getImgTypeNo()) {%>
+								<%if(s.getStyleType().equals("etc")){ %>
+									<div>
+										<img src="/upload/style/<%=i.getFilepath() %>">
+										<input type="hidden" value="<%=s.getStyleNo()%>">
+										<p style="font-size:24px;"><%=s.getStyleName() %></p>
+									</div>
+								<%} %>
 							<%} %>
 						<%} %>
 					<%} %>
@@ -268,10 +288,15 @@
 			location.href="/hairshop";
 		});
 		$(function(){
-	  		$(".style-sub>img").click(function(){
+	  		$(".style-sub img").click(function(){
 	  			var styleNo = $(this).next().val();
 				location.href="/styleDetail?styleNo="+styleNo;
 	  		});
+		});
+		$("button:submit").click(function(){
+			if($(this).prev().val() == ""){
+				return false;
+			}
 		});
 	  </script>
 </body>

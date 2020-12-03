@@ -36,19 +36,17 @@ public class SearchStyleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String searchStyle = request.getParameter("searchStyle");
-		if(!searchStyle.equals("")) {
-			ArrayList<Style> stylelist = new StyleService().searchStyle(searchStyle);
-			ArrayList<Image> imglist = new ArrayList<Image>();
-			for(Style s : stylelist) {
-				Image image = new ImageService().selectOneImageByTypeAndTypeNo("style", s.getStyleNo());
-				imglist.add(image);
-			}
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/style/searchStyle.jsp");
-			request.setAttribute("stylelist", stylelist);
-			request.setAttribute("imglist", imglist);
-			request.setAttribute("searchStyle", searchStyle);
-			rd.forward(request, response);
+		ArrayList<Style> stylelist = new StyleService().searchStyle(searchStyle);
+		ArrayList<Image> imglist = new ArrayList<Image>();
+		for(Style s : stylelist) {
+			Image image = new ImageService().selectOneImageByTypeAndTypeNo("style", s.getStyleNo());
+			imglist.add(image);
 		}
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/style/searchStyle.jsp");
+		request.setAttribute("stylelist", stylelist);
+		request.setAttribute("imglist", imglist);
+		request.setAttribute("searchStyle", searchStyle);
+		rd.forward(request, response);
 	}
 
 	/**
