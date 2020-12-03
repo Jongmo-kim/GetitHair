@@ -21,7 +21,6 @@ public class ImageService {
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Image> list = new ImageDao().selectAllImageByType(conn,type);
 		JDBCTemplate.close(conn);
-		
 		return list;
 	}
 	
@@ -29,7 +28,6 @@ public class ImageService {
 		Connection conn = JDBCTemplate.getConnection();
 		ArrayList<Image> list = new ImageDao().selectAllImageByTypeAndTypeNo(conn,type,typeNo);
 		JDBCTemplate.close(conn);
-		
 		return list;
 	}
 	
@@ -37,12 +35,12 @@ public class ImageService {
 		//('hairshop','review','style','designer','reserve','designer_portfolio')
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ImageDao().insertImage(conn, filepath, type, typeNo);
-		if(result > 1)
+		if(result > 1) {
 			JDBCTemplate.commit(conn);
-		else
+		}else {
 			JDBCTemplate.rollback(conn);
+		}
 		JDBCTemplate.close(conn);
-		
 		return result;
 	}
 	public String selectFilepath(String type, int typeNo) {
