@@ -55,11 +55,12 @@
 	<div class="container">
 	<h1>회원정보수정</h1>
 	<form action="/updateAllCustomer" method="post">
-		<table class="table infoTable" style="width:70%;">
+		<table class="table infoTable" style="width:70%;text-align:left;">
 			<tr>
 				<th>회원번호</th>
 				<td><input type="text" name="customerNo"
 					value="<%=customer.getCustomerNo()%>" readonly></td>
+					<td></td>
 			</tr>
 			<tr>
 				<th>회원아이디</th>
@@ -608,8 +609,8 @@
 			</tr>
 			<tr>
 				<td class="btnTd" colspan="2">
-					<input type="submit" class="btn btn-primary" id="submitBtn" value="회원수정">	
-					<input type="button" class="btn btn-primary" value="이전화면으로" onClick="history.go(-1)">  
+					<input type="submit" class="btn btn-outline-primary" id="submitBtn" value="회원수정">	
+					<input type="button" class="btn btn-outline-primary" value="이전화면으로" onClick="history.go(-1)">  
 				</td>
 				
 			</tr>

@@ -64,7 +64,7 @@ ul {
 					method="poset">
 					<div class="modal-header">
 						<h4>나의예약</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>						
+						<button type="button" class="close btn btn-outline-secondary" data-dismiss="modal">&times;</button>						
 					</div>
 					<div class="modal-body">
 						<div class="reserve inputBox">
