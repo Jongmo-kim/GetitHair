@@ -59,8 +59,8 @@
 				</tr>
 				<tr>
 					<th colspan="2" style="text-align: center">
-					<button style="margin: 10px;" class="btn btn-primary" type="submit">수정하기</button>
-					<button style="margin: 10px" class="btn btn-primary" type="button" onclick="location.href='/deleteDesigner?designerId=<%=designer.getDesignerId()%>'">회원탈퇴</button>
+					<button style="margin: 10px;" class="btn btn-dark" type="submit">수정하기</button>
+					<button style="margin: 10px" class="btn btn-dark" type="button" onclick="location.href='/deleteDesigner?designerId=<%=designer.getDesignerId()%>'">회원탈퇴</button>
 					</th>
 				</tr>
 			</table>
