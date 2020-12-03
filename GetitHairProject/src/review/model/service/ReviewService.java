@@ -24,20 +24,21 @@ public class ReviewService {
 	}
 
 	// Paging 기능관련
-	// reqPage, maxSize : 표시될 최대 페이지, pageSize : 총 페이지 
-	//페이지에 표시해야 할 시작번호와 끝번호를 반환 해줌.
-	public int[] getPageStartEnd(int reqPage, int maxSize,int pageSize) {
-	    int pageStart = 1; //표시되는 시작 페이지
-	    int pageEnd = 1; // 표시되는 마지막 페이지
-	    for(int i = 1;i<=pageSize/maxSize + (pageSize%maxSize != 0 ? 1 : 0);i++){
-	        if(i*maxSize>=reqPage){
-	            pageStart = i*maxSize - (maxSize-1);
-	            pageEnd = i*maxSize < pageSize ? i*maxSize : pageSize;
-	            break;
-	        }
-	    }
-	    return new int[] {pageStart,pageEnd};
+	// reqPage, maxSize : 표시될 최대 페이지, pageSize : 총 페이지
+	// 페이지에 표시해야 할 시작번호와 끝번호를 반환 해줌.
+	public int[] getPageStartEnd(int reqPage, int maxSize, int pageSize) {
+		int pageStart = 1; // 표시되는 시작 페이지
+		int pageEnd = 1; // 표시되는 마지막 페이지
+		for (int i = 1; i <= pageSize / maxSize + (pageSize % maxSize != 0 ? 1 : 0); i++) {
+			if (i * maxSize >= reqPage) {
+				pageStart = i * maxSize - (maxSize - 1);
+				pageEnd = i * maxSize < pageSize ? i * maxSize : pageSize;
+				break;
+			}
+		}
+		return new int[] { pageStart, pageEnd };
 	}
+
 	// 총 페이지 개수를 반환 해주는 메서드
 	// ex) 검색된 리스트가 105개 이고 한 페이지에 출력할 리스트 개수(maxPrintSize)가 10개라면
 	// 105/10 = 10 이고 나머지가 존재하므로 11로 계산하여 반환 해줌.
@@ -47,22 +48,25 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	public int getAllReviewByCustomerNoMaxPageSize(int maxPrintSize,int customerNo) {
+
+	public int getAllReviewByCustomerNoMaxPageSize(int maxPrintSize, int customerNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDao().getMaxPageSizeByCustomerNo(conn, maxPrintSize,customerNo);
+		int result = new ReviewDao().getMaxPageSizeByCustomerNo(conn, maxPrintSize, customerNo);
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	public int getAllReviewByCustomerIdMaxPageSize(int maxPrintSize,String keyword) {
+
+	public int getAllReviewByCustomerIdMaxPageSize(int maxPrintSize, String keyword) {
 		Connection conn = JDBCTemplate.getConnection();
 		int customerNo = new ReviewDao().selectCustomerNoById(conn, keyword);
-		int result = new ReviewDao().getMaxPageSizeByCustomerNo(conn, maxPrintSize,customerNo);
+		int result = new ReviewDao().getMaxPageSizeByCustomerNo(conn, maxPrintSize, customerNo);
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	public int getAllReviewByShopNoMaxPageSize(int maxPrintSize,int shopNo) {
+
+	public int getAllReviewByShopNoMaxPageSize(int maxPrintSize, int shopNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDao().getMaxPageSizeByShopNo(conn, maxPrintSize,shopNo);
+		int result = new ReviewDao().getMaxPageSizeByShopNo(conn, maxPrintSize, shopNo);
 		JDBCTemplate.close(conn);
 		return result;
 	}
@@ -76,42 +80,42 @@ public class ReviewService {
 	}
 
 	// 회원 ID에 해당하는 모든 리뷰의 리스트를 페이징 하여 가져옴.
-	public ArrayList<Review> selectAllReviewById(String keyword,int reqPage, int maxPrintSize) {
+	public ArrayList<Review> selectAllReviewById(String keyword, int reqPage, int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
 		// customer 번호를 가져오는 메서드
 		int customerNo = new ReviewDao().selectCustomerNoById(conn, keyword);
 
-		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn, customerNo,reqPage,maxPrintSize);
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn, customerNo, reqPage, maxPrintSize);
 		JDBCTemplate.close(conn);
 		return list;
 	}
 
 	// 회원 번호에 해당하는 모든 리뷰의 리스트를 페이징 하여 가져옴.
-	public ArrayList<Review> selectAllReviewByCustomerNo(int customerNo,int reqPage, int maxPrintSize) {
+	public ArrayList<Review> selectAllReviewByCustomerNo(int customerNo, int reqPage, int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn, customerNo,reqPage,maxPrintSize);
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByCustomerNo(conn, customerNo, reqPage, maxPrintSize);
 		JDBCTemplate.close(conn);
 		return list;
 	}
 
 	// 헤어샵 번호에 해당하는 모든 리뷰의 리스트를 페이징 하여 가져옴.
-	public ArrayList<Review> selectAllReviewByShopNo(int shopNo,int reqPage, int maxPrintSize) {
+	public ArrayList<Review> selectAllReviewByShopNo(int shopNo, int reqPage, int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list = new ReviewDao().selectAllReviewByShopNo(conn, shopNo,reqPage,maxPrintSize);
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByShopNo(conn, shopNo, reqPage, maxPrintSize);
 		JDBCTemplate.close(conn);
 		return list;
 	}
 
 	// 디자이너 번호에 해당하는 모든 리뷰의 리스트를 페이징 하여 가져옴.
-	public ArrayList<Review> selectAllReviewByDesignerNo(int designerNo,int reqPage, int maxPrintSize) {
+	public ArrayList<Review> selectAllReviewByDesignerNo(int designerNo, int reqPage, int maxPrintSize) {
 		Connection conn = JDBCTemplate.getConnection();
-		ArrayList<Review> list = new ReviewDao().selectAllReviewByDesignerNo(conn, designerNo,reqPage,maxPrintSize);
+		ArrayList<Review> list = new ReviewDao().selectAllReviewByDesignerNo(conn, designerNo, reqPage, maxPrintSize);
 		JDBCTemplate.close(conn);
 		return list;
 	}
 
 	// SELECT 구문
-	
+
 	// 모든 리뷰 개수를 가져옴
 	public int selectAllReviewCount() {
 		Connection conn = JDBCTemplate.getConnection();
@@ -119,6 +123,15 @@ public class ReviewService {
 		JDBCTemplate.close(conn);
 		return count;
 	}
+
+	// 모든 리뷰 개수를 가져옴(날짜 지정해서)
+	public int selectAllReviewCount(String startDate,String endDate) {
+		Connection conn = JDBCTemplate.getConnection();
+		int count = new ReviewDao().selectAllReviewCount(conn,startDate,endDate);
+		JDBCTemplate.close(conn);
+		return count;
+	}
+
 	// 모든 리뷰의 리스트를 가져옴.
 	public ArrayList<Review> selectAllReview() {
 		Connection conn = JDBCTemplate.getConnection();
@@ -194,20 +207,20 @@ public class ReviewService {
 	// 리뷰 번호로 해당리뷰 조회
 	public ReviewViewData selectReviewView(int reviewNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		Review r = new ReviewDao().selectOneReview(conn,reviewNo);
+		Review r = new ReviewDao().selectOneReview(conn, reviewNo);
 		ArrayList<ReviewComment> list = new ReviewDao().selectReviewCommentList(conn, reviewNo);
 		JDBCTemplate.close(conn);
 		ReviewViewData rvd = new ReviewViewData(r, list);
 		return rvd;
 	}
-	
+
 	// 리뷰댓글 추가 메소드
 	public int insertReviewComment(ReviewComment rc) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDao().insertReviewComment(conn,rc);
-		if(result>0) {
+		int result = new ReviewDao().insertReviewComment(conn, rc);
+		if (result > 0) {
 			JDBCTemplate.commit(conn);
-		}else {
+		} else {
 			JDBCTemplate.rollback(conn);
 		}
 		JDBCTemplate.close(conn);
@@ -217,9 +230,9 @@ public class ReviewService {
 	public int deleteReviewComment(int reviewCommentNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ReviewDao().deleteReviewComment(conn, reviewCommentNo);
-		if(result>0) {
+		if (result > 0) {
 			JDBCTemplate.commit(conn);
-		}else {
+		} else {
 			JDBCTemplate.rollback(conn);
 		}
 		JDBCTemplate.close(conn);
@@ -229,33 +242,35 @@ public class ReviewService {
 	public int updateReviewComment(int reviewCommentNo, String reviewCommentContent) {
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ReviewDao().updateReviewComment(conn, reviewCommentNo, reviewCommentContent);
-		if(result>0) {
+		if (result > 0) {
 			JDBCTemplate.commit(conn);
-		}else {
+		} else {
 			JDBCTemplate.rollback(conn);
 		}
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	//태민추가 하나의 리뷰정보 가지고오기 위해생성
+
+	// 태민추가 하나의 리뷰정보 가지고오기 위해생성
 	public Review selectOneReview(int reviewNo) {
 		Connection conn = JDBCTemplate.getConnection();
 		Review reivew = new ReviewDao().selectOneReview(conn, reviewNo);
 		JDBCTemplate.close(conn);
 		return reivew;
 	}
-	//태민 추가 리뷰 코멘트만 수정하는 쿼리문 작성을 위하여
-	public int updateReviewByCust(int reviewNo,String reviewContent) {
+
+	// 태민 추가 리뷰 코멘트만 수정하는 쿼리문 작성을 위하여
+	public int updateReviewByCust(int reviewNo, String reviewContent) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new ReviewDao().updatereviewByCust(conn,reviewNo,reviewContent);
-		if(result>0) {
-			JDBCTemplate.commit(conn);;
-		}else {
+		int result = new ReviewDao().updatereviewByCust(conn, reviewNo, reviewContent);
+		if (result > 0) {
+			JDBCTemplate.commit(conn);
+			;
+		} else {
 			JDBCTemplate.rollback(conn);
 		}
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	
-	
+
 }

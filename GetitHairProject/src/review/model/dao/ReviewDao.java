@@ -106,6 +106,29 @@ public class ReviewDao {
 		}
 		return count;
 	}
+	public int selectAllReviewCount(Connection conn, String startDate, String endDate) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "select count(*) from review where review_date between ? and ?";
+		int count = 0;
+		try {
+			pstmt=conn.prepareStatement(qrySelect);
+			pstmt.setString(1, startDate);
+			pstmt.setString(2, endDate);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return count;
+	}
 	public ArrayList<Review> selectAllReviewByCustomerNo(Connection conn, int customerNo, int reqPage,
 			int maxPrintSize) {
 		PreparedStatement pstmt = null;
@@ -530,6 +553,7 @@ public class ReviewDao {
 		}
 		return result;
 	}
+	
 	
 	
 	
