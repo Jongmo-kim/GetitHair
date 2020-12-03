@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/mypage/admin/layout.css">
     <style>
         body{
-            background-color: #3E5902;
+            background-color: #ffffff;
         }
         .admin-nav-wrap {
             width: 100%;
@@ -37,7 +37,7 @@
         .admin-nav>li>a {
             display: block;
             text-decoration: none;
-            color: #3E5902;
+            color: #222222;
             font-weight: bold;
             font-size: large;
             text-align: center;
