@@ -49,7 +49,7 @@ public class MypageCustServlet extends HttpServlet {
 			rd.forward(request, response);
 		}else {
 		//예약 리스트 view에서 저장	
-		
+		System.out.println("teste");
 		int reqPage = Integer.parseInt(request.getParameter("reqPage"));		
 		String selStatus = request.getParameter("selStatus");
 		String sqlAdd ="";

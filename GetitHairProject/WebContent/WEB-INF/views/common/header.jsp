@@ -47,6 +47,16 @@
 <link rel="stylesheet" href="/css/signUp/inputBox.css?v=<%=System.currentTimeMillis()%>">
 <link rel="stylesheet" href="/css/header/header2.css">
 <script type="text/javascript" src="/js/signUp/inputBox.js?v=<%=System.currentTimeMillis()%>"></script>
+<style>
+.mymodal-dialog {
+    max-width: 750px;
+    margin: 1.75rem auto;
+}
+.ignoremargin{
+	margin-right:0px;
+	margin-left: 0px;
+}
+</style>
 <div class="container">
 <%if(isLogined){ %>
 	<div class="modal fade" id="loginModal" role="dialog">
@@ -81,7 +91,7 @@
   
 	
 <div class="modal fade" id="loginModal" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog mymodal-dialog">
 		<form action="/integratedLogin" method="post">
 			<div class="modal-content">
         		<div class="modal-header">
@@ -89,19 +99,19 @@
           			<button type="button" class="close" data-dismiss="modal">&times;</button>
           			<span>
           				<input style="display:none;" id="loginCustomer" type="radio" name="loginType" checked value="customer">
-          				<label class="myLabel" for="loginCustomer">손님</label>
+          				<label class="myLabel ignoremargin" for="loginCustomer">손님</label>
           			</span>
           			<span>
           				<input style="display:none;" id="loginDesigner" type="radio" name="loginType" value="designer">
-          				<label class="myLabel" for="loginDesigner">디자이너</label>
+          				<label class="myLabel ignoremargin" for="loginDesigner">디자이너</label>
           			</span>
           			<span>
 	          			<input style="display:none;" id="loginHairshop" type="radio" name="loginType" value="hairshop">
-	          			<label class="myLabel" for="loginHairshop">헤어샵</label>
+	          			<label class="myLabel ignoremargin" for="loginHairshop">헤어샵</label>
           			</span>
           			<span>
 	          			<input style="display:none;" id="loginAdmin" type="radio" name="loginType" value="admin">
-	          			<label class="myLabel" for="loginAdmin">관리자</label>
+	          			<label class="myLabel ignoremargin" for="loginAdmin">관리자</label>
           			</span>
           			(으)로 로그인하기
           			</h4>
@@ -113,7 +123,7 @@
 	    	        		<span class="form-label">아이디</span>
 		    	   		</div>
 		       			<div class="name inputBox">
-		            		<input type="text" class="form-textbox" name="inputPw">
+		            		<input type="password" class="form-textbox" name="inputPw">
 		            		<span class="form-label">비밀번호</span>
 		       			</div>
 				</div>
@@ -178,18 +188,6 @@
           			<%break;
           			} %>
           			
-                    <%if(loginDesigner!=null) { %>
-                    <!-- 디자이너 -->
-                 
-                    <%} %>
-                    <%if(loginCustomer!=null){ %>
-                    <!-- 일반손님 -->
-                   
-                    <%} %>
-                    <%if(loginAdmin!=null){ %>
-                    <!-- 관리자 -->
-                    
-                    <%} %>
                 </ul>
                 <div class="form-inline my-2 my-md-0">
                 	<%if(loginType.equals("")){ %>
@@ -205,10 +203,7 @@
                         </ul>
                     </div>
                     <%} else {%>
-                    <form action="/integratedLogout">
-	                    <button class="btn my-2 my-sm-0" ></button>
-	                </form>
-	                	<a href="/integratedLogout" class="btn my-2 my-sm-0">Log out</a>
+	                	<a href="/integratedLogout" class="btn my-2 my-sm-0">LOGOUT</a>
                     <%} %>
                 </div>
             </div>
