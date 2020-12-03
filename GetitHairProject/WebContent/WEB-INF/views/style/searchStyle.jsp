@@ -1,10 +1,15 @@
+<%@page import="image.model.vo.Image"%>
 <%@page import="style.model.vo.Style"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-    	ArrayList<Style> list = (ArrayList<Style>)request.getAttribute("list");
+    	ArrayList<Style> stylelist = (ArrayList<Style>)request.getAttribute("stylelist");
+    	ArrayList<Image> imglist = (ArrayList<Image>)request.getAttribute("imglist");
     	String searchStyle = (String)request.getAttribute("searchStyle");
+    	System.out.println(stylelist);
+    	System.out.println(imglist);
+    	System.out.println(searchStyle);
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -132,14 +137,18 @@
 				<button type="submit">검색</button>
 			</form>
 			<div class="content">
-			<%if(list.size() != 0){ %>
-					<%for(Style style : list){ %>
-						<div class="styleList" style="cursor:pointer">
-							<img src = "/">
-							<input type="hidden" value="<%=style.getStyleNo()%>">
-							<p><%=style.getStyleName() %></p>
-							<span class='glyphicon glyphicon-heart'></span> <span><%=style.getStyleLikes() %></span>
-						</div>
+			<%if(stylelist.size() != 0){ %>
+					<%for(Style style : stylelist){ %>
+						<%for(Image i : imglist){ %>
+							<%if(i.getImgTypeNo() == style.getStyleNo()) {%>
+								<div class="styleList" style="cursor:pointer">
+									<img src = "/upload/style/<%=i.getFilepath()%>">
+									<input type="hidden" value="<%=style.getStyleNo()%>">
+									<p><%=style.getStyleName() %></p>
+									<span class='glyphicon glyphicon-heart'></span> <span><%=style.getStyleLikes() %></span>
+								</div>
+							<%} %>
+						<%} %>
 					<%} %>
 			<%}else{ %>
 				<div class="noexist">
@@ -149,6 +158,7 @@
 			<%} %>
 			</div>
 		</div>
+		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</section>
 	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

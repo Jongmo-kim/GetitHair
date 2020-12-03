@@ -49,4 +49,10 @@ public class ImageService {
 		JDBCTemplate.close(conn);		
 		return filepath;
 	}
+	public Image selectOneImageByTypeAndTypeNo(String type,int typeNo){
+		Connection conn = JDBCTemplate.getConnection();
+		Image image = new ImageDao().selectOneImageByTypeAndTypeNo(conn,type,typeNo);
+		JDBCTemplate.close(conn);
+		return image;
+	}
 }
