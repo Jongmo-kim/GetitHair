@@ -35,7 +35,7 @@ public class ImageService {
 		//('hairshop','review','style','designer','reserve','designer_portfolio')
 		Connection conn = JDBCTemplate.getConnection();
 		int result = new ImageDao().insertImage(conn, filepath, type, typeNo);
-		if(result > 1) {
+		if(result > 0) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);

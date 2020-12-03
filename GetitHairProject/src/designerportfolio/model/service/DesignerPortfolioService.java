@@ -16,9 +16,9 @@ public class DesignerPortfolioService {
 		return totalCount;
 	}
 	
-	public int insertDesignerPortfolio(DesignerPortfolio dp, int desigerNo) {
+	public int insertDesignerPortfolio(DesignerPortfolio dp, int designerNo) {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = new DesignerPortfolioDao().insertDesignerPortfolio(conn,dp,desigerNo);
+		int result = new DesignerPortfolioDao().insertDesignerPortfolio(conn,dp,designerNo);
 		if(result>0) {
 			JDBCTemplate.commit(conn);
 		}else {
@@ -42,6 +42,24 @@ public class DesignerPortfolioService {
 		ArrayList<DesignerPortfolio> pflist = new DesignerPortfolioDao().selectAllPortfolio(conn, designerNo);
 		JDBCTemplate.close(conn);
 		return pflist;
+	}
+	
+	public int deletePortfolio(int portfolioNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new DesignerPortfolioDao().deletePortfolio(conn, portfolioNo);
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public DesignerPortfolio selectOnePortfolio(int portfolioNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		DesignerPortfolio dp = new DesignerPortfolioDao().selectOnePortfolio(conn,portfolioNo);
+		return dp;
 	}
 	
 }

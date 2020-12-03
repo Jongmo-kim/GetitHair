@@ -13,6 +13,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
 		<div class="photo-container" style="width:1700px; margin:0 auto; text-align:center;">
+		<br><br>
 			<h1>포트폴리오</h1>
 			<div style="text-align:right">
 				<a class="btn btn-outline-info" href="/designerPortfolioWriteFrm">글쓰기</a>
@@ -40,19 +41,11 @@
 					var html = "";
 					for(var i in data){
 						var dp = data[i];
-						// ul 태그로 묶거나  div felx box 사용해서 묶음
-						// 일단 기능구현은 되니까 집가서 마무리...
-						/* html += "<ul>"
-						html += "<li></li>"
-						html += "<div class='photo border border-dark' style='width:400px; height:400px; margin:0 auto; margin-bottom:10px; display: inline-block;'>";
-						html += "<img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
-						html += "<p class='caption'>"+dp.styleName+"</p></div>"; */
-						
-
+						console.log(dp.filepath);
 						html += "<div class='photo border border-dark' style='width:300px; height: 300px; margin:0 auto; display: inline-block; padding: 7px;'>";
-						html += "<img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
-						html += "<a href='#'>test</a>";
+						html += "<img src='/upload/designerPortfolio/"+data.imglist[i].filepath+"' width='100%'>";
 						html += "<p class='caption'>"+dp.styleName+"</p>";
+						html += "<p class='caption'>"+dp.portfolioNo+"</p>";
 						html += "</div>"
 					}
 					$("#photo-wrapper").append(html);

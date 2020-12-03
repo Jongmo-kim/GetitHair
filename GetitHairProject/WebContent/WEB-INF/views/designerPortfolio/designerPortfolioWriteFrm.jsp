@@ -26,7 +26,8 @@
 					<tr>
 						<th>File</th>
 						<td>
-							<input type="file" name="filename" onchange="loadImg(this)" multiple="multiple">
+							<!-- 다중 선택 기능 사용 시 multiple="multiple" -->
+							<input type="file" name="filename" onchange="loadImg(this)">
 						</td>
 					</tr>
 					<tr>
@@ -42,7 +43,7 @@
 					<tr>
 						<th>Style Type</th>
 						<td>
-							<input type="hidden" name="styleType" value="">
+							<input type="text" name="styleType" value="">
 						</td>
 					</tr>
 					<tr>

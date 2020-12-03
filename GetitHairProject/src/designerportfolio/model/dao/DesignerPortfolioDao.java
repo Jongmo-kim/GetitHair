@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
+import designer.model.vo.Designer;
 import designerportfolio.model.vo.DesignerPortfolio;
 
 public class DesignerPortfolioDao {
@@ -33,13 +34,13 @@ public class DesignerPortfolioDao {
 	}
 
 
-	public int insertDesignerPortfolio(Connection conn, DesignerPortfolio dp, int desigerNo) {
+	public int insertDesignerPortfolio(Connection conn, DesignerPortfolio dp, int designerNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = "insert into designer_portfolio values(designer_portfolio_seq.nextval,?,?,?,to_char(sysdate,'yyyy-mm-dd'))";
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, desigerNo);
+			pstmt.setInt(1, designerNo);
 			pstmt.setString(2, dp.getStyleName());
 			pstmt.setString(3, dp.getPortfolioContent());
 			result = pstmt.executeUpdate();
@@ -109,5 +110,50 @@ public class DesignerPortfolioDao {
 			JDBCTemplate.close(pstmt);
 		}
 		return pflist;
+	}
+	
+	public int deletePortfolio(Connection conn, int portfolioNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "delete from designer_portfolio where designer_portfolio_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, portfolioNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+
+	public DesignerPortfolio selectOnePortfolio(Connection conn, int portfolioNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset =  null;
+		DesignerPortfolio dp = null;
+		String query = "select * from designer_portfolio where designer_portfolio_no=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, portfolioNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				dp = new DesignerPortfolio();
+				dp.setFilepath(rset.getString("filepath"));
+				dp.setPortfolioContent(rset.getString("portfolio_content"));
+				dp.setPortfolioNo(rset.getInt("designer_portfolio_no"));
+				dp.setStyleName(rset.getString("designer_portfolio_style_name"));
+				dp.setPortfolioWriter(rset.getString("designer_no"));
+				dp.setPortfolioDate(rset.getString("portfolio_date"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return dp;
 	}
 }

@@ -13,6 +13,10 @@ import com.google.gson.Gson;
 
 import designerportfolio.model.service.DesignerPortfolioService;
 import designerportfolio.model.vo.DesignerPortfolio;
+import designerportfolio.model.vo.DesignerportfolioImage;
+import hairshop.model.vo.HairshopImage;
+import image.model.service.ImageService;
+import image.model.vo.Image;
 
 
 /**
@@ -39,7 +43,9 @@ public class DesignerPortfolioMoreServlet extends HttpServlet {
 		// 2. view에서 넘어온 값 저장
 		int start = Integer.parseInt(request.getParameter("start"));
 		// 3. 비지니스로직
-		ArrayList<DesignerPortfolio> list = new DesignerPortfolioService().DesignerPortfolioMore(start);
+		ArrayList<Image> imglist = new ImageService().selectAllImageByType("designer_portfolio");
+		ArrayList<DesignerPortfolio> portfoliolist = new DesignerPortfolioService().DesignerPortfolioMore(start);
+		DesignerportfolioImage list = new DesignerportfolioImage(imglist, portfoliolist);
 		// 4. 결과처리
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(list,response.getWriter());
