@@ -7,9 +7,6 @@
     	ArrayList<Style> stylelist = (ArrayList<Style>)request.getAttribute("stylelist");
     	ArrayList<Image> imglist = (ArrayList<Image>)request.getAttribute("imglist");
     	String searchStyle = (String)request.getAttribute("searchStyle");
-    	System.out.println(stylelist);
-    	System.out.println(imglist);
-    	System.out.println(searchStyle);
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -100,9 +97,6 @@
     	flex-wrap: wrap;
     	width: 100%;
     }
-    .glyphicon{
-    	color: lightgray;
-    }
     .styleList{
     	width: 250px;
     	margin: 60px;
@@ -144,8 +138,8 @@
 								<div class="styleList" style="cursor:pointer">
 									<img src = "/upload/style/<%=i.getFilepath()%>">
 									<input type="hidden" value="<%=style.getStyleNo()%>">
-									<p><%=style.getStyleName() %></p>
-									<span class='glyphicon glyphicon-heart'></span> <span><%=style.getStyleLikes() %></span>
+									<p style="font-size:24px;"><%=style.getStyleName() %></p>
+									<img src='/img/main/heart.png' style='width:20px; height:20px'><span><%=style.getStyleLikes() %></span>
 								</div>
 							<%} %>
 						<%} %>
@@ -158,8 +152,8 @@
 			<%} %>
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</section>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script>

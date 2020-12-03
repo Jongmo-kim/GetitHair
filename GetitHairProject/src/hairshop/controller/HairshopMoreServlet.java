@@ -38,7 +38,7 @@ public class HairshopMoreServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int start = Integer.parseInt(request.getParameter("start"));
-		ArrayList<Image> imglist = new ImageService().selectAllImageByType("hairshop");
+		ArrayList<Image> imglist = new ImageService().selectAllImageByType("hairshop");//서비스에서 해야됨
 		ArrayList<Hairshop> shoplist = new HairshopService().hairshopMore(start);
 		HairshopImage list = new HairshopImage(imglist, shoplist);
 		response.setCharacterEncoding("utf-8");

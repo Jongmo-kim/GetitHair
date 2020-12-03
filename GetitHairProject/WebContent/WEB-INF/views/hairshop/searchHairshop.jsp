@@ -191,8 +191,8 @@
 			<%} %>
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</section>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 

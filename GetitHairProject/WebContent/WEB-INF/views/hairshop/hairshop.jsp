@@ -123,9 +123,6 @@
     	width: 100px;
     	height: 100px;
     }
-    #hairshopList .glyphicon{
-    	color: lightgray;
-    }
     #hairshopList>table{
     	margin: 50px;
     	height: 120px;
@@ -286,8 +283,8 @@
 				</div>
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</section>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
@@ -332,8 +329,8 @@
 						html += "<table style='cursor:pointer;'><tr><th rowspan='4'><img src = '/upload/hairshop/"+data.imglist[i].filepath+"'></th>";
 						html += "<td colspan='2' style='font-size:20px;'>"+h.shopName+"</td></tr>";
 						html += "<input type='hidden' name='shopNo' value="+h.shopNo+">";
-						html += "<tr><td><span class='glyphicon glyphicon-star'></span> <span>"+h.shopRate+"</span></td>";
-						html += "<td><span class='glyphicon glyphicon-heart'></span> <span>"+h.shopLikes+"</span></td></tr>";
+						html += "<tr><td><img src='/img/main/star.png' style='width:20px; height:20px'><span>"+h.shopRate+"</span></td>";
+						html += "<td><img src='/img/main/heart.png' style='width:20px; height:20px'><span>"+h.shopLikes+"</span></td></tr>";
 						html += "<tr><td colspan='2' style='font-size:15px;'>"+h.shopAddr+"</td></tr>";
 						html += "<tr><td colspan='2' style='font-size:15px;'>"+h.shopOpen+" ~ "+h.shopClose+"</td></tr></table>";
 					}

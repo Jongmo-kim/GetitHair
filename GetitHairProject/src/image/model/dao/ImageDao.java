@@ -51,8 +51,7 @@ public class ImageDao {
 		try {
 			pstmt = conn.prepareStatement(qrySelect);
 			pstmt.setString(1, type);
-			rs = pstmt.executeQuery();
-
+			rs = pstmt.executeQuery();			
 			while (rs.next()) {
 				Image image = new Image();
 				image.setImgNo(rs.getInt("img_no"));
@@ -68,7 +67,6 @@ public class ImageDao {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(pstmt);
 		}
-		System.out.println("DAO : "+list.size());
 		return list;
 	}
 
@@ -164,7 +162,7 @@ public class ImageDao {
 				image.setImgNo(rs.getInt("img_no"));
 				image.setFilepath(rs.getString("filepath"));
 				image.setImgType(rs.getString("img_type"));
-				image.setImgTypeNo(rs.getInt("img_type"));
+				image.setImgTypeNo(rs.getInt("img_type_no"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
