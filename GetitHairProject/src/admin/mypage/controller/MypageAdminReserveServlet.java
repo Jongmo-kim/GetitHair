@@ -13,7 +13,6 @@ import common.PagingCommon;
 import reserve.model.service.ReserveService;
 import reserve.model.vo.Reserve;
 
-
 /**
  * Servlet implementation class MypageAdminReserveServlet
  */
@@ -37,7 +36,8 @@ public class MypageAdminReserveServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// 전달 받은 값 저장
 		// type value 1 : 아이디로 검색
-		int type = request.getParameter("searchType") != null ? Integer.parseInt(request.getParameter("searchType"))
+		int type = request.getParameter("searchType") != null && request.getParameter("searchType") != ""
+				? Integer.parseInt(request.getParameter("searchType"))
 				: 0;
 		String keyword = request.getParameter("keyword");
 		// reqPage = 요청할 페이지 번호.
@@ -48,9 +48,13 @@ public class MypageAdminReserveServlet extends HttpServlet {
 
 		// 비즈니스 로직
 		int maxPageSize = 0;
+		Object[] objList;
 		ArrayList<Reserve> list = null;
 		if (type != 0 && !keyword.equals("")) { // 검색으로 얻어올 경우
-//			list = new ReserveService().selectAllReviewById(keyword, reqPage, maxPrintSize);
+			objList = new ReserveService().selectAllReviewById(keyword, reqPage, maxPrintSize);
+			maxPageSize = (Integer) objList[0];
+			list = (ArrayList<Reserve>) objList[1];
+
 		} else { // 검색이 아닐때 모든 리뷰를 반환.
 			maxPageSize = new ReserveService().getAllReserveMaxPageSize(maxPrintSize);
 			list = new ReserveService().selectAllReservePaging(reqPage, maxPrintSize);

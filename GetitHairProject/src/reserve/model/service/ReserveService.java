@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import common.JDBCTemplate;
+import customer.model.service.CustomerService;
+import customer.model.vo.Customer;
 import reserve.model.dao.ReserveDao;
 import reserve.model.vo.Reserve;
 import reserve.model.vo.ReservePageData;
@@ -174,6 +176,16 @@ public class ReserveService {
 		JDBCTemplate.close(conn);
 		return list;
 	}
+	public Object[] selectAllReviewById(String keyword, int reqPage, int maxPrintSize) {
+		Connection conn = JDBCTemplate.getConnection();
+		Customer ct = new CustomerService().selectOneCustomer(keyword);
+		Object[] list = new ReserveDao().selectAllReviewById(conn, ct.getCustomerNo(),reqPage,maxPrintSize);
+		int result = (Integer)list[0];
+		result = (result / maxPrintSize) + ((result % maxPrintSize) != 0 ? 1 : 0); //maxPageSize 계산
+		list[0] = result;
+		JDBCTemplate.close(conn);
+		return list;
+	}
 	//아래부터 태민 메서드 (뒤늦은 주석추가..)
 	//paging 으로 가져오는 메서드 (selStatus조건 sql문 추가)
 	public int getAllReserveMaxPageSize(int maxPrintSize, String selStatus) {
@@ -239,4 +251,5 @@ public class ReserveService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	
 }

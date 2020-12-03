@@ -560,5 +560,39 @@ public ArrayList<Reserve> selectOneReserveShop(Connection conn, int shopNo) {
 			JDBCTemplate.close(pstmt);
 		}
 		return result;
+	}
+
+	public Object[] selectAllReviewById(Connection conn, int no, int reqPage, int maxPrintSize) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "SELECT R.*,(SELECT COUNT(*) FROM (SELECT D.* FROM reserve D WHERE customer_no = ? ORDER BY D.customer_NO DESC) D) as cnt FROM (SELECT ROWNUM RN,D.* FROM "
+				+ "(SELECT D.* FROM reserve D WHERE customer_no = ? ORDER BY D.customer_NO DESC) D) R "
+				+ "WHERE RN BETWEEN ? AND ?";
+		ArrayList<Reserve> list = null;
+		int cnt =0;
+		try {
+			pstmt = conn.prepareStatement(qrySelect);
+			pstmt.setInt(1, no);
+			pstmt.setInt(2, no);
+			pstmt.setInt(3, (maxPrintSize*(reqPage-1))+1);
+			pstmt.setInt(4, maxPrintSize*reqPage);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				if(list == null)
+					list = new ArrayList<Reserve>();
+				cnt = rs.getInt("cnt");
+				Reserve rsv = getReserveFromRset(rs);
+				
+				list.add(rsv);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+		return new Object[] {cnt,list};
 	}   
 }
