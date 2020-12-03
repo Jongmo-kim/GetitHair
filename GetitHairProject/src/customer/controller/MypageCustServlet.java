@@ -52,6 +52,7 @@ public class MypageCustServlet extends HttpServlet {
 		
 		int reqPage = Integer.parseInt(request.getParameter("reqPage"));		
 		String selStatus = request.getParameter("selStatus");
+		//System.out.println("selStatus = "+selStatus);
 		String sqlAdd ="";
 		if(selStatus.equals("예약")) {
 			sqlAdd = " and reserve_status='예약' ";

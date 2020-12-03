@@ -20,65 +20,51 @@
 <!-- jQuery 호출 -->
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
 <style>
-	ul{
-  	 list-style:none;
-   }
-   #pageNavi{
-   		margin:0 auto;
-   		padding: 0;
-   		text-align:center;
-   }
-   .buttons {    	  	
-   	display: flex;
-  	align-items: center;
-  	justify-content: left;
-   	float:right;
-   	width:100%;   
-   }
-   .btn-group{
-   	width:100%;    
-   }
-   .tabButton{
-	   	width:15%;
-   }
-   .tabLable{
-   		width:5%;
-   }
-   	.warningTr{
-    	background-color:#ffc107;
-    }
-   	.successTr{
-  		 background-color:#28A745
-    }
-    .dangerTr{
-   		background-color:#DC3545;
-    }
-    .warningTr:hover{
-    	background-color:#E0A800;
-    }
-    .successTr:hover{
-    	background-color:#0069D9;
-    }
-    .dangerTr:hover{
-    	background-color:#FF2B41;
-    }
+ul {
+	list-style: none;
+}
 
-    
-    
-     
+#pageNavi {
+	margin: 0 auto;
+	padding: 0;
+	text-align: center;
+}
+
+.buttons {
+	display: flex;
+	align-items: center;
+	justify-content: left;
+	float: right;
+	width: 100%;
+}
+
+.btn-group {
+	width: 80%;
+}
+
+.tabButton {
+	width: 15%;
+}
+
+.tabLable {
+	width: 5%;
+}
+.table{
+	border : 1px solid black;
+}	
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="modal fade" id="reReserveModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form
-					action="/insertReReserve?selStatus=<%=selStatus%>&reqPage=<%=reqPage%>"
-					method="post">
+					action="/insertReReserve?selStatus=<%=selStatus%>&reqPage=<%=reqPage %>"
+					method="poset">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">나의예약</h4>
+						<h4>나의예약</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>						
 					</div>
 					<div class="modal-body">
 						<div class="reserve inputBox">
@@ -108,22 +94,20 @@
 						</div>
 						<!-- <input type="datetime-local" id="reserveDate"
 								class="form-textbox reserveInput updateAction"
-								name="reserveDate3"> -->						
+								name="reserveDate3"> -->
 						<div class="reserve inputBox">
 							<input type="date" id="reserveDate"
 								class="form-textbox reserveInput updateAction"
-								name="reserveDate1">							
-								 <span
+								name="reserveDate1"> <span
 								class="form-label label-focused updateActionSpan">예약일자 </span>
 						</div>
 						<div class="reserve inputBox">
 							<input type="time" id="reserveTime"
 								class="form-textbox reserveInput updateAction"
-								name="reserveDate2">
-								 <span
+								name="reserveDate2"> <span
 								class="form-label label-focused updateActionSpan">예약시간 </span>
 						</div>
-						
+
 						<div class="reserve inputBox">
 							<input type="text" class="form-textbox reserveInput updateAction"
 								name="reserveCustReq" id="reserveCustReq"> <span
@@ -132,18 +116,13 @@
 						</div>
 						<!-- hidden영역 -->
 						<input type="hidden" class="form-textbox" name="customerNo"
-							id="customerNo"> 
-							<input
-							type="hidden" class="form-textbox" name="designerNo"
-							id="designerNo"> 
-							<input
+							id="customerNo"> <input type="hidden"
+							class="form-textbox" name="designerNo" id="designerNo"> <input
 							type="hidden" class="form-textbox" name="shopNo" id="shopNo">
 						<input type="hidden" class="form-textbox" name="stylelistNo"
-							id="stylelistNo">
-						<input type="hidden" class="form-textbox" name="styleNo"
-							id="styleNo">  
-							<input type="hidden"
-							class="form-textbox" name="reserveDesignerMemo"
+							id="stylelistNo"> <input type="hidden"
+							class="form-textbox" name="styleNo" id="styleNo"> <input
+							type="hidden" class="form-textbox" name="reserveDesignerMemo"
 							id="reserveDesignerMemo">
 						<!-- hidden영역 -->
 
@@ -172,29 +151,33 @@
 					onclick="location.href='/deleteAllCustomer?customerNo=<%=loginCustomer.getCustomerNo()%>'">회원탈퇴</button>
 			</li>
 			<br>
-			<li>
-				<a class="btn btn-success btn-lg"
+			<li><a class="btn btn-success btn-lg"
 				href="/mypageCustReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">나의
-					리뷰 리스트 확인</a>
-			<br>
-			</li>	
-			 
+					리뷰 리스트 확인</a> <br></li>
+
 			<div class="tab_container">
 				<h1><%=selStatus%>
 					List
-				</h1>				
+				</h1>
 				<div class="buttons">
-				<input type="checkBox" id="allCheck"><label class="tabLable" for="allCheck">전체</label>
-				<button type="button" class="btn btn-primary btn-lg tabButton" id="allDelBtn">삭제</button>
-				 <div class="btn-group" style="display: flex;justify-content: flex-end;">
-   				 <button type="button" class="btn btn-primary btn-lg tabButton" onclick="location.href='/mypageCust?selStatus=전체&reqPage=1'">전체</button>
-   				 <button type="button" class="btn btn-warning btn-lg tabButton" onclick="location.href='/mypageCust?selStatus=예약&reqPage=1'">예약</button>
-   				 <button type="button" class="btn btn-success btn-lg tabButton" onclick="location.href='/mypageCust?selStatus=완료&reqPage=1'">완료</button>
-   				 <button type="button" class="btn btn-danger btn-lg tabButton" onclick="location.href='/mypageCust?selStatus=취소&reqPage=1'">취소</button>
-  				</div>
-  				</div>
-  				<br>
-				<table class="table" style="width:100%;">
+					<input type="checkBox" id="allCheck"><label
+						class="tabLable" for="allCheck">전체</label>
+					<button type="button" class="btn btn-primary btn-lg tabButton"
+						id="allDelBtn">삭제</button>
+					<div class="btn-group"
+						style="display: flex; justify-content: flex-end;">
+						<button type="button" class="btn btn-primary btn-lg tabButton"
+							onclick="location.href='/mypageCust?selStatus=전체&reqPage=1'">전체</button>
+						<button type="button" class="btn btn-warning btn-lg tabButton"
+							onclick="location.href='/mypageCust?selStatus=예약&reqPage=1'">예약</button>
+						<button type="button" class="btn btn-success btn-lg tabButton"
+							onclick="location.href='/mypageCust?selStatus=완료&reqPage=1'">완료</button>
+						<button type="button" class="btn btn-danger btn-lg tabButton"
+							onclick="location.href='/mypageCust?selStatus=취소&reqPage=1'">취소</button>
+					</div>
+				</div>
+				<br>
+				<table class="table table-striped table-hover" style="width: 100%;">
 					<tr>
 						<th>선택</th>
 						<th>번호</th>
@@ -211,13 +194,7 @@
 					<%
                      for (Reserve r : reserveList) {
                  	 %>
-                 	 <%if(r.getReserveStatus().equals("예약")){ %>
-					<tr class="warningTr tableTr">
-					<% }else if(r.getReserveStatus().equals("완료")) {%>
-					<tr class="successTr tableTr">
-					<% } else if(r.getReserveStatus().equals("취소")) {%>
-					<tr class="dangerTr tableTr">
-					<% } %>
+						<tr>
 						<td><input type="checkBox" class="subChk"
 							value="<%=r.getReserveNo()%>"></td>
 						<td><%=r.getReserveNo()%></td>
@@ -228,7 +205,7 @@
 						<td><%=r.getReserveDesignerReq()%></td>
 						<td><%=r.getReserveStatus()%></td>
 						<td>
-							<button type="button" class="btn reReserveBtn"
+							<button type="button" class="btn reReserveBtn" 
 								data-toggle="modal" data-target="#reReserveModal"
 								value="<%=r.getReserveNo()%>">예약 보기</button>
 						</td>
@@ -243,9 +220,9 @@
 					<%
                      }
                   	%>
-                  	
+
 				</table>
-				<div id="pageNavi"><%=pageNavi%></div>				
+				<div id="pageNavi"><%=pageNavi%></div>
 			</div>
 		</ul>
 	</div>
@@ -355,6 +332,6 @@
          });              
       });
    </script>
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
