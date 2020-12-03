@@ -61,7 +61,7 @@
 				<div class="btn btn-default"><a style="display:block; height:100%;"href="/custLogout">로그아웃</a></div>
 			<%switch(loginType) {
 				case "customer": %>
-          			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/updateCustomerFrm">마이페이지</a></div>
+          			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/mypageCust?selStatus=전체&reqPage=1">마이페이지</a></div>
           			<%break;
 				case "designer": %>
           			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/updateCustomerFrm">디자이너마이페이지</a></div>
@@ -120,7 +120,7 @@
 				<div class="modal-footer">
           			<button type="button" id="searchId" class="btn btn-default">ID찾기</button>
           			<button type="button" id="searchPw" class="btn btn-default">PW찾기</button>
-					<button type="submit" class="btn btn-default">제출</button>
+					<button type="submit" class="btn btn-default">로그인</button>
 					<button type="reset" class="btn btn-default">초기화</button>
 				</div>
 			</div>
@@ -162,9 +162,9 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="/mypageCust?selStatus=전체&reqPage=1" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MY PAGE</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown07">
-                            <a class="dropdown-item" href="#">예약관리</a>
-                            <a class="dropdown-item" href="#">리뷰관리</a>
-                            <a class="dropdown-item" href="#">내 정보</a>
+                            <a class="dropdown-item" href="/mypageCust?selStatus=전체&reqPage=1">예약관리</a>
+                            <a class="dropdown-item" href="/mypageCustReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">리뷰관리</a>
+                            <a class="dropdown-item" href="/updateAllCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>">내 정보수정</a>
                         </div>
                     </li>
                     <%} %>
