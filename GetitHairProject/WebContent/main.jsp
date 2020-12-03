@@ -233,9 +233,9 @@ body {
 			</div>
 			<div class="nav-menu">
 				<%if(!isLogined) {%>
-				<a style="color: #fff" data-toggle="modal" data-target="#loginModal">로그인</a>
+				<a style="color: #fff" data-toggle="modal" data-target="#loginModal" style="cursor:pointer">로그인</a>
 				<%} else {%>
-				<a style="color: #fff" href="/custLogout">로그아웃</a>
+				<a style="color: #fff" href="/custLogout" style="cursor:pointer">로그아웃</a>
 				<%} %>
 			</div>
 			<div class="nav-menu">
