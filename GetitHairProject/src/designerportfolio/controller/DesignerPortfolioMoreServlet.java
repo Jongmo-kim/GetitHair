@@ -41,11 +41,16 @@ public class DesignerPortfolioMoreServlet extends HttpServlet {
 		// 1. 인코딩
 		request.setCharacterEncoding("utf-8");
 		// 2. view에서 넘어온 값 저장
+		System.out.println("test!!!!");
 		int start = Integer.parseInt(request.getParameter("start"));
+		System.out.println("start : "+start);
 		// 3. 비지니스로직
 		ArrayList<Image> imglist = new ImageService().selectAllImageByType("designer_portfolio");
 		ArrayList<DesignerPortfolio> portfoliolist = new DesignerPortfolioService().DesignerPortfolioMore(start);
 		DesignerportfolioImage list = new DesignerportfolioImage(imglist, portfoliolist);
+		for(Image i : imglist) {
+			System.out.println("filepath : "+i.getFilepath());
+		}
 		// 4. 결과처리
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(list,response.getWriter());

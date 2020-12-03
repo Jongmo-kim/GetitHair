@@ -15,11 +15,10 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
-	<div>
+	<div style="width:70%; height:850px; margin:0 auto;padding: 50px;">
+	<h1>리뷰 리스트</h1>
+	<br>
 		<table class="table table-bordered">
-			<tr>
-				<th colspan="4">리뷰 리스트</th>
-			</tr>
 			<tr>
 				<th>리뷰번호</th>
 				<th>리뷰내용</th>

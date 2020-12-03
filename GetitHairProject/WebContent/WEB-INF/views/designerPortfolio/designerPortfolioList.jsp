@@ -8,6 +8,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -30,8 +32,10 @@
 		});
 		$("#more-btn").click(function(){
 			designerPortfolioMore($(this).val());
+			console.log($(this).val());
 		});
 		function designerPortfolioMore(start){
+			console.log("test"+start);
 			$.ajax({
 				url : "/designerPortfolioMore",
 				data : {start:start},
@@ -39,13 +43,15 @@
 				dataType : "json",
 				success : function(data){
 					var html = "";
-					for(var i in data){
-						var dp = data[i];
-						console.log(dp.filepath);
-						html += "<div class='photo border border-dark' style='width:300px; height: 300px; margin:0 auto; display: inline-block; padding: 7px;'>";
+					for(var i in data.portfoliolist){
+						var dp = data.portfoliolist[i];
+						console.log(data.portfoliolist[i].length);
+						console.log(data.imglist[i].length);
+						html += "<div class='photo ' style='width:300px; height: 330px; overflow: hidden; margin:0 auto; display: inline-block; padding: 7px;'>";
+						html += "<div style='width:285px; height: 285px; overflow: hidden;'>";
 						html += "<img src='/upload/designerPortfolio/"+data.imglist[i].filepath+"' width='100%'>";
+						html += "</div>"
 						html += "<p class='caption'>"+dp.styleName+"</p>";
-						html += "<p class='caption'>"+dp.portfolioNo+"</p>";
 						html += "</div>"
 					}
 					$("#photo-wrapper").append(html);
