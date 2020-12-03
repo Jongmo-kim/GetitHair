@@ -214,10 +214,14 @@ body {
 	margin: 0;
 }
 
-.login-text {
-	display: block;
-	font-weight: bold;
-	color: #D9ABA0;
+
+.mymodal-dialog {
+    max-width: 750px;
+    margin: 1.75rem auto;
+}
+.ignoremargin{
+	margin-right:0px;
+	margin-left: 0px;
 }
 </style>
 </head>
@@ -246,7 +250,7 @@ body {
 		</div>
 	</div>
 	<div class="modal fade" id="loginModal" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog mymodal-dialog">
 			<form action="/integratedLogin" method="post">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -254,16 +258,16 @@ body {
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<span> <input style="display: none;" id="loginCustomer"
 								type="radio" name="loginType" checked value="customer">
-								<label class="myLabel" for="loginCustomer">손님</label>
+								<label class="myLabel ignoremargin" for="loginCustomer">손님</label>
 							</span> <span> <input style="display: none;" id="loginDesigner"
 								type="radio" name="loginType" value="designer"> <label
-								class="myLabel" for="loginDesigner">디자이너</label>
+								class="myLabel ignoremargin" for="loginDesigner">디자이너</label>
 							</span> <span> <input style="display: none;" id="loginHairshop"
 								type="radio" name="loginType" value="hairshop"> <label
-								class="myLabel" for="loginHairshop">헤어샵</label>
+								class="myLabel ignoremargin" for="loginHairshop">헤어샵</label>
 							</span> <span> <input style="display: none;" id="loginAdmin"
 								type="radio" name="loginType" value="admin"> <label
-								class="myLabel" for="loginAdmin">관리자</label>
+								class="myLabel ignoremargin" for="loginAdmin">관리자</label>
 							</span> (으)로 로그인하기
 						</h4>
 					</div>
