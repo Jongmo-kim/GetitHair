@@ -128,8 +128,8 @@ ul {
 
 					</div>
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary">다시예약 하기</button>
-						<button type="button" class="btn btn-warning"
+						<button type="submit" class="btn btn-outline-secondary">다시예약 하기</button>
+						<button type="button" class="btn btn-outline-secondary"
 							onclick="location.href='/cancelReserveByCust?reserveNo=1&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'">
 							예약 취소 하기(상태변경)</button>
 						<button type="button" class="btn btn-info" data-dismiss="modal">닫기</button>
@@ -145,13 +145,13 @@ ul {
 				[<%=loginCustomer.getCustomerName()%>]님 환영합니다.
 			</p>
 			<li>
-				<button type="button" class="btn btn-primary"
+				<button type="button" class="btn btn-outline-secondary"
 					onclick="location.href='/updateAllCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>'">정보수정</button>
-				<button type="button" class="btn btn-danger"
+				<button type="button" class="btn btn-outline-secondary"
 					onclick="location.href='/deleteAllCustomer?customerNo=<%=loginCustomer.getCustomerNo()%>'">회원탈퇴</button>
 			</li>
 			<br>
-			<li><a class="btn btn-success btn-lg"
+			<li><a class="btn btn-outline-secondary btn-lg"
 				href="/mypageCustReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">나의
 					리뷰 리스트 확인</a> <br></li>
 
@@ -162,17 +162,17 @@ ul {
 				<div class="buttons">
 					<input type="checkBox" id="allCheck"><label
 						class="tabLable" for="allCheck">전체</label>
-					<button type="button" class="btn btn-primary btn-lg tabButton"
+					<button type="button" class="btn btn-outline-secondary btn-lg tabButton"
 						id="allDelBtn">삭제</button>
 					<div class="btn-group"
 						style="display: flex; justify-content: flex-end;">
-						<button type="button" class="btn btn-primary btn-lg tabButton"
+						<button type="button" class="btn btn-outline-secondary btn-lg tabButton"
 							onclick="location.href='/mypageCust?selStatus=전체&reqPage=1'">전체</button>
-						<button type="button" class="btn btn-warning btn-lg tabButton"
+						<button type="button" class="btn btn-outline-secondary btn-lg tabButton"
 							onclick="location.href='/mypageCust?selStatus=예약&reqPage=1'">예약</button>
-						<button type="button" class="btn btn-success btn-lg tabButton"
+						<button type="button" class="btn btn-outline-secondary btn-lg tabButton"
 							onclick="location.href='/mypageCust?selStatus=완료&reqPage=1'">완료</button>
-						<button type="button" class="btn btn-danger btn-lg tabButton"
+						<button type="button" class="btn btn-outline-secondary btn-lg tabButton"
 							onclick="location.href='/mypageCust?selStatus=취소&reqPage=1'">취소</button>
 					</div>
 				</div>
@@ -205,17 +205,17 @@ ul {
 						<td><%=r.getReserveDesignerReq()%></td>
 						<td><%=r.getReserveStatus()%></td>
 						<td>
-							<button type="button" class="btn reReserveBtn" 
+							<button type="button" class="btn btn-outline-secondary reReserveBtn" 
 								data-toggle="modal" data-target="#reReserveModal"
 								value="<%=r.getReserveNo()%>">예약 보기</button>
 						</td>
 						<td><button
 								onclick="location.href='/deleteReserveByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'"
-								type="button" class="btn">예약 삭제</button></td>
+								type="button" class="btn btn-outline-secondary">예약 삭제</button></td>
 
 						<td><button type="button"
 								onclick="location.href='/writeReviewByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus %>&reqPage=<%=reqPage %>'"
-								class="btn" btn-sm>리뷰 작성</button></td>
+								class="btn btn-outline-secondary" btn-sm>리뷰 작성</button></td>
 					</tr>
 					<%
                      }
