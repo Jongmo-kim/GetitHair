@@ -32,9 +32,17 @@ BEGIN
     INSERT INTO CUSTOMER VALUES(CUSTOMER_SEQ.NEXTVAL,'user0'||CUSTOMER_SEQ.CURRVAL,'1234','1990-08-08','남성','홍길동','asd@naver.com','경기도 고양시 덕양구','010-1234-5678','상세주소','10001',sysdate);
     INSERT INTO HAIR_INFO VALUES(hair_info_seq.nextval,'지성','곱슬','많음','가는모발','볼륨부족','푸석한모발','새치조금');
     INSERT INTO HAIRSHOP VALUES(HAIRSHOP_SEQ.NEXTVAL,'hair0'||hairshop_seq.currval,'1234',hairshop_seq.currval||'-45-67890','홍길헤어'||hairshop_seq.currval,'서울 영등포구 당산동','02-1234-1234','08:00','21:00','매주 화요일',5,0,'상세주소','10123',sysdate);        
+    insert into image values(image_seq.nextval,'1.jpg','hairshop',hairshop_seq.currval);
     INSERT INTO DESIGNER VALUES(DESIGNER_SEQ.NEXTVAL,'designer0'||designer_SEQ.currval,'1234','김영희','010-1234-5678',3,'직급','안녕하십니까 저는 이시대 최고의 디자이너 디자이너 최라고 합니다. 저의 특기는 컷이고 투블럭, 그중에서도 군대가기전에 장병들이 해야하는...',sysdate);--여까지함
     INSERT INTO DESIGNER_LIST VALUES(DESIGNER_LIST_SEQ.NEXTVAL,DESIGNER_SEQ.currval,DESIGNER_SEQ.currval);
+    INSERT INTO STYLE VALUES(STYLE_SEQ.NEXTVAL,'cut','샌드컷',0);
+    insert into image values(image_seq.nextval, 'cut.jpg','style',style_seq.currval);
     INSERT INTO STYLE VALUES(STYLE_SEQ.NEXTVAL,'perm','빌드펌',0);
+    insert into image values(image_seq.nextval, 'perm.jpg','style',style_seq.currval);
+    INSERT INTO STYLE VALUES(STYLE_SEQ.NEXTVAL,'color','밤비브라운',0);
+    insert into image values(image_seq.nextval, 'color.jpg','style',style_seq.currval);
+    INSERT INTO STYLE VALUES(STYLE_SEQ.NEXTVAL,'etc','드라이',0);
+    insert into image values(image_seq.nextval, 'etc.jpg','style',style_seq.currval);
     INSERT INTO STYLE_LIST VALUES(style_list_seq.nextval,style_list_seq.currval,style_list_seq.currval);
     INSERT INTO SHOP_PRICE VALUES(SHOP_PRICE_SEQ.NEXTVAL,SHOP_PRICE_SEQ.currval,style_list_seq.currval,15000);
     INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,'예약제목',default,'손님요청','디자이너요청','디자이너메모',sysdate,sysdate + (1/1440*15)*reserve_seq.currval*7, sysdate + (1/1440*15)*reserve_seq.currval*8);
