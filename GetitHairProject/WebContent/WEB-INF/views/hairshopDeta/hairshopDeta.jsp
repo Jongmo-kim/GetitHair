@@ -35,7 +35,6 @@
 <title>헤어샵 상세보기</title>
 	<!-- Link Swiper's CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<!-- 구글 아이콘 링크 -->
 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -50,46 +49,63 @@
   	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=yehjayrzn1&submodules=geocoder"></script>
   	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style media="screen">
-	body{
-		padding: 0;
-		margin: 0;
-	}
-    .datePage{
-        display: block;
-        margin: 0 auto;
-    }
-    .navi>ul>li{
-        list-style-type: none;
-        float: left;
-        display: block;
-    }
-    
-    .tab{
-    	width: 100px;
-    	height: 20px;
-    	line-height: 20px;
-    	float: left;
-    	display: block;
-    	color: #8C2E40;
-    	cursor: pointer;
-    }
-    .tab>a{
-    	text-decoration: none;
-    }
-   /*  .designerPt{
-    	padding-right: 10px;
-    	display: flex;
-    	justify-content: space-between;
-    	flex-direction : row;
-    	padding-top: 20px;
-    } */
-	.detail{
-		display: none;
-	}
-	.inputBox>input{
-		height: 2.1em;
-		width: 80%;
-	}
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            font-weight: bold;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            font-weight: bold;
+            border-bottom: 2px solid#8C2E40;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            -webkit-animation: fadeEffect 1s;
+            animation: fadeEffect 1s;
+        }
+
+        /* Fade in tabs */
+        @-webkit-keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
 </style>
 
 
@@ -153,84 +169,95 @@
         </div>
     </div>
     <div class="datePage">
-    <br>
   	<div class="container" style="width: 800px; height: 500px; padding: 0;">
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">소개</a></li>
-    <li><a data-toggle="tab" href="#menu1">디자이너</a></li>
-    <li><a data-toggle="tab" href="#menu2">가격</a></li>
-    <li><a data-toggle="tab" href="#menu3">리뷰</a></li>
-  </ul>
+  	 <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'onetab')">소개</button>
+        <button class="tablinks" onclick="openCity(event, 'twotab')">디자이너</button>
+        <button class="tablinks" onclick="openCity(event, 'threetab')">가격</button>
+        <button class="tablinks" onclick="openCity(event, 'fourtab')">리뷰</button>
+    </div>
+    <!-- 소개 -->
+    <div id="onetab" class="tabcontent">
+        <div class="col-md-4">
+            <h3>
+                <input type="hidden" value="<%=hs.getShopNo() %>"><label><%=hs.getShopName() %></label>
+            </h3>
+            <br>
+            <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 16px;">place</span>장소</h4>
+            <p style="font-size: 14px"><%=hs.getShopAddr() %></p>
+            <p style="font-weight: bold"><span class="material-icons" style="font-size: 14px">calendar_today</span> 영업시간
+            </p>
+            <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
+            <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호
+            </h4>
+            <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
+            <a href="/hairshopModifyPage?shopNo=<%=hs.getShopNo() %>" class="">헤어샵 수정하기</a>
+        </div>
+        <div class="col-md-2"></div>
 
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active" style="width: 100%">
-  	<div class="col-md-4">
-  		 <h3>
-      	 <input type="hidden" value ="<%=hs.getShopNo() %>"><label><%=hs.getShopName() %></label>
-		 </h3>
-		 <br>
-		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 16px;">place</span>장소</h4>
-		 <p style="font-size: 14px"><%=hs.getShopAddr() %></p>
-		 <p style="font-weight: bold"><span class="material-icons" style="font-size: 14px">calendar_today</span> 영업시간</p>
-		 <p style="font-size: 14px"><%=hs.getShopOpen()%>~<%=hs.getShopClose() %> 휴무일 | <%=hs.getShopHoliday() %></p>
-		 <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호</h4>
-		 <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
-		 <a href="/hairshopModifyPage?shopNo=<%=hs.getShopNo() %>" class="btn btn-primary btn-sm">헤어샵 수정하기</a>
-	</div>
-	<div class="col-md-2"></div>
-	
-	<div class="col-md-6" id="map" style="height: 280px; margin-top: 20px; border: 2px solid #a2a2b2"></div>
+        <div class="col-md-6" id="map" style="height: 280px; margin-top: 20px; border: 2px solid #a2a2b2"></div>
     </div>
-    <div id="menu1" class="tab-pane fade">
-    	<br>
-    	<%for(int i=0; i<deli.size(); i++) {%>
-    	 <div class="dt row"  style="padding: 0;">
-    	<div class="designerPt col-md-2">
-    		<img src="/img/hairshop/designerPhoto.png" style="width: 100px; height :100px; border-radius: 200px; overflow: hidden;">	
-    	</div>
-    	<div class="designerPt col-md-8" style="height: 100px; display:block;" >
-    		<p style="margin: 0; margin-bottom: 10px"><%=deli.get(i).getDesigner().getDesignerName() %><span style="font-size: 13px;"><%=deli.get(i).getDesigner().getDesignerRank() %></span></p>
-    		<span style="font-size: 13px; color: #737270;"><%=deli.get(i).getDesigner().getDesignerIntro() %> <span>(경력 : <%=deli.get(i).getDesigner().getDesignerYear() %>년)</span></span>
-    	</div>
-    	<div class="designerPt col-md-2" style="height: 100px; display:block;">
-    		<a class="btn btn-primary btn-sm" style="margin-top: 30px;" data-toggle="modal" data-target="#ReserveModal" data-name="<%=deli.get(i).getDesigner().getDesignerNo()%>" id="reserBtn">예약하기</a>
-    		
-    		
-    	</div>
+
+    <div id="twotab" class="tabcontent">
+        <br>
+        <%for(int i=0; i<deli.size(); i++) {%>
+        <div class="dt row" style="padding: 0;">
+            <div class="designerPt col-md-2">
+                <img src="/img/hairshop/designerPhoto.png"
+                    style="width: 100px; height :100px; border-radius: 200px; overflow: hidden;">
+            </div>
+            <div class="designerPt col-md-8" style="height: 100px; display:block;">
+                <p style="margin: 0; margin-bottom: 10px"><%=deli.get(i).getDesigner().getDesignerName() %><span
+                        style="font-size: 13px;"><%=deli.get(i).getDesigner().getDesignerRank() %></span></p>
+                <span style="font-size: 13px; color: #737270;"><%=deli.get(i).getDesigner().getDesignerIntro() %>
+                    <span>(경력 : <%=deli.get(i).getDesigner().getDesignerYear() %>년)</span></span>
+            </div>
+            <div class="designerPt col-md-2" style="height: 100px; display:block;">
+                <a class="btn-default" style="margin-top: 30px; " data-toggle="modal"
+                    data-target="#ReserveModal" data-name="<%=deli.get(i).getDesigner().getDesignerNo()%>"
+                    id="reserBtn">예약하기</a>
+            </div>
+        </div>
+        <hr>
+        <%} %>
     </div>
-    	<hr>	
-    	<%} %>
+
+    <div id="threetab" class="tabcontent">
+        <%for(int i = 0 ; i< stlList.size(); ++i) {%>
+        <h4 style="font-weight: bold;"><%=stlList.get(i).getType()%></h4>
+        <%for(int j = 0; j<stlList.get(i).getStyleList().size();j++) {%>
+        <%for(int k = 0; k<stlList.get(i).getStyleList().get(j).size();k++) {%>
+        <h4 style="font-size: 14px"><%=stlList.get(i).getStyleList().get(j).get(k).getStyleName() %>
+            <%for(int l = 0;l<price.size();l++) {%>
+            <%if(price.get(l).getStyleList().getStyle().getStyleName().equals(stlList.get(i).getStyleList().get(j).get(k).getStyleName())) {%>
+            <span style="font-size: 14px;"><%=price.get(l).getPrice()%></span></h4>
+        <%break;} %>
+        <!-- if 1 -->
+        <%} %>
+        <!-- for 4 -->
+        <%} %>
+        <!-- for 3 -->
+        <%} %>
+        <!-- for 2 -->
+        <%} %>
+        <!-- for 1 -->
+        <br>
+
+        <hr>
     </div>
-    <div id="menu2" class="tab-pane fade">
-    <%for(int i = 0 ; i< stlList.size(); ++i) {%>
-      <h4 style="font-weight: bold;"><%=stlList.get(i).getType()%></h4>
-      <%for(int j = 0; j<stlList.get(i).getStyleList().size();j++) {%>
-      <%for(int k = 0; k<stlList.get(i).getStyleList().get(j).size();k++) {%>
-      <h4 style="font-size: 14px"><%=stlList.get(i).getStyleList().get(j).get(k).getStyleName() %>
-      <%for(int l = 0;l<price.size();l++) {%>
-      <%if(price.get(l).getStyleList().getStyle().getStyleName().equals(stlList.get(i).getStyleList().get(j).get(k).getStyleName())) {%>
-    	<span style="font-size: 14px;"><%=price.get(l).getPrice()%></span></h4>
-    	 <%break;} %> <!-- if 1 --> 
-    	<%} %> <!-- for 4 -->
-      <%} %> <!-- for 3 -->
-      <%} %> <!-- for 2 -->
-      <%} %> <!-- for 1 -->   
-    	<br>
-    	
-    	<hr>
-    	
+
+    <div id="fourtab" class="tabcontent">
+        <% for(int i=0; i<review.size(); i++){%>
+        <% Review currReview = review.get(i); %>
+        <h4><span style="font-size:16px; font-weight: bold;"><%=review.get(i).getDesigner().getDesignerName()%>
+                디자이너</span></h4>
+        <br>
+        <p style="font-size: 14px"><%=review.get(i).getCustomer().getCustomerName() %>님 -
+            <%=review.get(i).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">-
+                <%=review.get(i).getReviewDate() %></span></p>
+        <hr>
+        <%} %>
     </div>
-    
-    <div id="menu3" class="tab-pane fade">
-	     <% for(int i=0; i<review.size(); i++){%>
-	   		<% Review currReview = review.get(i); %>
-	    	<h4><span style="font-size:16px; font-weight: bold;"><%=review.get(i).getDesigner().getDesignerName()%> 디자이너</span></h4>
-	    	<br>
-	    	<p style="font-size: 14px"><%=review.get(i).getCustomer().getCustomerName() %>님 - <%=review.get(i).getReviewContent()%> <span style="font-size: 12px; color: #a2a2b2">- <%=review.get(i).getReviewDate() %></span></p>
-	    	<hr>
-	    	<%} %>
-    </div>
-  </div>
 </div>
     </div>
     
@@ -251,6 +278,33 @@
 				$('.designerNo').val($(this).data('name'));
 			});
 		});
+		
+		
+		$(document).ready(function(){
+		      
+		});
+		
+		function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+			window.onload=function(){
+				tabcontent[0].style.display = "block";
+			}
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+		
+		
+		
+		
+		
 		
 		
 		//네이버 지도
