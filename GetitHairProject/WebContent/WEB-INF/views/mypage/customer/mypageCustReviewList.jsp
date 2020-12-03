@@ -61,8 +61,8 @@
 					<td><%=r.getShop().getShopName() %></td>
 					<td><%=r.getDesigner().getDesignerName() %></td>
 					<td><%=r.getStyle().getStyleName() %></td>
-					<td><%=r.getReviewContent() %></td>					
-					<td><button type="button" class="btn btn-primary showReviewBtn"
+					<td><%=r.getReviewContentBr() %></td>					
+					<td><button type="button" class="btn btn-outline-secondary showReviewBtn"
                            data-toggle="modal" data-target="#reviewModal" style="width:100%;"
                            value="<%=r.getReviewNo()%>">상세보기</button>
                     </td>							
@@ -76,8 +76,9 @@
          <div class="modal-content">
             <form action="/updateReviewByCust" method="post">
                <div class="modal-header">
+               <h4 class="modal-title">나의 리뷰상세</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">나의 리뷰상세</h4>
+                  
                </div>
                <div class="modal-body">
                   <div class="review inputBox">
@@ -112,11 +113,11 @@
 
                </div>
                <div class="modal-footer">                 
-                  <button type="button" class="btn btn-primary" id="updateOnBtn">수정하기</button>
-                  <button type="button" class="btn btn-warning" id="updateCancelBtn">수정취소</button>
-                  <button type="submit" class="btn btn-success" id="updateCompleteBtn">수정완료</button>
-                  <button type="button" class="btn btn-danger" id="deleteBtn">삭제하기</button>
-                  <button type="button" class="btn btn-info" data-dismiss="modal">닫기</button>
+                  <button type="button" class="btn btn-outline-secondary" id="updateOnBtn">수정하기</button>
+                  <button type="button" class="btn btn-outline-secondary" id="updateCancelBtn">수정취소</button>
+                  <button type="submit" class="btn btn-outline-secondary" id="updateCompleteBtn">수정완료</button>
+                  <button type="button" class="btn btn-outline-secondary" id="deleteBtn">삭제하기</button>
+                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">닫기</button>
                </div>
             </form>
          </div>
@@ -128,14 +129,14 @@
 		<!-- 네비게이션부분 -->
 		<div id="pageNavi">
 			<%if(start!=1){ %>
-				<a class="btn btn-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=(start-1) %>">이전</a>
+				<a class="btn btn-outline-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=(start-1) %>">이전</a>
 			<%} %>
 			<%for(int i = start ; i<= end ;i++){ %>
-				<a class="btn btn-primary" href = "/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=i%>"> <%=i %></a>
+				<a class="btn btn-outline-primary" href = "/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=i%>"> <%=i %></a>
 			<%} %>
 			<%if(end < maxPageSize){ %>
-				<a class="btn btn-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=(end+1) %>">다음</a>
-				<a class="btn btn-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=maxPageSize %>">끝으로</a>
+				<a class="btn btn-outline-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=(end+1) %>">다음</a>
+				<a class="btn btn-outline-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=maxPageSize %>">끝으로</a>
 			<%} %>
 						
 		</div>

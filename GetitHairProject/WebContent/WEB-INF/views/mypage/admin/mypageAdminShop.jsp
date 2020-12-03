@@ -10,7 +10,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>관리자 페이지: 관리자 관리</title>
     <link rel="stylesheet" href="/css/mypage/admin/container.css">
     <link rel="stylesheet" href="/css/mypage/admin/pagenavi.css">
     <style>

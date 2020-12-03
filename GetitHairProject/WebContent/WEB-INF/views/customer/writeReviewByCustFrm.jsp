@@ -43,19 +43,19 @@
 					</tr>
 					<tr>
 						<th>샵이름</th>
-						<td><input type="text" id="shopName" class="form-control" name="shopName" value="<%=reserve.getShop().getShopName() %>" readonly></td>
+						<td><input type="text" id="shopName" class="form-control readonly" name="shopName" value="<%=reserve.getShop().getShopName() %>"></td>
 					</tr>
 					<tr>
 						<th>디자이너이름</th>
-						<td><input type="text" id="designerName" class="form-control" name="designerName" value="<%=reserve.getDesigner().getDesignerName() %>" readonly></td>
+						<td><input type="text" id="designerName" class="form-control readonly" name="designerName" value="<%=reserve.getDesigner().getDesignerName() %>"></td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td><input type="text" id="customerName" class="form-control" name="customerName" value="<%=reserve.getCustomer().getCustomerName()%>"readonly></td>
+						<td><input type="text" id="customerName" class="form-control readonly" name="customerName" value="<%=reserve.getCustomer().getCustomerName()%>"></td>
 					</tr>
 					<tr>
 						<th>스타일이름</th>
-						<td><input type="text" id="styleName" class="form-control" name="styleName" value="<%=reserve.getStylelist().getStyle().getStyleName()%>"readonly></td>
+						<td><input type="text" id="styleName" class="form-control readonly" name="styleName" value="<%=reserve.getStylelist().getStyle().getStyleName()%>"></td>
 					</tr>				
 					<tr>
 						<th>평점</th>
@@ -69,8 +69,8 @@
 					</tr>					
 					<tr style="text-align:center">
 						<td class="btnTd" colspan="2">
-							<button type="submit" class="btn btn-primary btn-lg">등록하기</button>	
-							<input type="button" class="btn btn-primary btn-lg" value="이전화면으로" onClick="history.go(-1)">							
+							<button type="submit" class="btn btn-outline-primary btn-lg">등록하기</button>	
+							<input type="button" class="btn btn-outline-primary btn-lg" value="이전화면으로" onClick="history.go(-1)">							
 						</td>
 						
 					</tr>
