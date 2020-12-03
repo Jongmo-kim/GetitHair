@@ -52,21 +52,21 @@ public class InsertDesignerPortfolioServlet extends HttpServlet {
 		int maxSize = 10*1024*1024;
 		
 		MultipartRequest mRequest = new MultipartRequest(request, saveDirectory, maxSize,"UTF-8",new DefaultFileRenamePolicy());
-		DesignerPortfolio dp = new DesignerPortfolio();
-		dp.setPortfolioWriter(mRequest.getParameter("portfolioWriter"));
-		dp.setPortfolioContent(mRequest.getParameter("PortfolioContent"));
-		dp.setStyleName(mRequest.getParameter("styleName"));
-		
-		int desigerNo = Integer.parseInt(mRequest.getParameter("designerNo"));		
-		System.out.println("desigerNo : "+desigerNo);
-		
-		// 여기서 이미지 파일 리스트 불러오는 로직을 구현해야함
-		String filename = mRequest.getOriginalFileName("filename");
+		int designerNo = Integer.parseInt(mRequest.getParameter("designerNo"));
 		String filepath = mRequest.getFilesystemName("filename");
 		
-		int imgResult = new ImageService().insertImage("designer", desigerNo, filename, filepath);
-		int result = new DesignerPortfolioService().insertDesignerPortfolio(dp,desigerNo);
+		String type = "designer_portfolio";
 		
+		DesignerPortfolio dp = new DesignerPortfolio();
+		dp.setPortfolioWriter(mRequest.getParameter("portfolioWriter"));
+		dp.setPortfolioContent(mRequest.getParameter("portfolioContent"));
+		dp.setStyleName(mRequest.getParameter("styleType"));
+		dp.setFilepath(filepath);
+		System.out.println("dp.filepath : "+dp.getFilepath());
+		
+		int imgResult = new ImageService().insertImage(filepath, type, designerNo);
+		int result = new DesignerPortfolioService().insertDesignerPortfolio(dp,designerNo);
+		System.out.println("imgResult : "+imgResult);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
 		if(result>0 && imgResult>0) {
 			request.setAttribute("msg", "포트폴리오가 등록되었습니다.");

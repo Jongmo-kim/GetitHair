@@ -112,6 +112,9 @@ public class ImageDao {
 			pstmt.setString(1, filepath);
 			pstmt.setString(2, type);
 			pstmt.setInt(3, typeNo);
+			System.out.println(filepath);
+			System.out.println(type);
+			System.out.println(typeNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
