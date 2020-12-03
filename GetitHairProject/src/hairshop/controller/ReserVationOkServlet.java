@@ -46,7 +46,7 @@ public class ReserVationOkServlet extends HttpServlet {
 			request.setAttribute("msg", "예약완료");
 			request.setAttribute("loc", "/hairshop");
 		}else {
-			request.setAttribute("msg", "예약실패");
+			request.setAttribute("msg", "로그인 후 에약해주세요!");
 			request.setAttribute("loc", "/hairshop");
 		}
 		rd.forward(request, response);	

@@ -10,7 +10,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>관리자 페이지: 디자이너 관리</title>
     <style>
         .modal-overlay {
             display: none;

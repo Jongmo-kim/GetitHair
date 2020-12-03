@@ -117,7 +117,7 @@ public class ReserveService {
 		int pageNaviSize = 5;
 		String pageNavi = "";
 		//String link = "<a href='/updateReserveFrm?customerNo="+customer.getCustomerNo()+"&selStatus="+selStatus+"&reqPage=";
-		String link = "<a class='btn btn-primary' href='/mypageCust?selStatus="+selStatus+"&reqPage=";
+		String link = "<a class='btn btn-outline-primary' href='/mypageCust?selStatus="+selStatus+"&reqPage=";
 		// 페이지네비 시작번호 구하기
 		// reqPage : 1~5 -> 1
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
@@ -129,7 +129,7 @@ public class ReserveService {
 		for (int i = 0; i < pageNaviSize; ++i) {
 			if (reqPage == pageNo) {
 				// 현재페이지
-				pageNavi += "<span class='btn btn-primary'>" + pageNo + "</span>";
+				pageNavi += "<span class='btn btn-outline-primary'>" + pageNo + "</span>";
 			} else {
 				pageNavi += link + pageNo +"'>" + pageNo + "</a>";
 			}

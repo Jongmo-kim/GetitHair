@@ -41,6 +41,7 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
 	<div class="container">
 	<h1>나의 리뷰 리스트</h1>
 	<!-- 테이블부분 -->
@@ -61,8 +62,8 @@
 					<td><%=r.getShop().getShopName() %></td>
 					<td><%=r.getDesigner().getDesignerName() %></td>
 					<td><%=r.getStyle().getStyleName() %></td>
-					<td><%=r.getReviewContent() %></td>					
-					<td><button type="button" class="btn btn-primary showReviewBtn"
+					<td><%=r.getReviewContentBr() %></td>					
+					<td><button type="button" class="btn btn-outline-secondary showReviewBtn"
                            data-toggle="modal" data-target="#reviewModal" style="width:100%;"
                            value="<%=r.getReviewNo()%>">상세보기</button>
                     </td>							
@@ -76,33 +77,34 @@
          <div class="modal-content">
             <form action="/updateReviewByCust" method="post">
                <div class="modal-header">
+               <h4 class="modal-title">나의 리뷰상세</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">나의 리뷰상세</h4>
+                  
                </div>
                <div class="modal-body">
                   <div class="review inputBox">
-                     <input type="text"  id="reviewNo" class="form-textbox" name="reviewNo" readonly>
+                     <input type="text"  id="reviewNo" class="form-textbox readonly" name="reviewNo" readonly>
                      <span class="form-label label-focused">리뷰번호 </span>
                   </div>  
                   <div class="review inputBox">
-                     <input type="text"  id="reviewDate" class="form-textbox" name="reviewDate" readonly>
-                     <span class="form-label label-focused">작성일자 </span>
+                     <input type="text"  id="reviewDate" class="form-textbox readonly" name="reviewDate" readonly>
+                     <span class="form-label label-focused readonly">작성일자 </span>
                   </div> 
                   <div class="review inputBox">
-                     <input type="text"  id="shopName" class="form-textbox" name="shopName" readonly>
+                     <input type="text"  id="shopName" class="form-textbox readonly" name="shopName" readonly>
                      <span class="form-label label-focused">미용실이름 </span>
                   </div> 
                   <div class="review inputBox">
-                     <input type="text"  id="designerName" class="form-textbox" name="designerName" readonly>
+                     <input type="text"  id="designerName" class="form-textbox readonly" name="designerName" readonly>
                      <span class="form-label label-focused">디자이너이름 </span>
                   </div> 
                   <div class="review inputBox">
-                     <input type="text"  id="styleName" class="form-textbox" name="styleName" readonly>
+                     <input type="text"  id="styleName" class="form-textbox readonly" name="styleName" readonly>
                      <span class="form-label label-focused">스타일이름 </span>
                   </div>             
                   <div class="review inputBox">
-                     <textarea class="form-textbox" id="reviewContent" name="reviewContent" readonly></textarea>
-                     <span id="reviewContentSpan" class="form-label label-focused">리뷰내용 </span>
+                     <textarea class="form-textbox readonly" id="reviewContent" name="reviewContent" style="padding-top: 15px;" readonly></textarea>
+                     <span id="reviewContentSpan" class="form-label label-focused readonly">리뷰내용 </span>
                   </div>             
                   
                   <!-- hidden영역 -->
@@ -112,11 +114,11 @@
 
                </div>
                <div class="modal-footer">                 
-                  <button type="button" class="btn btn-primary" id="updateOnBtn">수정하기</button>
-                  <button type="button" class="btn btn-warning" id="updateCancelBtn">수정취소</button>
-                  <button type="submit" class="btn btn-success" id="updateCompleteBtn">수정완료</button>
-                  <button type="button" class="btn btn-danger" id="deleteBtn">삭제하기</button>
-                  <button type="button" class="btn btn-info" data-dismiss="modal">닫기</button>
+                  <button type="button" class="btn btn-outline-secondary" id="updateOnBtn">수정하기</button>
+                  <button type="button" class="btn btn-outline-secondary" id="updateCancelBtn">수정취소</button>
+                  <button type="submit" class="btn btn-outline-secondary" id="updateCompleteBtn">수정완료</button>
+                  <button type="button" class="btn btn-outline-secondary" id="deleteBtn">삭제하기</button>
+                  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">닫기</button>
                </div>
             </form>
          </div>
@@ -128,14 +130,14 @@
 		<!-- 네비게이션부분 -->
 		<div id="pageNavi">
 			<%if(start!=1){ %>
-				<a class="btn btn-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=(start-1) %>">이전</a>
+				<a class="btn btn-outline-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=(start-1) %>">이전</a>
 			<%} %>
 			<%for(int i = start ; i<= end ;i++){ %>
-				<a class="btn btn-primary" href = "/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=i%>"> <%=i %></a>
+				<a class="btn btn-outline-primary" href = "/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=i%>"> <%=i %></a>
 			<%} %>
 			<%if(end < maxPageSize){ %>
-				<a class="btn btn-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=(end+1) %>">다음</a>
-				<a class="btn btn-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=maxPageSize %>">끝으로</a>
+				<a class="btn btn-outline-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=(end+1) %>">다음</a>
+				<a class="btn btn-outline-primary" href="/mypageCustReviewList?customerNo=<%=customerNo %>&reqPage=<%=maxPageSize %>">끝으로</a>
 			<%} %>
 						
 		</div>
@@ -151,7 +153,7 @@
 		         var reviewNo = $(this).val();  
 		         var reqPage = <%=reqPage %>;
 		         var customerNo =  <%=customerNo %>;
-		         console.log("reviewNo = "+reviewNo);         
+		         //console.log("reviewNo = "+reviewNo);         
 		         $.ajax({
 		            url: "/mypageCustReviewAjax",
 		            type: "get",            
@@ -163,15 +165,16 @@
 		                  var shopName = decodeURIComponent(data.shopName);
 		                  var designerName = decodeURIComponent(data.designerName);
 		                  var styleName = decodeURIComponent(data.styleName);
-		                  reviewContent = decodeURIComponent(data.reviewContent);           
-
+		                  reviewContent = decodeURIComponent(data.reviewContent).replaceAll("+"," "); 
+		                  //console.log('data.reviewContent = '+data.reviewContent);
+						 // console.log('reviewContent = '+reviewContent);
 		                  $("#reviewNo").attr('value',reviewNo);
 		                  $("#reviewDate").attr('value',reviewDate);
 		                  $("#shopName").attr('value',shopName);
 		                  $("#designerName").attr('value',designerName);
 		                  $("#styleName").attr('value',styleName);
 		                  //$("#reviewContent").attr('value',reviewContent);
-		                  $("#reviewContent").html("\n"+reviewContent);
+		                  $("#reviewContent").html(reviewContent);
 		                  //btn에 링크넣기
 		                  $("#deleteBtn").attr('onclick',"location.href='/deleteReviewByCust?reviewNo="+reviewNo+"&customerNo="+customerNo+"&reqPage="+reqPage+"'");
 		                  //$("#updateCompleteBtn").attr('onclick',"location.href='/updateReviewByCust?reviewNo="+reviewNo+"&customerNo="+customerNo+"&reqPage="+reqPage+"'");
@@ -183,23 +186,25 @@
 		      	$("#updateCancelBtn").show();
 		      	$("#updateCompleteBtn").show();
 		      	$("#reviewContent").attr('readonly',false);
-		      	$("#reviewContent").focus();
+		      	$("#reviewContent").removeClass('readonly');
 		      });
 		      $("#updateCompleteBtn").click(function(){
 		    	  $("#updateOnBtn").show();
 		    	  $("#updateCancelBtn").hide();
 			      $("#updateCompleteBtn").hide();
 			      $("#reviewContent").attr('readonly',true);
+			      $("#reviewContent").addClass('readonly');
 		      });
 		  	  $("#updateCancelBtn").click(function(){
-		  		 console.log("수정취소클릭!");
-		  		console.log("reviewContent = "+reviewContent);
+		  		 console.log("수정취소클릭!");		  		
 		  		$("#updateOnBtn").show();
 		  		$("#updateCancelBtn").hide();
-		      	$("#updateCompleteBtn").hide();		      
-		      	$("#reviewContent").attr('readonly',true);
-		    	$("#reviewContent").html("\n"+reviewContent);
-		    	$("#reviewContent").val("\n"+reviewContent);
+		      	$("#updateCompleteBtn").hide();			      	
+		    	$("#reviewContent").html('');
+		    	$("#reviewContent").val(reviewContent);
+		    	$("#reviewContent").addClass('readonly');
+		    	$("#reviewContent").attr('readonly',true);
+		    	//$("#reviewContent").val("\n"+reviewContent);
 		    	//console.log($("#reviewContent").val());
 		    	//console.log($("#reviewContent").html());		    	
 		      	//$(".showReviewBtn").click();

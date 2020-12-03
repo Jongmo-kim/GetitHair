@@ -9,7 +9,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>관리자 페이지: 예약 관리</title>
     <style>
         .reserve-list,
         .review-list {

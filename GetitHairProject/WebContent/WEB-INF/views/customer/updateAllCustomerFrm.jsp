@@ -48,48 +48,55 @@
 		width:40%;
 		margin: 20px;
 	}
+	span{
+		font-size:10px;
+	}
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
 	<div class="container">
 	<h1>회원정보수정</h1>
 	<form action="/updateAllCustomer" method="post">
-		<table class="table infoTable" style="width:70%;">
+		<table class="table infoTable" style="width:70%;text-align:left;">
 			<tr>
 				<th>회원번호</th>
-				<td><input type="text" name="customerNo"
+				<td><input type="text" name="customerNo" class="readonly"
 					value="<%=customer.getCustomerNo()%>" readonly></td>
+					<td><span id="noInfo"></span></td>
 			</tr>
 			<tr>
 				<th>회원아이디</th>
-				<td><input type="text" id="idInput"
+				<td><input type="text" id="idInput" class="readonly"
 								name="customerId" value="<%=customer.getCustomerId() %>" readonly>				
 					</td>
+					<td><span id="idInfo"></span></td>
 			</tr>
 			<tr>
 				<th>회원암호</th>
-				<td><input type="password" id ="pwInput"
-							name="customerPw" value="<%=customer.getCustomerPw()%>">
-					<span id="pwInfo"></span>				
+				<td><input type="password" id ="pwInput" 
+							name="customerPw" value="<%=customer.getCustomerPw()%>">				
 				</td>
+				<td><span id="pwInfo"></span></td>
 			</tr>
 			<tr>
 				<th>회원암호 확인</th>
 				<td><input type="password" id ="pwreInput"
-							name="customerPwRe" value="<%=customer.getCustomerPw()%>">
-					<span id="pwreInfo"></span>
+							name="customerPwRe" value="<%=customer.getCustomerPw()%>">				
+							</td>
+							<td><span id="pwreInfo"></span>
 							</td>
 			</tr>
 			<tr>
 				<th>회원생년월일</th>
-				<td><input type="text" name="customerBirthdate"
+				<td><input type="text" name="customerBirthdate" class="readonly"
 					value="<%=customer.getCustomerBirthdate()%>" readonly></td>
+					<td><span id="birthInfo"></span></td>
 			</tr>
 			<tr>
 				<th>회원성별</th>
 				<td>
-				<div class="name inputBox">
 				<%if (customer.getCustomerGen().equals("남성")){ %>					
 				<input type="radio" id="signupMale" name="customerGen" value="남성"readonly checked >
 				<label for="signupMale">남자</label>
@@ -101,34 +108,40 @@
 				<input type="radio" id="signupFemale" name="customerGen" value="여성" readonly checked>
 				<label for="signupFemale">여자</label>	
 				<% } %>
-				 </div>
+				</td>
+				<td>
+				<span id="genderInfo"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>회원이름</th>
-				<td><input type="text" name="customerName"
-					value="<%=customer.getCustomerName()%>" readonly>
-					
+				<td><input type="text" name="customerName" class="readonly"
+					value="<%=customer.getCustomerName()%>" readonly>					
+					</td>
+					<td>
+					<span id="nameInfo"></span>
 					</td>
 			</tr>
 			<tr>
 				<th>회원이메일</th>
 				<td><input type="text" name="customerEmail" id ="emailInput"
-					value="<%=customer.getCustomerEmail()%>">
-					<span id="emailInfo"></span>
+					value="<%=customer.getCustomerEmail()%>">					
 					</td>
+					<td><span id="emailInfo"></span></td>
 			</tr>
 			<tr>
 				<th>회원주소</th>
 				<td><input type="text" name="customerAddr" id ="addrInput"
-					value="<%=customer.getCustomerAddr()%>">
-					<span id="addrInfo"></span>
+					value="<%=customer.getCustomerAddr()%>">					
 					</td>
+					<td><span id="addrInfo"></span></td>
 			</tr>
 			<tr>
 				<th>회원휴대전화번호</th>
 				<td><input type="text" name="customerPhone" id="phoneInput" class="phoneInput"
 					value="<%=customer.getCustomerPhone()%>">
+				</td>
+				<td>
 					<span id="phoneInfo"></span>
 				</td>
 			</tr>			
@@ -136,16 +149,19 @@
 				<th>상세주소</th>
 				<td><input type="text" name="addrPostcode"
 					value="<%=customer.getAddrDetail()%>"></td>
+					<td><span id="postInfo"></span></td>
 			</tr>
 			<tr>
 				<th>우편번호</th>
-				<td><input type="text" name="addrDetail"
+				<td><input type="text" name="addrDetail" class="readonly"
 					value="<%=customer.getAddrPostcode()%>" readonly></td>
+					<td><span id="detailInfo"></span></td>
 			</tr>
 			<tr>
 				<th>회원가입일</th>
-				<td><input type="text" name="customerEnrolldate"
+				<td><input type="text" name="customerEnrolldate" class="readonly"
 					value="<%=customer.getCustomerEnrolldate()%>" readonly></td>
+					<td><span id="enrollInfo"></span></td>
 			</tr>
 			<tr>
 				<th>1.두피상태</th>
@@ -608,8 +624,8 @@
 			</tr>
 			<tr>
 				<td class="btnTd" colspan="2">
-					<input type="submit" class="btn btn-primary" id="submitBtn" value="회원수정">	
-					<input type="button" class="btn btn-primary" value="이전화면으로" onClick="history.go(-1)">  
+					<input type="submit" class="btn btn-outline-primary" id="submitBtn" value="회원수정">	
+					<input type="button" class="btn btn-outline-primary" value="이전화면으로" onClick="history.go(-1)">  
 				</td>
 				
 			</tr>
