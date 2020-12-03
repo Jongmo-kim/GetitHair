@@ -34,7 +34,7 @@ public class InsertDesignerReviewCommentServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		ReviewComment rc = new ReviewComment();
 		rc.setReviewCommentWriter(request.getParameter("reviewCommentWriter"));
-		rc.setReviewCommentWriter(request.getParameter("reviewCommentWriter"));
+		rc.setReviewCommentContent(request.getParameter("reviewCommentContent"));
 		rc.setReviewRef(Integer.parseInt(request.getParameter("reviewRef")));
 		// 3. 비지니스 로직
 		int result = new ReviewService().insertReviewComment(rc);

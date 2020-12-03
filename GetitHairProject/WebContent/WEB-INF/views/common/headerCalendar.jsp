@@ -1,136 +1,68 @@
+<%@page import="admin.model.vo.Admin"%>
+<%@page import="hairshop.model.vo.Hairshop"%>
+<%@page import="designer.model.vo.Designer"%>
 <%@page import="customer.model.vo.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%
 		HttpSession sessions = request.getSession();
-		Customer loginCustomer = (Customer)sessions.getAttribute("loginCustomer");
+		String loginType = (String)session.getAttribute("loginType")==null?"" : (String)session.getAttribute("loginType");
+		Customer loginCustomer = null;
+		Designer loginDesigner = null;
+		Hairshop loginHairshop = null;
+		Admin loginAdmin = null;
+		boolean isLogined = false;
+		
+		switch(loginType) {
+		case "customer":
+			loginCustomer = (Customer)sessions.getAttribute("loginCustomer");
+			isLogined = true;
+			break;
+		case "designer":
+			loginDesigner = (Designer)session.getAttribute("loginDesigner");
+			isLogined = true;
+			break;
+		case "hairshop":
+			loginHairshop = (Hairshop)session.getAttribute("loginHairshop");
+			isLogined = true;
+			break;
+		case "admin":
+			loginAdmin = (Admin)session.getAttribute("loginAdmin");
+			isLogined = true;
+			break;
+		}
 	%>
-<!-- 글꼴 호출 -->
-<!-- //글꼴 호출 -->
-
-<!-- jQuery 호출 -->
-<script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
-<!-- //jQuery 호출 -->
-<link rel="stylesheet" href="/css/header/header.css">
-<link rel="stylesheet" href="/css/signUp/inputBox.css">
-<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
+	
+<link rel="stylesheet" href="/css/header/headerdemo.css">
+<link rel="stylesheet" href="/css/header/headermultilevelnav.css">
 <header>
-	<h1>header입니다</h1>
-<div class="container">	
-<%if(loginCustomer==null){ %>
+	<nav>
+		<div class='MultiLevelMenu depth-1'>
+			<ul class='menu con'>
+				<li class='MultiItem'><a class="MultiLink" href='#'>HOME</a></li>
+				<li class='MultiItem'><a class="MultiLink" href='#'>STYLE</a></li>
+				<li class='MultiItem'><a class="MultiLink" href='#'>MY PAGE</a>
 
-	<div class="modal fade" id="loginModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-        		<div class="modal-header">
-          			<button type="button" class="close" data-dismiss="modal">&times;</button>
-          			<h4 class="modal-title">손님으로 로그인하기</h4>
-        		</div>
-        	<form action="/custLogin" method="post">
-        		<div class="modal-body">
-          			<p>로그인</p>
-	          			<div class="name inputBox">
-		            		<input type="text" class="form-textbox" name="customerId">
-	    	        		<span class="form-label">아이디</span>
-		    	   		</div>
-		       			<div class="name inputBox">
-		            		<input type="text" class="form-textbox" name="customerPw">
-		            		<span class="form-label">비밀번호</span>
-		       			</div>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-default">제출</button>
-					<button type="reset" class="btn btn-default">초기화</button>
-				</div>
-			</form>
+					<div class='MultiLevelMenu depth-2'>
+						<ul class='menu'>
+							<li class='MultiItem'>
+								<a class="MultiLink" href='#'>예약관리</a>
+							</li>
+							<li class='MultiItem'>
+								<a class="MultiLink" href='#'>포트폴리오</a>
+							</li>
+							<li class='MultiItem'>
+								<a class="MultiLink" href='#'>리뷰관리</a>
+							</li>
+							<li class='MultiItem'>
+								<a class="MultiLink" href='#'>내 정보</a>
+							</li>
+						</ul>
+					</div></li>
+				<li class='MultiItem'>
+					<a class="MultiLink" href='#'>LOGOUT</a>
+				</li>
+			</ul>
 		</div>
-	</div>
-</div>
-  <%} else{ %>
-  
-	<div class="modal fade" id="loginModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-        		<div class="modal-header">
-          			<button type="button" class="close" data-dismiss="modal">&times;</button>
-          			<h4 class="modal-title">손님 마이페이지</h4>
-        		</div>
-        	<form action="/custLogin" method="post">
-        		<div class="modal-body">
-          			<div class="btn btn-default"><a style="display:block; height:100%" href="/custLogout">로그아웃</a></div>
-				</div>
-			</form>
-			<div class="modal-body">
-          			<div class="btn btn-default"><a style="display:block; height:100%" href="/updateCustomerFrm">마이페이지</a></div>
-				</div>
-		</div>
-	</div>
-</div>
-  <%} %>
-</div>
-	<div class="container">
-		<ul class="nav nav-pills" role="tablist">
-		<%if(loginCustomer==null){ %>
-			<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">로그인하기</a></li>
-		<%}else{  %>
-				<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">마이페이지</a></li>
-		<%} %>
-			<li class="active"><a href="/">Home</a></li>
-			
-			<li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">디버그모드 활성화<span class="caret"></span></a>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="/debugMode?isDebugmode='true'">디버그모드 켜기</a></li>
-					<li><a href="/debugMode?isDebugmode='false'">디버그모드 끄기</a></li>
-					<li><a href="/showUsingDebug">디버그모드 객체넣어 테스트</a></li>
-					<li><a href="/showUsingDebug">서블렛테스트버튼</a></li>
-					<li><a href="/testForm">testJsp</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">회원가입 목록<span class="caret"></span></a>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="/signUpCustomerForm">고객회원가입</a></li>
-					<li><a href="/signupDesignerForm">디자이너가입</a></li>
-					<li><a href="#">헤어샵등록</a></li>
-				</ul>
-			</li>
-			
-
-			
-			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">관리자<span class="caret"></span></a>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="/mypageAdmin">관리자페이지</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">손님<span class="caret"></span></a>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="/mypageCust?selStatus=전체&reqPage=1">손님페이지</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">디자이너<span class="caret"></span></a>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="/mypageDesigner">디자이너페이지</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">상세페이지<span class="caret"></span></a>
-				<ul class="dropdown-menu" role="menu">
-	        		<li><a href="/hairshopDeta">헤어샵 상세보기</a></li>
-				</ul>
-			</li>
-			<li class="dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">헤어샵<span class="caret"></span></a>
-				<ul class="dropdown-menu" role="menu">
-	        		<li><a href="/">관리자페이지</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
+	</nav>
 </header>

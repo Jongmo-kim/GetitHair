@@ -16,6 +16,7 @@
 
 <head>
 <meta charset='utf-8' />
+<title>예약관리</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -257,7 +258,6 @@ body {
 </head>
 
 <body>
-	
 
 	<!-- The Modal -->
 	<div class="modal" id="eventModal" style="display: none">
@@ -326,7 +326,9 @@ body {
 	<div id='calendar'
 		class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"></div>
 	<br>
-	<button id="submitBtn" type="button" class="btn btn-primary" >저장하기</button>
+	<div style="margin: 0 auto; width: 60%">
+		<button id="submitBtn" type="button" class="btn btn-primary" >저장하기</button>
+	</div>
 	<!-- <div style="position: fixed; top: 500px;">
 		<button id="submitBtn" type="button" class="btn btn-primary"
 			style="width: 200px; height: 200px">제출하기</button>
