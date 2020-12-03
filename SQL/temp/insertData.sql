@@ -57,19 +57,3 @@ END;
 insert into admin values(admin_seq.nextval,'admin', '1234');
 -- 필수!!!!!!
 COMMIT;
-select * from reserve;
-select * from reserve;
-select * from shop_price;
-DECLARE
-NUM1 NUMBER :=31;
-BEGIN
-    WHILE(NUM1<61)
-    LOOP
-    INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,'예약제목',default,'손님요청','디자이너요청','디자이너메모',sysdate,sysdate + (1/144015)reserve_seq.currval8, sysdate + (1/144015)reserve_seq.currval9);
-    INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,'예약제목','취소','손님요청','디자이너요청','디자이너메모',sysdate,sysdate + (1/144015)reserve_seq.currval8, sysdate + (1/144015)reserve_seq.currval9);
-    INSERT INTO RESERVE VALUES(RESERVE_SEQ.NEXTVAL,1,1,1,1,'예약제목','완료','손님요청','디자이너요청','디자이너메모',sysdate,sysdate + (1/144015)reserve_seq.currval8, sysdate + (1/144015)reserve_seq.currval9);
-
-    NUM1 := NUM1+1; 
-    END LOOP;
-END;
-Commit;

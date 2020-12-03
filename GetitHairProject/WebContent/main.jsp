@@ -240,7 +240,7 @@ body {
 			</div>
 			<div class="nav-menu">
 				<%if(!isLogined) {%>
-				<a href="/signUpCustomer">회원가입</a>
+				<a href="/signUpCustomerForm">회원가입</a>
 				<%} %>
 			</div>
 		</div>
