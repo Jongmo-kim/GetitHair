@@ -247,7 +247,6 @@ body {
 </head>
 
 <body>
-	<%@ include file="/WEB-INF/views/common/headerCalendar.jsp" %>
 
 	<!-- The Modal -->
 	<div class="modal" id="eventModal" style="display: none">
