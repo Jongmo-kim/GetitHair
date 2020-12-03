@@ -51,11 +51,21 @@ body {
 
 	.myLabel{
 		cursor: pointer;
+		margin-right: 0px; 
+     margin-left: 0px; 
 	}
 	.myLabel:hover{
 			color:var(--wine);
 		}
 		input[name='loginType']:checked ~ label{
-			color:var(--wine);
-			font-size:18pt;
+			  color: white;
+		    border-radius: 10px;
+ 		  background-color: var(--wine);
 		}
+		
+		<!-- modal resize-->
+		@media (min-width: 576px)
+	.modal-dialog {
+	    max-width: 900px;
+ 	   margin: 1.75rem auto;
+}
