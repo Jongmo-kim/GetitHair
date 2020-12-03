@@ -38,8 +38,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<!-- 구글 아이콘 링크 -->
 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!-- 스타일 부분 -->
-	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
  	<!-- 스켈레 -->
   	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
@@ -49,7 +47,9 @@
   	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=yehjayrzn1&submodules=geocoder"></script>
   	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style media="screen">
-
+		body{
+			padding: 0;
+		}
         /* Style the tab */
         .tab {
             overflow: hidden;
@@ -75,17 +75,20 @@
         /* Create an active/current tablink class */
         .tab button.active {
             font-weight: bold;
-            border-bottom: 2px solid#8C2E40;
+            border-bottom: 2px solid #8C2E40;
         }
 
         /* Style the tab content */
         .tabcontent {
             display: none;
-            padding: 6px 12px;
             -webkit-animation: fadeEffect 1s;
             animation: fadeEffect 1s;
         }
-
+		.deBtn{
+			width: 30px;
+			height: 10px;
+			background-color: 
+		}
         /* Fade in tabs */
         @-webkit-keyframes fadeEffect {
             from {
@@ -106,10 +109,29 @@
                 opacity: 1;
             }
         }
+        .btbt{
+        	padding:5px;
+        	margin:0;
+        	border-radius : 2px;
+        	color: white!important;
+        	background-color: #8C2E40!important;
+        	text-decoration: none!important;
+        	font-size: 14px;
+        }
+        #map{
+        	float: left;
+        }
 </style>
 
 
 </head>
+<script>
+ $(function(){
+	//opencity(1,'onetap');
+	$('#btnonetap').addClass('active');
+	$('#btnonetap').trigger('click');
+ });
+</script>
 <body>
 	<!-- 헤더 -->
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -120,8 +142,8 @@
 			<div class="modal-content">
 				<form action="/insertReserve" method="post">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">예약하기</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
 						<input class="designerNo" type="hidden" name="desinerNo">
@@ -158,27 +180,29 @@
 	
 	<div class="slideImg">
         <!-- Swiper -->
-        <div class="swiper-container" style="width: 800px; height: 500px;">
+        <div class="swiper-container" style="width: 1000px; height: 500px;">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="/img/hairshop/hair1.png" style="width: 800px; height: 500px;"></div>
-                <div class="swiper-slide"><img src="/img/hairshop/hair2.png" style="width: 800px; height: 500px;"></div>
-                <div class="swiper-slide"><img src="/img/hairshop/hair3.png" style="width: 800px; height: 500px;"></div>
+                <div class="swiper-slide"><img src="/img/hairshop/hair1.png" style="width: 1000px; height: 500px;"></div>
+                <div class="swiper-slide"><img src="/img/hairshop/hair2.png" style="width: 1000px; height: 500px;"></div>
+                <div class="swiper-slide"><img src="/img/hairshop/hair3.png" style="width: 1000px; height: 500px;"></div>
             </div>
             <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
         </div>
     </div>
-    <div class="datePage">
-  	<div class="container" style="width: 800px; height: 500px; padding: 0;">
-  	 <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'onetab')">소개</button>
-        <button class="tablinks" onclick="openCity(event, 'twotab')">디자이너</button>
-        <button class="tablinks" onclick="openCity(event, 'threetab')">가격</button>
-        <button class="tablinks" onclick="openCity(event, 'fourtab')">리뷰</button>
+    <div class="datePage" style="margin: 0; padding: 0;">
+  	<div class="container" style="width: 1000px; height: 500px; padding: 0;">
+  	 <div class="tab" >
+        <button type="button" id="btnonetap"class="tablinks" onclick="openCity(event, 'onetab')">소개</button>
+        <button type="button" class="tablinks" onclick="openCity(event, 'twotab')">디자이너</button>
+        <button type="button" class="tablinks" onclick="openCity(event, 'threetab')">가격</button>
+        <button type="button" class="tablinks" onclick="openCity(event, 'fourtab')">리뷰</button>
     </div>
     <!-- 소개 -->
     <div id="onetab" class="tabcontent">
-        <div class="col-md-4">
+    	<br>
+    	<div>
+        <div class="" style="width: 50%; float: left;">
             <h3>
                 <input type="hidden" value="<%=hs.getShopNo() %>"><label><%=hs.getShopName() %></label>
             </h3>
@@ -191,15 +215,14 @@
             <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호
             </h4>
             <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
-            <a href="/hairshopModifyPage?shopNo=<%=hs.getShopNo() %>" class="">헤어샵 수정하기</a>
+            <a href="/hairshopModifyPage?shopNo=<%=hs.getShopNo() %>" class="btbt">수정하기</a>
         </div>
-        <div class="col-md-2"></div>
-
-        <div class="col-md-6" id="map" style="height: 280px; margin-top: 20px; border: 2px solid #a2a2b2"></div>
+        <div>
+        <div id="map" style="width:48%; height: 322px; float:left; border: 1px solid #a2a2a2;"></div></div>
     </div>
 
     <div id="twotab" class="tabcontent">
-        <br>
+        <hr>
         <%for(int i=0; i<deli.size(); i++) {%>
         <div class="dt row" style="padding: 0;">
             <div class="designerPt col-md-2">
@@ -213,9 +236,9 @@
                     <span>(경력 : <%=deli.get(i).getDesigner().getDesignerYear() %>년)</span></span>
             </div>
             <div class="designerPt col-md-2" style="height: 100px; display:block;">
-                <a class="btn-default" style="margin-top: 30px; " data-toggle="modal"
+                <a class="deBtn" style="margin-top: 30px; " data-toggle="modal"
                     data-target="#ReserveModal" data-name="<%=deli.get(i).getDesigner().getDesignerNo()%>"
-                    id="reserBtn">예약하기</a>
+                    id="btbt">예약하기</a>
             </div>
         </div>
         <hr>
@@ -223,6 +246,7 @@
     </div>
 
     <div id="threetab" class="tabcontent">
+    <hr>
         <%for(int i = 0 ; i< stlList.size(); ++i) {%>
         <h4 style="font-weight: bold;"><%=stlList.get(i).getType()%></h4>
         <%for(int j = 0; j<stlList.get(i).getStyleList().size();j++) {%>
@@ -247,6 +271,7 @@
     </div>
 
     <div id="fourtab" class="tabcontent">
+    <hr>
         <% for(int i=0; i<review.size(); i++){%>
         <% Review currReview = review.get(i); %>
         <h4><span style="font-size:16px; font-weight: bold;"><%=review.get(i).getDesigner().getDesignerName()%>
@@ -259,6 +284,7 @@
         <%} %>
     </div>
 </div>
+    </div>
     </div>
     
 	<!-- Swiper JS -->
@@ -312,13 +338,18 @@
    			//아무 값도 지정하지 않고 지도객체를 불러오면 서울시청 중심으로 불러와짐
    			/* var map = new naver.maps.Map("map"); */
    			var map = new naver.maps.Map("map",{
-   				center : new naver.maps.LatLng(35.1541767, 129.1202395),	//지도 중심좌표설정
+   				center : new naver.maps.LatLng(37.533807,126.896772),	//지도 중심좌표설정
    				zoom : 18,												//지도 확대 크기
    				zoomControl : true,										//지도 확대 컨트롤
    				zoomControlOptions : {
    					position : naver.maps.Position.TOP_RIGHT,			//줌 컨트롤러 위치설정
    					style : naver.maps.ZoomControlStyle.SMALL		
    				}
+   			});
+   			//마커 추가
+   			var marker = new naver.maps.Marker({
+   				position : new naver.maps.LatLng(37.533807,126.896772),
+   				map : map
    			});
    			//지도에 클릭이벤트 추가
    			naver.maps.Event.addListener(map,'click',function(e){
@@ -340,11 +371,29 @@
    					var address = items[1].address;	//0번이 지번, 1번이 도로명
    					contentString = [
    						'<div class="iw_inner">',
-   						'<p style="color:black";>'+address+"</p>",
+   						'<p style="color:red";>'+address+"</p>",
    						'</div>'
    					].join('');
    					
    				});
+   			});
+   			//최초 중심지 주소
+   			var contentString = [
+   				'<div class="iw_inner">',
+   				'	<h3>KH정보교육원</h3>',
+   				'	<p>서울시 영등포구 선유2로 57 이레빌딩19F, 20F</p>',
+   				'</div>'
+   			].join('');
+   			var infoWindow = new naver.maps.InfoWindow();
+   			naver.maps.Event.addListener(marker,'click',function(e){
+   				if(infoWindow.getMap()){
+   					infoWindow.close();
+   				}else{
+   					infoWindow = new naver.maps.InfoWindow({
+   					content : contentString   					
+   				});
+   					infoWindow.open(map,marker);
+   				}
    			});
    		}
 		
