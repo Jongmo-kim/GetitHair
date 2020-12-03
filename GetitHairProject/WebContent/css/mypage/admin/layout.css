@@ -1,8 +1,8 @@
 .btn{
-    background-color: #F29A2E;
-    border: 1px solid black;
-    border-radius: 4px;
+    background-color: #F2C335;
+    border: none;
+    border-radius: 3px;
 }
 .btn:hover{
-    background-color: #F2C335;
+    background-color: #F29A2E;
 }

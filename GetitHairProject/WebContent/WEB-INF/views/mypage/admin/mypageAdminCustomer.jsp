@@ -31,7 +31,7 @@
 
         .customer-list>tbody>tr:hover,
         .review-list>tbody>tr:hover {
-            background-color:#F29A2E;
+            background-color:rgb(235, 232, 232);
         }
 
         .customer-list th,
@@ -143,7 +143,7 @@
                         </c:if>
                         <c:forEach var="i" begin="${pageStart}" end="${pageEnd}">
                             <a href="mypageAdminCustomer?searchType=${param.searchType}&keyword=${param.keyword}&reqPage=${i}&list_num=${param.list_num}"
-                                style="${i==(not empty param.reqPage ? param.reqPage : 1) ? " color: #F29A2E;" : ""
+                                style="${i==(not empty param.reqPage ? param.reqPage : 1) ? " color: black;" : ""
                                 }">${i}</a>
                         </c:forEach>
                         <c:if test="${pageEnd<pageSize}">

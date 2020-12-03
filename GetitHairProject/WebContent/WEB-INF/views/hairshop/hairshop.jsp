@@ -365,6 +365,11 @@
 			//$(this).parent().css({position:absolute, z-index:10, background-color: rgba(0,0,0,0.5), width: 250px, height: 250px})
 			$(this).val();
 		});
+		$("button:submit").click(function(){
+			if($(this).prev().val() == ""){
+				return false;
+			}
+		});
 	  </script>
 </body>
 </html>

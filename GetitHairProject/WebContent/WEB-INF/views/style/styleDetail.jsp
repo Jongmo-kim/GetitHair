@@ -102,6 +102,11 @@
 		$(".tab>img").click(function(){
 			$("form").slideToggle();
 		});
+		$("button:submit").click(function(){
+			if($(this).prev().val() == ""){
+				return false;
+			}
+		});
 	</script>
 </body>
 </html>

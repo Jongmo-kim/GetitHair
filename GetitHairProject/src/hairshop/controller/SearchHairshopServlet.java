@@ -37,21 +37,19 @@ public class SearchHairshopServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String searchShop = request.getParameter("searchShop");
-		if(!searchShop.equals("")) {
-			ArrayList<Hairshop> shoplist = new HairshopService().searchHairshop(searchShop);
-			ArrayList<Image> imglist = new ArrayList<Image>();
-			for(Hairshop h : shoplist) {
-				Image image = new ImageService().selectOneImageByTypeAndTypeNo("hairshop", h.getShopNo());
-				imglist.add(image);
-			}
-			int totalCount = new HairshopService().totalCount();
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/searchHairshop.jsp");
-			request.setAttribute("shoplist", shoplist);
-			request.setAttribute("imglist", imglist);
-			request.setAttribute("searchShop", searchShop);
-			request.setAttribute("totalCount", totalCount);
-			rd.forward(request, response);
+		ArrayList<Hairshop> shoplist = new HairshopService().searchHairshop(searchShop);
+		ArrayList<Image> imglist = new ArrayList<Image>();
+		for(Hairshop h : shoplist) {
+			Image image = new ImageService().selectOneImageByTypeAndTypeNo("hairshop", h.getShopNo());
+			imglist.add(image);
 		}
+		int totalCount = new HairshopService().totalCount();
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/searchHairshop.jsp");
+		request.setAttribute("shoplist", shoplist);
+		request.setAttribute("imglist", imglist);
+		request.setAttribute("searchShop", searchShop);
+		request.setAttribute("totalCount", totalCount);
+		rd.forward(request, response);
 	}
 
 	/**

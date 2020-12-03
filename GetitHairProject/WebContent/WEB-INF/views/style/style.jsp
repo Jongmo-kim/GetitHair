@@ -118,10 +118,6 @@
     .content{
     	width: 100%;
     }
-    .style-sub>img{
-    	margin: 10px;
-    	cursor: pointer;
-    }
     .style-sub>h1{
     	margin: 30px;
     }
@@ -133,6 +129,7 @@
     	width: 250px;
     	margin: 60px;
     	float: left;
+    	cursor: pointer;
     }
 </style>
 </head>
@@ -291,10 +288,15 @@
 			location.href="/hairshop";
 		});
 		$(function(){
-	  		$(".style-sub>img").click(function(){
+	  		$(".style-sub img").click(function(){
 	  			var styleNo = $(this).next().val();
 				location.href="/styleDetail?styleNo="+styleNo;
 	  		});
+		});
+		$("button:submit").click(function(){
+			if($(this).prev().val() == ""){
+				return false;
+			}
 		});
 	  </script>
 </body>

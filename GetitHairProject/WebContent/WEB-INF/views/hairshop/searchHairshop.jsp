@@ -116,7 +116,7 @@
     	height: 600px;
     	position: absolute;
     	top: 40px;
-    	left: 400px;
+    	left: 450px;
     }
     .addr h3{
     	display: inline-block;
@@ -149,8 +149,11 @@
     	margin-top: 20px;
     }
     .noexist{
-    	text-align: center;
+    	margin: 0 auto;
+    	width: 650px;
     	margin-top: 50px;
+    	margin-bottom: 50px;
+    	height: 500px;
     }
 </style>
 </head>
@@ -272,6 +275,11 @@
 	    	var shopNo = $(this).children().find("input").val();
 			location.href="/hairshopDetail?shopNo="+shopNo;
 	    });
+	    $("button:submit").click(function(){
+			if($(this).prev().val() == ""){
+				return false;
+			}
+		});
 	  	//css 객체로 넣는 법({"top":"50px","right":"30px"})
 	   </script>
 	    
