@@ -55,26 +55,27 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
 	<div class="container">
 	<h1>회원정보수정</h1>
 	<form action="/updateAllCustomer" method="post">
 		<table class="table infoTable" style="width:70%;text-align:left;">
 			<tr>
 				<th>회원번호</th>
-				<td><input type="text" name="customerNo"
+				<td><input type="text" name="customerNo" class="readonly"
 					value="<%=customer.getCustomerNo()%>" readonly></td>
 					<td><span id="noInfo"></span></td>
 			</tr>
 			<tr>
 				<th>회원아이디</th>
-				<td><input type="text" id="idInput"
+				<td><input type="text" id="idInput" class="readonly"
 								name="customerId" value="<%=customer.getCustomerId() %>" readonly>				
 					</td>
 					<td><span id="idInfo"></span></td>
 			</tr>
 			<tr>
 				<th>회원암호</th>
-				<td><input type="password" id ="pwInput"
+				<td><input type="password" id ="pwInput" 
 							name="customerPw" value="<%=customer.getCustomerPw()%>">				
 				</td>
 				<td><span id="pwInfo"></span></td>
@@ -89,7 +90,7 @@
 			</tr>
 			<tr>
 				<th>회원생년월일</th>
-				<td><input type="text" name="customerBirthdate"
+				<td><input type="text" name="customerBirthdate" class="readonly"
 					value="<%=customer.getCustomerBirthdate()%>" readonly></td>
 					<td><span id="birthInfo"></span></td>
 			</tr>
@@ -114,7 +115,7 @@
 			</tr>
 			<tr>
 				<th>회원이름</th>
-				<td><input type="text" name="customerName"
+				<td><input type="text" name="customerName" class="readonly"
 					value="<%=customer.getCustomerName()%>" readonly>					
 					</td>
 					<td>
@@ -152,13 +153,13 @@
 			</tr>
 			<tr>
 				<th>우편번호</th>
-				<td><input type="text" name="addrDetail"
+				<td><input type="text" name="addrDetail" class="readonly"
 					value="<%=customer.getAddrPostcode()%>" readonly></td>
 					<td><span id="detailInfo"></span></td>
 			</tr>
 			<tr>
 				<th>회원가입일</th>
-				<td><input type="text" name="customerEnrolldate"
+				<td><input type="text" name="customerEnrolldate" class="readonly"
 					value="<%=customer.getCustomerEnrolldate()%>" readonly></td>
 					<td><span id="enrollInfo"></span></td>
 			</tr>

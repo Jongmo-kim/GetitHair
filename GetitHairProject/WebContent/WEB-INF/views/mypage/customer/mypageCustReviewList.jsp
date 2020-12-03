@@ -41,6 +41,7 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
 	<div class="container">
 	<h1>나의 리뷰 리스트</h1>
 	<!-- 테이블부분 -->
@@ -82,28 +83,28 @@
                </div>
                <div class="modal-body">
                   <div class="review inputBox">
-                     <input type="text"  id="reviewNo" class="form-textbox" name="reviewNo" readonly>
+                     <input type="text"  id="reviewNo" class="form-textbox readonly" name="reviewNo" readonly>
                      <span class="form-label label-focused">리뷰번호 </span>
                   </div>  
                   <div class="review inputBox">
-                     <input type="text"  id="reviewDate" class="form-textbox" name="reviewDate" readonly>
-                     <span class="form-label label-focused">작성일자 </span>
+                     <input type="text"  id="reviewDate" class="form-textbox readonly" name="reviewDate" readonly>
+                     <span class="form-label label-focused readonly">작성일자 </span>
                   </div> 
                   <div class="review inputBox">
-                     <input type="text"  id="shopName" class="form-textbox" name="shopName" readonly>
+                     <input type="text"  id="shopName" class="form-textbox readonly" name="shopName" readonly>
                      <span class="form-label label-focused">미용실이름 </span>
                   </div> 
                   <div class="review inputBox">
-                     <input type="text"  id="designerName" class="form-textbox" name="designerName" readonly>
+                     <input type="text"  id="designerName" class="form-textbox readonly" name="designerName" readonly>
                      <span class="form-label label-focused">디자이너이름 </span>
                   </div> 
                   <div class="review inputBox">
-                     <input type="text"  id="styleName" class="form-textbox" name="styleName" readonly>
+                     <input type="text"  id="styleName" class="form-textbox readonly" name="styleName" readonly>
                      <span class="form-label label-focused">스타일이름 </span>
                   </div>             
                   <div class="review inputBox">
-                     <textarea class="form-textbox" id="reviewContent" name="reviewContent" readonly></textarea>
-                     <span id="reviewContentSpan" class="form-label label-focused">리뷰내용 </span>
+                     <textarea class="form-textbox readonly" id="reviewContent" name="reviewContent" style="padding-top: 15px;" readonly></textarea>
+                     <span id="reviewContentSpan" class="form-label label-focused readonly">리뷰내용 </span>
                   </div>             
                   
                   <!-- hidden영역 -->
@@ -152,7 +153,7 @@
 		         var reviewNo = $(this).val();  
 		         var reqPage = <%=reqPage %>;
 		         var customerNo =  <%=customerNo %>;
-		         console.log("reviewNo = "+reviewNo);         
+		         //console.log("reviewNo = "+reviewNo);         
 		         $.ajax({
 		            url: "/mypageCustReviewAjax",
 		            type: "get",            
@@ -164,15 +165,16 @@
 		                  var shopName = decodeURIComponent(data.shopName);
 		                  var designerName = decodeURIComponent(data.designerName);
 		                  var styleName = decodeURIComponent(data.styleName);
-		                  reviewContent = decodeURIComponent(data.reviewContent);           
-
+		                  reviewContent = decodeURIComponent(data.reviewContent).replaceAll("+"," "); 
+		                  //console.log('data.reviewContent = '+data.reviewContent);
+						 // console.log('reviewContent = '+reviewContent);
 		                  $("#reviewNo").attr('value',reviewNo);
 		                  $("#reviewDate").attr('value',reviewDate);
 		                  $("#shopName").attr('value',shopName);
 		                  $("#designerName").attr('value',designerName);
 		                  $("#styleName").attr('value',styleName);
 		                  //$("#reviewContent").attr('value',reviewContent);
-		                  $("#reviewContent").html("\n"+reviewContent);
+		                  $("#reviewContent").html(reviewContent);
 		                  //btn에 링크넣기
 		                  $("#deleteBtn").attr('onclick',"location.href='/deleteReviewByCust?reviewNo="+reviewNo+"&customerNo="+customerNo+"&reqPage="+reqPage+"'");
 		                  //$("#updateCompleteBtn").attr('onclick',"location.href='/updateReviewByCust?reviewNo="+reviewNo+"&customerNo="+customerNo+"&reqPage="+reqPage+"'");
@@ -184,23 +186,25 @@
 		      	$("#updateCancelBtn").show();
 		      	$("#updateCompleteBtn").show();
 		      	$("#reviewContent").attr('readonly',false);
-		      	$("#reviewContent").focus();
+		      	$("#reviewContent").removeClass('readonly');
 		      });
 		      $("#updateCompleteBtn").click(function(){
 		    	  $("#updateOnBtn").show();
 		    	  $("#updateCancelBtn").hide();
 			      $("#updateCompleteBtn").hide();
 			      $("#reviewContent").attr('readonly',true);
+			      $("#reviewContent").addClass('readonly');
 		      });
 		  	  $("#updateCancelBtn").click(function(){
-		  		 console.log("수정취소클릭!");
-		  		console.log("reviewContent = "+reviewContent);
+		  		 console.log("수정취소클릭!");		  		
 		  		$("#updateOnBtn").show();
 		  		$("#updateCancelBtn").hide();
-		      	$("#updateCompleteBtn").hide();		      
-		      	$("#reviewContent").attr('readonly',true);
-		    	$("#reviewContent").html("\n"+reviewContent);
-		    	$("#reviewContent").val("\n"+reviewContent);
+		      	$("#updateCompleteBtn").hide();			      	
+		    	$("#reviewContent").html('');
+		    	$("#reviewContent").val(reviewContent);
+		    	$("#reviewContent").addClass('readonly');
+		    	$("#reviewContent").attr('readonly',true);
+		    	//$("#reviewContent").val("\n"+reviewContent);
 		    	//console.log($("#reviewContent").val());
 		    	//console.log($("#reviewContent").html());		    	
 		      	//$(".showReviewBtn").click();
