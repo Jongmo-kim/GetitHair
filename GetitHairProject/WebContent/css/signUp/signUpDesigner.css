@@ -1,4 +1,5 @@
-.form-textbox {
+        
+        .form-textbox {
             font-size: 17px;
             line-height: 1.23543;
             font-weight: 400;
@@ -31,8 +32,6 @@
             outline: 0;
             box-shadow: 0 0 0 3px #A6756A80;
         }
-
-        
         .form-label {
             position: absolute;
             left: 18px;
@@ -41,7 +40,8 @@
         }
         .inputBox{
             margin: 0 auto;
-            width: 33%;
+            padding-bottom:20px;
+            width: 50%;
             position: relative;
         }
         .label-focused {
@@ -50,13 +50,14 @@
         }
          .form-textbox-wrong{
 		    appearance: none;
-		    border:2px solid #DE071C;
+		  	border: 1px solid var(--wine);
             outline: 0;
+            box-shadow: 0 0 0 3px #D9486280;
         }
         .additional-info{
-        	position: absolute;
-		    top: 15px;
-		    width:300px;
 		    color:#DE071C;
-		    
+		    font-size:13px;
+		    font-weight: bold;
+		    display:block;
         }
+   

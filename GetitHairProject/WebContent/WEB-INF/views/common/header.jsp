@@ -145,9 +145,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/style">STYLE</a>
                     </li>
-                    <%if(loginDesigner!=null) { %>
-                    <!-- 디자이너 -->
-                    <li class="nav-item dropdown">
+                    <%switch(loginType) {
+					case "customer": %>
+          				
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/mypageCust?selStatus=전체&reqPage=1" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MY PAGE</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown07">
+                            <a class="dropdown-item" href="/mypageCust?selStatus=전체&reqPage=1">예약관리</a>
+                            <a class="dropdown-item" href="/mypageCustReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">리뷰관리</a>
+                            <a class="dropdown-item" href="/updateAllCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>">내 정보수정</a>
+                        </div>
+                    </li>
+          			<%break;
+					case "designer": %>
+          			   <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="/mypageDesigner" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MY PAGE</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown07">
                             <a class="dropdown-item" href="/designerReserve?DesignerNo=<%=loginDesigner.getDesignerNo()%>">예약관리</a>
@@ -156,27 +167,32 @@
                             <a class="dropdown-item" href="/designerProfile?designerId=<%=loginDesigner.getDesignerId()%>">내 정보</a>
                         </div>
                     </li>
+          			<%break;
+					case "hairshop": %>
+          			<li class="nav-item"><a  style="display:block; height:100%;" href="#">헤어샵으로 로그인하셨습니다.</a></li>
+          			<%break;
+					case "admin": %>
+          			<li class="nav-item">
+                        <a class="nav-link" href="/mypageAdmin">ADMIN</a>
+                    </li>
+          			<%break;
+          			} %>
+          			
+                    <%if(loginDesigner!=null) { %>
+                    <!-- 디자이너 -->
+                 
                     <%} %>
                     <%if(loginCustomer!=null){ %>
                     <!-- 일반손님 -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/mypageCust?selStatus=전체&reqPage=1" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MY PAGE</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown07">
-                            <a class="dropdown-item" href="/mypageCust?selStatus=전체&reqPage=1">예약관리</a>
-                            <a class="dropdown-item" href="/mypageCustReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">리뷰관리</a>
-                            <a class="dropdown-item" href="/updateAllCustomerFrm?customerNo=<%=loginCustomer.getCustomerNo()%>">내 정보수정</a>
-                        </div>
-                    </li>
+                   
                     <%} %>
                     <%if(loginAdmin!=null){ %>
                     <!-- 관리자 -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="/mypageAdmin">ADMIN</a>
-                    </li>
+                    
                     <%} %>
                 </ul>
-                <form class="form-inline my-2 my-md-0">
-                	<%if(loginType!=null){ %>
+                <div class="form-inline my-2 my-md-0">
+                	<%if(loginType.equals("")){ %>
                     <button class="btn my-2 my-sm-0" type="button" data-toggle="modal" data-target="#loginModal">LOGIN</button>
                     <!-- Single button -->
                     <div class="btn-group">
@@ -184,15 +200,17 @@
                             SIGN UP <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a class="dropdown-item" href="#">일반회원가입</a></li>
-                            <li><a class="dropdown-item" href="#">디자이너회원가입</a></li>
+                            <li><a class="dropdown-item" href="/signUpCustomerForm">일반회원가입</a></li>
+                            <li><a class="dropdown-item" href="/signupDesignerForm">디자이너회원가입</a></li>
                         </ul>
                     </div>
+                    <%} else {%>
+                    <form action="/integratedLogout">
+	                    <button class="btn my-2 my-sm-0" ></button>
+	                </form>
+	                	<a href="/integratedLogout" class="btn my-2 my-sm-0">Log out</a>
                     <%} %>
-                    <%if(loginType==null){ %>
-                    <button class="btn my-2 my-sm-0" type="button">LOGOUT</button>
-                    <%} %>
-                </form>
+                </div>
             </div>
         </div>
     </nav>

@@ -53,7 +53,7 @@ CREATE TABLE hairshop
 (
     shop_no          NUMBER           primary key NOT NULL, 
     shop_id          varchar2(20) unique not null,
-    shop_pw          varchar2(20) not null,
+    shop_pw          varchar2(20)        not null,
     shop_comp_no     VARCHAR2(50)     NOT NULL UNIQUE, 
     shop_name        VARCHAR2(100)    NOT NULL, 
     shop_addr        VARCHAR2(200)    NOT NULL, 

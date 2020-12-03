@@ -8,25 +8,7 @@
 </head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<style>
-	input[type="radio"] {
-		display:none;
-	}
-	input[type="radio"] + label{
-		width: 90px;
-		text-align: center;
-		border-radius: 5px;
-		font-size:17px;
-	}
-	input[type="radio"]:checked + label {
-		background-color: var(--black);
-		color: white;
-	}
-	
-	.readonly{
-		background-color:grey;	
-	}
-</style>
+
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	function addrSearch(){
@@ -52,6 +34,7 @@
 	    <%if(loginCustomer == null){%>
 	    <a href="/searchCustomerIdForm">ID</a> / <a href="/searchCustomerPwForm">PW</a>찾기</p>
 	    <% } %>
+	      <p style="font-size:14px;">가입을 하면 Get it hair의 이용약관, <a href="#">개인정보취급방침</a> 및 <a href="#">개인정보3자제공에 동의하게 됩니다.</a><p>
 	    <br>
 	    <hr>
 	        <div class="name inputBox">
@@ -79,7 +62,6 @@
 	            <input type="text" class="form-textbox" id="idInput" name="customerId">
 	            <span class="form-label">아이디</span>
 	            <span class="additional-info" id="idInfo"></span>
-	            <button type="button" class="btn btn-primary" onclick="idInputRegFunc()">조건확인</button>
 	        </div>
 	        
 	        <div class="name inputBox">
@@ -114,7 +96,7 @@
 	        <hr>
 	        <br>
 	        <div class="name inputBox">
-	            <input type="text" class="form-textbox"value=" " readonly id="addrInput" name="customerAddr">
+	            <input type="text" class="form-textbox readonly"value=" " readonly id="addrInput" name="customerAddr">
 	            <span class="form-label label-focused">주소</span>
 	            <span class="additional-info" id="addrInfo"></span>
 	        </div>
@@ -122,7 +104,7 @@
 	        <div class="name inputBox">
 	            <input type="text" class="form-textbox readonly" value=" "readonly name="addrPostcode">
 	            <span class="form-label label-focused">Zipcode</span>
-	            <button class="btn btn-primary" type="button" onclick="addrSearch()">주소검색</button>
+	            <button class="btn btn-primary" id="searchBtn" type="button" onclick="addrSearch()">주소검색</button>
 	        </div>
 	        
 	        <div class="name inputBox">
@@ -133,8 +115,8 @@
 	        <br>
 	        <h2>추가 모발 정보</h2>
 	        <br>
-	        <table class="table table-dark table-hover">
-			<tr class="table-primary">
+	        <table class="table table-hover">
+			<tr >
 				<th>두피상태</th>
 				<td>
 						<input type="radio" id="oilySkinScalp" name="myhairScalp" value="지성">
@@ -151,7 +133,7 @@
 						<label for="scalpNotKnowScalp">모름</label>
 				</td>
 			</tr>
-			<tr class="table-primary">
+			<tr>
 				<th>곱슬정도</th>
 				<td>
 						<input type="radio" id="nomalCurly" name="myhairCurly" value="곱슬">
@@ -164,7 +146,7 @@
 						<label for="curlyNotKnow">모름</label> 
 				</td>
 			</tr>
-			<tr class="table-primary">
+			<tr>
 				<th>머리숱</th>
 				<td>
 						<input type="radio" id="heavyRich" name="myhairRich" value="많음" >
@@ -179,7 +161,7 @@
 						<label for="richNotKnow">모름</label>
 				</td>
 			</tr>
-			<tr class="table-primary">
+			<tr>
 				<th>모발굵기</th>
 				<td>
 						<input type="radio" id="thinHairBold" name="myhairBold" value="가는모발">
@@ -192,7 +174,7 @@
 						<label for="boldnotknow">모름</label>
 				</td>
 			</tr>
-			<tr class="table-primary">
+			<tr>
 				<th>모발볼륨상태</th>
 				<td>
 						<input type="radio" id="lackVol" name="myhairVol" value="볼륨부족">
@@ -205,7 +187,7 @@
 						<label for="volNotKnow">모름</label>
 				</td>
 			</tr>
-			<tr class="table-primary">
+			<tr>
 				<th>모발상태</th>
 				<td>
 						<input type="radio" id="cuttingHairStatus" name="myhairStatus" value="끊기는모발">
@@ -218,7 +200,7 @@
 						<label for="statusNotKnow">모름</label> 
 				</td>
 			</tr>
-			<tr class="table-primary">
+			<tr>
 				<th>모발노화상태</th>
 				<td>
 						<input type="radio" id="littleOld" name="myhairOld" value="새치조금">
@@ -234,6 +216,7 @@
 		</table>
         <button id="submitBtn" class="btn">제출</button>
         <button class="btn resetBtn" type="reset">초기화</button>
+        <p></p>
     </div>
 	</form>
 	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
