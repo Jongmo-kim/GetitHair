@@ -1,3 +1,4 @@
+<%@page import="image.model.vo.Image"%>
 <%@page import="stylelist.model.vo.StyleTypeList"%>
 <%@page import="stylelist.model.service.StylelistService"%>
 <%@page import="stylelist.model.vo.Stylelist"%>
@@ -25,6 +26,7 @@
     	ArrayList<ShopPrice> price = (ArrayList<ShopPrice>)request.getAttribute("price");
     	ArrayList<ArrayList<Stylelist>> styleList = (ArrayList<ArrayList<Stylelist>>)request.getAttribute("styleList");
     	ArrayList<StyleTypeList> stlList = (ArrayList<StyleTypeList>)request.getAttribute("typeList");
+    	ArrayList<Image> img = (ArrayList<Image>)request.getAttribute("image");
     %>
 <!DOCTYPE html>
 <html>
@@ -208,7 +210,7 @@
       <%for(int l = 0;l<price.size();l++) {%>
       <%if(price.get(l).getStyleList().getStyle().getStyleName().equals(stlList.get(i).getStyleList().get(j).get(k).getStyleName())) {%>
     	<span style="font-size: 14px;"><%=price.get(l).getPrice()%></span></h4>
-    	 <%} %> <!-- if 1 --> 
+    	 <%break;} %> <!-- if 1 --> 
     	<%} %> <!-- for 4 -->
       <%} %> <!-- for 3 -->
       <%} %> <!-- for 2 -->
