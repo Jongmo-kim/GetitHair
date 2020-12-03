@@ -32,6 +32,41 @@
 			break;
 		}
 	%>
+<<<<<<< HEAD
+	
+<link rel="stylesheet" href="/css/header/headerdemo.css">
+<link rel="stylesheet" href="/css/header/headermultilevelnav.css">
+<header>
+	<nav>
+		<div class='MultiLevelMenu depth-1'>
+			<ul class='menu con'>
+				<li class='MultiItem'><a class="MultiLink" href='#'>HOME</a></li>
+				<li class='MultiItem'><a class="MultiLink" href='#'>STYLE</a></li>
+				<li class='MultiItem'><a class="MultiLink" href='#'>MY PAGE</a>
+
+					<div class='MultiLevelMenu depth-2'>
+						<ul class='menu'>
+							<li class='MultiItem'>
+								<a class="MultiLink" href='#'>예약관리</a>
+							</li>
+							<li class='MultiItem'>
+								<a class="MultiLink" href='#'>포트폴리오</a>
+							</li>
+							<li class='MultiItem'>
+								<a class="MultiLink" href='#'>리뷰관리</a>
+							</li>
+							<li class='MultiItem'>
+								<a class="MultiLink" href='#'>내 정보</a>
+							</li>
+						</ul>
+					</div></li>
+				<li class='MultiItem'>
+					<a class="MultiLink" href='#'>LOGOUT</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+=======
 
 <!-- 글꼴 호출 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -166,4 +201,5 @@
 			}		 	 
 		 });			 
 	</script>
+>>>>>>> e31f9a1cc6e5ebe5a48ae53b0784705950947aac
 </header>

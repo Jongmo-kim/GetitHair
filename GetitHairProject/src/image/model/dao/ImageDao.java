@@ -128,7 +128,7 @@ public class ImageDao {
 	public String selectFilepath(Connection conn, String type, int typeNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select filepath from image where img_type=? and img_no=?";
+		String query = "select filepath from image where img_type=? and img_type_no=?";
 		String filepath = "";
 		try {
 			pstmt = conn.prepareStatement(query);

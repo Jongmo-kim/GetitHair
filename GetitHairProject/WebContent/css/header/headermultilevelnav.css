@@ -1,0 +1,170 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,900,800,700,600,500,300,200,100);
+.clearfix:after, .menu:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.MultiLevelMenu {
+  width: 100%;
+  position: relative;
+  color: #000;
+}
+.menu {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.MultiItem:hover > .MultiLevelMenu {
+  display: block;
+}
+.MultiItem:hover > .MultiLink {
+  z-index: 1;
+}
+
+.MultiLink {
+    color: inherit;
+    display: block;
+    font-family: "Raleway",sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 15px 20px;
+    position: relative;
+    text-decoration: none;
+	color:#000;
+}
+
+.MultiLink:before, .MultiLink:after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 60%;
+  background-color: transparent;
+  position: align-self;
+  position: absolute;
+  z-index: -1;
+  bottom: -6px;
+}
+.MultiLink:before {
+  left: 0px;
+  -webkit-transform: skewY(-14deg) translateX(-100%) translateY(-50%);
+          transform: skewY(-14deg) translateX(-100%) translateY(-50%);
+}
+.MultiLink:after {
+  right: 0px;
+  -webkit-transform: skewY(14deg) translateX(100%) translateY(-50%);
+          transform: skewY(14deg) translateX(100%) translateY(-50%);
+}
+
+.MultiLevelMenu.depth-1 {
+    /* 메뉴 */
+  display: block;
+  background-color: #fff;
+  float:left;
+  margin-bottom:2em;
+    border-bottom: 1px solid lightgray;
+}
+.MultiLevelMenu.depth-1 > .menu > .MultiItem {
+  float: left;
+}
+.MultiLevelMenu.depth-1 > .menu > .MultiItem:hover {
+    /* 얘도 메뉴호버네 */
+  /*background-color: #D9ABA0;*/
+  color: #fff;
+}
+.MultiLevelMenu.depth-1 > .menu > .MultiItem > .MultiLink:hover, .MultiLevelMenu.depth-1 > .menu > .MultiItem > .MultiLink:focus {
+    /* 메뉴 호버 */
+  /*background-color: #D9ABA0;*/
+    color: #D9ABA0
+}
+
+.MultiLevelMenu.depth-2 {
+    /* 드롭다운 메뉴 */
+  display: none;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+.MultiLevelMenu.depth-2 > .menu > .MultiItem {
+  float: left;
+  position: relative;
+}
+/*.MultiLevelMenu.depth-2 > .menu > .MultiItem:hover {
+  background-color: #D9ABA0;
+  color: #fff;
+}*/
+.MultiLevelMenu.depth-2 > .menu > .MultiItem > .MultiLink:hover, .MultiLevelMenu.depth-2 > .menu > .MultiItem > .MultiLink:focus {
+    /* 드롭다운 메뉴 호버 */
+  /*background-color: #D9ABA0;*/
+    border-bottom: 3px solie #D9ABA0;
+}
+
+.MultiLevelMenu.depth-3 {
+  display: none;
+  box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 400px;
+}
+.MultiLevelMenu.depth-3:before, .MultiLevelMenu.depth-3:after {
+  content: '';
+  display: block;
+  top: 0;
+  bottom: -30px;
+  left: -30px;
+  right: -30px;
+  position: absolute;
+}
+.MultiLevelMenu.depth-3 > .menu > .MultiItem {
+  float: none;
+  position: relative;
+  background-color: #e0e0e0;
+  z-index: 1;
+}
+.MultiLevelMenu.depth-3 > .menu > .MultiItem:hover {
+  background-color: #D9ABA0;
+  color: #fff;
+}
+.MultiLevelMenu.depth-3 > .menu > .MultiItem > .MultiLink:hover, .MultiLevelMenu.depth-3 > .menu > .MultiItem > .MultiLink:focus {
+  background-color: #D9ABA0;
+}
+.MultiLevelMenu.depth-3 > .menu > .MultiItem > .MultiLink:before, .MultiLevelMenu.depth-3 > .menu > .MultiItem > .MultiLink:after {
+  display: none;
+}
+
+/*
+* Debug code
+*/
+.debug-visibility .MultiItem:hover > .MultiLink:before,
+.debug-visibility .MultiItem:hover > .MultiLink:after {
+  background-color: rgba(255, 0, 0, 0.6);
+}
+.debug-visibility .MultiLevelMenu.depth-3:before, .debug-visibility .MultiLevelMenu.depth-3:after {
+  background-color: rgba(255, 0, 0, 0.6) !important;
+}
+
+.debug-forgiveness .MultiLink:before, .debug-forgiveness .MultiLink:after,
+.debug-forgiveness .MultiLevelMenu.depth-3:before,
+.debug-forgiveness .MultiLevelMenu.depth-3:after {
+  display: none !important;
+}
+
+
+
+
+
+

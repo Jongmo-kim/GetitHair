@@ -21,7 +21,7 @@
 		min-width:980px;
 	}
 	.inputComment{
-		background-color: #f0f0f0;
+		background-color: #fff5f7;
 	}
 	.inputComment>form>ul{
 		display: flex;
@@ -44,8 +44,9 @@
 		color:black;
 		display: flex;
 		justify-content: space-between;
-		background-color: #f0f0f0;
+		background-color: #fff5f7;
 		padding:5px;
+		margin-bottom: 2px;
 	}
 	.commentList>ul>li:first-child{
 		display: flex;
@@ -106,7 +107,7 @@
 							<textarea class="form-control" name="reviewCommentContent"></textarea>
 						</li>
 						<li>
-							<button class="btn btn-dark" style="width: 80px;" type="submit">등록</button>
+							<button class="btn btn-dark" style="width: 90px;" type="submit">등록</button>
 						</li>
 					</ul>
 				</form>
@@ -141,7 +142,7 @@
 			
 			
 			<div style="text-align: center;margin: 30px;">
-				<button class="btn btn-dark" href="javascript:history.go(-1)">목록으로</button>
+				<button class="btn btn-dark"  onClick="history.go(-1)">목록으로</button>
 			</div>
 		</div>
 	</section>

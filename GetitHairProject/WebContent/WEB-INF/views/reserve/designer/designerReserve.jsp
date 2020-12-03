@@ -16,6 +16,7 @@
 
 <head>
 <meta charset='utf-8' />
+<title>예약관리</title>
 
 
 
@@ -319,12 +320,18 @@ body {
 	<div id='calendar'
 		class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"></div>
 	<br>
+<<<<<<< HEAD
+	<div style="margin: 0 auto; width: 60%">
+		<button id="submitBtn" type="button" class="btn btn-primary" >저장하기</button>
+	</div>
+=======
 	
 	<div style="margin: 0 auto; width: 1100px;">
 		<button id="submitBtn" type="button" class="btn btn-primary" >저장하기</button>
 	</div>
 	
 	
+>>>>>>> e31f9a1cc6e5ebe5a48ae53b0784705950947aac
 	<!-- <div style="position: fixed; top: 500px;">
 		<button id="submitBtn" type="button" class="btn btn-primary"
 			style="width: 200px; height: 200px">제출하기</button>
