@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import common.JDBCTemplate;
+import customer.model.dao.CustomerDao;
 import designer.model.dao.DesignerDao;
 import designer.model.vo.Designer;
 
@@ -116,6 +117,13 @@ public class DesignerService {
 	public Designer selectOneSerchPw(String designerId, String designerPhone) {
 		Connection conn = JDBCTemplate.getConnection();
 		Designer result = new DesignerDao().selectOneSerchPw(conn, designerId, designerPhone);
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	public boolean isNestedId(String inputId) {
+		Connection conn = JDBCTemplate.getConnection();
+		boolean result = new DesignerDao().isNestedId(conn,inputId);
 		JDBCTemplate.close(conn);
 		return result;
 	}

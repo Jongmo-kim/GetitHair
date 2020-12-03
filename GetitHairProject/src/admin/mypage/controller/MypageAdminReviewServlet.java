@@ -35,26 +35,29 @@ public class MypageAdminReviewServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		// 전달 받은 값 저장
-		// type value 1 : 아이디로 검색 
-		int type = request.getParameter("searchType") != null ? Integer.parseInt(request.getParameter("searchType")) : 0;
+		// type value 1 : 아이디로 검색
+		int type = request.getParameter("searchType") != null && request.getParameter("searchType") != ""
+				? Integer.parseInt(request.getParameter("searchType"))
+				: 0;
 		String keyword = request.getParameter("keyword");
-		//reqPage = 요청할 페이지 번호.
+		// reqPage = 요청할 페이지 번호.
 		int reqPage = request.getParameter("reqPage") != null ? Integer.parseInt(request.getParameter("reqPage")) : 1;
-		//한 페이지에 출력될 리스트 최대 갯수.
-		int maxPrintSize = request.getParameter("list_num") != null ? Integer.parseInt(request.getParameter("list_num")) : 20;
-		
-		//비즈니스 로직
+		// 한 페이지에 출력될 리스트 최대 갯수.
+		int maxPrintSize = request.getParameter("list_num") != null ? Integer.parseInt(request.getParameter("list_num"))
+				: 20;
+
+		// 비즈니스 로직
 		int pageSize = 0;
 		ArrayList<Review> list = null;
-		if(type != 0 && !keyword.equals("")) { //검색으로 얻어올 경우
-			pageSize = new ReviewService().getAllReviewByCustomerIdMaxPageSize(maxPrintSize,keyword);
-			list = new ReviewService().selectAllReviewById(keyword,reqPage,maxPrintSize);
-		}else { //검색이 아닐때 모든 리뷰를 반환.
+		if (type != 0 && !keyword.equals("")) { // 검색으로 얻어올 경우
+			pageSize = new ReviewService().getAllReviewByCustomerIdMaxPageSize(maxPrintSize, keyword);
+			list = new ReviewService().selectAllReviewById(keyword, reqPage, maxPrintSize);
+		} else { // 검색이 아닐때 모든 리뷰를 반환.
 			pageSize = new ReviewService().getAllReviewMaxPageSize(maxPrintSize);
-			list = new ReviewService().selectAllReview(reqPage,maxPrintSize);		
+			list = new ReviewService().selectAllReview(reqPage, maxPrintSize);
 		}
 		int maxSize = 5;
-	    int [] startEnd = new ReviewService().getPageStartEnd(reqPage,maxSize, pageSize);
+		int[] startEnd = new ReviewService().getPageStartEnd(reqPage, maxSize, pageSize);
 		// 값 전달
 		request.setAttribute("list", list);
 		request.setAttribute("pageSize", pageSize);

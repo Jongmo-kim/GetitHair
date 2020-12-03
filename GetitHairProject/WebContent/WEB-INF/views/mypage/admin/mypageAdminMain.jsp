@@ -39,6 +39,7 @@
 <body>
     <script>
         $(document).ready(function () {
+            //회원 통계 차트
             let ctx = document.getElementById('customerChart').getContext('2d');
             var chart = new Chart(ctx, {
                 // The type of chart we want to create
@@ -46,7 +47,7 @@
 
                 // The data for our dataset
                 data: {
-                    labels: ['저번달', '이번달', '1주'],
+                    labels: ['저번달', '이번달', '1주간'],
                     datasets: [{
                         label: '가입한 회원수',
                         // backgroundColor: 'rgb(255, 99, 132)',
@@ -58,6 +59,7 @@
                 // Configuration options go here
                 options: {}
             });
+            //예약 통계 차트
             ctx = document.getElementById('reserveChart').getContext('2d');
             var chart = new Chart(ctx, {
                 // The type of chart we want to create
@@ -87,7 +89,26 @@
 			}
                 }
             });
-            
+            //리뷰 통계 차트
+            ctx = document.getElementById('reviewChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ['저번주','어제', '오늘'],
+                    datasets: [{
+                        label: '작성한 리뷰 수',
+                        // backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: '#F28D77',
+                        data: [${reviewlastMonthCnt},${reviewYesterDayCnt}, ${reviewCurrCnt}]
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
         });
     </script>
     <div class="admin-main-container">
@@ -113,36 +134,6 @@
                     <canvas id="customerChart"></canvas>
                 </div>
                 <div class="summary">
-                    <h3>디자이너</h3>
-                    <ul>
-                        <li>
-                            <div class="count-all">
-                                <span>디자이너 : ${designerCnt} 명</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="summary">
-                    <h3>리뷰</h3>
-                    <ul>
-                        <li>
-                            <div class="count-all">
-                                <span>리뷰 : ${reviewCnt} 개</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="summary">
-                    <h3>헤어샵</h3>
-                    <ul>
-                        <li>
-                            <div class="count-all">
-                                <span>헤어샵 : ${shopCnt} 개</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="summary">
                     <h3>예약</h3>
                     <ul>
                         <li>
@@ -159,6 +150,38 @@
                     </ul>
                     <canvas id="reserveChart"></canvas>
                 </div>
+                <div class="summary">
+                    <h3>리뷰</h3>
+                    <ul>
+                        <li>
+                            <div class="count-all">
+                                <span>리뷰 : ${reviewCnt} 개</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <canvas id="reviewChart"></canvas>
+                </div>
+                <div class="summary">
+                    <h3>디자이너</h3>
+                    <ul>
+                        <li>
+                            <div class="count-all">
+                                <span>디자이너 : ${designerCnt} 명</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="summary">
+                    <h3>헤어샵</h3>
+                    <ul>
+                        <li>
+                            <div class="count-all">
+                                <span>헤어샵 : ${shopCnt} 개</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
             </div>
         </section>
     </div>

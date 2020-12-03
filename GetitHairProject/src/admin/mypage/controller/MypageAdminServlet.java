@@ -107,6 +107,9 @@ public class MypageAdminServlet extends HttpServlet {
 
 		// 리뷰 관련 summary 정보
 		int reviewCnt = new ReviewService().selectAllReviewCount(); // 전체 리뷰 수
+		int reviewlastMonthCnt = new ReviewService().selectAllReviewCount(getStartMonthAgoDate(-1),getEndMonthAgoDate(-1)); // 어제 작성한 리뷰 수
+		int reviewYesterDayCnt = new ReviewService().selectAllReviewCount(getAddedDate(-1),getCurrentDate()); // 어제 작성한 리뷰 수
+		int reviewCurrCnt = new ReviewService().selectAllReviewCount(getCurrentDate(),getAddedDate(1)); // 오늘 작성한 리뷰 수
 
 		// 헤어샵 관련 summary 정보
 		int shopCnt = new HairshopService().selectHairshop().size(); // 전체 헤어샵 수
@@ -128,6 +131,9 @@ public class MypageAdminServlet extends HttpServlet {
 		request.setAttribute("designerCnt", designerCnt);
 		//리뷰 값 설정
 		request.setAttribute("reviewCnt", reviewCnt);
+		request.setAttribute("reviewlastMonthCnt", reviewlastMonthCnt);
+		request.setAttribute("reviewYesterDayCnt", reviewYesterDayCnt);
+		request.setAttribute("reviewCurrCnt", reviewCurrCnt);
 		//헤어샵 값 설정
 		request.setAttribute("shopCnt", shopCnt);
 		//예약 값 설정

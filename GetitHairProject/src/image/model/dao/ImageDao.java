@@ -51,14 +51,14 @@ public class ImageDao {
 		try {
 			pstmt = conn.prepareStatement(qrySelect);
 			pstmt.setString(1, type);
-			rs = pstmt.executeQuery();
-
+			rs = pstmt.executeQuery();			
 			while (rs.next()) {
 				Image image = new Image();
 				image.setImgNo(rs.getInt("img_no"));
 				image.setFilepath(rs.getString("filepath"));
 				image.setImgType(rs.getString("img_type"));
-				image.setImgTypeNo(rs.getInt("img_type"));
+				image.setImgTypeNo(rs.getInt("img_type_no"));
+				list.add(image);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -67,7 +67,6 @@ public class ImageDao {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(pstmt);
 		}
-
 		return list;
 	}
 
@@ -89,7 +88,8 @@ public class ImageDao {
 				image.setImgNo(rs.getInt("img_no"));
 				image.setFilepath(rs.getString("filepath"));
 				image.setImgType(rs.getString("img_type"));
-				image.setImgTypeNo(rs.getInt("img_type"));
+				image.setImgTypeNo(rs.getInt("img_type_no"));
+				list.add(image);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -143,6 +143,36 @@ public class ImageDao {
 		}
 
 		return filepath;
+	}
+
+	public Image selectOneImageByTypeAndTypeNo(Connection conn, String type, int typeNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "select * from image where img_type = ? and img_type_no = ?";
+		Image image = null;
+
+		try {
+			pstmt = conn.prepareStatement(qrySelect);
+			pstmt.setString(1, type);
+			pstmt.setInt(2, typeNo);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				image = new Image();
+				image.setImgNo(rs.getInt("img_no"));
+				image.setFilepath(rs.getString("filepath"));
+				image.setImgType(rs.getString("img_type"));
+				image.setImgTypeNo(rs.getInt("img_type_no"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+
+		return image;
 	}
 
 }

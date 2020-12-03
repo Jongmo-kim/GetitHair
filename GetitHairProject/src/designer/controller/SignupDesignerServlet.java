@@ -25,12 +25,7 @@ import image.model.service.ImageService;
 /**
  * Servlet implementation class DesignerSignupServlet
  */
-@MultipartConfig(
-		location="upload/designer",
-		fileSizeThreshold=1024*1024*5,
-		maxFileSize=1024*1024*10,
-		maxRequestSize=1024*1024*15
-)
+
 @WebServlet(name = "DesignerSignup", urlPatterns = { "/signUpDesigner" })
 public class SignupDesignerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -56,19 +51,30 @@ public class SignupDesignerServlet extends HttpServlet {
 		Designer designer = DesignerTemplate.setDesigner(mRequest);
 		int result = new DesignerService().insertDesigner(designer);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+		System.out.println(designer);
 		if(result >0) {
-			Designer insertedDesigner = new DesignerService().selectOneDesigner(designer.getDesignerId());
-			String type = "designer";
-			int typeNo = insertedDesigner.getDesignerNo();
-			int imgResult = new ImageService().insertImage(mRequest.getFilesystemName("filename"), type, typeNo);
-			if(imgResult > 0) {
-				Msg += "이미지 등록 성공\n";
-			}else {
-				Msg += "이미지 등록 실패\n";
+			String fileName = mRequest.getFilesystemName("filename");
+			if(fileName==null) {
+				
+			} else {
+				Designer insertedDesigner = new DesignerService().selectOneDesigner(designer.getDesignerId());
+				String type = "designer";
+				int typeNo = insertedDesigner.getDesignerNo();
+				System.out.println(mRequest.getOriginalFileName("filename"));
+				System.out.println(mRequest.getFilesystemName("filename"));
+				int imgResult = new ImageService().insertImage(mRequest.getOriginalFileName("filename"), type, typeNo);
+				
+				if(imgResult > 0) {
+					Msg += "이미지 등록 성공, ";
+				}else {
+					Msg += "이미지 등록 실패, ";
+				}
 			}
+			Msg += "회원가입 성공";
 			request.setAttribute("loc", "/");
 			request.setAttribute("msg", Msg);
 		} else {
+			Msg += "회원가입 실패";
 			request.setAttribute("loc", "/");
 			request.setAttribute("msg", Msg);
 		}
@@ -90,7 +96,7 @@ public class SignupDesignerServlet extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	} 
 
 	private MultipartRequest getMultipartRequest(HttpServletRequest request) {
 		String root = getServletContext().getRealPath("/");

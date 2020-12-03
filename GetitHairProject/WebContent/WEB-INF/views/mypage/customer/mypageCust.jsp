@@ -17,29 +17,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Customer 마이페이지</title>
-<!-- 글꼴 호출 -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
-	rel="stylesheet">
-<!-- //글꼴 호출 -->
-
-<!-- 부트스트랩 호출 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<!-- //부트스트랩 호출 -->
-
 <!-- jQuery 호출 -->
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
-<!-- //jQuery 호출 -->
-<link rel="stylesheet" href="/css/header/header.css">
-<link rel="stylesheet" href="/css/signUp/inputBox.css">
-<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
 <style>
 	ul{
   	 list-style:none;
@@ -65,10 +44,32 @@
    .tabLable{
    		width:5%;
    }
+   	.warningTr{
+    	background-color:#ffc107;
+    }
+   	.successTr{
+  		 background-color:#28A745
+    }
+    .dangerTr{
+   		background-color:#DC3545;
+    }
+    .warningTr:hover{
+    	background-color:#E0A800;
+    }
+    .successTr:hover{
+    	background-color:#0069D9;
+    }
+    .dangerTr:hover{
+    	background-color:#FF2B41;
+    }
+
+    
+    
+     
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<div class="modal fade" id="reReserveModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -175,6 +176,7 @@
 				<a class="btn btn-success btn-lg"
 				href="/mypageCustReviewList?customerNo=<%=loginCustomer.getCustomerNo()%>&reqPage=1">나의
 					리뷰 리스트 확인</a>
+			<br>
 			</li>	
 			 
 			<div class="tab_container">
@@ -191,29 +193,30 @@
    				 <button type="button" class="btn btn-danger btn-lg tabButton" onclick="location.href='/mypageCust?selStatus=취소&reqPage=1'">취소</button>
   				</div>
   				</div>
-				<table class="table table-striped table-hover" style="width:100%;">
+  				<br>
+				<table class="table" style="width:100%;">
 					<tr>
 						<th>선택</th>
 						<th>번호</th>
 						<th>예약일시</th>
-						<th>ShopName</th>
-						<th>DeginerName</th>
+						<th>S.Name</th>
+						<th>D.Name</th>
 						<th>MyReq</th>
-						<th>DesignerReq</th>
+						<th>D.Req</th>
 						<th>Status</th>
-						<th>func1()</th>
-						<th>func2()</th>
-						<th>func3()</th>
+						<th>Read</th>
+						<th>Delete</th>
+						<th>Write</th>
 					</tr>
 					<%
                      for (Reserve r : reserveList) {
                  	 %>
                  	 <%if(r.getReserveStatus().equals("예약")){ %>
-					<tr class="warning">
+					<tr class="warningTr tableTr">
 					<% }else if(r.getReserveStatus().equals("완료")) {%>
-					<tr class="success">
+					<tr class="successTr tableTr">
 					<% } else if(r.getReserveStatus().equals("취소")) {%>
-					<tr class="danger">
+					<tr class="dangerTr tableTr">
 					<% } %>
 						<td><input type="checkBox" class="subChk"
 							value="<%=r.getReserveNo()%>"></td>
@@ -227,15 +230,15 @@
 						<td>
 							<button type="button" class="btn reReserveBtn"
 								data-toggle="modal" data-target="#reReserveModal"
-								value="<%=r.getReserveNo()%>">예약보기</button>
+								value="<%=r.getReserveNo()%>">예약 보기</button>
 						</td>
 						<td><button
 								onclick="location.href='/deleteReserveByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'"
-								type="button" class="btn">예약 삭제하기</button></td>
+								type="button" class="btn">예약 삭제</button></td>
 
 						<td><button type="button"
 								onclick="location.href='/writeReviewByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus %>&reqPage=<%=reqPage %>'"
-								class="btn" btn-sm>리뷰작성하기</button></td>
+								class="btn" btn-sm>리뷰 작성</button></td>
 					</tr>
 					<%
                      }

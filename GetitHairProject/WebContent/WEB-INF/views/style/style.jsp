@@ -1,9 +1,11 @@
+<%@page import="image.model.vo.Image"%>
 <%@page import="style.model.vo.Style"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-    	ArrayList<Style> list = (ArrayList<Style>)request.getAttribute("list");
+    	ArrayList<Style> stylelist = (ArrayList<Style>)request.getAttribute("stylelist");
+    	ArrayList<Image> imglist = (ArrayList<Image>)request.getAttribute("imglist");
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -144,9 +146,6 @@
 			  <div class="swiper-slide"><img src="/img/style/color/밤비브라운.jpg"></div>
 			  <div class="swiper-slide"><img src="/img/style/color/솜브레.jpg"></div>
 			  <div class="swiper-slide"><img src="/img/style/color/애쉬블루.jpg"></div>
-			  <!-- <%for(Style s : list) {%>
-				<div class="swiper-slide"></div>
-			  <%} %> -->
 		    </div>
 		    <!-- Add Arrows -->
 		    <div class="swiper-button-next"></div>
@@ -172,12 +171,13 @@
 					<input type="checkbox" name="bob" id="bob"><label for="bob">단발</label>
 					<input type="checkbox" name="short" id="short"><label for="short">숏</label>
 					<h1>cut</h1>
-					<img src="/img/style/cut/레이어드컷.jpg">
-					<img src="/img/style/cut/리프컷.jpg">
-					<img src="/img/style/cut/샌드컷.jpg">
-					<img src="/img/style/cut/허쉬컷.jpeg">
-					<%for(Style s : list) {%>
+					<%for(Style s : stylelist) {%>
 						<%if(s.getStyleType().equals("cut")){ %>
+							<%for(Image i : imglist){ %>
+								<%if(s.getStyleNo() == i.getImgTypeNo()) %>
+									<img src="/upload/style/<%=i.getFilepath() %>">
+									<input type="hidden" value="<%=s.getStyleNo()%>">
+							<%} %>
 						<%} %>
 					<%} %>
 				</div>
@@ -187,8 +187,13 @@
 					<input type="checkbox" name="bob" id="bob"><label for="bob">단발</label>
 					<input type="checkbox" name="short" id="short"><label for="short">숏</label>
 					<h1>perm</h1>
-					<%for(Style s : list) {%>
+					<%for(Style s : stylelist) {%>
 						<%if(s.getStyleType().equals("perm")){ %>
+							<%for(Image i : imglist){ %>
+								<%if(s.getStyleNo() == i.getImgTypeNo()) %>
+									<img src="/upload/style/<%=i.getFilepath() %>">
+									<input type="hidden" value="<%=s.getStyleNo()%>">
+							<%} %>
 						<%} %>
 					<%} %>
 				</div>
@@ -198,8 +203,13 @@
 					<input type="checkbox" name="bob" id="bob"><label for="bob">단발</label>
 					<input type="checkbox" name="short" id="short"><label for="short">숏</label>
 					<h1>color</h1>
-					<%for(Style s : list) {%>
+					<%for(Style s : stylelist) {%>
 						<%if(s.getStyleType().equals("color")){ %>
+							<%for(Image i : imglist){ %>
+								<%if(s.getStyleNo() == i.getImgTypeNo()) %>
+									<img src="/upload/style/<%=i.getFilepath() %>">
+									<input type="hidden" value="<%=s.getStyleNo()%>">
+							<%} %>
 						<%} %>
 					<%} %>
 				</div>
@@ -207,15 +217,20 @@
 					<input type="checkbox" name="clinic" id="clinic"><label for="clinic">클리닉</label>
 					<input type="checkbox" name="dry" id="dry"><label for="dry">드라이</label>
 					<h1>etc</h1>
-					<%for(Style s : list) {%>
+					<%for(Style s : stylelist) {%>
 						<%if(s.getStyleType().equals("etc")){ %>
+							<%for(Image i : imglist){ %>
+								<%if(s.getStyleNo() == i.getImgTypeNo()) %>
+									<img src="/upload/style/<%=i.getFilepath() %>">
+									<input type="hidden" value="<%=s.getStyleNo()%>">
+							<%} %>
 						<%} %>
 					<%} %>
 				</div>
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</section>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
@@ -254,7 +269,7 @@
 		});
 		$(function(){
 	  		$(".style-sub>img").click(function(){
-	  			var styleNo = $(this).find("input").val();//find가 이미 자식 찾는거
+	  			var styleNo = $(this).next().val();
 				location.href="/styleDetail?styleNo="+styleNo;
 	  		});
 		});

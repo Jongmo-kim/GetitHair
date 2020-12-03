@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import designerportfolio.model.service.DesignerPortfolioService;
 import designerportfolio.model.vo.DesignerPortfolio;
+import image.model.service.ImageService;
+import image.model.vo.Image;
 import style.model.service.StyleService;
 import style.model.vo.Style;
 import stylelist.model.service.StylelistService;
@@ -39,10 +41,12 @@ public class StyleDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int styleNo = Integer.parseInt(request.getParameter("styleNo"));
 		Stylelist stylelist = new StylelistService().selectOneStylelistByStyleNo(styleNo);
+		Image image = new ImageService().selectOneImageByTypeAndTypeNo("style", styleNo);
 		ArrayList<DesignerPortfolio> pflist = new DesignerPortfolioService().selectAllPortfolio(stylelist.getDesigner().getDesignerNo());
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/style/styleDetail.jsp");
 		request.setAttribute("stylelist", stylelist);
 		request.setAttribute("pflist", pflist);
+		request.setAttribute("image", image);
 		rd.forward(request, response);
 	}
 

@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="/css/footer/footer.css">
 <footer>
 	<div class="footer">
-        <p>Copyright©. 2020. Workerholic. All rights reserved.</p>
+        <p>Copyright©. 2020. Workaholic. All rights reserved.</p>
     </div>
-	<!-- <marquee>^@_____</marquee>  -->
 </footer>
