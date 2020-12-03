@@ -133,7 +133,7 @@
     	width : 80px;
     	border: none;
     	border-radius: 10px;
-    	background: #8C2E40;
+    	background: #260101;
     	color: white;
     }
     button:hover{
