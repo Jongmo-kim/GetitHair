@@ -58,7 +58,8 @@ public class ImageDao {
 				image.setImgNo(rs.getInt("img_no"));
 				image.setFilepath(rs.getString("filepath"));
 				image.setImgType(rs.getString("img_type"));
-				image.setImgTypeNo(rs.getInt("img_type"));
+				image.setImgTypeNo(rs.getInt("img_type_no"));
+				list.add(image);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -67,7 +68,7 @@ public class ImageDao {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(pstmt);
 		}
-
+		System.out.println("DAO : "+list.size());
 		return list;
 	}
 
@@ -89,7 +90,8 @@ public class ImageDao {
 				image.setImgNo(rs.getInt("img_no"));
 				image.setFilepath(rs.getString("filepath"));
 				image.setImgType(rs.getString("img_type"));
-				image.setImgTypeNo(rs.getInt("img_type"));
+				image.setImgTypeNo(rs.getInt("img_type_no"));
+				list.add(image);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

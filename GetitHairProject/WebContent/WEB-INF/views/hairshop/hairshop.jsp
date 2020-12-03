@@ -326,6 +326,7 @@
 				dataType : "json",//데이터 타입 json인 걸 여기서 해도 됨.아님 서블릿에서
 				success : function(data){
 					var html ="";
+					console.log(data.imglist.length);
 					for(var i in data.shoplist){
 						var h = data.shoplist[i];
 						html += "<table style='cursor:pointer;'><tr><th rowspan='4'><img src = '/upload/hairshop/"+data.imglist[i].filepath+"'></th>";
