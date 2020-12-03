@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>관리자 페이지</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="/css/mypage/admin/container.css">

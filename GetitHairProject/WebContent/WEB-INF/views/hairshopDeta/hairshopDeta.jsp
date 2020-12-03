@@ -68,12 +68,13 @@
         }
 
         /* Change background color of buttons on hover */
-        .tab button:hover {
+        .tab label:hover {
             font-weight: bold;
+            color: #8C2E40;
         }
 
         /* Create an active/current tablink class */
-        .tab button.active {
+        .tab label.active {
             font-weight: bold;
             border-bottom: 2px solid #8C2E40;
         }
@@ -109,18 +110,40 @@
                 opacity: 1;
             }
         }
+        #reserveBtn{
+        
+        }
         .btbt{
         	padding:5px;
         	margin:0;
-        	border-radius : 2px;
+        	border-radius : 4px;
         	color: white!important;
         	background-color: #8C2E40!important;
         	text-decoration: none!important;
         	font-size: 14px;
+        	border: 0;
+        	outline: 0;
+        	line-height: 30px;
+        	}
+        .btbt:hover{
+        	font-weight:bold;
+        	border: 1px solid #8C2E40;
+        	color: #8C2E40!important;
+        	background-color: white!important;
         }
+        
+        
         #map{
         	float: left;
         }
+        .tablinks{
+        	padding: 5px;
+        	padding-left : 10px;
+        	padding-right : 10px;
+        	margin: 0;
+        	
+        }
+       
 </style>
 
 
@@ -149,6 +172,7 @@
 							손님 요청 사항<input type="text" class="form-textbox" name="custReq">	
 						</div>
 						<div class="reserve inputBox">
+							시술선택
 							<select name="title" class="form-textbox">
 							<%for(int i = 0 ; i< stlList.size(); ++i) {%>
 								<option value="<%=stlList.get(i).getType()%>"><%=stlList.get(i).getType()%></option>
@@ -176,9 +200,9 @@
         <!-- Swiper -->
         <div class="swiper-container" style="width: 1000px; height: 500px;">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="/img/hairshop/hair1.png" style="width: 1000px; height: 500px;"></div>
-                <div class="swiper-slide"><img src="/img/hairshop/hair2.png" style="width: 1000px; height: 500px;"></div>
-                <div class="swiper-slide"><img src="/img/hairshop/hair3.png" style="width: 1000px; height: 500px;"></div>
+            <%for(int i = 0; i<img.size(); i++) {%>
+                <div class="swiper-slide"><img src="/upload/hairshop/<%=img.get(i).getFilepath()%>" style="width: 1000px; height: 500px;"></div>
+                <%} %>
             </div>
             <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
@@ -186,11 +210,15 @@
     </div>
     <div style="margin: 0; padding: 0;">
   	<div class="container" style="width: 1000px; height: 500px; padding: 0;">
+  	<br>
   	 <div class="tab">
-        <button type="button" class="tablinks" onclick="openCity(event, 'onetab')">소개</button>
-        <button type="button" class="tablinks" onclick="openCity(event, 'twotab')">디자이너</button>
-        <button type="button" class="tablinks" onclick="openCity(event, 'threetab')">가격</button>
-        <button type="button" class="tablinks" onclick="openCity(event, 'fourtab')">리뷰</button>
+        <label id="bbt" class="tablinks" onclick="openCity(event, 'onetab')">소개</label>
+        <label  class="tablinks" onclick="openCity(event, 'twotab')">디자이너</label>
+        <label  class="tablinks" onclick="openCity(event, 'threetab')">가격</label>
+        <label  class="tablinks" onclick="openCity(event, 'fourtab')">리뷰</label>
+   			 <%-- <%if(de.getDesignerNo() == 1) {%> --%>
+            <a href="/hairshopModifyPage?shopNo=<%=hs.getShopNo() %>" class="btbt" style="margin-left: 20px;">수정하기</a>
+            <%-- <%} %> --%>
     </div>
     <!-- 소개 -->
     <div id="onetab" class="tabcontent">
@@ -209,7 +237,7 @@
             <h4 style="font-weight: bold"><span class="material-icons" style="font-size: 14px">local_phone</span> 전화번호
             </h4>
             <p style="font-size: 14px"><%=hs.getShopPhone() %></p>
-            <a href="/hairshopModifyPage?shopNo=<%=hs.getShopNo() %>" class="btbt">수정하기</a>
+            
         </div>
         <div>
         <div id="map" style="width:48%; height: 322px; float:left; border: 1px solid #a2a2a2;"></div></div>
@@ -230,10 +258,10 @@
                 <span style="font-size: 13px; color: #737270;"><%=deli.get(i).getDesigner().getDesignerIntro() %>
                     <span>(경력 : <%=deli.get(i).getDesigner().getDesignerYear() %>년)</span></span>
             </div>
-            <div class="designerPt col-md-2" style="height: 100px; display:block;">
-                <a class="deBtn" style="margin-top: 30px; " data-toggle="modal"
+            <div class="designerPt col-md-2" style="height: 100px; display:block; line-height: 100px;">
+                <a class="btbt" style="margin-top: 30px; " data-toggle="modal" href="#"
                     data-target="#ReserveModal" data-name="<%=deli.get(i).getDesigner().getDesignerNo()%>"
-                    id="btbt">예약하기</a>
+                    id="reserBtn">예약하기</a>
             </div>
         </div>
         <hr>
@@ -242,7 +270,7 @@
 
     <div id="threetab" class="tabcontent">
     <hr>
-        <%for(int i = 0 ; i< stlList.size(); ++i) {%>
+        <%for(int i = 0; i< stlList.size(); ++i) {%>
         <h4 style="font-weight: bold;"><%=stlList.get(i).getType()%></h4>
         <%for(int j = 0; j<stlList.get(i).getStyleList().size();j++) {%>
         <%for(int k = 0; k<stlList.get(i).getStyleList().get(j).size();k++) {%>
@@ -261,7 +289,6 @@
         <%} %>
         <!-- for 1 -->
         <br>
-
         <hr>
     </div>
 
@@ -280,7 +307,7 @@
     </div>
 </div>
     </div>
-    </div>
+    <%@ include file="/WEB-INF/views/common/footer.jsp" %>
     
 	<!-- Swiper JS -->
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -301,11 +328,16 @@
 		});
 		
 		
-
+		$(document).ready(function(){
+			$("#bbt").addClass('active');
+			$("#onetab").css('display','block');
+		});
+		
+		
+		
 		function openCity(evt, cityName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
-            tabcontent[0].style.display = "block";
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }

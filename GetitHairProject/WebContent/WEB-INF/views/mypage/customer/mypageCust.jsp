@@ -64,7 +64,7 @@ ul {
 					method="poset">
 					<div class="modal-header">
 						<h4>나의예약</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>						
+						<button type="button" class="close btn btn-outline-secondary" data-dismiss="modal">&times;</button>						
 					</div>
 					<div class="modal-body">
 						<div class="reserve inputBox">
@@ -287,7 +287,11 @@ ul {
                         function() {
                            chkList.push(this.value);
                         });
-                  var JsonChkList = JSON.stringify(chkList);
+                  if(chkList.length==0){
+                	  alert("선택된 예약이 없습니다. 선택 후 삭제해주세요");
+                	  return;
+                  }
+                  var JsonChkList = JSON.stringify(chkList);                  	
                   $.ajax({
                      url : "/deleteReserveList",
                      type : "get",
