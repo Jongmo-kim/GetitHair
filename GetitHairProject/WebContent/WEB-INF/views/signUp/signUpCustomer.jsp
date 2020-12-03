@@ -8,25 +8,7 @@
 </head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<style>
-	input[type="radio"] {
-		display:none;
-	}
-	input[type="radio"] + label{
-		width: 90px;
-		text-align: center;
-		border-radius: 5px;
-		font-size:17px;
-	}
-	input[type="radio"]:checked + label {
-		background-color: var(--black);
-		color: white;
-	}
-	
-	.readonly{
-		background-color:grey;	
-	}
-</style>
+
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	function addrSearch(){
@@ -79,7 +61,6 @@
 	            <input type="text" class="form-textbox" id="idInput" name="customerId">
 	            <span class="form-label">아이디</span>
 	            <span class="additional-info" id="idInfo"></span>
-	            <button type="button" class="btn btn-primary" onclick="idInputRegFunc()">조건확인</button>
 	        </div>
 	        
 	        <div class="name inputBox">
@@ -122,7 +103,7 @@
 	        <div class="name inputBox">
 	            <input type="text" class="form-textbox readonly" value=" "readonly name="addrPostcode">
 	            <span class="form-label label-focused">Zipcode</span>
-	            <button class="btn btn-primary" type="button" onclick="addrSearch()">주소검색</button>
+	            <button class="btn btn-primary" id="searchBtn" type="button" onclick="addrSearch()">주소검색</button>
 	        </div>
 	        
 	        <div class="name inputBox">
