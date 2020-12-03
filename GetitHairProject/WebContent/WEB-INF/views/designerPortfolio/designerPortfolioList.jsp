@@ -8,11 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
 		<div class="photo-container" style="width:1700px; margin:0 auto; text-align:center;">
+		<br><br>
 			<h1>포트폴리오</h1>
 			<div style="text-align:right">
 				<a class="btn btn-outline-info" href="/designerPortfolioWriteFrm">글쓰기</a>
@@ -29,8 +32,10 @@
 		});
 		$("#more-btn").click(function(){
 			designerPortfolioMore($(this).val());
+			console.log($(this).val());
 		});
 		function designerPortfolioMore(start){
+			console.log("test"+start);
 			$.ajax({
 				url : "/designerPortfolioMore",
 				data : {start:start},
@@ -38,20 +43,14 @@
 				dataType : "json",
 				success : function(data){
 					var html = "";
-					for(var i in data){
-						var dp = data[i];
-						// ul 태그로 묶거나  div felx box 사용해서 묶음
-						// 일단 기능구현은 되니까 집가서 마무리...
-						/* html += "<ul>"
-						html += "<li></li>"
-						html += "<div class='photo border border-dark' style='width:400px; height:400px; margin:0 auto; margin-bottom:10px; display: inline-block;'>";
-						html += "<img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
-						html += "<p class='caption'>"+dp.styleName+"</p></div>"; */
-						
-
-						html += "<div class='photo border border-dark' style='width:300px; height: 300px; margin:0 auto; display: inline-block; padding: 7px;'>";
-						html += "<img src='/upload/designerPortfolio/"+dp.filepath+"' width='100%'>";
-						html += "<a href='#'>test</a>";
+					for(var i in data.portfoliolist){
+						var dp = data.portfoliolist[i];
+						console.log(data.portfoliolist[i].length);
+						console.log(data.imglist[i].length);
+						html += "<div class='photo ' style='width:300px; height: 330px; overflow: hidden; margin:0 auto; display: inline-block; padding: 7px;'>";
+						html += "<div style='width:285px; height: 285px; overflow: hidden;'>";
+						html += "<img src='/upload/designerPortfolio/"+data.imglist[i].filepath+"' width='100%'>";
+						html += "</div>"
 						html += "<p class='caption'>"+dp.styleName+"</p>";
 						html += "</div>"
 					}

@@ -25,7 +25,7 @@
 <script src='calendarapi/lib/main.js'></script>
 <link href='calendarapi/lib/main.css' rel='stylesheet' />
 
-<link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet' />
+<!-- <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet' /> -->
 <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
 <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
 
@@ -257,6 +257,7 @@ body {
 </head>
 
 <body>
+	
 
 	<!-- The Modal -->
 	<div class="modal" id="eventModal" style="display: none">
