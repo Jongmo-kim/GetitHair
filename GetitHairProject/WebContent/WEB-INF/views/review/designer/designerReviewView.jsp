@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>리뷰 상세보기</title>
 <style>
 	ul{
 	 	list-style:none;
@@ -73,7 +73,7 @@
 	
 	<section>
 		<div style="width:80%; height:850px; margin:0 auto; padding: 50px;">
-		<h1>리뷰 수정중</h1>
+		<h1>리뷰 상세보기</h1>
 		<br>
 			<table class="table table-bordered">
 				<tr>
