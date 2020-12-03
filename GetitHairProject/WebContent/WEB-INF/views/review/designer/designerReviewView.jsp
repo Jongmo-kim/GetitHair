@@ -13,6 +13,60 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+	ul{
+	 	list-style:none;
+	 }
+	.table-wrapper{
+		min-width:980px;
+	}
+	.inputComment{
+		background-color: #f0f0f0;
+	}
+	.inputComment>form>ul{
+		display: flex;
+		justify-content: space-around;
+		padding: 10px;
+	}
+	.inputComment textarea{
+		resize: none;
+	}	
+	.inputComment>form>ul>li:first-child{
+		width: 80%;		
+	}
+	.inputComment>form>ul>li:last-child{
+		width: 10%;		
+	}
+	.inputComment>form>ul>li>*{
+		height:100%;
+	}
+	.commentList>ul{
+		color:black;
+		display: flex;
+		justify-content: space-between;
+		background-color: #f0f0f0;
+		padding:5px;
+	}
+	.commentList>ul>li:first-child{
+		display: flex;
+		width:20%;
+		flex-flow: column;
+		justify-content: center;;
+		align-items: center;
+	}
+	.commentList>ul>li:last-child{
+		display: flex;
+		width:80%;
+		flex-flow: column;
+		height:100%;
+	}
+	.commentList p{
+		margin: 0;
+	}
+	.linkBox{
+		text-align: right;
+	}
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -39,17 +93,12 @@
 					<th>내용</th>
 					<td><%=r.getReviewContentBr() %></td>
 				</tr>
-				<tr style="text-align:center">
-					<th colspan="2">
-						<a href="javascript:history.go(-1)">목록으로</a>
-					</th>
-				</tr>
 			</table>
 			<!-- 디자이너 로그인 구현 시 주석 제거  -->
 			<%-- <%if(d != null) {%> --%>
 			<div class="inputComment">
 				<form action="/insertDesignerReviewComment" method="post">
-					<ul>
+					<ul style="margin-bottom: 0px">
 						<li>
 							<input type="hidden" name="reviewCommentWriter" value="<%=loginDesigner.getDesignerId() %>">
 							<input type="hidden" name="reviewRef" value="<%=r.getReviewNo() %>">
@@ -57,11 +106,12 @@
 							<textarea class="form-control" name="reviewCommentContent"></textarea>
 						</li>
 						<li>
-							<button type="submit">등록</button>
+							<button class="btn btn-dark" style="width: 80px;" type="submit">등록</button>
 						</li>
 					</ul>
 				</form>
 			</div>
+			
 			<%-- <%} %> --%>
 			<div class="commentList">
 				<%for(ReviewComment rc : list) {	// for문을 통해서 댓글을 출력하는 로직%>
@@ -87,6 +137,11 @@
 					<%-- <%} %> --%>
 					
 				<%} // 댓글 for문 종료 지점%>
+			</div>
+			
+			
+			<div style="text-align: center;margin: 30px;">
+				<button class="btn btn-dark" href="javascript:history.go(-1)">목록으로</button>
 			</div>
 		</div>
 	</section>
