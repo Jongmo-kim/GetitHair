@@ -95,6 +95,7 @@
     .mid{
     	width : 70%;
     	margin : 0 auto;
+    	margin-bottom: 50px;
     }
     .content{
     	height: 700px;
@@ -105,6 +106,10 @@
     	width: 100%;
     	overflow-y: auto;
     	position: absolute;
+    }
+    .hairshopList img{
+    	width: 100px;
+    	height: 100px;
     }
     #map{
     	width: 900px;
@@ -170,19 +175,21 @@
 			<%if(shoplist.size() != 0){ %>
 				<div class="hairshopList">
 					<%for(Hairshop shop : shoplist){ %>
-						<%for(Image i : imglist) %>
-							<table style='cursor:pointer;'>
-								<tr>
-									<th rowspan="3"><img src="/"></th>
-									<td style="font-size:20px;"><input type="hidden" value="<%=shop.getShopNo() %>"><%=shop.getShopName() %></td>
-								</tr>
-								<tr>
-									<td style='font-size:15px;'><%=shop.getShopAddr() %></td>
-								</tr>
-								<tr>
-									<td style='font-size:15px;'><%=shop.getShopOpen() %> ~ <%=shop.getShopClose() %></td>
-								</tr>
-							</table>
+						<%for(Image i : imglist) {%>
+							<%if(shop.getShopNo() == i.getImgTypeNo()) {%>
+								<table style='cursor:pointer;\'>
+									<tr>
+										<th rowspan="3"><img src="/upload/hairshop/<%=i.getFilepath()%>"></th>
+										<td style="font-size:20px;"><input type="hidden" value="<%=shop.getShopNo() %>"><%=shop.getShopName() %></td>
+									</tr>
+									<tr>
+										<td style='font-size:15px;'><%=shop.getShopAddr() %></td>
+									</tr>
+									<tr>
+										<td style='font-size:15px;'><%=shop.getShopOpen() %> ~ <%=shop.getShopClose() %></td>
+									</tr>
+								</table>
+							<%} %>
 						<%} %>
 					<%} %>
 				</div>

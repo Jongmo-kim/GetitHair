@@ -41,7 +41,7 @@ public class SearchHairshopServlet extends HttpServlet {
 			ArrayList<Hairshop> shoplist = new HairshopService().searchHairshop(searchShop);
 			ArrayList<Image> imglist = new ArrayList<Image>();
 			for(Hairshop h : shoplist) {
-				Image image = new ImageService().selectOneImageByTypeAndTypeNo("style", h.getShopNo());
+				Image image = new ImageService().selectOneImageByTypeAndTypeNo("hairshop", h.getShopNo());
 				imglist.add(image);
 			}
 			int totalCount = new HairshopService().totalCount();
