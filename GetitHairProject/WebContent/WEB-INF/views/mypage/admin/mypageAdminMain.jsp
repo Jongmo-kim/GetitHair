@@ -113,36 +113,6 @@
                     <canvas id="customerChart"></canvas>
                 </div>
                 <div class="summary">
-                    <h3>디자이너</h3>
-                    <ul>
-                        <li>
-                            <div class="count-all">
-                                <span>디자이너 : ${designerCnt} 명</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="summary">
-                    <h3>리뷰</h3>
-                    <ul>
-                        <li>
-                            <div class="count-all">
-                                <span>리뷰 : ${reviewCnt} 개</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="summary">
-                    <h3>헤어샵</h3>
-                    <ul>
-                        <li>
-                            <div class="count-all">
-                                <span>헤어샵 : ${shopCnt} 개</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="summary">
                     <h3>예약</h3>
                     <ul>
                         <li>
@@ -159,6 +129,37 @@
                     </ul>
                     <canvas id="reserveChart"></canvas>
                 </div>
+                <div class="summary">
+                    <h3>리뷰</h3>
+                    <ul>
+                        <li>
+                            <div class="count-all">
+                                <span>리뷰 : ${reviewCnt} 개</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="summary">
+                    <h3>디자이너</h3>
+                    <ul>
+                        <li>
+                            <div class="count-all">
+                                <span>디자이너 : ${designerCnt} 명</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="summary">
+                    <h3>헤어샵</h3>
+                    <ul>
+                        <li>
+                            <div class="count-all">
+                                <span>헤어샵 : ${shopCnt} 개</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
             </div>
         </section>
     </div>
