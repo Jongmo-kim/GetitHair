@@ -39,4 +39,11 @@ public class StylelistService {
 		return stylelist;
 	}
 
+	public Stylelist selectOneStylelistDesignerNo(int designerNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		Stylelist stylelist = new StylelistDao().selectOneStylelistDesignerNo(conn, designerNo);
+		JDBCTemplate.close(conn);
+		return stylelist;
+	}
+
 }

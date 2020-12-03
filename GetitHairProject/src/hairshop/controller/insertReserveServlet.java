@@ -1,6 +1,12 @@
 package hairshop.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,8 +16,12 @@ import javax.servlet.http.HttpSession;
 
 import customer.model.service.CustomerService;
 import customer.model.vo.Customer;
+import designer.model.service.DesignerService;
+import hairshop.model.service.HairshopService;
 import reserve.model.service.ReserveService;
 import reserve.model.vo.Reserve;
+import stylelist.model.service.StylelistService;
+import stylelist.model.vo.Stylelist;
 
 /**
  * Servlet implementation class insertReserveServlet
@@ -32,24 +42,48 @@ public class insertReserveServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int designerNo = Integer.parseInt(request.getParameter("designerNo"));
+		Reserve rs = new Reserve();
+		int designerNo = Integer.parseInt(request.getParameter("desinerNo"));
 		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
-		int stylelistNo = Integer.parseInt(request.getParameter("stylelistno"));
+		String startDate = request.getParameterValues("startDate")[0];
+		String custReq = request.getParameter("custReq");
+		String title = request.getParameter("title");
+		String status = request.getParameter("status");
+		String endDate = request.getParameter("endDate");
+		Stylelist stli = new StylelistService().selectOneStylelistDesignerNo(designerNo);
 		HttpSession session = request.getSession();
-		Customer loginCust = (Customer)session.getAttribute("loginCustomer");
-		// hairshopdeata.j 에서 가져온 모든 인풋 벨류들을 겟리퀘스트로 가져온다	
+		Customer loginCust = (Customer)session.getAttribute("loginCustomer");   
+		System.out.println(loginCust);
+		rs.setStylelist(stli);
+		rs.setCustomer(loginCust);
+		rs.setDesigner(new DesignerService().selectOneDesigner(designerNo));
+		rs.setShop(new HairshopService().selectOneHairshop(shopNo));
+		rs.setReserveCustReq(custReq);
+		rs.setReserveTitle(title);
+		rs.setReserveStatus(status);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		Date utilDate;
+		rs.setReserveDate(new java.sql.Date(new Date().getTime()));
+		try {
+			utilDate = dateFormat.parse(startDate);
+			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			rs.setReserveStartdate(sqlDate);
+			rs.setReserveEndDate(sqlDate);
+			int result = new ReserveService().insertReserve(rs);
+			if(result >0) {
+				request.setAttribute("msg", "성공했습니다.");
+				request.setAttribute("loc", "/hairshop");
+			}else {
+				request.setAttribute("msg", "실패했습니다.");
+				request.setAttribute("loc", "/");
+			}
+			request.getRequestDispatcher("WEB-INF/views/common/msg.jsp").forward(request, response);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		// 그리고 객체가 필요한 커스터머 디자이너 샵 스타일리스트는셀렉트원을 써서 해당넘버와 맞게 가져와
-		//새로운 리저브 객체 의 세터를 사용해 각각의 값을설정한
-	    
-	    //세팅이 다 되면 그 리절브 객체를ㄹ 리저브서비스의 인서트 리저브를 이용해 인서트하고 
-	    if(result > 0) {
-	    	
-	    }else {
-	    	
-	    }
-	    // 돌아온 리턴값을 확인해 제대로 들어갔는지 안들어갔는지에 따라 결과 처리한
-	    
 	}
 
 	/**

@@ -10,7 +10,11 @@
 		Customer loginCustomer = null;
 		Designer loginDesigner = null;
 		Hairshop loginHairshop = null;
+<<<<<<< HEAD
 		Admin loginAdmin = null;
+=======
+		//Admin loginAdmin = null;
+>>>>>>> 7e5f4a6ac2dee41e86b2eddf12f39607e3e1f6ca
 		boolean isLogined = false;
 		
 		switch(loginType) {
@@ -27,27 +31,46 @@
 			isLogined = true;
 			break;
 		case "admin":
+<<<<<<< HEAD
 			loginAdmin = (Admin)session.getAttribute("loginAdmin");
+=======
+			Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+>>>>>>> 7e5f4a6ac2dee41e86b2eddf12f39607e3e1f6ca
 			isLogined = true;
 			break;
-		}
-	%>
+	}
 
+	%>
 <!-- 글꼴 호출 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
+<<<<<<< HEAD
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+=======
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
+>>>>>>> 7e5f4a6ac2dee41e86b2eddf12f39607e3e1f6ca
+<!-- //글꼴 호출 -->
 
-<!-- jQuery, bootstrap -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<!-- 부트스트랩 호출 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- //부트스트랩 호출 -->
+
+<!-- jQuery 호출 -->
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
-
-<!-- CSS inputBox -->
+<!-- //jQuery 호출 -->
 <link rel="stylesheet" href="/css/signUp/inputBox.css?v=<%=System.currentTimeMillis()%>">
-<link rel="stylesheet" href="/css/header/header2.css">
 <script type="text/javascript" src="/js/signUp/inputBox.js?v=<%=System.currentTimeMillis()%>"></script>
-<div class="container">
+<link rel="stylesheet" href="/css/header/header2.css?v=<%=System.currentTimeMillis()%>">
+
+<header style="display:fixed">
+	
+<div class="container">	
 <%if(isLogined){ %>
 	<div class="modal fade" id="loginModal" role="dialog">
 		<div class="modal-dialog">
@@ -63,13 +86,13 @@
 				case "customer": %>
           			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/updateCustomerFrm">마이페이지</a></div>
           			<%break;
-				case "designer": %>
+			case "designer": %>
           			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/updateCustomerFrm">디자이너마이페이지</a></div>
           			<%break;
-				case "hairshop": %>
+			case "hairshop": %>
           			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/updateCustomerFrm">헤어샵페이지</a></div>
           			<%break;
-				case "admin": %>
+			case "admin": %>
           			<div class="btn btn-default"><a  style="display:block; height:100%;" href="/updateCustomerFrm">어드민페이지</a></div>
           			<%break;
           		} %>
@@ -129,96 +152,95 @@
 </div>
   <%} %>
 </div>
+	<div class="container">
+		<ul class="nav nav-pills" role="tablist">
+		<%if(isLogined){ %>
+			<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">마이페이지</a></li>
+		<%}else{  %>
+			<li style="cursor:pointer"><a data-toggle="modal" data-target="#loginModal">로그인하기</a></li>
+		<%} %>
+			<li class="active"><a href="/">Home</a></li>
+			
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">디버그모드 활성화<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="/debugMode?isDebugmode='true'">디버그모드 켜기</a></li>
+					<li><a href="/debugMode?isDebugmode='false'">디버그모드 끄기</a></li>
+					<li><a href="/showUsingDebug">디버그모드 객체넣어 테스트</a></li>
+					<li><a href="/showUsingDebug">서블렛테스트버튼</a></li>
+					<li><a href="/testForm">testJsp</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">회원가입 목록<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="/signUpCustomerForm">고객회원가입</a></li>
+					<li><a href="/signupDesignerForm">디자이너가입</a></li>
+					<li><a href="#">헤어샵등록</a></li>
+				</ul>
+			</li>
+			
 
-<nav class="navbar navbar-expand-sm navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">GET IT HAIR</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExample07">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">HOME<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">STYLE</a>
-                    </li>
-                    <%if(loginDesigner!=null) { %>
-                    <!-- 디자이너 -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MY PAGE</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown07">
-                            <a class="dropdown-item" href="#">예약관리</a>
-                            <a class="dropdown-item" href="#">포트폴리오</a>
-                            <a class="dropdown-item" href="#">리뷰관리</a>
-                            <a class="dropdown-item" href="#">내 정보</a>
-                        </div>
-                    </li>
-                    <%} %>
-                    <%if(loginCustomer!=null){ %>
-                    <!-- 일반손님 -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MY PAGE</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown07">
-                            <a class="dropdown-item" href="#">예약관리</a>
-                            <a class="dropdown-item" href="#">리뷰관리</a>
-                            <a class="dropdown-item" href="#">내 정보</a>
-                        </div>
-                    </li>
-                    <%} %>
-                    <%if(loginAdmin!=null){ %>
-                    <!-- 관리자 -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ADMIN</a>
-                    </li>
-                    <%} %>
-                </ul>
-                <form class="form-inline my-2 my-md-0">
-                	<%if(loginType!=null){ %>
-                    <button class="btn my-2 my-sm-0" type="button" data-toggle="modal" data-target="#loginModal">LOGIN</button>
-                    <!-- Single button -->
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            SIGN UP <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a class="dropdown-item" href="#">일반회원가입</a></li>
-                            <li><a class="dropdown-item" href="#">디자이너회원가입</a></li>
-                        </ul>
-                    </div>
-                    <%} %>
-                    <%if(loginType==null){ %>
-                    <button class="btn my-2 my-sm-0" type="button">LOGOUT</button>
-                    <%} %>
-                </form>
-            </div>
-        </div>
-    </nav>
-
-
+			
+			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">관리자<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="/mypageAdmin">관리자페이지</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">손님<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="/mypageCust?selStatus=전체&reqPage=1">손님페이지</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">디자이너<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="/mypageDesigner">디자이너페이지</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">상세페이지<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+	        		<li><a href="/hairshopDeta">헤어샵 상세보기</a></li>
+				</ul>
+			</li>
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">헤어샵<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+	        		<li><a href="/">관리자페이지</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 	<script>
-		$("#searchId").attr("onclick","location.href='/searchCustomerIdForm'");
-		$("#searchPw").attr("onclick","location.href='/searchCustomerPwForm'");
-		$("input[name='loginType']").change(function(){	
-			if($(this).val()=='designer'){
+			$("#searchId").attr("onclick","location.href='/searchCustomerIdForm'");
+			$("#searchPw").attr("onclick","location.href='/searchCustomerPwForm'");
+		 $("input[name='loginType']").change(function(){	
+			 if($(this).val()=='designer'){
 				$("#searchId").attr("onclick","location.href='/searchDesignerIdForm'");
 				$("#searchPw").attr("onclick","location.href='/searchDesignerPwForm'");
 				$("#searchId").show();
 				$("#searchPw").show();
-			}else if($(this).val()=='customer'){
+			 }else if($(this).val()=='customer'){
 				$("#searchId").attr("onclick","location.href='/searchCustomerIdForm'");
 				$("#searchPw").attr("onclick","location.href='/searchCustomerPwForm'");
 				$("#searchId").show();
 				$("#searchPw").show();
-			}else if($(this).val()=='hairshop'){
+			 }else if($(this).val()=='hairshop'){
 				$("#searchId").hide();
 				$("#searchPw").hide();				 
-			}else if($(this).val()=='admin'){
+			 }else if($(this).val()=='admin'){
 				$("#searchId").hide();
 				$("#searchPw").hide();
-			}		 	 
+			 }else if($(this).val()=='admin'){
+				 $("#searchId").hide();
+				 $("#searchPw").hide();
+			 }		 	 
 		 });			 
 	</script>
 </header>

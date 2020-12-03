@@ -1,5 +1,7 @@
 package designerportfolio.model.vo;
 
+import designer.model.vo.Designer;
+
 public class DesignerPortfolio {
 	private int portfolioNo;
 	private String portfolioWriter;//디자이너

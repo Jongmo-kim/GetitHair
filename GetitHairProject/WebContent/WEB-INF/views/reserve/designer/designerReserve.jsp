@@ -175,7 +175,6 @@ Number.prototype.zf = function(len){return this.toString().zf(len);};
         }
          $(function(){
         	$(document).on("click",".fc-daygrid-event-harness",function(){
-        		alert("!");
         		console.log($(this));
         		//$(this).attr('data-toggle', 'modal'); 
         		//$(this).attr('data-target', '#eventModal');

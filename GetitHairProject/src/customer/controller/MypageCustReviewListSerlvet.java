@@ -43,7 +43,7 @@ public class MypageCustReviewListSerlvet extends HttpServlet {
 		int[] startEnd = new ReviewService().getPageStartEnd(reqPage, maxSize, maxPageSize); //시작숫자와 끝숫자 int배열에 저장
 		//4.결과처리
 		if(list !=null) {
-			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/customer/mypageCustReviewList.jsp");
+			RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/views/mypage/customer/mypageCustReviewList.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("start", startEnd[0]);
 			request.setAttribute("end", startEnd[1]);

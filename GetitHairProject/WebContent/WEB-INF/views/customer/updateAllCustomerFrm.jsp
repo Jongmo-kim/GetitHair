@@ -1,3 +1,4 @@
+
 <%@page import="hairinfo.model.vo.Hairinfo"%>
 <%@page import="customer.model.vo.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,7 +13,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>회원 정보 수정</title>
+<!-- jQuery 호출 -->
+<script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 	window.onload = function() {
 		var print= '<%=msg %>';
@@ -60,13 +63,23 @@
 			</tr>
 			<tr>
 				<th>회원아이디</th>
-				<td><input type="text" name="customerId"
-					value="<%=customer.getCustomerId()%>" readonly></td>
+				<td><input type="text" id="idInput"
+								name="customerId" value="<%=customer.getCustomerId() %>" readonly>				
+					</td>
 			</tr>
 			<tr>
 				<th>회원암호</th>
-				<td><input type="password" name="customerPw"
-					value="<%=customer.getCustomerPw()%>"></td>
+				<td><input type="password" id ="pwInput"
+							name="customerPw" value="<%=customer.getCustomerPw()%>">
+					<span id="pwInfo"></span>				
+				</td>
+			</tr>
+			<tr>
+				<th>회원암호 확인</th>
+				<td><input type="password" id ="pwreInput"
+							name="customerPwRe" value="<%=customer.getCustomerPw()%>">
+					<span id="pwreInfo"></span>
+							</td>
 			</tr>
 			<tr>
 				<th>회원생년월일</th>
@@ -75,28 +88,49 @@
 			</tr>
 			<tr>
 				<th>회원성별</th>
-				<td><input type="text" name="customerGen"
-					value="<%=customer.getCustomerGen()%>" readonly></td>
+				<td>
+				<div class="name inputBox">
+				<%if (customer.getCustomerGen().equals("남성")){ %>					
+				<input type="radio" id="signupMale" name="customerGen" value="남성"readonly checked >
+				<label for="signupMale">남자</label>
+				<input type="radio" id="signupFemale" name="customerGen" value="여성" readonly>
+				<label for="signupFemale">여자</label>		      		
+				<% }else{ %>
+				<input type="radio" id="signupMale" name="customerGen" value="남성" readonly>
+				<label for="signupMale">남자</label>
+				<input type="radio" id="signupFemale" name="customerGen" value="여성" readonly checked>
+				<label for="signupFemale">여자</label>	
+				<% } %>
+				 </div>
+				</td>
 			</tr>
 			<tr>
 				<th>회원이름</th>
 				<td><input type="text" name="customerName"
-					value="<%=customer.getCustomerName()%>" readonly></td>
+					value="<%=customer.getCustomerName()%>" readonly>
+					
+					</td>
 			</tr>
 			<tr>
 				<th>회원이메일</th>
-				<td><input type="text" name="customerEmail"
-					value="<%=customer.getCustomerEmail()%>"></td>
+				<td><input type="text" name="customerEmail" id ="emailInput"
+					value="<%=customer.getCustomerEmail()%>">
+					<span id="emailInfo"></span>
+					</td>
 			</tr>
 			<tr>
 				<th>회원주소</th>
-				<td><input type="text" name="customerAddr"
-					value="<%=customer.getCustomerAddr()%>"></td>
+				<td><input type="text" name="customerAddr" id ="addrInput"
+					value="<%=customer.getCustomerAddr()%>">
+					<span id="addrInfo"></span>
+					</td>
 			</tr>
 			<tr>
 				<th>회원휴대전화번호</th>
-				<td><input type="text" name="customerPhone"
-					value="<%=customer.getCustomerPhone()%>"></td>
+				<td><input type="text" name="customerPhone" id="phoneInput" class="phoneInput"
+					value="<%=customer.getCustomerPhone()%>">
+					<span id="phoneInfo"></span>
+				</td>
 			</tr>			
 			<tr>
 				<th>상세주소</th>
@@ -574,7 +608,7 @@
 			</tr>
 			<tr>
 				<td class="btnTd" colspan="2">
-					<input type="submit" class="btn btn-primary" value="회원수정">	
+					<input type="submit" class="btn btn-primary" id="submitBtn" value="회원수정">	
 					<input type="button" class="btn btn-primary" value="이전화면으로" onClick="history.go(-1)">  
 				</td>
 				
@@ -583,5 +617,115 @@
 			
 	</form>
 	</div>
+	<script>
+	$(function () {
+		$('#phoneInput').on('blur',phoneInputRegFunc);
+		$('#pwInput').on('blur',pwInputRegFunc);
+		$('#pwreInput').on('blur',pwreInputRegFunc);
+		$('#emailInput').on('blur',emailInputRegFunc);
+		$('#addrInput').on('blur',addrInputFunc);
+		$('#submitBtn').on('click',submitBtnFunc);
+    });		
+	
+	function phoneInputRegFunc(){
+		var inputVal = $('#phoneInput').val();
+		var regexp = /^\d{3}-\d{4}-\d{4}$/g;
+		if(regexp.test(inputVal)){
+			$('#phoneInput').removeClass('form-textbox-wrong');
+			$('#phoneInfo').html('');
+			return true;
+		} else {
+			$('#phoneInput').addClass('form-textbox-wrong');
+			$('#phoneInfo').html('🚫 입력하지 않은 값이 있습니다.');
+			return false;
+		}
+	}
+	
+
+	function pwInputRegFunc(){
+		var inputVal = $('#pwInput').val();
+		var regexp = /(?=^.{6,255}$)((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*/g;
+		if(regexp.test(inputVal)){
+			$('#pwInput').removeClass('form-textbox-wrong');
+			$('#pwInfo').html('');
+			return true;
+		} else{
+			$('#pwInput').addClass('form-textbox-wrong');
+			$('#pwInfo').html('🚫 최소 1개 이상의 영어 대소문자, 특수문자, 숫자를입력해주세요. 최소 6문자이상을 입력해주세요.');
+			return false;
+		}
+	}
+	function pwreInputRegFunc(){
+		var inputVal = $('#pwreInput').val();
+		var pwVal = $('#pwInput').val();
+		if(inputVal == pwVal){
+			$('#pwreInput').removeClass('form-textbox-wrong');
+			$('#pwreInfo').html('');
+			return true;
+		} else{
+			$('#pwreInput').addClass('form-textbox-wrong');
+			$('#pwreInfo').html('🚫 비밀번호가 일치하지 않습니다.');
+			return false;
+		}
+	}
+	function emailInputRegFunc(){
+		var regexp = /^[0-9a-zA-Z][0-9a-zA-Z\_\-\.\+]+[0-9a-zA-Z]@[0-9a-zA-Z][0-9a-zA-Z\_\-]*[0-9a-zA-Z](\.[a-zA-Z]{2,6}){1,2}$/g
+		var inputVal = $('#emailInput').val();
+		if(regexp.test(inputVal)){
+			$('#emailInfo').html('');
+			$('#emailInput').removeClass('form-textbox-wrong');
+			return true;
+		} else {
+			$('#emailInfo').html('🚫 양식에 맞게 이메일을 입력해주세요');
+			$('#emailInput').addClass('form-textbox-wrong');
+			return false;
+		}
+	}
+	function addrInputFunc(){
+			if($('#addrInput').val()!=" "){
+				$('#addrInfo').html('');
+				$('#addrInput').removeClass('form-textbox-wrong');
+				return true;				
+			} else{
+				$('#addrInfo').html('🚫 주소를 입력해주세요.');
+				$('#addrInput').addClass('form-textbox-wrong');
+				return false;				
+			}	
+	}
+	function genderInputFunc(){
+		var input = $('input[name="customerGen"]');
+		var isChecked = $(input).is(':checked');
+		
+		if(isChecked){
+			$('#genInfo').html('');
+			return true;
+		} else {
+			$('#genInfo').html('🚫 성별을 입력해주세요.');
+			return false;
+		}
+	}
+	function isEmpty(str){
+       
+      if(typeof str == "undefined" || str == null || str == "")
+          return true;
+      else
+          return false ;
+  	}
+	function submitBtnFunc(e){
+		if(isAllPassed()){
+			
+		} else {
+			window.scrollTo(0, 0);
+			return false;
+		}
+	}
+	function isAllPassed(){				
+		return (emailInputRegFunc() 
+				 && pwreInputRegFunc()
+				 && phoneInputRegFunc()
+				 && pwInputRegFunc()
+				 && addrInputFunc());
+	}
+	</script>
 </body>
 </html>
