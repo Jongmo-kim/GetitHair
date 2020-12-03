@@ -125,13 +125,7 @@
 
 
 </head>
-<script>
- $(function(){
-	//opencity(1,'onetap');
-	$('#btnonetap').addClass('active');
-	$('#btnonetap').trigger('click');
- });
-</script>
+
 <body>
 	<!-- 헤더 -->
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
