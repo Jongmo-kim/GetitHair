@@ -44,8 +44,8 @@ public class DeleteReserveListServlet extends HttpServlet {
 		String JsonChkList = request.getParameter("JsonChkList");		
 		int reqPage = Integer.parseInt(request.getParameter("reqPage"));	
 		String selStatus = request.getParameter("selStatus");		
-		System.out.println("selStatus = " + selStatus);
-		System.out.println("beforeReqPage = " + reqPage);
+		//System.out.println("selStatus = " + selStatus);
+		//System.out.println("beforeReqPage = " + reqPage);
 		int result = 0;
 		int reserveNo = 0;		
 		JsonParser parser = new JsonParser();		

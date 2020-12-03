@@ -42,11 +42,13 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/js/signUp/inputBox.js?v=<%=System.currentTimeMillis()%>"></script>
+<script type="text/javascript" src="/js/header/header.js?v=<%=System.currentTimeMillis()%>"></script>
 
 <!-- CSS inputBox -->
 <link rel="stylesheet" href="/css/signUp/inputBox.css?v=<%=System.currentTimeMillis()%>">
 <link rel="stylesheet" href="/css/header/header2.css">
-<script type="text/javascript" src="/js/signUp/inputBox.js?v=<%=System.currentTimeMillis()%>"></script>
+
 <style>
 .mymodal-dialog {
     max-width: 750px;
@@ -130,7 +132,7 @@
 				<div class="modal-footer">
           			<button type="button" id="searchId" class="btn btn-default">ID찾기</button>
           			<button type="button" id="searchPw" class="btn btn-default">PW찾기</button>
-					<button type="submit" class="btn btn-default">로그인</button>
+					<input class="btn btn-default" type="submit" value="제출하기">
 					<button type="reset" class="btn btn-default">초기화</button>
 				</div>
 			</div>
