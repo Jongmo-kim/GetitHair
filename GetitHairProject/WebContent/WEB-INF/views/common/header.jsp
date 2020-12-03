@@ -132,15 +132,15 @@
 
 <nav class="navbar navbar-expand-sm navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="#">GET IT HAIR</a>
+            <a class="navbar-brand" href="/">GET IT HAIR</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarsExample07">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">HOME<span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/hairshop">HOME<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">STYLE</a>
@@ -148,19 +148,19 @@
                     <%if(loginDesigner!=null) { %>
                     <!-- 디자이너 -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MY PAGE</a>
+                        <a class="nav-link dropdown-toggle" href="/mypageDesigner" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MY PAGE</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown07">
-                            <a class="dropdown-item" href="#">예약관리</a>
-                            <a class="dropdown-item" href="#">포트폴리오</a>
-                            <a class="dropdown-item" href="#">리뷰관리</a>
-                            <a class="dropdown-item" href="#">내 정보</a>
+                            <a class="dropdown-item" href="/designerReserve?DesignerNo=<%=loginDesigner.getDesignerNo()%>">예약관리</a>
+                            <a class="dropdown-item" href="/designerPortfolioList">포트폴리오</a>
+                            <a class="dropdown-item" href="/designerReviewList?designerNo=<%=loginDesigner.getDesignerNo()%>">리뷰관리</a>
+                            <a class="dropdown-item" href="/designerProfile?designerId=<%=loginDesigner.getDesignerId()%>">내 정보</a>
                         </div>
                     </li>
                     <%} %>
                     <%if(loginCustomer!=null){ %>
                     <!-- 일반손님 -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MY PAGE</a>
+                        <a class="nav-link dropdown-toggle" href="/mypageCust?selStatus=전체&reqPage=1" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MY PAGE</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown07">
                             <a class="dropdown-item" href="#">예약관리</a>
                             <a class="dropdown-item" href="#">리뷰관리</a>
@@ -171,7 +171,7 @@
                     <%if(loginAdmin!=null){ %>
                     <!-- 관리자 -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">ADMIN</a>
+                        <a class="nav-link" href="/mypageAdmin">ADMIN</a>
                     </li>
                     <%} %>
                 </ul>
