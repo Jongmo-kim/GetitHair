@@ -18,14 +18,16 @@
 <!-- 글꼴 호출 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
-   href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
-   rel="stylesheet">
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
 <!-- //글꼴 호출 -->
-
-<!-- 부트스트랩 호출 -->
-
 <!-- jQuery 호출 -->
 <script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+<!-- //jQuery 호출 -->
+<link rel="stylesheet" href="/css/header/header.css">
+<link rel="stylesheet" href="/css/signUp/inputBox.css">
+<script type="text/javascript" src="/js/signUp/inputBox.js"></script>
+
 	<style>
 		p{
 			text-align : center;

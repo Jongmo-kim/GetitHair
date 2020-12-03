@@ -9,12 +9,11 @@
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 	<section>
-		<div class="table-wrapper" style="width:80%;text-align:center; margin:0 auto;">
+		<div class="table-wrapper" style="width:70%; margin:0 auto;padding: 50px;">
+		<h1>포트폴리오 작성</h1>
+		<br>
 			<form action="/insertDesignerPortfolio" method="post" enctype="multipart/form-data">
 				<table class="table">
-					<tr>
-						<th colspan="2">포트폴리오 작성</th>
-					</tr>
 					<tr>
 						<th>작성자</th>
 						<td>
@@ -26,14 +25,13 @@
 					<tr>
 						<th>File</th>
 						<td>
-							<input type="file" name="filename" onchange="loadImg(this)" multiple="multiple">
+							<!-- 다중 선택 기능 사용 시 multiple="multiple" -->
+							<input type="file" name="filename" onchange="loadImg(this)">
 						</td>
 					</tr>
 					<tr>
-						<th colspan="2">Image Preview</th>
-					</tr>
-					<tr>
-						<td colspan="2">
+						<th>Image Preview</th>
+						<td>
 							<div id="img-viewer">
 								<img id="img-view" width="350">
 							</div>
@@ -42,7 +40,7 @@
 					<tr>
 						<th>Style Type</th>
 						<td>
-							<input type="hidden" name="styleType" value="">
+							<input class="form-control" type="text" name="styleType" value="">
 						</td>
 					</tr>
 					<tr>
@@ -54,7 +52,7 @@
 						</td>
 					</tr>
 					<tr style="text-align:center">
-						<th colspan="2"><button type="submit" class="btn btn-outline-info">등록하기</button></th>
+						<th colspan="2"><button type="submit" class="btn btn-dark">등록하기</button></th>
 					</tr>
 				</table>
 			</form>

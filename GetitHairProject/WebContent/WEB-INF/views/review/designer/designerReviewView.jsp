@@ -16,9 +16,11 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
-	<h1>리뷰 수정중</h1>
+	
 	<section>
-		<div style="width:80%; margin:0 auto;">
+		<div style="width:80%; height:850px; margin:0 auto; padding: 50px;">
+		<h1>리뷰 수정중</h1>
+		<br>
 			<table class="table table-bordered">
 				<tr>
 					<th>작성자</th>

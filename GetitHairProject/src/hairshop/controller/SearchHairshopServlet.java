@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
+import image.model.service.ImageService;
+import image.model.vo.Image;
+import style.model.vo.Style;
 
 /**
  * Servlet implementation class SearchServlet
@@ -34,15 +37,19 @@ public class SearchHairshopServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String searchShop = request.getParameter("searchShop");
-		if(!searchShop.equals("")) {
-			ArrayList<Hairshop> list = new HairshopService().searchHairshop(searchShop);
-			int totalCount = new HairshopService().totalCount();
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/searchHairshop.jsp");
-			request.setAttribute("list", list);
-			request.setAttribute("searchShop", searchShop);
-			request.setAttribute("totalCount", totalCount);
-			rd.forward(request, response);
+		ArrayList<Hairshop> shoplist = new HairshopService().searchHairshop(searchShop);
+		ArrayList<Image> imglist = new ArrayList<Image>();
+		for(Hairshop h : shoplist) {
+			Image image = new ImageService().selectOneImageByTypeAndTypeNo("hairshop", h.getShopNo());
+			imglist.add(image);
 		}
+		int totalCount = new HairshopService().totalCount();
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/hairshop/searchHairshop.jsp");
+		request.setAttribute("shoplist", shoplist);
+		request.setAttribute("imglist", imglist);
+		request.setAttribute("searchShop", searchShop);
+		request.setAttribute("totalCount", totalCount);
+		rd.forward(request, response);
 	}
 
 	/**
