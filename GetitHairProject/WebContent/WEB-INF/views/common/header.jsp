@@ -143,7 +143,7 @@
                         <a class="nav-link" href="/hairshop">HOME<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">STYLE</a>
+                        <a class="nav-link" href="/style">STYLE</a>
                     </li>
                     <%if(loginDesigner!=null) { %>
                     <!-- 디자이너 -->
