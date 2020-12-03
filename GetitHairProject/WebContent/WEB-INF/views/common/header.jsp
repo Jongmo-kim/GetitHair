@@ -46,7 +46,7 @@
 <!-- CSS inputBox -->
 <link rel="stylesheet" href="/css/signUp/inputBox.css?v=<%=System.currentTimeMillis()%>">
 <link rel="stylesheet" href="/css/header/header2.css">
-<script type="text/javascript" src="/js/signUp/inputBox.js?v=<%=System.currentTimeMillis()%>"></script>
+
 <style>
 .mymodal-dialog {
     max-width: 750px;
