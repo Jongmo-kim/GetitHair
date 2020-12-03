@@ -1,11 +1,18 @@
 package designer.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+
+import customer.model.service.CustomerService;
+import designer.model.service.DesignerService;
 
 /**
  * Servlet implementation class DesignerIdNestedCheckServlet
@@ -26,8 +33,15 @@ public class DesignerIdNestedCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String inputId = request.getParameter("inputId");
+		boolean isNested = new DesignerService().isNestedId(inputId);
+		JSONObject jObj = new JSONObject();
+		response.setContentType("applaction/json");
+		jObj.put("isNested", isNested);
+		PrintWriter out = response.getWriter();
+		out.print(jObj);
+		out.flush();
+		out.close();
 	}
 
 	/**

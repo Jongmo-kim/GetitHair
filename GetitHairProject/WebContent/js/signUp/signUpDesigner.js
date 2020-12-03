@@ -130,7 +130,7 @@
       else
           return false ;
   	}
-	function submitBtnFunc(e){
+	function submitBtnFunc(){
 		if(isAllPassed()){
 			
 		} else {
@@ -139,18 +139,15 @@
 		}
 	}
 	function isAllPassed(){
-				console.log(emailInputRegFunc(),
-				pwreInputRegFunc(), 
-				dateInputRegFunc(),
-				phoneInputRegFunc(), 
-				idInputRegFunc(), 
-				pwInputRegFunc(),
-				pwreInputRegFunc(), 
-				addrInputFunc(),
-				genderInputFunc())
-		return (emailInputRegFunc() && pwreInputRegFunc() && 
-				dateInputRegFunc() && phoneInputRegFunc() && 
-				idInputRegFunc() && pwInputRegFunc() && 
-				pwreInputRegFunc() && addrInputFunc() && genderInputFunc());
+			console.log("nameInputRegFunc",nameInputRegFunc());
+			console.log("phoneInputRegFunc",phoneInputRegFunc());
+			console.log("idInputRegFunc",idInputRegFunc());
+			console.log("pwInputRegFunc",pwInputRegFunc());
+			console.log("pwreInputRegFunc",pwreInputRegFunc());
+		return (pwreInputRegFunc() && 
+				nameInputRegFunc() && 
+				phoneInputRegFunc() && 
+				idInputRegFunc() && 
+				pwInputRegFunc());
 	}
 	

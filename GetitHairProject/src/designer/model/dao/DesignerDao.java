@@ -398,4 +398,25 @@ public class DesignerDao {
 		}
 		return Designer;
 	}
+
+	public boolean isNestedId(Connection conn, String inputId) {
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "select designer_id from designer where designer_id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }

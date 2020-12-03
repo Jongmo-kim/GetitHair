@@ -17,6 +17,8 @@ import designer.model.vo.Designer;
 import designer.model.vo.DesignerList;
 import hairshop.model.service.HairshopService;
 import hairshop.model.vo.Hairshop;
+import image.model.service.ImageService;
+import image.model.vo.Image;
 import likes.model.service.LikesService;
 import likes.model.vo.Likes;
 import reserve.model.service.ReserveService;
@@ -54,6 +56,7 @@ public class HairshopDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
 		Hairshop hs = new HairshopService().selectOneHairshop(shopNo);// hs == null.getNo()
+		ArrayList<Image> image = new ImageService().selectAllImageByTypeAndTypeNo("hairshop", shopNo);
 		ArrayList<Review> review = new ReviewService().selectAllReviewByShopNo(hs.getShopNo());
 		ArrayList<DesignerList> designerList = new DesignerListService().selectDesignerListByShopNo(shopNo);
 		ArrayList<Reserve> reserve = new ReserveService().selectOneReserveShop(shopNo);
@@ -80,6 +83,7 @@ public class HairshopDetailServlet extends HttpServlet {
 			request.setAttribute("reserve", reserve);
 			request.setAttribute("price", price);
 			request.setAttribute("typeList", typeList);
+			request.setAttribute("image", image);
 			rd.forward(request, response);
 		} else {
 			response.sendRedirect("/hairshop");

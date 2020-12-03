@@ -24,6 +24,7 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
 	<h1>인증이 완료되었습니다. 암호를 다시설정해주세요.</h1>
 	<form method="post" action="/designerResetPw">
 		<input type="hidden" name="designerNo" value="<%= designer.getDesignerNo() %>">
@@ -102,5 +103,6 @@
 		return (pwreInputRegFunc() && pwInputRegFunc() );
 		}
 	</script>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

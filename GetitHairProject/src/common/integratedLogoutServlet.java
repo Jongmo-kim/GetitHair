@@ -1,7 +1,6 @@
-package stylelist.controller;
+package common;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,23 +8,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import image.model.service.ImageService;
-import image.model.vo.Image;
-import style.model.service.StyleService;
-import style.model.vo.Style;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class StyleServlet
+ * Servlet implementation class integratedLogoutServlet
  */
-@WebServlet(name = "Style", urlPatterns = { "/style" })
-public class StyleServlet extends HttpServlet {
+@WebServlet(name = "IntegratedLogout", urlPatterns = { "/integratedLogout" })
+public class integratedLogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StyleServlet() {
+    public integratedLogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,12 +29,11 @@ public class StyleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		ArrayList<Style> stylelist = new StyleService().selectAllStyle();
-		ArrayList<Image> imglist = new ImageService().selectAllImageByType("style");
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/style/style.jsp");
-		request.setAttribute("stylelist", stylelist);
-		request.setAttribute("imglist", imglist);
+		HttpSession session = request.getSession();
+		session.invalidate();
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+		request.setAttribute("loc", "/");
+		request.setAttribute("msg", "로그아웃 성공");
 		rd.forward(request, response);
 	}
 

@@ -52,12 +52,10 @@ public class DesignerTemplate {
 		String pw = request.getParameter("designerPw");
 		String name = request.getParameter("designerName");
 		String phone = request.getParameter("designerPhone");
-		int year = request.getParameter("designerYear")==null ? -1 :Integer.parseInt(request.getParameter("designerYear"));
+		int year = request.getParameter("designerYear")==null ||request.getParameter("designerYear").equals("") ? -1 :Integer.parseInt(request.getParameter("designerYear"));
 		String rank = request.getParameter("designerRank");
 		String intro = request.getParameter("designerIntro");
 		String enrollDate = request.getParameter("designerEnrollDate");
-		int styleNo = Integer.parseInt(request.getParameter("styleNo"));
-		Hairshop hairshop = new HairshopService().selectOneHairshop(styleNo);
 		
 		if(DebugTemplate.DebugMode) {
 			System.out.println("DesignerId : " +id);
@@ -69,7 +67,6 @@ public class DesignerTemplate {
 			System.out.println("Designerintro : " +intro);
 			System.out.println("DesignerEnrollDate : " +enrollDate);
 		}
-		designer.setShop(hairshop);
 		designer.setDesignerId(id);
 		designer.setDesignerIntro(intro);
 		designer.setDesignerName(name);

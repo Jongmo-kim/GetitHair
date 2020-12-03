@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/css/footer/footer.css">
 <footer>
-	<h1>footer입니다</h1>
-	<marquee>^@_____</marquee>
+	<div class="footer">
+        <p>Copyright©. 2020. Workerholic. All rights reserved.</p>
+    </div>
+	<!-- <marquee>^@_____</marquee>  -->
 </footer>

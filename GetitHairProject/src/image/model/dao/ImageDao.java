@@ -145,4 +145,34 @@ public class ImageDao {
 		return filepath;
 	}
 
+	public Image selectOneImageByTypeAndTypeNo(Connection conn, String type, int typeNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String qrySelect = "select * from image where img_type = ? and img_type_no = ?";
+		Image image = null;
+
+		try {
+			pstmt = conn.prepareStatement(qrySelect);
+			pstmt.setString(1, type);
+			pstmt.setInt(2, typeNo);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				image = new Image();
+				image.setImgNo(rs.getInt("img_no"));
+				image.setFilepath(rs.getString("filepath"));
+				image.setImgType(rs.getString("img_type"));
+				image.setImgTypeNo(rs.getInt("img_type"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+
+		return image;
+	}
+
 }
