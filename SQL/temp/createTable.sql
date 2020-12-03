@@ -13,8 +13,7 @@ DROP TABLE RESERVE CASCADE CONSTRAINTS;
 DROP TABLE ADMIN CASCADE CONSTRAINTS;
 DROP TABLE REVIEW_COMMENT CASCADE CONSTRAINTS;
 DROP TABLE DESIGNER_PORTFOLIO CASCADE CONSTRAINTS;
-DROP TABLE IMAGE_LIST CASCADE CONSTRAINTS;
-drop table image cascade constraints;
+DROP TABLE IMAGE CASCADE CONSTRAINTS;
 -- 시퀀스 삭제
 DROP SEQUENCE hairshop_SEQ;
 DROP SEQUENCE designer_SEQ;
@@ -30,8 +29,7 @@ DROP SEQUENCE admin_SEQ;
 DROP SEQUENCE REVIEW_COMMENT_SEQ;
 drop sequence hair_info_seq;
 DROP SEQUENCE DESIGNER_PORTFOLIO_SEQ;
-drop sequence IMAGE_LIST_SEQ;
-drop sequence image_seq;
+drop sequence IMAGE_SEQ;
 -------------------------------------
 -- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
 
