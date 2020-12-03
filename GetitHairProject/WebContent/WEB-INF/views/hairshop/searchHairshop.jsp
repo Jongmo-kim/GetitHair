@@ -108,7 +108,7 @@
     	width: 900px;
     	height: 600px;
     	position: absolute;
-    	top: 60px;
+    	top: 40px;
     	left: 400px;
     }
     .addr h3{
@@ -139,6 +139,7 @@
     	height: 120px;
     	width: 300px;
     	margin-left: 100px;
+    	margin-top: 20px;
     }
     .noexist{
     	text-align: center;

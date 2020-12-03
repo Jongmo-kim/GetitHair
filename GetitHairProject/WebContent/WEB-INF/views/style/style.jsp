@@ -116,6 +116,7 @@
     }
     .style-sub>img{
     	margin: 10px;
+    	cursor: pointer;
     }
     .style-sub>h1{
     	margin: 30px;
@@ -175,6 +176,10 @@
 					<img src="/img/style/cut/리프컷.jpg">
 					<img src="/img/style/cut/샌드컷.jpg">
 					<img src="/img/style/cut/허쉬컷.jpeg">
+					<%for(Style s : list) {%>
+						<%if(s.getStyleType().equals("cut")){ %>
+						<%} %>
+					<%} %>
 				</div>
 				<div class="style-sub perm">
 					<input type="checkbox" name="long" id="long"><label for="long">롱</label>
@@ -246,6 +251,12 @@
 		});
 		$(".tab>button:first-child").click(function(){
 			location.href="/hairshop";
+		});
+		$(function(){
+	  		$(".style-sub>img").click(function(){
+	  			var styleNo = $(this).find("input").val();//find가 이미 자식 찾는거
+				location.href="/styleDetail?styleNo="+styleNo;
+	  		});
 		});
 	  </script>
 </body>
