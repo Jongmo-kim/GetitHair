@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import image.model.service.ImageService;
+import image.model.vo.Image;
 import style.model.service.StyleService;
 import style.model.vo.Style;
 
@@ -35,9 +37,15 @@ public class SearchStyleServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String searchStyle = request.getParameter("searchStyle");
 		if(!searchStyle.equals("")) {
-			ArrayList<Style> list = new StyleService().searchStyle(searchStyle);
+			ArrayList<Style> stylelist = new StyleService().searchStyle(searchStyle);
+			ArrayList<Image> imglist = new ArrayList<Image>();
+			for(Style s : stylelist) {
+				Image image = new ImageService().selectOneImageByTypeAndTypeNo("style", s.getStyleNo());
+				imglist.add(image);
+			}
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/style/searchStyle.jsp");
-			request.setAttribute("list", list);
+			request.setAttribute("stylelist", stylelist);
+			request.setAttribute("imglist", imglist);
 			request.setAttribute("searchStyle", searchStyle);
 			rd.forward(request, response);
 		}

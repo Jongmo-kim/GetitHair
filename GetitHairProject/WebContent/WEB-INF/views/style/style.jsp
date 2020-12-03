@@ -171,10 +171,6 @@
 					<input type="checkbox" name="bob" id="bob"><label for="bob">단발</label>
 					<input type="checkbox" name="short" id="short"><label for="short">숏</label>
 					<h1>cut</h1>
-					<img src="/img/style/cut/레이어드컷.jpg">
-					<img src="/img/style/cut/리프컷.jpg">
-					<img src="/img/style/cut/샌드컷.jpg">
-					<img src="/img/style/cut/허쉬컷.jpeg">
 					<%for(Style s : stylelist) {%>
 						<%if(s.getStyleType().equals("cut")){ %>
 							<%for(Image i : imglist){ %>
@@ -233,8 +229,8 @@
 				</div>
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	</section>
+	<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 	<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
