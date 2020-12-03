@@ -1,12 +1,14 @@
+<%@page import="style.model.vo.Style"%>
 <%@page import="image.model.vo.Image"%>
 <%@page import="hairshop.model.vo.Hairshop"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-    	ArrayList<Hairshop> list = (ArrayList<Hairshop>)request.getAttribute("list");
+    	ArrayList<Hairshop> shoplist = (ArrayList<Hairshop>)request.getAttribute("shoplist");
         int totalCount = (Integer)request.getAttribute("totalCount");
-        ArrayList<String> filepath = (ArrayList<String>)request.getAttribute("filepath");
+        ArrayList<Image> imglist = (ArrayList<Image>)request.getAttribute("imglist");
+        ArrayList<Style> stylelist = (ArrayList<Style>)request.getAttribute("stylelist");
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -102,6 +104,7 @@
     .style img{
     	width: 250px;
     	height: 250px;
+    	position : relative;
     }
     /*
     .tab a{
@@ -199,7 +202,19 @@
 	 	position: relative;
 	 	z-index: 0;
 	 }
-
+	 .style img:hover+input+div{
+	 	
+	 }
+	 .style-name{
+	 	width: 250px;
+	 	height: 250px;
+	 	background: rgba(0,0,0,0.2);
+	 	position: absolute;
+	 	top: 10;
+	 	left: 20;
+	 	z-index: 100;
+	 	display: none;
+	 }
 </style>
 <title>헤어샵 메인페이지</title>
 </head>
@@ -237,10 +252,15 @@
 			<div class="content">
 				<h2>BEST 스타일</h2>
 				<div class="style">
-					<img src="/img/style/cut/레이어드컷.jpg" value="레이어드컷"><div></div>
-				    <img src="/img/style/perm/플라워펌.jpg" value="플라워펌"><div></div>
-				    <img src="/img/style/cut/샌드컷.jpg" value="샌드컷"><div></div>
-				    <img src="/img/style/color/밤비브라운.jpg" value="밤비브라운"><div></div>
+					<%for(Image img : imglist) {%>
+						<img src="/upload/style/<%=img.getFilepath() %>" style="cursor:pointer">
+						<input type="hidden" value="<%=img.getImgTypeNo() %>">
+						<%for(Style style : stylelist){ %>
+							<%if(style.getStyleNo() == img.getImgTypeNo()){ %>
+								<div class="style-name"><%=style.getStyleName()%></div>
+							<%} %>
+						<%} %>
+					<%} %>
 				</div>
 				<h2>BEST 헤어샵</h2>
 				<div class="shop">
@@ -362,14 +382,20 @@
 			$(".short").show();
 		});
 		*/
-		$(".style img").hover(function(){
-			//$(this).parent().css({position:absolute, z-index:10, background-color: rgba(0,0,0,0.5), width: 250px, height: 250px})
-			$(this).val();
-		});
 		$("button:submit").click(function(){
 			if($(this).prev().val() == ""){
 				return false;
 			}
+		});
+		$(function(){
+	  		$(".style img").click(function(){
+	  			var styleNo = $(this).next().val();
+				location.href="/styleDetail?styleNo="+styleNo;
+	  		});
+	  		$(".style img").hover(function(){
+	  			$(this).next().css({"position":"absolute","top":"0","left":"0"});
+	  			$(this).next().show();
+	  		});
 		});
 	  </script>
 </body>
