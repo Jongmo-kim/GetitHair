@@ -125,13 +125,7 @@
 
 
 </head>
-<script>
- $(function(){
-	//opencity(1,'onetap');
-	$('#btnonetap').addClass('active');
-	$('#btnonetap').trigger('click');
- });
-</script>
+
 <body>
 	<!-- 헤더 -->
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -190,10 +184,10 @@
             <div class="swiper-pagination"></div>
         </div>
     </div>
-    <div class="datePage" style="margin: 0; padding: 0;">
+    <div style="margin: 0; padding: 0;">
   	<div class="container" style="width: 1000px; height: 500px; padding: 0;">
-  	 <div class="tab" >
-        <button type="button" id="btnonetap"class="tablinks" onclick="openCity(event, 'onetab')">소개</button>
+  	 <div class="tab">
+        <button type="button" class="tablinks" onclick="openCity(event, 'onetab')">소개</button>
         <button type="button" class="tablinks" onclick="openCity(event, 'twotab')">디자이너</button>
         <button type="button" class="tablinks" onclick="openCity(event, 'threetab')">가격</button>
         <button type="button" class="tablinks" onclick="openCity(event, 'fourtab')">리뷰</button>
@@ -219,6 +213,7 @@
         </div>
         <div>
         <div id="map" style="width:48%; height: 322px; float:left; border: 1px solid #a2a2a2;"></div></div>
+    </div>
     </div>
 
     <div id="twotab" class="tabcontent">
@@ -306,22 +301,17 @@
 		});
 		
 		
-		$(document).ready(function(){
-		      
-		});
-		
+
 		function openCity(evt, cityName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
-			window.onload=function(){
-				tabcontent[0].style.display = "block";
-			}
+            tabcontent[0].style.display = "block";
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
             tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                tablinks[i].className = tablinks[i].className.replace("active", "");
             }
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
