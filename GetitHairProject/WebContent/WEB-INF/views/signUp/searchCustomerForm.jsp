@@ -44,6 +44,7 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
 	<div class="container">
 	<h1>Customer ID/PW찾기</h1>
 		<form method="post" action="/searchCustmerId">			

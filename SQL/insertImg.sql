@@ -1,0 +1,17 @@
+select * from image;
+select * from style;
+select * from hairshop;
+insert into style values(style_seq.nextval,'cut','리프컷',0);
+insert into style values(style_seq.nextval,'color','애쉬그레이',0);
+insert into style values(style_seq.nextval,'cut','레이어드컷',0);
+insert into style values(style_seq.nextval,'color','애쉬블루',0);
+insert into style values(style_seq.nextval,'cut','허쉬컷',0);
+insert into style values(style_seq.nextval,'color','밤비브라운',0);
+insert into style values(style_seq.nextval,'cut','샌드컷',0);
+insert into style values(style_seq.nextval,'color','솜브레',0);
+insert into style values(style_seq.nextval,'etc','클리닉',0);
+insert into style values(style_seq.nextval,'etc','드라이',0);
+insert into image values(image_seq.nextval, '','hairshop',);
+insert into image values(image_seq.nextval, '','hairshop',);
+insert into image values(image_seq.nextval, '','hairshop',);
+insert into image values(image_seq.nextval, '','style',image_seq.currval);

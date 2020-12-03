@@ -227,15 +227,15 @@
 						<td>
 							<button type="button" class="btn reReserveBtn"
 								data-toggle="modal" data-target="#reReserveModal"
-								value="<%=r.getReserveNo()%>">예약보기</button>
+								value="<%=r.getReserveNo()%>">예약 보기</button>
 						</td>
 						<td><button
 								onclick="location.href='/deleteReserveByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'"
-								type="button" class="btn">예약 삭제하기</button></td>
+								type="button" class="btn">예약 삭제</button></td>
 
 						<td><button type="button"
 								onclick="location.href='/writeReviewByCust?reserveNo=<%=r.getReserveNo()%>&selStatus=<%=selStatus %>&reqPage=<%=reqPage %>'"
-								class="btn" btn-sm>리뷰작성하기</button></td>
+								class="btn" btn-sm>리뷰 작성</button></td>
 					</tr>
 					<%
                      }

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import image.model.service.ImageService;
+import image.model.vo.Image;
 import style.model.service.StyleService;
 import style.model.vo.Style;
 
@@ -33,9 +35,11 @@ public class StyleServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		ArrayList<Style> list = new StyleService().selectAllStyle();
+		ArrayList<Style> stylelist = new StyleService().selectAllStyle();
+		ArrayList<Image> imglist = new ImageService().selectAllImageByType("style");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/style/style.jsp");
-		request.setAttribute("list", list);
+		request.setAttribute("stylelist", stylelist);
+		request.setAttribute("imglist", imglist);
 		rd.forward(request, response);
 	}
 
