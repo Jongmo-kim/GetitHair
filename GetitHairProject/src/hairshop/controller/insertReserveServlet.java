@@ -43,7 +43,7 @@ public class insertReserveServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Reserve rs = new Reserve();
-		int designerNo = Integer.parseInt(request.getParameter("desinerNo"));
+		int designerNo = Integer.parseInt(request.getParameter("designerNo"));
 		int shopNo = Integer.parseInt(request.getParameter("shopNo"));
 		String startDate = request.getParameterValues("startDate")[0];
 		String custReq = request.getParameter("custReq");

@@ -56,6 +56,7 @@ ul {
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<link rel="stylesheet" href="/css/signUp/signUpCustomer.css?v=<%=System.currentTimeMillis()%>">
 	<div class="modal fade" id="reReserveModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -68,27 +69,27 @@ ul {
 					</div>
 					<div class="modal-body">
 						<div class="reserve inputBox">
-							<input id="reserveNo" type="text" class="form-textbox"
+							<input id="reserveNo" type="text" class="form-textbox readonly"
 								name="reserveNo" readonly> <span
 								class="form-label label-focused">예약번호 </span>
 						</div>
 						<div class="reserve inputBox">
-							<input type="text" id="reserveShopName" class="form-textbox"
+							<input type="text" id="reserveShopName" class="form-textbox readonly"
 								name="reserveShopName" readonly> <span
 								class="form-label label-focused">미용실이름 </span>
 						</div>
 						<div class="reserve inputBox">
-							<input type="text" id="reserveDesignerName" class="form-textbox"
+							<input type="text" id="reserveDesignerName" class="form-textbox readonly"
 								name="reserveDesignerName" readonly> <span
 								class="form-label label-focused">디자이너이름 </span>
 						</div>
 						<div class="reserve inputBox">
-							<input type="text" id="reserveStatus" class="form-textbox"
+							<input type="text" id="reserveStatus" class="form-textbox readonly"
 								name="reserveStatus" readonly> <span
 								class="form-label label-focused">예약상태 </span>
 						</div>
 						<div class="reserve inputBox">
-							<input type="text" id="reserveDesignerReq" class="form-textbox"
+							<input type="text" id="reserveDesignerReq" class="form-textbox readonly"
 								name="reserveDesignerReq" readonly> <span
 								class="form-label label-focused">디자이너 요청사항 </span>
 						</div>
@@ -132,7 +133,7 @@ ul {
 						<button type="button" class="btn btn-outline-secondary"
 							onclick="location.href='/cancelReserveByCust?reserveNo=1&selStatus=<%=selStatus%>&reqPage=<%=reqPage%>'">
 							예약 취소 하기(상태변경)</button>
-						<button type="button" class="btn btn-info" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">닫기</button>
 					</div>
 				</form>
 			</div>
@@ -287,7 +288,11 @@ ul {
                         function() {
                            chkList.push(this.value);
                         });
-                  var JsonChkList = JSON.stringify(chkList);
+                  if(chkList.length==0){
+                	  alert("선택된 예약이 없습니다. 선택 후 삭제해주세요");
+                	  return;
+                  }
+                  var JsonChkList = JSON.stringify(chkList);                  	
                   $.ajax({
                      url : "/deleteReserveList",
                      type : "get",

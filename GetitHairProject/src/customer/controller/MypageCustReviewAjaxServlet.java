@@ -49,7 +49,7 @@ public class MypageCustReviewAjaxServlet extends HttpServlet {
 		String shopName = r.getShop().getShopName();
 		String designerName = r.getDesigner().getDesignerName();
 		String styleName = r.getStyle().getStyleName();
-		String reviewContent = r.getReviewContentBr();
+		String reviewContent = r.getReviewContent();
 		
 		JSONObject result = new JSONObject();
 		result.put("reviewDate", URLEncoder.encode(reviewDate.toString(),"UTF-8"));

@@ -56,12 +56,13 @@
 						<% if(option ==-1){ %>
 							<input autofocus type="text" class="form-textbox"  id="nameInput"
 								name="designerName"> 
+							<span class="form-label label-focused">이름</span>
 						<%} else{%>
 							<input type="text" class="form-textbox"  id="nameInput"
 								name="designerName">
-						<%} %>
-						<span class="form-label label-focused">이름</span>
-						<span id="nameInfo"></span>
+							<span class="form-label">이름</span>
+						<%} %>						
+						<span class="additional-info" id="nameInfo"></span>
 						</div>
 					</td>					
 				</tr>
@@ -70,7 +71,7 @@
 						<div class="inputBox">
 							<input type="text" class="form-textbox phoneInput"  id="phoneInput1"
 								name="designerPhone"> <span class="form-label">전화번호</span>
-								<span id="phoneInfo1"></span>
+								<span class="additional-info" id="phoneInfo1"></span>
 						</div>
 					</td>
 				</tr>
@@ -96,12 +97,13 @@
 							<% if(option ==-1){ //암호 autofocus 용%>
 							<input type="text" class="form-textbox" id="idInput"
 								name="designerId"> 
+								<span class="form-label">아이디</span>
 							<%} else{%>
 							<input type="text" class="form-textbox" id="idInput" autofocus
-								name="designerName">
-							<%} %>
+								name="designerId">
 								<span class="form-label label-focused">아이디</span>
-								<span id="idInfo"></span>
+							<%} %>								
+								<span class="additional-info" id="idInfo"></span>
 						</div>
 					</td>					
 				</tr>
@@ -110,7 +112,7 @@
 						<div class="inputBox">
 							<input type="text" class="form-textbox phoneInput" id="phoneInput2"
 								name="designerPhone"> <span class="form-label">전화번호</span>
-								<span id="phoneInfo2"></span>
+								<span class="additional-info" id="phoneInfo2"></span>
 						</div>
 					</td>
 				</tr>
