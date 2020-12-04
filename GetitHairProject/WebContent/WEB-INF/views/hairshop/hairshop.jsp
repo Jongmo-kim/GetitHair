@@ -102,9 +102,8 @@
     	margin-bottom: 40px;
     }
     .style img{
-    	width: 250px;
-    	height: 250px;
-    	position : relative;
+    	width: 100%;
+    	height: 100%;
     }
     /*
     .tab a{
@@ -199,21 +198,31 @@
 	 	flex-direction: row;
 	 	align-items: center;
 	 	justify-content: space-around;
-	 	position: relative;
-	 	z-index: 0;
-	 }
-	 .style img:hover+input+div{
-	 	
 	 }
 	 .style-name{
+	 	width: 100%;
+	 	height: 100%;
+	 	background: rgba(0,0,0,0.3);
+	 	position: absolute;
+	 	top: 0;
+	 	left: 0;
+	 	z-index: 100;
+	 	font-size: 24px;
+	 	text-shadow: 1px 1px 5px black;
+	 	display: none;
+	 	line-height: 460px;
+	 	text-indent: 5px;
+	 	color: #fff;
+	 }
+	 .style-wrap{
 	 	width: 250px;
 	 	height: 250px;
-	 	background: rgba(0,0,0,0.2);
-	 	position: absolute;
-	 	top: 10;
-	 	left: 20;
-	 	z-index: 100;
-	 	display: none;
+	 	position: relative;
+	 	z-index: 0;
+	 	cursor: pointer;
+	 }
+	 .style-wrap:hover>div{
+	 	display: block;
 	 }
 </style>
 <title>헤어샵 메인페이지</title>
@@ -253,13 +262,15 @@
 				<h2>BEST 스타일</h2>
 				<div class="style">
 					<%for(Image img : imglist) {%>
-						<img src="/upload/style/<%=img.getFilepath() %>" style="cursor:pointer">
-						<input type="hidden" value="<%=img.getImgTypeNo() %>">
-						<%for(Style style : stylelist){ %>
-							<%if(style.getStyleNo() == img.getImgTypeNo()){ %>
-								<div class="style-name"><%=style.getStyleName()%></div>
+						<div class="style-wrap">
+							<img src="/upload/style/<%=img.getFilepath() %>">
+							<input type="hidden" value="<%=img.getImgTypeNo() %>">
+							<%for(Style style : stylelist){ %>
+								<%if(style.getStyleNo() == img.getImgTypeNo()){ %>
+									<div class="style-name"><%=style.getStyleName()%></div>
+								<%} %>
 							<%} %>
-						<%} %>
+						</div>
 					<%} %>
 				</div>
 				<h2>BEST 헤어샵</h2>
@@ -388,13 +399,9 @@
 			}
 		});
 		$(function(){
-	  		$(".style img").click(function(){
-	  			var styleNo = $(this).next().val();
+	  		$(".style-wrap").click(function(){
+	  			var styleNo = $(this).find("input").val();
 				location.href="/styleDetail?styleNo="+styleNo;
-	  		});
-	  		$(".style img").hover(function(){
-	  			$(this).next().css({"position":"absolute","top":"0","left":"0"});
-	  			$(this).next().show();
 	  		});
 		});
 	  </script>
