@@ -8,11 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
 <title>포트폴리오 상세보기</title>
-=======
-<title>포트폴리오</title>
->>>>>>> e31f9a1cc6e5ebe5a48ae53b0784705950947aac
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>

@@ -34,7 +34,7 @@
 	    <%if(loginCustomer == null){%>
 	    <a href="/searchCustomerIdForm">ID</a> / <a href="/searchCustomerPwForm">PW</a>찾기</p>
 	    <% } %>
-	      <p style="font-size:14px;">가입을 하면 Get it hair의 이용약관, <a href="#">개인정보취급방침</a> 및 <a href="#">개인정보3자제공에 동의하게 됩니다.</a><p>
+	      <p style="font-size:14px;">가입을 하면 Get it hair의 이용약관, <a href="/views/signup/terms.jsp">개인정보취급방침</a> 및 <a href="/views/signup/privacy.jsp">개인정보3자제공에 동의하게 됩니다.</a><p>
 	    <br>
 	    <hr>
 	        <div class="name inputBox">

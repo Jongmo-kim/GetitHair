@@ -132,7 +132,7 @@
 				<div class="modal-footer">
           			<button type="button" id="searchId" class="btn btn-default">ID찾기</button>
           			<button type="button" id="searchPw" class="btn btn-default">PW찾기</button>
-					<input class="btn btn-default" type="submit" value="제출하기">
+					<input class="btn btn-default" type="submit" value="로그인">
 					<button type="reset" class="btn btn-default">초기화</button>
 				</div>
 			</div>

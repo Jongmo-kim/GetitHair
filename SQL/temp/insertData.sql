@@ -54,7 +54,7 @@ BEGIN
     END LOOP;
 END;
 /
-
+select * from customer;
 insert into admin values(admin_seq.nextval,'admin', '1234');
 -- ÇÊ¼ö!!!!!!
 COMMIT;
