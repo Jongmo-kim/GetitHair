@@ -278,7 +278,7 @@ body {
 								class="form-label">아이디</span>
 						</div>
 						<div class="name inputBox">
-							<input type="text" class="form-textbox" name="inputPw"> <span
+							<input type="password" class="form-textbox" name="inputPw"> <span
 								class="form-label">비밀번호</span>
 						</div>
 					</div>
