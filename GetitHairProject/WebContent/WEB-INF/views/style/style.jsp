@@ -84,7 +84,7 @@
     }
     .mid{
     	text-align: center;
-    	width : 70%;
+    	width : 1480px;
     	margin : 0 auto;
     	margin-bottom: 50px;
     }

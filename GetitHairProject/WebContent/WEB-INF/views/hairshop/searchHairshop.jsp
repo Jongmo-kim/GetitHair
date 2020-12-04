@@ -93,7 +93,7 @@
     	transition-duration: 0.2s;
     }
     .mid{
-    	width : 70%;
+    	width : 1480px;
     	margin : 0 auto;
     	margin-bottom: 50px;
     }

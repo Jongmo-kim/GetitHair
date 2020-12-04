@@ -17,7 +17,7 @@
 <title>스타일 상세 페이지</title>
 <style>
 	.mid{
-		width: 70%;
+		width: 1480px;
 		margin: 0 auto;
 	}
 	.content>img:first-child{

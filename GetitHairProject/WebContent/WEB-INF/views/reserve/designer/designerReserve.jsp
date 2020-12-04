@@ -267,7 +267,7 @@ body {
             <!-- Modal Header -->
             <div class="modal-header">
                <h4 class="modal-title" style="text-align: center"></h4>
-               <button type="button" class="close">&times;</button>
+               <!-- <button type="button" class="close">&times;</button> -->
             </div>
 
             <!-- Modal body -->
@@ -326,7 +326,10 @@ body {
    <div id='calendar'
       class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap"></div>
    <br>
-   <button id="submitBtn" type="button" class="btn btn-primary" >저장하기</button>
+   <div style="width: 1100px;">
+   	<button id="submitBtn" type="button" class="btn btn-primary" >저장하기</button>
+   </div>
+   
    <!-- <div style="position: fixed; top: 500px;">
       <button id="submitBtn" type="button" class="btn btn-primary"
          style="width: 200px; height: 200px">제출하기</button>

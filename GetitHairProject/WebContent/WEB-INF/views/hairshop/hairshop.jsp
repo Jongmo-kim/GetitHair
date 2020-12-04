@@ -78,7 +78,7 @@
     }
     */
     .mid{
-    	width : 70%;
+    	width : 1480px;
     	margin : 0 auto;
     }
     .swiper-slide img{
