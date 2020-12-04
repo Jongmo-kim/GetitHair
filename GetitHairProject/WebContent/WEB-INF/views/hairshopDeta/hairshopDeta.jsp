@@ -163,7 +163,7 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<input class="designerNo" type="hidden" name="desinerNo">
+						<input class="designerNo" type="hidden" name="designerNo">
 						<input type="hidden" name="shopNo" value="<%=hs.getShopNo() %>">
 						<div class="reserve inputBox">
 							날짜 및 시간<input type="datetime-local" name="startDate"  class="form-textbox">							
