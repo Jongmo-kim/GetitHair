@@ -71,10 +71,10 @@ public class insertReserveServlet extends HttpServlet {
 			rs.setReserveEndDate(sqlDate);
 			int result = new ReserveService().insertReserve(rs);
 			if(result >0) {
-				request.setAttribute("msg", "성공했습니다.");
+				request.setAttribute("msg", "예약을 완료하였습니다.");
 				request.setAttribute("loc", "/hairshop");
 			}else {
-				request.setAttribute("msg", "실패했습니다.");
+				request.setAttribute("msg", "로그인 후 이용해주세요.");
 				request.setAttribute("loc", "/");
 			}
 			request.getRequestDispatcher("WEB-INF/views/common/msg.jsp").forward(request, response);

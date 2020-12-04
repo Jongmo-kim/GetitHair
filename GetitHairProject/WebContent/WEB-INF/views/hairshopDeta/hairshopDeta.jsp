@@ -216,7 +216,7 @@
         <label  class="tablinks" onclick="openCity(event, 'twotab')">디자이너</label>
         <label  class="tablinks" onclick="openCity(event, 'threetab')">가격</label>
         <label  class="tablinks" onclick="openCity(event, 'fourtab')">리뷰</label>
-   			 <%-- <%if(de.getDesignerNo() == 1) {%> --%>
+   			<%--  <%if(session.getAttribute("loginCust") == null) {%> --%>
             <a href="/hairshopModifyPage?shopNo=<%=hs.getShopNo() %>" class="btbt" style="margin-left: 20px;">수정하기</a>
             <%-- <%} %> --%>
     </div>
@@ -259,9 +259,11 @@
                     <span>(경력 : <%=deli.get(i).getDesigner().getDesignerYear() %>년)</span></span>
             </div>
             <div class="designerPt col-md-2" style="height: 100px; display:block; line-height: 100px;">
+            <%--  <%if(session.getAttribute("loginCust") != null) {%> --%>
                 <a class="btbt" style="margin-top: 30px; " data-toggle="modal" href="#"
                     data-target="#ReserveModal" data-name="<%=deli.get(i).getDesigner().getDesignerNo()%>"
                     id="reserBtn">예약하기</a>
+            <%--       <%} %> --%>  
             </div>
         </div>
         <hr>
